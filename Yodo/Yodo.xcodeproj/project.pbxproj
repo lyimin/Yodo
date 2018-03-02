@@ -14,6 +14,9 @@
 		F1A81C09200CA410003D2D4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1A81C08200CA410003D2D4E /* Assets.xcassets */; };
 		F1A81C17200CA410003D2D4E /* YodoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A81C16200CA410003D2D4E /* YodoTests.swift */; };
 		F1A81C22200CA410003D2D4E /* YodoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A81C21200CA410003D2D4E /* YodoUITests.swift */; };
+		F1E1CADB20494FEA00339163 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E1CADA20494FEA00339163 /* HomeViewController.swift */; };
+		F1E1CADF2049504300339163 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E1CADE2049504300339163 /* BaseViewController.swift */; };
+		F1E1CAE42049553A00339163 /* helvetica-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1E1CAE32049553A00339163 /* helvetica-bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,9 @@
 		F1A81C1D200CA410003D2D4E /* YodoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YodoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A81C21200CA410003D2D4E /* YodoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodoUITests.swift; sourceTree = "<group>"; };
 		F1A81C23200CA410003D2D4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1E1CADA20494FEA00339163 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F1E1CADE2049504300339163 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		F1E1CAE32049553A00339163 /* helvetica-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "helvetica-bold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +137,10 @@
 		F1A81C00200CA410003D2D4E /* Yodo */ = {
 			isa = PBXGroup;
 			children = (
+				F1E1CAE1204954EA00339163 /* Resource */,
+				F1E1CAE0204952B300339163 /* Constant */,
+				F1E1CAD420494F9600339163 /* Extension */,
+				F1E1CAD320494F7D00339163 /* Module */,
 				F1A81C01200CA410003D2D4E /* AppDelegate.swift */,
 				F1A81C08200CA410003D2D4E /* Assets.xcassets */,
 				F1A81C0D200CA410003D2D4E /* Info.plist */,
@@ -154,6 +164,102 @@
 				F1A81C23200CA410003D2D4E /* Info.plist */,
 			);
 			path = YodoUITests;
+			sourceTree = "<group>";
+		};
+		F1E1CAD320494F7D00339163 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				F1E1CADC2049502000339163 /* Base */,
+				F1E1CAD620494FB400339163 /* Home */,
+				F1E1CAD520494F9C00339163 /* Main */,
+			);
+			name = Module;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		F1E1CAD420494F9600339163 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		F1E1CAD520494F9C00339163 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		F1E1CAD620494FB400339163 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F1E1CAD920494FE100339163 /* Model */,
+				F1E1CAD820494FDB00339163 /* View */,
+				F1E1CAD720494FD400339163 /* Controller */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		F1E1CAD720494FD400339163 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F1E1CADA20494FEA00339163 /* HomeViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F1E1CAD820494FDB00339163 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F1E1CAD920494FE100339163 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F1E1CADC2049502000339163 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				F1E1CADD2049502E00339163 /* Controller */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		F1E1CADD2049502E00339163 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F1E1CADE2049504300339163 /* BaseViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F1E1CAE0204952B300339163 /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Constant;
+			sourceTree = "<group>";
+		};
+		F1E1CAE1204954EA00339163 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				F1E1CAE22049550100339163 /* Font */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		F1E1CAE22049550100339163 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				F1E1CAE32049553A00339163 /* helvetica-bold.ttf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,6 +379,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1A81C09200CA410003D2D4E /* Assets.xcassets in Resources */,
+				F1E1CAE42049553A00339163 /* helvetica-bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +567,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1A81C02200CA410003D2D4E /* AppDelegate.swift in Sources */,
+				F1E1CADB20494FEA00339163 /* HomeViewController.swift in Sources */,
+				F1E1CADF2049504300339163 /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

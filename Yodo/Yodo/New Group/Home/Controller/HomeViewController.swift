@@ -6,4 +6,8 @@
 //  Copyright © 2018年 com.eamon. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class HomeViewController: BaseViewController {
+    
+}
