@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SnapKit
+
 
 class HomeHeaderView: UIView {
 
@@ -16,6 +18,16 @@ class HomeHeaderView: UIView {
         initView()
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        
+    }
     
     //MARK: - Getter | Setter
     // 菜单
@@ -37,6 +49,7 @@ class HomeHeaderView: UIView {
     private lazy var titleLabel: UILabel = {
        
         var titleLabel = UILabel()
+        titleLabel.text = "日常记账"
         return titleLabel
     }()
     
@@ -49,14 +62,13 @@ class HomeHeaderView: UIView {
     }()
     
     
-    private lazy var cage: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         var collectionView:UICollectionView = UICollectionView(frame: CGRect(x: 0, y: 10, width: frame.width, height: 50), collectionViewLayout: flowLayout)
         collectionView.dataSource = self
         collectionView.delegate = self
-        
         
         return collectionView
     }()
@@ -77,11 +89,42 @@ extension HomeHeaderView: UICollectionViewDataSource, UICollectionViewDelegateFl
 //MARK: - PrivateMethods
 extension HomeHeaderView {
     
+    
+    /// 添加控件
     private func initView() {
         
         addSubview(menuBtn)
         addSubview(sepLine)
         addSubview(titleLabel)
         addSubview(chartBtn)
+    }
+    
+    
+    /// 约束
+    private func setupLayout() {
+        
+        menuBtn.snp.makeConstraints{ (make) in
+            make.left.equalTo(YodoConfig.frame.nvIconMarginBorder)
+            make.size.equalTo(CGSize(width: 20, height: 20))
+            make.top.equalTo(self).offset(YodoConfig.frame.nvIconMarginTop)
+        }
+        
+        sepLine.snp.makeConstraints { (make) in
+            make.left.equalTo(menuBtn).offset(YodoConfig.frame.nvIconMarginLeft)
+            make.size.equalTo(CGSize(width: 1, height: 15))
+            make.centerY.equalTo(menuBtn)
+        }
+        
+        chartBtn.snp.makeConstraints { (make) in
+            make.size.centerY.equalTo(menuBtn)
+            make.right.equalTo(self).offset(-YodoConfig.frame.nvIconMarginBorder)
+        }
+        
+        titleLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(sepLine).offset(YodoConfig.frame.nvIconMarginLeft)
+            make.height.equalTo(30)
+            make.centerY.equalTo(menuBtn)
+            make.right.equalTo(chartBtn.snp.left).offset(-YodoConfig.frame.nvIconMarginLeft)
+        }
     }
 }

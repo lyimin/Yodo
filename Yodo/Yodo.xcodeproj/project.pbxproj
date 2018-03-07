@@ -18,6 +18,7 @@
 		F1A81C17200CA410003D2D4E /* YodoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A81C16200CA410003D2D4E /* YodoTests.swift */; };
 		F1A81C22200CA410003D2D4E /* YodoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A81C21200CA410003D2D4E /* YodoUITests.swift */; };
 		F1E1CAE42049553A00339163 /* helvetica-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1E1CAE32049553A00339163 /* helvetica-bold.ttf */; };
+		F1FEA64820503DCF00D7733B /* YodoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FEA64720503DCF00D7733B /* YodoConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		F1A81C21200CA410003D2D4E /* YodoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodoUITests.swift; sourceTree = "<group>"; };
 		F1A81C23200CA410003D2D4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1E1CAE32049553A00339163 /* helvetica-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "helvetica-bold.ttf"; sourceTree = "<group>"; };
+		F1FEA64720503DCF00D7733B /* YodoConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodoConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +191,7 @@
 		F1A81C00200CA410003D2D4E /* Yodo */ = {
 			isa = PBXGroup;
 			children = (
+				F1FEA64620503DB500D7733B /* Config */,
 				F1504A14204E912B00855D00 /* Module */,
 				F1E1CAE1204954EA00339163 /* Resource */,
 				F1A81C01200CA410003D2D4E /* AppDelegate.swift */,
@@ -230,6 +233,14 @@
 				F1E1CAE32049553A00339163 /* helvetica-bold.ttf */,
 			);
 			path = Font;
+			sourceTree = "<group>";
+		};
+		F1FEA64620503DB500D7733B /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				F1FEA64720503DCF00D7733B /* YodoConfig.swift */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -538,6 +549,7 @@
 			files = (
 				F1504A21204E94FD00855D00 /* HomeHeaderView.swift in Sources */,
 				F1A81C02200CA410003D2D4E /* AppDelegate.swift in Sources */,
+				F1FEA64820503DCF00D7733B /* YodoConfig.swift in Sources */,
 				F1504A1B204E912B00855D00 /* BaseViewController.swift in Sources */,
 				F1504A1C204E912B00855D00 /* HomeViewController.swift in Sources */,
 			);
