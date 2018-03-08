@@ -23,5 +23,21 @@ struct YodoConfig {
     
     struct font {
         
+        // 首页标题
+        static let homeTitle = UIFont.boldSystemFont(ofSize: 20)
+        
+        static func bold(size fontSize: CGFloat) -> UIFont {
+            return UIFont.boldSystemFont(ofSize:fontSize)
+        }
+    }
+    
+    struct color {
+        
+        // 黑色标题
+        static let blackTitle = UIColor(red: 20/255.0, green: 20/255.0, blue: 20/255.0, alpha: 1)
+        // 深灰色副标题
+        static let darkGraySubTitle = UIColor(red: 155/255.0, green: 155/255.0, blue: 155/255.0, alpha: 1)
+        // 分割线
+        static let sepLine = UIColor(red: 216/255.0, green: 216/255.0, blue: 216/255.0, alpha: 1)
     }
 }

@@ -26,7 +26,7 @@ class HomeHeaderView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        
+        setupLayout()
     }
     
     //MARK: - Getter | Setter
@@ -42,6 +42,7 @@ class HomeHeaderView: UIView {
     private lazy var sepLine: UIView = {
         
         var sepLine = UIView()
+        sepLine.backgroundColor = YodoConfig.color.sepLine
         return sepLine
     }()
     
@@ -50,6 +51,8 @@ class HomeHeaderView: UIView {
        
         var titleLabel = UILabel()
         titleLabel.text = "日常记账"
+        titleLabel.textColor = YodoConfig.color.blackTitle
+        titleLabel.font = YodoConfig.font.homeTitle
         return titleLabel
     }()
     
@@ -62,15 +65,19 @@ class HomeHeaderView: UIView {
     }()
     
     
-    private lazy var collectionView: UICollectionView = {
+    // 日期
+    private lazy var dateCollectionView: UICollectionView = {
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        var collectionView:UICollectionView = UICollectionView(frame: CGRect(x: 0, y: 10, width: frame.width, height: 50), collectionViewLayout: flowLayout)
-        collectionView.dataSource = self
-        collectionView.delegate = self
         
-        return collectionView
+        var dateCollectionView:UICollectionView = UICollectionView(frame: CGRect(x: 0, y: 10, width: frame.width, height: 50), collectionViewLayout: flowLayout)
+        dateCollectionView.backgroundColor = .clear
+        dateCollectionView.showsHorizontalScrollIndicator = false
+        dateCollectionView.dataSource = self
+        dateCollectionView.delegate = self
+        
+        return dateCollectionView
     }()
  
 }
@@ -92,11 +99,13 @@ extension HomeHeaderView {
     
     /// 添加控件
     private func initView() {
+        backgroundColor = .white
         
         addSubview(menuBtn)
         addSubview(sepLine)
         addSubview(titleLabel)
         addSubview(chartBtn)
+        addSubview(dateCollectionView)
     }
     
     
@@ -110,7 +119,7 @@ extension HomeHeaderView {
         }
         
         sepLine.snp.makeConstraints { (make) in
-            make.left.equalTo(menuBtn).offset(YodoConfig.frame.nvIconMarginLeft)
+            make.left.equalTo(menuBtn.snp.right).offset(YodoConfig.frame.nvIconMarginLeft)
             make.size.equalTo(CGSize(width: 1, height: 15))
             make.centerY.equalTo(menuBtn)
         }
@@ -121,7 +130,7 @@ extension HomeHeaderView {
         }
         
         titleLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(sepLine).offset(YodoConfig.frame.nvIconMarginLeft)
+            make.left.equalTo(sepLine.snp.right).offset(YodoConfig.frame.nvIconMarginLeft)
             make.height.equalTo(30)
             make.centerY.equalTo(menuBtn)
             make.right.equalTo(chartBtn.snp.left).offset(-YodoConfig.frame.nvIconMarginLeft)

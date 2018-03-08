@@ -10,4 +10,26 @@ import UIKit
 
 class HomeViewController: BaseViewController {
     
+    // MARK: - LifeCycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.view.addSubview(headerView)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        headerView.snp.makeConstraints { (make) in
+            make.left.right.top.equalTo(self.view)
+            make.height.equalTo(140)
+        }
+    }
+    
+    // MARK: - Getter | Setter
+    private lazy var headerView: HomeHeaderView = {
+        
+        var headerView = HomeHeaderView()
+        return headerView
+    }()
 }
