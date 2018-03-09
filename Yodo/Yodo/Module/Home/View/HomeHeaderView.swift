@@ -14,7 +14,7 @@ class HomeHeaderView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         initView()
     }
     
@@ -79,7 +79,6 @@ class HomeHeaderView: UIView {
         
         return dateCollectionView
     }()
- 
 }
 
 extension HomeHeaderView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

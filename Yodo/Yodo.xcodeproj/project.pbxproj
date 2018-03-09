@@ -14,6 +14,9 @@
 		F1504A1C204E912B00855D00 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A1A204E912B00855D00 /* HomeViewController.swift */; };
 		F1504A21204E94FD00855D00 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A20204E94FD00855D00 /* HomeHeaderView.swift */; };
 		F168386220513F3200B93D84 /* HomeDateItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F168386120513F3200B93D84 /* HomeDateItemCell.swift */; };
+		F1754DF320522DAB00A7CF77 /* SQLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1754DF220522DAB00A7CF77 /* SQLite.swift */; };
+		F1754DF52052370400A7CF77 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1754DF42052370400A7CF77 /* Manager.swift */; };
+		F1754DF72052371B00A7CF77 /* SQLiteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1754DF62052371B00A7CF77 /* SQLiteModel.swift */; };
 		F1A81C02200CA410003D2D4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A81C01200CA410003D2D4E /* AppDelegate.swift */; };
 		F1A81C09200CA410003D2D4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1A81C08200CA410003D2D4E /* Assets.xcassets */; };
 		F1A81C17200CA410003D2D4E /* YodoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A81C16200CA410003D2D4E /* YodoTests.swift */; };
@@ -53,6 +56,9 @@
 		F1504A1A204E912B00855D00 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F1504A20204E94FD00855D00 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 		F168386120513F3200B93D84 /* HomeDateItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDateItemCell.swift; sourceTree = "<group>"; };
+		F1754DF220522DAB00A7CF77 /* SQLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLite.swift; sourceTree = "<group>"; };
+		F1754DF42052370400A7CF77 /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
+		F1754DF62052371B00A7CF77 /* SQLiteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteModel.swift; sourceTree = "<group>"; };
 		F1A81BFE200CA410003D2D4E /* Yodo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yodo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A81C01200CA410003D2D4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1A81C08200CA410003D2D4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -169,6 +175,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		F1754DF120522D8A00A7CF77 /* SQLite */ = {
+			isa = PBXGroup;
+			children = (
+				F1754DF220522DAB00A7CF77 /* SQLite.swift */,
+				F1754DF42052370400A7CF77 /* Manager.swift */,
+				F1754DF62052371B00A7CF77 /* SQLiteModel.swift */,
+			);
+			path = SQLite;
+			sourceTree = "<group>";
+		};
 		F1A81BF5200CA410003D2D4E = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +210,7 @@
 		F1A81C00200CA410003D2D4E /* Yodo */ = {
 			isa = PBXGroup;
 			children = (
+				F1754DF120522D8A00A7CF77 /* SQLite */,
 				F1FEA64620503DB500D7733B /* Config */,
 				F1504A14204E912B00855D00 /* Module */,
 				F1E1CAE1204954EA00339163 /* Resource */,
@@ -551,11 +568,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1504A21204E94FD00855D00 /* HomeHeaderView.swift in Sources */,
+				F1754DF320522DAB00A7CF77 /* SQLite.swift in Sources */,
 				F168386220513F3200B93D84 /* HomeDateItemCell.swift in Sources */,
+				F1754DF52052370400A7CF77 /* Manager.swift in Sources */,
 				F1A81C02200CA410003D2D4E /* AppDelegate.swift in Sources */,
 				F1FEA64820503DCF00D7733B /* YodoConfig.swift in Sources */,
 				F1504A1B204E912B00855D00 /* BaseViewController.swift in Sources */,
 				F1504A1C204E912B00855D00 /* HomeViewController.swift in Sources */,
+				F1754DF72052371B00A7CF77 /* SQLiteModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
