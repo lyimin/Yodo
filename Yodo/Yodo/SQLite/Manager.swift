@@ -8,17 +8,20 @@
 
 import Foundation
 
+
+
 public let docName = "com.eamon.EMSQLite"
+
 public class Manager {
     
     public static let `default`: Manager = {
        
-        return Manager(dbPath: "")
+        return Manager(path: "")
     }()
     
-    public var dbPath: String
+    public var path: String
     
-    public typealias dbPathClosure = (String?, String) -> String
+    public typealias pathClosure = (String?, String) -> String
     
     public final class func defaultDBPathClosure(path: String?, name: String) -> String {
         let rootPath = path ?? NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
@@ -27,8 +30,8 @@ public class Manager {
     
     public init(path: String? = nil) {
         
-        let name = "com.eamon.EMSqlite"
-        self.dbPath =
+        
+        
     }
     
     public func createDB(withName name: String) {
