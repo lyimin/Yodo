@@ -7,35 +7,45 @@
 //
 
 import Foundation
-
-
+import SQLite
 
 public let docName = "com.eamon.EMSQLite"
 
 public class Manager {
     
+    // 单例对象
     public static let `default`: Manager = {
        
-        return Manager(path: "")
+        return Manager()
     }()
     
+    // 数据库保存地址
     public var path: String
     
-    public typealias pathClosure = (String?, String) -> String
-    
-    public final class func defaultDBPathClosure(path: String?, name: String) -> String {
-        let rootPath = path ?? NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-        return (rootPath as NSString).appendingPathComponent(name)
-    }
+    // 数据库对象
+    private var db: Connection?
     
     public init(path: String? = nil) {
-        
-        
-        
+        let rootPath = path ?? NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        self.path = (rootPath as NSString).appendingPathComponent(docName)
     }
     
-    public func createDB(withName name: String) {
+    /// 创建数据库
+    /// - withName 数据库名称
+    public func createDB(withName name: String) -> Self {
         
+        if name.isEmpty {
+            assertionFailure("[EMSQLite] name is required")
+            return self
+        }
+        
+        Manager.default.db = try? Connection((path as NSString).appendingPathComponent(name))
+        return self
     }
     
+    /// 创建表
+    /// - withName 表名
+    public func createTable<T: SQLiteModel>(withName name: String, model: T)  {
+        
+    }
 }

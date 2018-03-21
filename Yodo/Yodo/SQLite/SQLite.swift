@@ -10,7 +10,7 @@ import Foundation
 import SQLite
 
 
-public func createdDB(databaseName name: String) -> String {
-    return Manager.default.createDB(withName: name) 
+public func createdDB(databaseName name: String) -> Manager {
+    return Manager.default.createDB(withName: name)  
 }
 

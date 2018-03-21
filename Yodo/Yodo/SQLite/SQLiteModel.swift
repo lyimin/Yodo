@@ -8,6 +8,6 @@
 
 import Foundation
 
-open protocol SQLiteModel {
+public protocol SQLiteModel {
     
 }
