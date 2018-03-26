@@ -23,7 +23,7 @@ public class Manager {
     public var path: String
     
     // 数据库对象
-    private var db: Connection?
+    public var db: Connection!
     
     public init(path: String? = nil) {
         let rootPath = path ?? NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
@@ -32,14 +32,14 @@ public class Manager {
     
     /// 创建数据库
     /// - withName 数据库名称
-    public func createDB(withName name: String) -> Self {
+    public func createdDB(withName name: String? = "Yodo.db") -> Self {
         
-        if name.isEmpty {
-            assertionFailure("[EMSQLite] name is required")
-            return self
+        do {
+            Manager.default.db = try Connection((path as NSString).appendingPathComponent(name!))
+        } catch {
+            assertionFailure("[EMSQLite] fail to create db \(name!)")
         }
-        
-        Manager.default.db = try? Connection((path as NSString).appendingPathComponent(name))
+    
         return self
     }
     

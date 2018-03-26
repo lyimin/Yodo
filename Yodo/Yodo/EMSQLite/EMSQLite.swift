@@ -1,5 +1,5 @@
 //
-//  SQLite.swift
+//  EMSQLite.swift
 //  Yodo
 //
 //  Created by 梁亦明 on 2018/3/9.
@@ -10,7 +10,9 @@ import Foundation
 import SQLite
 
 
-public func createdDB(databaseName name: String) -> Manager {
-    return Manager.default.createDB(withName: name)  
+public func createdDB(databaseName name: String?) -> Manager {
+    
+    return Manager.default.createdDB(withName: name)
 }
+
 
