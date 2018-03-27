@@ -9,9 +9,10 @@
 import Foundation
 import SQLite
 
-public let docName = "com.eamon.EMSQLite"
-
 public class Manager {
+    
+    private let docName = "com.eamon.EMSQLite"
+    private let dbName = "Yodo.sqlite3"
     
     // 单例对象
     public static let `default`: Manager = {
@@ -28,16 +29,27 @@ public class Manager {
     public init(path: String? = nil) {
         let rootPath = path ?? NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
         self.path = (rootPath as NSString).appendingPathComponent(docName)
+        
+        do {
+            try FileManager.default.createDirectory(atPath: self.path, withIntermediateDirectories: true, attributes: nil)
+        } catch {
+            assertionFailure("[EMSQLite] fail to create directory \(self.path)")
+        }
     }
     
     /// 创建数据库
     /// - withName 数据库名称
-    public func createdDB(withName name: String? = "Yodo.db") -> Self {
+    public func createdDB(withName name: String?) -> Self {
         
+        let dbName = name ?? self.dbName
+        let fileName = (path as NSString).appendingPathComponent(dbName)
+        
+        debugPrint(fileName)
+    
         do {
-            Manager.default.db = try Connection((path as NSString).appendingPathComponent(name!))
+            Manager.default.db = try Connection(fileName)
         } catch {
-            assertionFailure("[EMSQLite] fail to create db \(name!)")
+            assertionFailure("[EMSQLite] fail to create db \(dbName)")
         }
     
         return self
