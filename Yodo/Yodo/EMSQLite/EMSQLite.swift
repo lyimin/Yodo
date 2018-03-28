@@ -15,4 +15,3 @@ public func createdDB(databaseName name: String?) -> Manager {
     return Manager.default.createdDB(withName: name)
 }
 
-

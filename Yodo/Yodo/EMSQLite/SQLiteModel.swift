@@ -10,4 +10,10 @@ import Foundation
 
 public protocol SQLiteModel {
     
+    /// 主键
+    func primaryKey() -> String?
+    
+    
+    /// 忽略的key
+    func ignoreKeys() -> [String]?
 }

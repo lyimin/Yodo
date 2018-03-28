@@ -30,12 +30,12 @@ extension AppDelegate {
     /// 初始化db
     private func initDB() {
         
-
-        
-        let dbManager = createdDB(databaseName: nil)
-        dbManager.db.busyTimeout = 5
-        dbManager.db.busyHandler { (tries) -> Bool in
+        let manager = createdDB(databaseName: nil)
+        manager.db.busyTimeout = 5
+        manager.db.busyHandler { (tries) -> Bool in
             return tries >= 3 ?false :true
         }
+        
+        manager.createdAccountTable()
     }
 }
