@@ -10,6 +10,8 @@ import Foundation
 
 public protocol SQLiteModel {
     
+    var tableName: String {get}
+    
     /// 主键
     func primaryKey() -> String?
     

@@ -67,24 +67,41 @@ public class Manager {
     public func insert<T: SQLiteModel>(withTable table: Table, model: T) {
         
         let m = EMMirrorModel.reflecting(model: model)
+        
+        guard m != nil else {
+            assertionFailure("[EMSQLite] undefine \(model.tableName) propreties")
+            return
+        }
+        
+        var setters: [SQLite.Setter] = [SQLite.Setter]()
+        var primaryKeyM: EMMirrorProprety?
+        for proprety in m!.propreties {
+            if proprety.isPrimaryKey {
+                primaryKeyM = proprety
+                continue
+            }
+            if let setter = proprety.setter {
+                setters.append(setter)
+            } 
+        }
+        
+        do {
+            if let pm = primaryKeyM, pm.value != nil {
+                let filter = table.filter(pm.filter())
+                if let _ = try db.pluck(filter) {
+                    try db.run(table.update(setters))
+                } else {
+                    try db.run(table.insert(setters))
+                }
+            } else {
+                try db.run(table.insert(setters))
+            }
+        } catch {
+            assertionFailure("[EMSQLite]: fail to insert row. error: \(error.localizedDescription)")
+        }
     }
     
     public func createdAccountTable() {
-        
-        let account = Table(Account.accountTableName)
-        
-        let id = Expression<Int64>("id")
-        let type = Expression<Int>("type")
-        let category = Expression<String>("category")
-        let money = Expression<Double>("money")
-        let remarks = Expression<String?>("remarks")
-        let longitude = Expression<Double>("longitude")
-        let latitude = Expression<Double>("latitude")
-        let address = Expression<String?>("address")
-        let pic = Expression<String?>("pic")
-        let createdAt = Expression<Date>("createdAt")
-        let updatedAt = Expression<Date?>("updatedAt")
-        let deletedAt = Expression<Date?>("deletedAt")
         
         do {
             try db.run(account.create(ifNotExists: true){ t in
@@ -102,7 +119,7 @@ public class Manager {
                 t.column(deletedAt)
             })
         } catch {
-            assertionFailure("[EMSQLite] fail to create table \(Account.accountTableName)")
+            assertionFailure("[EMSQLite] fail to create table")
         }
     }
     

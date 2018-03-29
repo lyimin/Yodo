@@ -25,25 +25,71 @@ struct EMMirrorProprety {
     /// 属性类型
     public var type: Any.Type
     
+    public var express: Expressible?
+    
     /// sqlite.swift的setter对象
     public var setter: SQLite.Setter?
-    
-    
-    
     
     public init(name: String, isPrimaryKey: Bool = defaultIsPrimaryKey, value: Any? = nil, type: Any.Type) {
         self.name = name
         self.isPrimaryKey = isPrimaryKey
         self.value = value
         self.type = type
+        self.express = getExpress(withType: type, key: name)
+        self.setter = getSQLiteSetter()
     }
     
-//    private func getSQLiteSetter(withType type: Any.Type, withValue value: Any?) -> SQLite.Setter {
-//        
-//        if type is Int.Type {
-//            return Expression<Int64> <- value as? Int64
-//        }
-//    }
+    private func getExpress(withType: Any.Type, key: String) -> Expressible {
+ 
+        if type is Int.Type   || type is Int8.Type  ||
+            type is Int16.Type || type is Int32.Type ||
+            type is Int64.Type {
+            return Expression<Int64>(key)
+        } else if type is Float.Type || type is Float?.Type ||
+            type is Double.Type || type is Double?.Type {
+            return Expression<Double>(key)
+        } else if type is Bool.Type {
+            return Expression<Bool>(key)
+        } else {
+            return Expression<String>(key)
+        }
+        
+    }
+    
+    private func getSQLiteSetter() -> SQLite.Setter? {
+        
+        guard value != nil else {
+            return nil
+        }
+        
+        if type is Int.Type   || type is Int8.Type  ||
+           type is Int16.Type || type is Int32.Type ||
+           type is Int64.Type {
+            return express as! Expression<Int64> <- value as! Int64
+        } else if type is Float.Type || type is Float?.Type ||
+            type is Double.Type || type is Double?.Type {
+            return express as! Expression<Double> <- value as! Double
+        } else if type is Bool.Type {
+            return express as! Expression<Bool> <- value as! Bool
+        } else {
+            return express as! Expression<String> <- value as! String
+        }
+    }
+    
+    func filter() -> Expression<Bool> {
+        if type is Int.Type   || type is Int8.Type  ||
+            type is Int16.Type || type is Int32.Type ||
+            type is Int64.Type {
+            return express as! Expression<Int64> == value as! Int64
+        } else if type is Float.Type || type is Float?.Type ||
+            type is Double.Type || type is Double?.Type {
+            return express as! Expression<Double> == value as! Double
+        } else if type is Bool.Type {
+            return express as! Expression<Bool> == value as! Bool
+        } else {
+            return express as! Expression<String> == value as! String
+        }
+    }
 }
 
 struct EMMirrorModel {

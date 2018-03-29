@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         initDB()
         
-//        getCSV()
+        getCSV()
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
@@ -49,14 +49,41 @@ extension AppDelegate {
         do {
             let csv = try CSVReader(stream: InputStream(fileAtPath: path!)!, hasHeaderRow: true)
             while let row = csv.next() {
-                writeToDB(row: row)
+                writeToDB(items: row)
+                
             }
         } catch {
             assertionFailure("fail to open csv file")
         }
     }
     
-    private func writeToDB(row: [String]) {
-        
+    private func writeToDB(items: [String]) {
+        // 创建model
+        var model = Account()
+        for i in 0..<items.count {
+            
+            let item = items[i]
+            if i == 1 {
+                model.type = item.formatAccountType()
+            }
+            
+            else if i == 2 {
+                model.category = item
+            }
+            
+            else if i == 3 {
+                model.money = Double(item)!
+            }
+            else if i == 4 {
+                model.createdAt = item.formatAccountDate()
+            }
+            
+            else if i == 5 {
+                model.remarks = item
+            } else {
+                continue
+            }
+        }
+        Manager.default.insert(withTable: account, model: model)
     }
 }
