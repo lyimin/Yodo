@@ -12,6 +12,7 @@
 		EC246C2AD9AC85147D4CAB67 /* Pods_YodoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 505481D2B563172588955C97 /* Pods_YodoUITests.framework */; };
 		F14AE36C206B34D200F65543 /* EMMirrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14AE36B206B34D200F65543 /* EMMirrorModel.swift */; };
 		F14AE36F206B695800F65543 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14AE36E206B695800F65543 /* Account.swift */; };
+		F14AE373206CD0FB00F65543 /* 20180329_account.csv in Resources */ = {isa = PBXBuildFile; fileRef = F14AE372206CD0FB00F65543 /* 20180329_account.csv */; };
 		F1504A1B204E912B00855D00 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A17204E912B00855D00 /* BaseViewController.swift */; };
 		F1504A1C204E912B00855D00 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A1A204E912B00855D00 /* HomeViewController.swift */; };
 		F1504A21204E94FD00855D00 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A20204E94FD00855D00 /* HomeHeaderView.swift */; };
@@ -56,6 +57,7 @@
 		E6246C70E12FDCB06375B0C1 /* Pods_YodoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YodoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F14AE36B206B34D200F65543 /* EMMirrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EMMirrorModel.swift; sourceTree = "<group>"; };
 		F14AE36E206B695800F65543 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		F14AE372206CD0FB00F65543 /* 20180329_account.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = 20180329_account.csv; sourceTree = "<group>"; };
 		F1504A17204E912B00855D00 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		F1504A1A204E912B00855D00 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F1504A20204E94FD00855D00 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 		F1E1CAE1204954EA00339163 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				F14AE372206CD0FB00F65543 /* 20180329_account.csv */,
 				F1E1CAE22049550100339163 /* Font */,
 			);
 			path = Resource;
@@ -393,6 +396,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F14AE373206CD0FB00F65543 /* 20180329_account.csv in Resources */,
 				F1A81C09200CA410003D2D4E /* Assets.xcassets in Resources */,
 				F1E1CAE42049553A00339163 /* helvetica-bold.ttf in Resources */,
 			);
@@ -516,6 +520,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Yodo/Pods-Yodo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/CSV.swift/CSV.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MonkeyKing/MonkeyKing.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
@@ -526,6 +531,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSV.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MonkeyKing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",

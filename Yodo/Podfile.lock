@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.5.1)
+  - CSV.swift (2.1.0)
   - Kingfisher (4.2.0)
   - MonkeyKing (1.4.2)
   - Moya (10.0.0):
@@ -15,6 +16,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.5.1)
+  - CSV.swift (~> 2.1.0)
   - Kingfisher (~> 4.2.0)
   - MonkeyKing (~> 1.4.2)
   - Moya (~> 10.0.0)
@@ -23,6 +25,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  CSV.swift: a24fb11c17875523783fe963592762ff163ef8ea
   Kingfisher: 9ee7e788d8ba07c3f21ce0d43f33cec310a4f781
   MonkeyKing: 64846a7ef403806abbffaf333cec72521b39465d
   Moya: adb58b0f4e58430db43cc6e2f6ebab1836501186
@@ -30,6 +33,6 @@ SPEC CHECKSUMS:
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SQLite.swift: 3e3bee21da701b5b9f87c4a672cb54f233505692
 
-PODFILE CHECKSUM: 9d18b6af190b0e25a9594c3bca9b7f636a86209d
+PODFILE CHECKSUM: 96808ab0c801f59e305d2b77d5eec1ed9bb601b9
 
 COCOAPODS: 1.3.1

@@ -35,11 +35,11 @@ struct Account {
     /// 金额
     var money: Double = 0.0
     
-    /// 创建日期
-    var data: String = ""
-    
     /// 备注
     var remarks: String?
+    
+    /// 创建日期
+    var data: Date = Date()
 }
 
 extension Account: SQLiteModel {

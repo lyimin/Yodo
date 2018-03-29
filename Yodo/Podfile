@@ -14,6 +14,7 @@ target 'Yodo' do
    # pod 'YYWebImage' 
     pod 'Kingfisher', '~> 4.2.0'
     pod 'SQLite.swift', '~> 0.11.4'
+    pod 'CSV.swift', '~> 2.1.0'
 
   target 'YodoTests' do
     inherit! :search_paths

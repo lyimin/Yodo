@@ -63,6 +63,12 @@ public class Manager {
 
     }
     
+    // 插入表格
+    public func insert<T: SQLiteModel>(withTable table: Table, model: T) {
+        
+        let m = EMMirrorModel.reflecting(model: model)
+    }
+    
     public func createdAccountTable() {
         
         let account = Table(Account.accountTableName)
@@ -99,4 +105,6 @@ public class Manager {
             assertionFailure("[EMSQLite] fail to create table \(Account.accountTableName)")
         }
     }
+    
+    
 }

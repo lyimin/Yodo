@@ -7,6 +7,44 @@
 //
 
 import Foundation
+import SQLite
+
+struct EMMirrorProprety {
+    
+    private static let defaultIsPrimaryKey = false
+    
+    /// 是否是主键
+    public var isPrimaryKey: Bool
+    
+    /// 属性名称
+    public var name: String
+    
+    /// 属性值
+    public var value: Any?
+    
+    /// 属性类型
+    public var type: Any.Type
+    
+    /// sqlite.swift的setter对象
+    public var setter: SQLite.Setter?
+    
+    
+    
+    
+    public init(name: String, isPrimaryKey: Bool = defaultIsPrimaryKey, value: Any? = nil, type: Any.Type) {
+        self.name = name
+        self.isPrimaryKey = isPrimaryKey
+        self.value = value
+        self.type = type
+    }
+    
+//    private func getSQLiteSetter(withType type: Any.Type, withValue value: Any?) -> SQLite.Setter {
+//        
+//        if type is Int.Type {
+//            return Expression<Int64> <- value as? Int64
+//        }
+//    }
+}
 
 struct EMMirrorModel {
     
@@ -14,11 +52,12 @@ struct EMMirrorModel {
     public var primaryKey: String?
     
     /// 属性个数
-    public var propretiesNum: Int64
+    public var propretiesNum: Int64 = 0
     
     /// 保存属性名称和类型[""]
-    public var propreties: [String: Any.Type]?
-   
+    public var propreties: [EMMirrorProprety] = [EMMirrorProprety]()
+    
+    
     init(primaryKey: String? = nil, propretiesNum: Int64 = 0) {
         self.primaryKey = primaryKey
         self.propretiesNum = propretiesNum
@@ -37,7 +76,7 @@ extension EMMirrorModel {
         }
         
         let childCount = mirror.children.count
-        var propreties: [String: Any.Type] = [String: Any.Type]()
+        var propreties: [EMMirrorProprety] = [EMMirrorProprety]()
         var out = EMMirrorModel(propretiesNum: childCount)
         
         for m in mirror.children {
@@ -53,7 +92,9 @@ extension EMMirrorModel {
                     if ignoreKey.contains(name) { continue }
                 }
                 debugPrint("属性:\(name) 类型：\(vMirror.subjectType) t:\(String(describing: vMirror.displayStyle))")
-                propreties[name] = vMirror.subjectType
+                
+                let proprety = EMMirrorProprety(name: name, isPrimaryKey: name == model.primaryKey(), type: vMirror.subjectType)
+                propreties.append(proprety)
             }
         }
         out.propreties = propreties

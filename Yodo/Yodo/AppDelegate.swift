@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CSV
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         initDB()
+        
+//        getCSV()
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
@@ -36,6 +39,24 @@ extension AppDelegate {
             return tries >= 3 ?false :true
         }
         
-        manager.createdAccountTable()
+//        manager.createdAccountTable()
+        manager.createTable(withName: "abc", model: Account())
+    }
+    
+    private func getCSV() {
+        let path = Bundle.main.path(forResource: "20180329_account.csv", ofType: nil)
+        
+        do {
+            let csv = try CSVReader(stream: InputStream(fileAtPath: path!)!, hasHeaderRow: true)
+            while let row = csv.next() {
+                writeToDB(row: row)
+            }
+        } catch {
+            assertionFailure("fail to open csv file")
+        }
+    }
+    
+    private func writeToDB(row: [String]) {
+        
     }
 }
