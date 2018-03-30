@@ -39,8 +39,8 @@ extension AppDelegate {
             return tries >= 3 ?false :true
         }
         
-//        manager.createdAccountTable()
-        manager.createTable(withName: "abc", model: Account())
+        manager.createdAccountTable()
+//        manager.createTable(withName: "abc", model: Account())
     }
     
     private func getCSV() {
@@ -84,6 +84,6 @@ extension AppDelegate {
                 continue
             }
         }
-        Manager.default.insert(withTable: account, model: model)
+        Manager.default.insertAccount(model: model)
     }
 }

@@ -39,7 +39,7 @@ struct EMMirrorProprety {
         self.setter = getSQLiteSetter()
     }
     
-    private func getExpress(withType: Any.Type, key: String) -> Expressible {
+    private func getExpress(withType: Any.Type, key: String) -> Expressible? {
  
         if type is Int.Type   || type is Int8.Type  ||
             type is Int16.Type || type is Int32.Type ||
@@ -53,14 +53,16 @@ struct EMMirrorProprety {
         } else {
             return Expression<String>(key)
         }
-        
     }
     
     private func getSQLiteSetter() -> SQLite.Setter? {
         
-        guard value != nil else {
+        guard value != nil || express != nil else {
             return nil
         }
+        
+        
+        
         
         if type is Int.Type   || type is Int8.Type  ||
            type is Int16.Type || type is Int32.Type ||
@@ -72,7 +74,7 @@ struct EMMirrorProprety {
         } else if type is Bool.Type {
             return express as! Expression<Bool> <- value as! Bool
         } else {
-            return express as! Expression<String> <- value as! String
+            return express as! Expression<String> <- String(describing: value)
         }
     }
     
@@ -87,7 +89,7 @@ struct EMMirrorProprety {
         } else if type is Bool.Type {
             return express as! Expression<Bool> == value as! Bool
         } else {
-            return express as! Expression<String> == value as! String
+            return express as! Expression<String> == String(describing: value)
         }
     }
 }
@@ -137,9 +139,10 @@ extension EMMirrorModel {
                 if let ignoreKey = model.ignoreKeys(), ignoreKey.count > 0 {
                     if ignoreKey.contains(name) { continue }
                 }
-                debugPrint("属性:\(name) 类型：\(vMirror.subjectType) t:\(String(describing: vMirror.displayStyle))")
                 
-                let proprety = EMMirrorProprety(name: name, isPrimaryKey: name == model.primaryKey(), type: vMirror.subjectType)
+                debugPrint("属性:\(name) 类型：\(vMirror.subjectType) 值：\(m.value) t:\(String(describing: vMirror.displayStyle))")
+                
+                let proprety = EMMirrorProprety(name: name, isPrimaryKey: name == model.primaryKey(), value: m.value, type: vMirror.subjectType)
                 propreties.append(proprety)
             }
         }

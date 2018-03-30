@@ -11,6 +11,21 @@ import SQLite
 
 public class Manager {
     
+    public let accountT = Table("account")
+    
+    public let id = Expression<Int64>("id")
+    public let type = Expression<Int>("type")
+    public let category = Expression<String>("category")
+    public let money = Expression<Double>("money")
+    public let remarks = Expression<String?>("remarks")
+    public let longitude = Expression<String?>("longitude")
+    public let latitude = Expression<String?>("latitude")
+    public let address = Expression<String?>("address")
+    public let pic = Expression<String?>("pic")
+    public let createdAt = Expression<Date>("createdAt")
+    public let updatedAt = Expression<Date?>("updatedAt")
+    public let deletedAt = Expression<Date?>("deletedAt")
+    
     private let docName = "com.eamon.EMSQLite"
     private let dbName = "Yodo.sqlite3"
     
@@ -55,66 +70,42 @@ public class Manager {
         return self
     }
     
-    /// 创建表
-    /// - withName 表名
-    public func createTable<T: SQLiteModel>(withName name: String, model: T)  {
-        
-        let m = EMMirrorModel.reflecting(model: model)
-
-    }
     
-    // 插入表格
-    public func insert<T: SQLiteModel>(withTable table: Table, model: T) {
-        
-        let m = EMMirrorModel.reflecting(model: model)
-        
-        guard m != nil else {
-            assertionFailure("[EMSQLite] undefine \(model.tableName) propreties")
-            return
-        }
-        
-        var setters: [SQLite.Setter] = [SQLite.Setter]()
-        var primaryKeyM: EMMirrorProprety?
-        for proprety in m!.propreties {
-            if proprety.isPrimaryKey {
-                primaryKeyM = proprety
-                continue
-            }
-            if let setter = proprety.setter {
-                setters.append(setter)
-            } 
-        }
-        
+    /// 插入数据
+    ///
+    /// - Parameter model: 账单model
+    func insertAccount(model: Account) {
+        let sql = "INSERT INTO \(Account.tableName) (type, category, money, remarks, address, pic, createdAt) VALUES " +
+        "(\(model.type.rawValue), '\(model.category)', \(model.money), '\(model.remarks)', '\(model.address)', '\(model.pic)', '\(model.createdAt)')"
         do {
-            if let pm = primaryKeyM, pm.value != nil {
-                let filter = table.filter(pm.filter())
-                if let _ = try db.pluck(filter) {
-                    try db.run(table.update(setters))
-                } else {
-                    try db.run(table.insert(setters))
-                }
-            } else {
-                try db.run(table.insert(setters))
-            }
+            try db.execute(sql)
+            debugPrint("插入成功)")
         } catch {
-            assertionFailure("[EMSQLite]: fail to insert row. error: \(error.localizedDescription)")
+            assertionFailure("[EMSQLite] undefine \(Account.tableName) propreties")
         }
     }
-    
+    /*
+    func queryFirstData() -> Account {
+        
+        let sql = "SELECT * FROM \(Account.tableName) WHERE createdAt = (SELECT MIN(createdAt) FROM \(Account.tableName)"
+        
+    }
+    */
+    /// 创建表
     public func createdAccountTable() {
         
         do {
-            try db.run(account.create(ifNotExists: true){ t in
+            try db.run(accountT.create(ifNotExists: true){ t in
                 t.column(id, primaryKey: .autoincrement)
-                t.column(type, unique: true)
-                t.column(category, unique: true)
-                t.column(money, unique: true)
+                t.column(type)
+                t.column(category)
+                t.column(money)
                 t.column(remarks)
                 t.column(longitude)
                 t.column(latitude)
                 t.column(address)
                 t.column(pic)
-                t.column(createdAt, unique: true)
+                t.column(createdAt)
                 t.column(updatedAt)
                 t.column(deletedAt)
             })
@@ -122,6 +113,4 @@ public class Manager {
             assertionFailure("[EMSQLite] fail to create table")
         }
     }
-    
-    
 }

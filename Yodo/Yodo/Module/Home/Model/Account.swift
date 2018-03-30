@@ -9,30 +9,20 @@
 import Foundation
 import SQLite
 
-public let account = Table("account")
-public let id = Expression<Int64>("id")
-public let type = Expression<Int>("type")
-public let category = Expression<String>("category")
-public let money = Expression<Double>("money")
-public let remarks = Expression<String?>("remarks")
-public let longitude = Expression<Double>("longitude")
-public let latitude = Expression<Double>("latitude")
-public let address = Expression<String?>("address")
-public let pic = Expression<String?>("pic")
-public let createdAt = Expression<Date>("createdAt")
-public let updatedAt = Expression<Date?>("updatedAt")
-public let deletedAt = Expression<Date?>("deletedAt")
+
 
 /// 账单类型
 ///
 /// - expend: 支出
 /// - income: 收入
-enum AccountType {
-    case expend
+enum AccountType: Int {
+    case expend = 0
     case income
 }
 
-struct Account {
+public struct Account {
+    
+    public static let tableName = "account"
     
     /// 账单id
     var id: String = ""
@@ -44,29 +34,19 @@ struct Account {
     var category: String = ""
     
     /// 金额
-    var money: Double = 0.0
+    var money: Double = 0.00
     
     /// 备注
     var remarks: String = ""
     
+    /// 地址
+    var address: String = ""
+
+    /// 图片
+    var pic: String = ""
+    
     /// 创建日期
     var createdAt: Date = Date()
-}
-
-extension Account: SQLiteModel {
-    
-    /// 表名
-    var tableName: String {
-        return "account"
-    }
-    
-    func primaryKey() -> String? {
-        return "id"
-    }
-    
-    func ignoreKeys() -> [String]? {
-        return nil
-    }
 }
 
 extension String {
