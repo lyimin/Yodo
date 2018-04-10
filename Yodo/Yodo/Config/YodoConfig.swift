@@ -41,3 +41,4 @@ struct YodoConfig {
         static let sepLine = UIColor(red: 216/255.0, green: 216/255.0, blue: 216/255.0, alpha: 1)
     }
 }
+

@@ -17,6 +17,7 @@
 		F1504A1C204E912B00855D00 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A1A204E912B00855D00 /* HomeViewController.swift */; };
 		F1504A21204E94FD00855D00 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A20204E94FD00855D00 /* HomeHeaderView.swift */; };
 		F168386220513F3200B93D84 /* HomeDateItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F168386120513F3200B93D84 /* HomeDateItemCell.swift */; };
+		F16F74AF207CFF6B00E6F194 /* YodoPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F74AE207CFF6B00E6F194 /* YodoPrint.swift */; };
 		F1754DF320522DAB00A7CF77 /* EMSQLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1754DF220522DAB00A7CF77 /* EMSQLite.swift */; };
 		F1754DF52052370400A7CF77 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1754DF42052370400A7CF77 /* Manager.swift */; };
 		F1754DF72052371B00A7CF77 /* SQLiteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1754DF62052371B00A7CF77 /* SQLiteModel.swift */; };
@@ -62,6 +63,7 @@
 		F1504A1A204E912B00855D00 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F1504A20204E94FD00855D00 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 		F168386120513F3200B93D84 /* HomeDateItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDateItemCell.swift; sourceTree = "<group>"; };
+		F16F74AE207CFF6B00E6F194 /* YodoPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodoPrint.swift; sourceTree = "<group>"; };
 		F1754DF220522DAB00A7CF77 /* EMSQLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EMSQLite.swift; sourceTree = "<group>"; };
 		F1754DF42052370400A7CF77 /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		F1754DF62052371B00A7CF77 /* SQLiteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteModel.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 			isa = PBXGroup;
 			children = (
 				F1FEA64720503DCF00D7733B /* YodoConfig.swift */,
+				F16F74AE207CFF6B00E6F194 /* YodoPrint.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -597,6 +600,7 @@
 				F1FEA64820503DCF00D7733B /* YodoConfig.swift in Sources */,
 				F1504A1B204E912B00855D00 /* BaseViewController.swift in Sources */,
 				F1504A1C204E912B00855D00 /* HomeViewController.swift in Sources */,
+				F16F74AF207CFF6B00E6F194 /* YodoPrint.swift in Sources */,
 				F1754DF72052371B00A7CF77 /* SQLiteModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

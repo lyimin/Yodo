@@ -14,7 +14,9 @@ class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.addSubview(headerView) 
+        self.view.addSubview(headerView)
+        
+        Manager.default.queryFirstData();
     }
      
     override func viewDidLayoutSubviews() {

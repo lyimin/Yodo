@@ -84,13 +84,28 @@ public class Manager {
             assertionFailure("[EMSQLite] undefine \(Account.tableName) propreties")
         }
     }
-    /*
+    
+    /// 查询第一条数据
     func queryFirstData() -> Account {
+        var temp: [String: AnyObject] = [:]
+        let sql = "SELECT * FROM \(Account.tableName) WHERE createdAt = (SELECT MIN(createdAt) FROM \(Account.tableName))"
         
-        let sql = "SELECT * FROM \(Account.tableName) WHERE createdAt = (SELECT MIN(createdAt) FROM \(Account.tableName)"
-        
+        do {
+            let result = try db.prepare(sql)
+            let size = result.columnNames.count
+            YodoDebug(debug: "\(size)");
+            
+            for row in result {
+                for i in 0..<result.columnNames.count {
+                    temp.updateValue(row[i] as AnyObject, forKey: result.columnNames[i])
+                }
+            }
+        } catch {
+            YodoError(err: "fail to queryFirstData")
+        }
+        return Account(dic: temp);
     }
-    */
+ 
     /// 创建表
     public func createdAccountTable() {
         

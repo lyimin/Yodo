@@ -47,6 +47,20 @@ public struct Account {
     
     /// 创建日期
     var createdAt: Date = Date()
+    
+    init(){}
+    
+    init(dic: [String: AnyObject]) {
+        self.id = "\(dic["id"] as! Int64)"
+        self.type = AccountType(rawValue: dic["type"] as! Int)!
+        self.category = dic["category"] as! String
+        self.money =  dic["money"] as? Double ?? 0.00
+        self.remarks = dic["remarks"] as? String ?? ""
+        self.pic = dic["pic"] as? String ?? ""
+        
+//        let date = dic["createdAt"] as! String
+        
+    }
 }
 
 extension String {
