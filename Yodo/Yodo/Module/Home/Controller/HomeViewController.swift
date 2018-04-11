@@ -14,7 +14,7 @@ class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.addSubview(headerView)
+        view.addSubview(navigationView)
         let viewM = AccountViewModel()
         viewM.getDateDataSource()
     }
@@ -22,16 +22,16 @@ class HomeViewController: BaseViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        headerView.snp.makeConstraints { (make) in
+        navigationView.snp.makeConstraints { (make) in
             make.left.right.top.equalTo(self.view)
             make.height.equalTo(140)
         }
     }
     
     // MARK: - Getter | Setter
-    private lazy var headerView: HomeHeaderView = {
+    private lazy var navigationView: HomeNavigationView = {
         
-        var headerView = HomeHeaderView()
-        return headerView
+        var navigationView = HomeNavigationView()
+        return navigationView
     }()
 }
