@@ -25,6 +25,9 @@
 		F1A81C09200CA410003D2D4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1A81C08200CA410003D2D4E /* Assets.xcassets */; };
 		F1A81C17200CA410003D2D4E /* YodoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A81C16200CA410003D2D4E /* YodoTests.swift */; };
 		F1A81C22200CA410003D2D4E /* YodoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A81C21200CA410003D2D4E /* YodoUITests.swift */; };
+		F1BCD086207DA96700E4A791 /* String+Yodo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BCD085207DA96700E4A791 /* String+Yodo.swift */; };
+		F1BCD088207DAC1700E4A791 /* Date+Yodo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BCD087207DAC1700E4A791 /* Date+Yodo.swift */; };
+		F1BCD08B207DB39000E4A791 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BCD08A207DB39000E4A791 /* AccountViewModel.swift */; };
 		F1E1CAE42049553A00339163 /* helvetica-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1E1CAE32049553A00339163 /* helvetica-bold.ttf */; };
 		F1FEA64820503DCF00D7733B /* YodoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FEA64720503DCF00D7733B /* YodoConfig.swift */; };
 /* End PBXBuildFile section */
@@ -77,6 +80,9 @@
 		F1A81C1D200CA410003D2D4E /* YodoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YodoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A81C21200CA410003D2D4E /* YodoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodoUITests.swift; sourceTree = "<group>"; };
 		F1A81C23200CA410003D2D4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1BCD085207DA96700E4A791 /* String+Yodo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Yodo.swift"; sourceTree = "<group>"; };
+		F1BCD087207DAC1700E4A791 /* Date+Yodo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Yodo.swift"; sourceTree = "<group>"; };
+		F1BCD08A207DB39000E4A791 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		F1E1CAE32049553A00339163 /* helvetica-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "helvetica-bold.ttf"; sourceTree = "<group>"; };
 		F1FEA64720503DCF00D7733B /* YodoConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodoConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -168,6 +174,7 @@
 		F1504A18204E912B00855D00 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				F1BCD089207DB28100E4A791 /* ViewModel */,
 				F14AE36D206B694900F65543 /* Model */,
 				F1504A1D204E936D00855D00 /* View */,
 				F1504A19204E912B00855D00 /* Controller */,
@@ -186,8 +193,8 @@
 		F1504A1D204E936D00855D00 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F1504A20204E94FD00855D00 /* HomeHeaderView.swift */,
 				F168386120513F3200B93D84 /* HomeDateItemCell.swift */,
+				F1504A20204E94FD00855D00 /* HomeHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -228,6 +235,7 @@
 		F1A81C00200CA410003D2D4E /* Yodo */ = {
 			isa = PBXGroup;
 			children = (
+				F1BCD084207DA94C00E4A791 /* Extension */,
 				F1754DF120522D8A00A7CF77 /* EMSQLite */,
 				F1FEA64620503DB500D7733B /* Config */,
 				F1504A14204E912B00855D00 /* Module */,
@@ -255,6 +263,23 @@
 				F1A81C23200CA410003D2D4E /* Info.plist */,
 			);
 			path = YodoUITests;
+			sourceTree = "<group>";
+		};
+		F1BCD084207DA94C00E4A791 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				F1BCD085207DA96700E4A791 /* String+Yodo.swift */,
+				F1BCD087207DAC1700E4A791 /* Date+Yodo.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		F1BCD089207DB28100E4A791 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F1BCD08A207DB39000E4A791 /* AccountViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		F1E1CAE1204954EA00339163 /* Resource */ = {
@@ -590,7 +615,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1BCD086207DA96700E4A791 /* String+Yodo.swift in Sources */,
+				F1BCD08B207DB39000E4A791 /* AccountViewModel.swift in Sources */,
 				F1504A21204E94FD00855D00 /* HomeHeaderView.swift in Sources */,
+				F1BCD088207DAC1700E4A791 /* Date+Yodo.swift in Sources */,
 				F14AE36F206B695800F65543 /* Account.swift in Sources */,
 				F1754DF320522DAB00A7CF77 /* EMSQLite.swift in Sources */,
 				F168386220513F3200B93D84 /* HomeDateItemCell.swift in Sources */,

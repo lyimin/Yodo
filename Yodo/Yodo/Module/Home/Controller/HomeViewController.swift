@@ -15,8 +15,8 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         
         self.view.addSubview(headerView)
-        
-        Manager.default.queryFirstData();
+        let viewM = AccountViewModel()
+        viewM.getDateDataSource()
     }
      
     override func viewDidLayoutSubviews() {

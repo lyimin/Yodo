@@ -22,9 +22,9 @@ public class Manager {
     public let latitude = Expression<String?>("latitude")
     public let address = Expression<String?>("address")
     public let pic = Expression<String?>("pic")
-    public let createdAt = Expression<Date>("createdAt")
-    public let updatedAt = Expression<Date?>("updatedAt")
-    public let deletedAt = Expression<Date?>("deletedAt")
+    public let createdAt = Expression<String>("createdAt")
+    public let updatedAt = Expression<String?>("updatedAt")
+    public let deletedAt = Expression<String?>("deletedAt")
     
     private let docName = "com.eamon.EMSQLite"
     private let dbName = "Yodo.sqlite3"
@@ -86,14 +86,12 @@ public class Manager {
     }
     
     /// 查询第一条数据
-    func queryFirstData() -> Account {
+    func queryFirstData() -> Account? {
         var temp: [String: AnyObject] = [:]
         let sql = "SELECT * FROM \(Account.tableName) WHERE createdAt = (SELECT MIN(createdAt) FROM \(Account.tableName))"
         
         do {
             let result = try db.prepare(sql)
-            let size = result.columnNames.count
-            YodoDebug(debug: "\(size)");
             
             for row in result {
                 for i in 0..<result.columnNames.count {
@@ -103,7 +101,12 @@ public class Manager {
         } catch {
             YodoError(err: "fail to queryFirstData")
         }
-        return Account(dic: temp);
+        
+        if temp.count != 0 {
+            return Account(dic: temp);
+        }
+        
+        return nil
     }
  
     /// 创建表

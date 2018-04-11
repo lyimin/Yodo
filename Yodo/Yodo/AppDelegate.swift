@@ -75,7 +75,7 @@ extension AppDelegate {
                 model.money = Double(item)!
             }
             else if i == 4 {
-                model.createdAt = item.formatAccountDate()
+                model.createdAt = item
             }
             
             else if i == 5 {
