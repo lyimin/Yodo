@@ -30,6 +30,24 @@ class HomeHeaderView: UIView {
     }
     
     //MARK: - Getter | Setter
+    
+    private let itemHeight: CGFloat = 60
+    
+    var dates: [YodoDate] = []{
+        didSet {
+            dateCollectionView.reloadData()
+            
+            DispatchQueue.main.async {
+                // 滚到底部
+                if (self.dateCollectionView.contentSize.width > self.frame.width) {
+                    let offset = CGPoint(x: self.dateCollectionView.contentSize.width-self.frame.width, y: 0)
+                    self.dateCollectionView.setContentOffset(offset, animated: false)
+                }
+            }
+            
+        }
+    }
+    
     // 菜单
     private lazy var menuBtn: UIButton = {
         
@@ -71,11 +89,12 @@ class HomeHeaderView: UIView {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         
-        var dateCollectionView:UICollectionView = UICollectionView(frame: CGRect(x: 0, y: 10, width: frame.width, height: 50), collectionViewLayout: flowLayout)
+        var dateCollectionView: UICollectionView = UICollectionView(frame: CGRect(x: 0, y: frame.height-itemHeight-5.0, width: frame.width, height: itemHeight), collectionViewLayout: flowLayout)
         dateCollectionView.backgroundColor = .clear
         dateCollectionView.showsHorizontalScrollIndicator = false
         dateCollectionView.dataSource = self
         dateCollectionView.delegate = self
+        dateCollectionView.registerClass(HomeDateItemCell.self)
         
         return dateCollectionView
     }()
@@ -84,11 +103,35 @@ class HomeHeaderView: UIView {
 extension HomeHeaderView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return dates.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let cell = cell as! HomeDateItemCell
+        cell.date = dates[indexPath.row]
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        
+        let cell = collectionView.dequeueReusableCell(indexPath: indexPath) as HomeDateItemCell
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // YODO：
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 50, height: itemHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(0, 35, 0, 35)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 20
     }
 }
 
@@ -134,5 +177,7 @@ extension HomeHeaderView {
             make.centerY.equalTo(menuBtn)
             make.right.equalTo(chartBtn.snp.left).offset(-YodoConfig.frame.nvIconMarginLeft)
         }
+        
+        dateCollectionView.frame = CGRect(x: 0, y: frame.height-itemHeight-5.0, width: frame.width, height: itemHeight)
     }
 }

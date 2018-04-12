@@ -27,7 +27,10 @@ class AccountViewModel: NSObject {
             
             var outs: [YodoDate] = []
             for i in 0..<total {
-                let newDate = first.getYodoDate(withIndex: i)
+                var newDate = first.getYodoDate(withIndex: i)
+                if i == total-1 {
+                    newDate.isThisMonth = true
+                }
                 outs.append(newDate);
             }
             return outs

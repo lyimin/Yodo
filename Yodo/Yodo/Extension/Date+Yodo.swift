@@ -34,6 +34,6 @@ extension Date {
         let month = calendar.component(.month, from: self)
         let day = calendar.component(.day, from: self)
         
-        return ("\(year)", "\(month)", "\(day)")
+        return ("\(year)", String(format: "%02d", month), String(format: "%02d", day))
     }
 }

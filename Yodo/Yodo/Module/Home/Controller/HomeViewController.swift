@@ -15,8 +15,9 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         
         self.view.addSubview(headerView)
-        let viewM = AccountViewModel()
-        viewM.getDateDataSource()
+        
+        let dates = viewM.getDateDataSource()
+        headerView.dates = dates
     }
      
     override func viewDidLayoutSubviews() {
@@ -24,7 +25,7 @@ class HomeViewController: BaseViewController {
         
         headerView.snp.makeConstraints { (make) in
             make.left.right.top.equalTo(self.view)
-            make.height.equalTo(140)
+            make.height.equalTo(145)
         }
     }
     
@@ -34,4 +35,6 @@ class HomeViewController: BaseViewController {
         var headerView = HomeHeaderView()
         return headerView
     }()
+    
+    private let viewM = AccountViewModel()
 }
