@@ -31,7 +31,11 @@ class HomeNavigationView: UIView {
     
     //MARK: - Getter | Setter
     
+    /// item高度
     private let itemHeight: CGFloat = 60
+    
+    /// 当前选中cell
+    private weak var selectedCell: HomeDateItemCell?
     
     /// 导航栏日期数据
     var dates: [YodoDate] = []{
@@ -44,6 +48,12 @@ class HomeNavigationView: UIView {
                     let offset = CGPoint(x: self.dateCollectionView.contentSize.width-self.frame.width, y: 0)
                     self.dateCollectionView.setContentOffset(offset, animated: false)
                 }
+                
+                delay(delay: 0.1, closure: {
+                    // 默认选中最后一个cell
+                    let lastSelectedIndex = IndexPath(row: self.dates.count-1, section: 0)
+                    self.collectionView(self.dateCollectionView, didSelectItemAt: lastSelectedIndex)
+                })
             }
             
         }
@@ -96,6 +106,7 @@ class HomeNavigationView: UIView {
         dateCollectionView.dataSource = self
         dateCollectionView.delegate = self
         dateCollectionView.registerClass(HomeDateItemCell.self)
+        dateCollectionView.delaysContentTouches = false
         
         return dateCollectionView
     }()
@@ -119,7 +130,22 @@ extension HomeNavigationView: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // YODO：
+        
+        let cell = collectionView.cellForItem(at: indexPath) as? HomeDateItemCell
+        guard cell != nil && cell != selectedCell else {
+            return
+        }
+        
+        // 执行动画
+        
+        
+        if let selectedCell = selectedCell {
+            selectedCell.hiddenAnimation()
+        }
+        
+        
+        cell!.showAnimation()
+        selectedCell = cell
         
     }
     
@@ -134,6 +160,12 @@ extension HomeNavigationView: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+   
 }
 
 //MARK: - PrivateMethods

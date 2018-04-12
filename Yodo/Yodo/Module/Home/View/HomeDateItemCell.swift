@@ -15,10 +15,11 @@ class HomeDateItemCell: UICollectionViewCell, Reusable {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        layer.cornerRadius = 10
+        layer.addSublayer(bgLayer)
        
         addSubview(yearLabel)
         addSubview(monthLabel)
+        
     }
     
     override func layoutSubviews() {
@@ -37,6 +38,7 @@ class HomeDateItemCell: UICollectionViewCell, Reusable {
             self.yearLabel.text = date.year
             self.monthLabel.text = date.month
             
+            /*
             if date.isThisMonth {
 //                backgroundColor = UIColor(red: 0, green: 118.0/255, blue: 1, alpha: 1)
                 yearLabel.textColor = .white
@@ -46,6 +48,7 @@ class HomeDateItemCell: UICollectionViewCell, Reusable {
                 yearLabel.textColor = YodoConfig.color.darkGraySubTitle
                 monthLabel.textColor = YodoConfig.color.blackTitle
             }
+             */
         }
     }
     
@@ -71,44 +74,93 @@ class HomeDateItemCell: UICollectionViewCell, Reusable {
         return monthLabel
     }()
     
-    /// 背景layer
-    private var backgroundLayer: CAShapeLayer?
+    /// 背景色
+    public lazy var bgLayer: CAShapeLayer = {
+        
+        var bgLayer = CAShapeLayer()
+        bgLayer.cornerRadius = 10
+        bgLayer.frame = self.bounds
+//        bgLayer.opacity = 0
+        
+        return bgLayer
+    }()
     
-    /// 是否正在执行动画
-    var isAnimate: Bool = false
+    /// 背景layer
+    private var maskLayer: CAShapeLayer?
 }
 
 // MARK: - Public Methods
-extension HomeDateItemCell {
-    
+extension HomeDateItemCell: CAAnimationDelegate {
     
     /// 点击item时显示动画
     public func showAnimation() {
         
-        if isAnimate { return }
-        isAnimate = true
+        bgLayer.backgroundColor = YodoConfig.color.theme.cgColor
+        yearLabel.textColor = .white
+        monthLabel.textColor = .white
         
-        if backgroundLayer == nil {
+        if maskLayer == nil {
             
-            backgroundLayer = CAShapeLayer()
-            backgroundLayer!.path = UIBezierPath(roundedRect: frame, cornerRadius: 5).cgPath
-            backgroundLayer!.position = center
-            backgroundLayer!.opacity = 0;
-            backgroundLayer!.fillColor = YodoConfig.color.theme.cgColor
-            
-            layer.addSublayer(layer)
+            maskLayer = CAShapeLayer()
+            maskLayer?.path = UIBezierPath(rect: CGRect(x: 25, y: 30, width: 1, height: 1)).cgPath
+            bgLayer.mask = maskLayer
         }
         
-        let scale = self.height
+        
+        let maskAnimation = CABasicAnimation(keyPath: "path")
+        maskAnimation.fromValue = UIBezierPath(rect: CGRect(x: 25, y: 30, width: 1, height: 1)).cgPath
+        maskAnimation.toValue = UIBezierPath(roundedRect: self.bounds, cornerRadius: 10).cgPath
+        
+        let alphaAnimation = CABasicAnimation(keyPath: "opacity")
+        alphaAnimation.fromValue = 0
+        alphaAnimation.toValue = 1
         
         let animationGroup = CAAnimationGroup()
+        animationGroup.animations = [alphaAnimation, maskAnimation]
+        animationGroup.duration = 0.3
+        animationGroup.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        animationGroup.isRemovedOnCompletion = false
+        animationGroup.fillMode = kCAFillModeForwards
         
+        maskLayer?.add(animationGroup, forKey: "show")
     }
     
     
     /// 点击item时隐藏动画
     public func hiddenAnimation() {
         
+        bgLayer.backgroundColor = UIColor.clear.cgColor
+        yearLabel.textColor = YodoConfig.color.darkGraySubTitle
+        monthLabel.textColor = YodoConfig.color.blackTitle
+        
+        if let mask = maskLayer {
+            
+            let maskAnimation = CABasicAnimation(keyPath: "path")
+            maskAnimation.fromValue = UIBezierPath(roundedRect: self.bounds, cornerRadius: 10).cgPath
+            maskAnimation.toValue = UIBezierPath(rect: CGRect(x: 25, y: 30, width: 1, height: 1)).cgPath
+            
+            let alphaAnimation = CABasicAnimation(keyPath: "opacity")
+            alphaAnimation.fromValue = 1
+            alphaAnimation.toValue = 0
+            
+            let animationGroup = CAAnimationGroup()
+            animationGroup.animations = [alphaAnimation, maskAnimation]
+            animationGroup.duration = 0.3
+            animationGroup.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            animationGroup.isRemovedOnCompletion = false
+            animationGroup.fillMode = kCAFillModeForwards
+            animationGroup.delegate = self;
+            animationGroup.setValue(mask, forKey: "hidden")
+            
+            mask.add(animationGroup, forKey: "hidden")
+        }
+    }
+    
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        
+        if anim.value(forKeyPath: "hidden") != nil {
+            self.maskLayer = nil
+        }
     }
 }
 

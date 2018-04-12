@@ -30,6 +30,7 @@ class AccountViewModel: NSObject {
                 var newDate = first.getYodoDate(withIndex: i)
                 if i == total-1 {
                     newDate.isThisMonth = true
+                    newDate.isSelected = true
                 }
                 outs.append(newDate);
             }

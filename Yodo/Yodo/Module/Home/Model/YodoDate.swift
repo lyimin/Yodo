@@ -26,6 +26,9 @@ struct YodoDate {
     /// 是否是这个月
     var isThisMonth: Bool = false
     
+    /// 是否选中
+    var isSelected: Bool = false
+    
     init(date: String) {
         self.date = date.format()
         
