@@ -2,7 +2,7 @@
 //  Account.swift
 //  Yodo
 //
-//  Created by 梁亦明 on 2018/3/28.
+//  Created by eamon on 2018/3/28.
 //  Copyright © 2018年 com.eamon. All rights reserved.
 //
 
@@ -61,7 +61,6 @@ public struct Account {
         self.createdAt = dic["createdAt"] as! String
     }
 }
-
 
 extension String {
     

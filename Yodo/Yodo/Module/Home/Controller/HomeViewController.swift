@@ -2,7 +2,7 @@
 //  File.swift
 //  Yodo
 //
-//  Created by 梁亦明 on 2018/3/2.
+//  Created by eamon on 2018/3/2.
 //  Copyright © 2018年 com.eamon. All rights reserved.
 //
 
@@ -14,26 +14,25 @@ class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.addSubview(headerView)
-        
+        view.addSubview(navigationView)
         let dates = viewM.getDateDataSource()
-        headerView.dates = dates
+        navigationView.dates = dates
     }
      
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        headerView.snp.makeConstraints { (make) in
+        navigationView.snp.makeConstraints { (make) in
             make.left.right.top.equalTo(self.view)
             make.height.equalTo(145)
         }
     }
     
     // MARK: - Getter | Setter
-    private lazy var headerView: HomeHeaderView = {
+    private lazy var navigationView: HomeNavigationView = {
         
-        var headerView = HomeHeaderView()
-        return headerView
+        var navigationView = HomeNavigationView()
+        return navigationView
     }()
     
     private let viewM = AccountViewModel()

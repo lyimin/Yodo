@@ -15,9 +15,10 @@
 		F14AE377206E451000F65543 /* 20180329_account.csv in Resources */ = {isa = PBXBuildFile; fileRef = F14AE376206E451000F65543 /* 20180329_account.csv */; };
 		F1504A1B204E912B00855D00 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A17204E912B00855D00 /* BaseViewController.swift */; };
 		F1504A1C204E912B00855D00 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A1A204E912B00855D00 /* HomeViewController.swift */; };
-		F1504A21204E94FD00855D00 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A20204E94FD00855D00 /* HomeHeaderView.swift */; };
 		F168386220513F3200B93D84 /* HomeDateItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F168386120513F3200B93D84 /* HomeDateItemCell.swift */; };
 		F16F74AF207CFF6B00E6F194 /* YodoPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F74AE207CFF6B00E6F194 /* YodoPrint.swift */; };
+		F16F74B1207E63E000E6F194 /* HomeItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F74B0207E63E000E6F194 /* HomeItemCell.swift */; };
+		F16F74B3207E676100E6F194 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F74B2207E676100E6F194 /* HomeHeaderView.swift */; };
 		F1754DF320522DAB00A7CF77 /* EMSQLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1754DF220522DAB00A7CF77 /* EMSQLite.swift */; };
 		F1754DF52052370400A7CF77 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1754DF42052370400A7CF77 /* Manager.swift */; };
 		F1754DF72052371B00A7CF77 /* SQLiteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1754DF62052371B00A7CF77 /* SQLiteModel.swift */; };
@@ -30,6 +31,8 @@
 		F1BCD08B207DB39000E4A791 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BCD08A207DB39000E4A791 /* AccountViewModel.swift */; };
 		F1BCD08D207E097900E4A791 /* YodoDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BCD08C207E097900E4A791 /* YodoDate.swift */; };
 		F1BCD08F207E0BC700E4A791 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BCD08E207E0BC700E4A791 /* Reusable.swift */; };
+		F1C16A02207EFF64003C4B5A /* HomeNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A20204E94FD00855D00 /* HomeNavigationView.swift */; };
+		F1C16A04207F07C4003C4B5A /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C16A03207F07C4003C4B5A /* UIView+Frame.swift */; };
 		F1E1CAE42049553A00339163 /* helvetica-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1E1CAE32049553A00339163 /* helvetica-bold.ttf */; };
 		F1FEA64820503DCF00D7733B /* YodoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FEA64720503DCF00D7733B /* YodoConfig.swift */; };
 /* End PBXBuildFile section */
@@ -66,9 +69,11 @@
 		F14AE376206E451000F65543 /* 20180329_account.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 20180329_account.csv; sourceTree = "<group>"; };
 		F1504A17204E912B00855D00 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		F1504A1A204E912B00855D00 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		F1504A20204E94FD00855D00 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
+		F1504A20204E94FD00855D00 /* HomeNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationView.swift; sourceTree = "<group>"; };
 		F168386120513F3200B93D84 /* HomeDateItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDateItemCell.swift; sourceTree = "<group>"; };
 		F16F74AE207CFF6B00E6F194 /* YodoPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodoPrint.swift; sourceTree = "<group>"; };
+		F16F74B0207E63E000E6F194 /* HomeItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeItemCell.swift; sourceTree = "<group>"; };
+		F16F74B2207E676100E6F194 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 		F1754DF220522DAB00A7CF77 /* EMSQLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EMSQLite.swift; sourceTree = "<group>"; };
 		F1754DF42052370400A7CF77 /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		F1754DF62052371B00A7CF77 /* SQLiteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteModel.swift; sourceTree = "<group>"; };
@@ -87,6 +92,7 @@
 		F1BCD08A207DB39000E4A791 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		F1BCD08C207E097900E4A791 /* YodoDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodoDate.swift; sourceTree = "<group>"; };
 		F1BCD08E207E0BC700E4A791 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
+		F1C16A03207F07C4003C4B5A /* UIView+Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
 		F1E1CAE32049553A00339163 /* helvetica-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "helvetica-bold.ttf"; sourceTree = "<group>"; };
 		F1FEA64720503DCF00D7733B /* YodoConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodoConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -199,7 +205,9 @@
 			isa = PBXGroup;
 			children = (
 				F168386120513F3200B93D84 /* HomeDateItemCell.swift */,
-				F1504A20204E94FD00855D00 /* HomeHeaderView.swift */,
+				F1504A20204E94FD00855D00 /* HomeNavigationView.swift */,
+				F16F74B2207E676100E6F194 /* HomeHeaderView.swift */,
+				F16F74B0207E63E000E6F194 /* HomeItemCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -273,6 +281,7 @@
 		F1BCD084207DA94C00E4A791 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				F1C16A03207F07C4003C4B5A /* UIView+Frame.swift */,
 				F1BCD08E207E0BC700E4A791 /* Reusable.swift */,
 				F1BCD085207DA96700E4A791 /* String+Yodo.swift */,
 				F1BCD087207DAC1700E4A791 /* Date+Yodo.swift */,
@@ -561,6 +570,7 @@
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/ViewAnimator/ViewAnimator.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -572,6 +582,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViewAnimator.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -621,20 +632,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1C16A02207EFF64003C4B5A /* HomeNavigationView.swift in Sources */,
 				F1BCD08F207E0BC700E4A791 /* Reusable.swift in Sources */,
 				F1BCD086207DA96700E4A791 /* String+Yodo.swift in Sources */,
 				F1BCD08B207DB39000E4A791 /* AccountViewModel.swift in Sources */,
 				F1BCD08D207E097900E4A791 /* YodoDate.swift in Sources */,
-				F1504A21204E94FD00855D00 /* HomeHeaderView.swift in Sources */,
 				F1BCD088207DAC1700E4A791 /* Date+Yodo.swift in Sources */,
 				F14AE36F206B695800F65543 /* Account.swift in Sources */,
+				F16F74B1207E63E000E6F194 /* HomeItemCell.swift in Sources */,
 				F1754DF320522DAB00A7CF77 /* EMSQLite.swift in Sources */,
 				F168386220513F3200B93D84 /* HomeDateItemCell.swift in Sources */,
+				F16F74B3207E676100E6F194 /* HomeHeaderView.swift in Sources */,
 				F1754DF52052370400A7CF77 /* Manager.swift in Sources */,
 				F14AE36C206B34D200F65543 /* EMMirrorModel.swift in Sources */,
 				F1A81C02200CA410003D2D4E /* AppDelegate.swift in Sources */,
 				F1FEA64820503DCF00D7733B /* YodoConfig.swift in Sources */,
 				F1504A1B204E912B00855D00 /* BaseViewController.swift in Sources */,
+				F1C16A04207F07C4003C4B5A /* UIView+Frame.swift in Sources */,
 				F1504A1C204E912B00855D00 /* HomeViewController.swift in Sources */,
 				F16F74AF207CFF6B00E6F194 /* YodoPrint.swift in Sources */,
 				F1754DF72052371B00A7CF77 /* SQLiteModel.swift in Sources */,

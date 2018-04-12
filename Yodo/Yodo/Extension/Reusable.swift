@@ -1,8 +1,8 @@
 //
 //  Reusable.swift
-//  EyepetizerApp
+//  Yodo
 //
-//  Created by 梁亦明 on 16/3/16.
+//  Created by eamon on 16/3/16.
 //  Copyright © 2016年 xiaoming. All rights reserved.
 //
 
