@@ -12,10 +12,19 @@ class HomeHeaderView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        addSubview(incomeView)
+        addSubview(expendView)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        //TODO:
     }
     
     //MARK: - Getter | Setter
@@ -30,32 +39,106 @@ class HomeHeaderView: UIView {
         return contentView
     }()
     
-    /// 收入图标
-    private lazy var inIconImageView: UIImageView = {
+    /// 收入
+    private lazy var incomeView: HomeHeaderItemView = {
         
-        var inIconImageView = UIImageView()
-        inIconImageView.image = UIImage(named: "ic_home_income")
-        return inIconImageView
+        var incomeView = HomeHeaderItemView()
+        incomeView.icon = UIImage(named: "ic_home_income")
+        return incomeView
     }()
     
-    /// 收入金额
-    private lazy var inMoneyLabel: UILabel = {
-       
-        var inMoneyLabel = UILabel()
-        inMoneyLabel.textColor = YodoConfig.color.blackTitle
-        inMoneyLabel.font = YodoConfig.font.bold(size: 20)
+    /// 支出
+    private lazy var expendView: HomeHeaderItemView = {
         
-        return inMoneyLabel
+        var expendView = HomeHeaderItemView()
+        expendView.icon = UIImage(named: "ic_home_expend")
+        
+        return expendView
     }()
     
-    /// 收入标题
-    private lazy var inTitleLabel: UILabel = {
+    /// 分割线
+    private lazy var sepLineView: UIView = {
         
-        var inTitleLabel = UILabel()
-        inTitleLabel.textColor = YodoConfig.color.darkGraySubTitle
-        inTitleLabel.font = YodoConfig.font.bold(size: 12)
+        var sepLineView = UIView()
         
-        return inTitleLabel
+        
+        return sepLineView
     }()
 }
 
+
+private class HomeHeaderItemView: UIView {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        addSubview(iconView)
+        addSubview(moneyLabel)
+        addSubview(titleLabel)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        iconView.snp.makeConstraints { (make) in
+            make.size.equalTo(CGSize(width: 30, height: 30))
+            make.left.equalTo(self).offset(20)
+            make.centerY.equalTo(self)
+        }
+        
+        moneyLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(iconView.snp.right).offset(20)
+            make.height.equalTo(25)
+            make.right.equalTo(self).offset(-10)
+            make.centerY.equalTo(iconView).offset(-5)
+        }
+        
+        titleLabel.snp.makeConstraints { (make) in
+            make.left.right.equalTo(moneyLabel)
+            make.height.equalTo(20)
+            make.centerY.equalTo(iconView).offset(5)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - Getter | Setter
+    var icon: UIImage! {
+        didSet {
+            iconView.image = icon
+        }
+    }
+    
+    /// 收入图标
+    private lazy var iconView: UIImageView = {
+        
+        var iconView = UIImageView()
+        iconView.contentMode = .scaleAspectFit
+        
+        return iconView
+    }()
+    
+    /// 收入金额
+    private lazy var moneyLabel: UILabel = {
+        
+        var moneyLabel = UILabel()
+        moneyLabel.text = "5403.35"
+        moneyLabel.textColor = YodoConfig.color.blackTitle
+        moneyLabel.font = YodoConfig.font.bold(size: 20)
+        
+        return moneyLabel
+    }()
+    
+    /// 收入标题
+    private lazy var titleLabel: UILabel = {
+        
+        var titleLabel = UILabel()
+        titleLabel.text = "1月收入"
+        titleLabel.textColor = YodoConfig.color.darkGraySubTitle
+        titleLabel.font = YodoConfig.font.bold(size: 12)
+        
+        return titleLabel
+    }()
+}
