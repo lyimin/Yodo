@@ -154,6 +154,12 @@ extension HomeNavigationView: UICollectionViewDataSource, UICollectionViewDelega
             return
         }
         
+        if let last = selectedIndex {
+            dates[last.row].isSelected = false
+        }
+        dates[indexPath.row].isSelected = true
+        selectedIndex = indexPath
+        
         showAnimation(withLastIndex: selectedIndex, indexPath, currentCell: cell!)
     }
     
@@ -220,16 +226,12 @@ extension HomeNavigationView {
     /// 选择框执行缩放和渐变动画
     private func showAnimation(withLastIndex last: IndexPath?, _ index: IndexPath, currentCell current: HomeDateItemCell) {
     
-        if let last = last {
-            self.dates[last.row].isSelected = false
-        }
-        self.dates[index.row].isSelected = true
         selectView.frame = current.frame
         selectView.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
         UIView.animate(withDuration: 0.2, animations: {
             self.selectView.transform = CGAffineTransform(scaleX: 1, y: 1)
         }) { (final) in
-            self.selectedIndex = index
+            
         }
         
     }
