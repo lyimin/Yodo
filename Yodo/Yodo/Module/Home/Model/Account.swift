@@ -11,18 +11,16 @@ import SQLite
 
 
 
-/// 账单类型
-///
-/// - expend: 支出
-/// - income: 收入
-enum AccountType: Int {
-    case expend = 0
-    case income
-}
-
 public struct Account {
     
-    public static let tableName = "account"
+    /// 账单类型
+    ///
+    /// - expend: 支出
+    /// - income: 收入
+    enum AccountType: Int {
+        case expend = 0
+        case income
+    }
     
     /// 账单id
     var id: String = ""
@@ -64,14 +62,14 @@ public struct Account {
 
 extension String {
     
-    func formatAccountType() -> AccountType {
+    func formatAccountType() -> Account.AccountType {
         switch self {
         case "支出":
-            return AccountType.expend
+            return Account.AccountType.expend
         case "收入":
-            return AccountType.income
+            return Account.AccountType.income
         default:
-            return AccountType.expend
+            return Account.AccountType.expend
         }
     }
 }

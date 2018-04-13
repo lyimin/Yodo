@@ -53,6 +53,7 @@ class HomeNavigationView: UIView {
                     delay(delay: 0.1, closure: {
                         // 默认选中最后一个cell
                         let lastSelectedIndex = IndexPath(row: self.dates.count-1, section: 0)
+                        
                         self.collectionView(self.dateView, didSelectItemAt: lastSelectedIndex)
                     })
                 }

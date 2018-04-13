@@ -11,6 +11,7 @@ import SQLite
 
 public class AccountManager {
     
+    public let tableName = "account"
     public let accountT = Table("account")
     
     public let id = Expression<Int64>("id")
@@ -51,45 +52,17 @@ public class AccountManager {
             assertionFailure("[EMSQLite] fail to create directory \(self.path)")
         }
     }
-    
-    /// 创建数据库
-    /// - withName 数据库名称
-    public func createdDB(withName name: String?) -> Self {
-        
-        let dbName = name ?? self.dbName
-        let fileName = (path as NSString).appendingPathComponent(dbName)
-        
-        debugPrint("[EMSQLite] connection db. path: \(fileName)")
-    
-        do {
-            AccountManager.default.db = try Connection(fileName)
-        } catch {
-            assertionFailure("[EMSQLite] fail to create db \(dbName)")
-        }
-    
-        return self
-    }
-    
-    
-    /// 插入数据
-    ///
-    /// - Parameter model: 账单model
-    func insertAccount(model: Account) {
-        let sql = "INSERT INTO \(Account.tableName) (type, category, money, remarks, address, pic, createdAt) VALUES " +
-        "(\(model.type.rawValue), '\(model.category)', \(model.money), '\(model.remarks)', '\(model.address)', '\(model.pic)', '\(model.createdAt)')"
-        do {
-            try db.execute(sql)
-            debugPrint("插入成功)")
-        } catch {
-            assertionFailure("[EMSQLite] undefine \(Account.tableName) propreties")
-        }
-    }
+}
+
+// MARK: - Query
+extension AccountManager {
     
     /// 查询第一条数据
     func queryFirstData() -> Account? {
-        var temp: [String: AnyObject] = [:]
-        let sql = "SELECT * FROM \(Account.tableName) WHERE createdAt = (SELECT MIN(createdAt) FROM \(Account.tableName))"
         
+        let sql = "SELECT * FROM \(tableName) WHERE createdAt = (SELECT MIN(createdAt) FROM \(tableName))"
+        
+        var temp: [String: AnyObject] = [:]
         do {
             let result = try db.prepare(sql)
             
@@ -108,7 +81,73 @@ public class AccountManager {
         
         return nil
     }
- 
+    
+    /// 查询某月的数据
+    ///
+    /// - Parameter withDate: 日期对象
+    func findMonthAccounds(withDate date: YodoDate, withType type: Account.AccountType?) -> [Account] {
+        
+        var sql = "SELECT * FROM \(tableName) WHERE createdAt LIKE '\(date.year)-\(date.month)-%'"
+        if let type = type {
+            sql = sql + " AND type = \(type.rawValue)"
+        }
+        
+        // TODO:
+        var temp: [Account] = []
+        do {
+            let result = try db.prepare(sql)
+        } catch {
+            
+        }
+    }
+    
+    /// 执行查询语句
+    private func find(withSQL sql: String) -> Statement? {
+        
+    }
+}
+
+
+// MARK: - Insert
+extension AccountManager {
+    
+    /// 插入数据
+    ///
+    /// - Parameter model: 账单model
+    func insertAccount(model: Account) {
+        let sql = "INSERT INTO \(tableName) (type, category, money, remarks, address, pic, createdAt) VALUES " +
+        "(\(model.type.rawValue), '\(model.category)', \(model.money), '\(model.remarks)', '\(model.address)', '\(model.pic)', '\(model.createdAt)')"
+        do {
+            try db.execute(sql)
+            debugPrint("插入成功)")
+        } catch {
+            assertionFailure("[EMSQLite] undefine \(tableName) propreties")
+        }
+    }
+}
+
+
+// MARK: - Created
+extension AccountManager {
+    
+    /// 创建数据库
+    /// - withName 数据库名称
+    public func createdDB(withName name: String?) -> Self {
+        
+        let dbName = name ?? self.dbName
+        let fileName = (path as NSString).appendingPathComponent(dbName)
+        
+        debugPrint("[EMSQLite] connection db. path: \(fileName)")
+        
+        do {
+            AccountManager.default.db = try Connection(fileName)
+        } catch {
+            assertionFailure("[EMSQLite] fail to create db \(dbName)")
+        }
+        
+        return self
+    }
+    
     /// 创建表
     public func createdAccountTable() {
         

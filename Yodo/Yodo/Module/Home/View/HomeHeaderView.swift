@@ -13,8 +13,10 @@ class HomeHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubview(incomeView)
-        addSubview(expendView)
+        addSubview(contentView)
+        contentView.addSubview(incomeView)
+        contentView.addSubview(expendView)
+        contentView.addSubview(sepLineView)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -24,7 +26,25 @@ class HomeHeaderView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        //TODO:
+        contentView.snp.makeConstraints { (make) in
+            make.left.top.equalTo(self).offset(20)
+            make.bottom.right.equalTo(self).offset(-20)
+        }
+        
+        incomeView.snp.makeConstraints { (make) in
+            make.left.top.bottom.equalTo(contentView)
+            make.width.equalTo(contentView).multipliedBy(0.5)
+        }
+        
+        expendView.snp.makeConstraints { (make) in
+            make.right.top.bottom.equalTo(contentView)
+            make.width.equalTo(contentView).multipliedBy(0.5)
+        }
+        
+        sepLineView.snp.makeConstraints { (make) in
+            make.size.equalTo(CGSize(width: 1, height: 20))
+            make.center.equalTo(contentView)
+        }
     }
     
     //MARK: - Getter | Setter
@@ -60,7 +80,7 @@ class HomeHeaderView: UIView {
     private lazy var sepLineView: UIView = {
         
         var sepLineView = UIView()
-        
+        sepLineView.backgroundColor = YodoConfig.color.sepLine
         
         return sepLineView
     }()
@@ -90,13 +110,13 @@ private class HomeHeaderItemView: UIView {
             make.left.equalTo(iconView.snp.right).offset(20)
             make.height.equalTo(25)
             make.right.equalTo(self).offset(-10)
-            make.centerY.equalTo(iconView).offset(-5)
+            make.centerY.equalTo(iconView).offset(-10)
         }
         
         titleLabel.snp.makeConstraints { (make) in
             make.left.right.equalTo(moneyLabel)
             make.height.equalTo(20)
-            make.centerY.equalTo(iconView).offset(5)
+            make.centerY.equalTo(iconView).offset(10)
         }
     }
     
