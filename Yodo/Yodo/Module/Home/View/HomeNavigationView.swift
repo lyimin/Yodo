@@ -35,25 +35,27 @@ class HomeNavigationView: UIView {
     private let itemHeight: CGFloat = 60
     
     /// 当前选中cell
-    private weak var selectedCell: HomeDateItemCell?
+    private var selectedIndex: IndexPath?
     
     /// 导航栏日期数据
     var dates: [YodoDate] = []{
         didSet {
-            dateCollectionView.reloadData()
+            dateView.reloadData()
             
             DispatchQueue.main.async {
-                // 滚到底部
-                if (self.dateCollectionView.contentSize.width > self.frame.width) {
-                    let offset = CGPoint(x: self.dateCollectionView.contentSize.width-self.frame.width, y: 0)
-                    self.dateCollectionView.setContentOffset(offset, animated: false)
-                }
                 
-                delay(delay: 0.1, closure: {
-                    // 默认选中最后一个cell
-                    let lastSelectedIndex = IndexPath(row: self.dates.count-1, section: 0)
-                    self.collectionView(self.dateCollectionView, didSelectItemAt: lastSelectedIndex)
-                })
+                // 滚到底部
+                if (self.dateView.contentSize.width > self.frame.width && oldValue.count == 0) {
+                    let offset = CGPoint(x: self.dateView.contentSize.width-self.frame.width, y: 0)
+                    self.dateView.setContentOffset(offset, animated: false)
+                    self.dateView.insertSubview(self.selectView, at: 0)
+                    
+                    delay(delay: 0.1, closure: {
+                        // 默认选中最后一个cell
+                        let lastSelectedIndex = IndexPath(row: self.dates.count-1, section: 0)
+                        self.collectionView(self.dateView, didSelectItemAt: lastSelectedIndex)
+                    })
+                }
             }
             
         }
@@ -93,22 +95,36 @@ class HomeNavigationView: UIView {
         return chartBtn
     }()
     
+    /// 选中背景view
+    private lazy var selectView: UIView = {
+        
+        var selectView = UIView()
+        selectView.layer.cornerRadius = 10
+        selectView.backgroundColor = YodoConfig.color.theme
+        return selectView
+    }()
+    
+    enum DateViewType: Int {
+        case normal = 100
+        case hight = 101
+    }
     
     /// 日期
-    private lazy var dateCollectionView: UICollectionView = {
+    private lazy var dateView: UICollectionView = {
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         
-        var dateCollectionView: UICollectionView = UICollectionView(frame: CGRect(x: 0, y: frame.height-itemHeight-5.0, width: frame.width, height: itemHeight), collectionViewLayout: flowLayout)
-        dateCollectionView.backgroundColor = .clear
-        dateCollectionView.showsHorizontalScrollIndicator = false
-        dateCollectionView.dataSource = self
-        dateCollectionView.delegate = self
-        dateCollectionView.registerClass(HomeDateItemCell.self)
-        dateCollectionView.delaysContentTouches = false
+        var dateView: UICollectionView = UICollectionView(frame: CGRect(x: 0, y: frame.height-itemHeight-5.0, width: frame.width, height: itemHeight), collectionViewLayout: flowLayout)
+        dateView.tag = DateViewType.normal.rawValue
+        dateView.backgroundColor = .clear
+        dateView.showsHorizontalScrollIndicator = false
+        dateView.dataSource = self
+        dateView.delegate = self
+        dateView.registerClass(HomeDateItemCell.self)
+        dateView.delaysContentTouches = false
         
-        return dateCollectionView
+        return dateView
     }()
 }
 
@@ -119,6 +135,7 @@ extension HomeNavigationView: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
         let cell = cell as! HomeDateItemCell
         cell.date = dates[indexPath.row]
     }
@@ -131,22 +148,13 @@ extension HomeNavigationView: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        
         let cell = collectionView.cellForItem(at: indexPath) as? HomeDateItemCell
-        guard cell != nil && cell != selectedCell else {
+        guard cell != nil && indexPath != selectedIndex else {
             return
         }
         
-        // 执行动画
-        
-        
-        if let selectedCell = selectedCell {
-            selectedCell.hiddenAnimation()
-        }
-        
-        
-        cell!.showAnimation()
-        selectedCell = cell
-        
+        showAnimation(withLastIndex: selectedIndex, indexPath, currentCell: cell!)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -160,12 +168,7 @@ extension HomeNavigationView: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
-    
-    func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-   
+
 }
 
 //MARK: - PrivateMethods
@@ -180,7 +183,7 @@ extension HomeNavigationView {
         addSubview(sepLine)
         addSubview(titleLabel)
         addSubview(chartBtn)
-        addSubview(dateCollectionView)
+        addSubview(dateView)
     }
     
     
@@ -211,6 +214,23 @@ extension HomeNavigationView {
             make.right.equalTo(chartBtn.snp.left).offset(-YodoConfig.frame.nvIconMarginLeft)
         }
         
-        dateCollectionView.frame = CGRect(x: 0, y: frame.height-itemHeight-5.0, width: frame.width, height: itemHeight)
+        dateView.frame = CGRect(x: 0, y: frame.height-itemHeight-5.0, width: frame.width, height: itemHeight)
+    }
+    
+    /// 选择框执行缩放和渐变动画
+    private func showAnimation(withLastIndex last: IndexPath?, _ index: IndexPath, currentCell current: HomeDateItemCell) {
+    
+        if let last = last {
+            self.dates[last.row].isSelected = false
+        }
+        self.dates[index.row].isSelected = true
+        selectView.frame = current.frame
+        selectView.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+        UIView.animate(withDuration: 0.2, animations: {
+            self.selectView.transform = CGAffineTransform(scaleX: 1, y: 1)
+        }) { (final) in
+            self.selectedIndex = index
+        }
+        
     }
 }

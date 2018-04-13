@@ -15,8 +15,6 @@ class HomeDateItemCell: UICollectionViewCell, Reusable {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        layer.addSublayer(bgLayer)
-       
         addSubview(yearLabel)
         addSubview(monthLabel)
         
@@ -38,17 +36,13 @@ class HomeDateItemCell: UICollectionViewCell, Reusable {
             self.yearLabel.text = date.year
             self.monthLabel.text = date.month
             
-            /*
-            if date.isThisMonth {
-//                backgroundColor = UIColor(red: 0, green: 118.0/255, blue: 1, alpha: 1)
+            if date.isSelected {
                 yearLabel.textColor = .white
                 monthLabel.textColor = .white
             } else {
-//                backgroundColor = UIColor.clear
                 yearLabel.textColor = YodoConfig.color.darkGraySubTitle
                 monthLabel.textColor = YodoConfig.color.blackTitle
             }
-             */
         }
     }
     
@@ -73,25 +67,12 @@ class HomeDateItemCell: UICollectionViewCell, Reusable {
         
         return monthLabel
     }()
-    
-    /// 背景色
-    public lazy var bgLayer: CAShapeLayer = {
-        
-        var bgLayer = CAShapeLayer()
-        bgLayer.cornerRadius = 10
-        bgLayer.frame = self.bounds
-//        bgLayer.opacity = 0
-        
-        return bgLayer
-    }()
-    
-    /// 背景layer
-    private var maskLayer: CAShapeLayer?
 }
 
 // MARK: - Public Methods
 extension HomeDateItemCell: CAAnimationDelegate {
     
+    /*
     /// 点击item时显示动画
     public func showAnimation() {
         
@@ -162,6 +143,7 @@ extension HomeDateItemCell: CAAnimationDelegate {
             self.maskLayer = nil
         }
     }
+    */
 }
 
 // MARK: - Private Methods
@@ -175,7 +157,7 @@ extension HomeDateItemCell {
             make.top.equalTo(self).offset(5)
             make.height.equalTo(20)
         }
-        
+    
         monthLabel.snp.makeConstraints { (make) in
             make.left.right.equalTo(self)
             make.height.equalTo(30)
