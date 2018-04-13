@@ -13,7 +13,7 @@ class AccountViewModel: NSObject {
     /// 获取日期数据
     func getDateDataSource() -> [YodoDate] {
         
-        let firstDate = Manager.default.queryFirstData()?.createdAt;
+        let firstDate = AccountManager.default.queryFirstData()?.createdAt;
         let nowDate = Date().toString()
         
         if let firstDate = firstDate {

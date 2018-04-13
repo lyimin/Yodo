@@ -1,5 +1,5 @@
 //
-//  Manager.swift
+//  AccountManager.swift
 //  Yodo
 //
 //  Created by eamon on 2018/3/9.
@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-public class Manager {
+public class AccountManager {
     
     public let accountT = Table("account")
     
@@ -30,9 +30,9 @@ public class Manager {
     private let dbName = "Yodo.sqlite3"
     
     // 单例对象
-    public static let `default`: Manager = {
+    public static let `default`: AccountManager = {
        
-        return Manager()
+        return AccountManager()
     }()
     
     // 数据库保存地址
@@ -62,7 +62,7 @@ public class Manager {
         debugPrint("[EMSQLite] connection db. path: \(fileName)")
     
         do {
-            Manager.default.db = try Connection(fileName)
+            AccountManager.default.db = try Connection(fileName)
         } catch {
             assertionFailure("[EMSQLite] fail to create db \(dbName)")
         }

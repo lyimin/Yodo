@@ -33,7 +33,7 @@ extension AppDelegate {
     /// 初始化db
     private func initDB() {
         
-        let manager = createdDB(databaseName: nil)
+        let manager = AccountManager.default.createdDB(withName: nil)
         manager.db.busyTimeout = 5
         manager.db.busyHandler { (tries) -> Bool in
             return tries >= 3 ?false :true
@@ -84,6 +84,6 @@ extension AppDelegate {
                 continue
             }
         }
-        Manager.default.insertAccount(model: model)
+        AccountManager.default.insertAccount(model: model)
     }
 }
