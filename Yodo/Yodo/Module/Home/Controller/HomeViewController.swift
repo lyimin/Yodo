@@ -41,6 +41,7 @@ class HomeViewController: BaseViewController {
     private lazy var navigationView: HomeNavigationView = {
         
         var navigationView = HomeNavigationView()
+        navigationView.delegate = self
         return navigationView
     }()
     
@@ -64,6 +65,7 @@ class HomeViewController: BaseViewController {
     private let viewM = AccountViewModel()
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -74,3 +76,19 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
 }
+
+// MARK: - HomeNavigationViewDelegate
+extension HomeViewController: HomeNavigationViewDelegate {
+    
+    /// 点击日期
+    func navigationView(_ navigationView: HomeNavigationView, itemDidSelectedAt indexPath: IndexPath, _ date: YodoDate) {
+        
+        // 获取列表数据
+        let accounts = viewM.getListData(withYodoDate: date)
+        YodoDebug(debug: "\(accounts.count)")
+    }
+    
+    
+}
+
+

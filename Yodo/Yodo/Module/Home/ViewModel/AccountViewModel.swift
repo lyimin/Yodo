@@ -40,8 +40,17 @@ class AccountViewModel: NSObject {
             // 数据库没有数据
         }
         
-        
-        
         return []
+    }
+    
+    
+    /// 获取列表数据
+    ///
+    /// - Parameter date: 日期对象
+    /// - Returns: 返回当前日期对象对应的数据
+    func getListData(withYodoDate date: YodoDate) -> [Account] {
+        
+        let accounts = AccountManager.default.findMonthAccounds(withDate: date)
+        return accounts
     }
 }

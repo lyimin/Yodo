@@ -63,18 +63,16 @@ extension AccountManager {
         let sql = "SELECT * FROM \(tableName) WHERE createdAt = (SELECT MIN(createdAt) FROM \(tableName))"
         
         var temp: [String: AnyObject] = [:]
-        do {
-            let result = try db.prepare(sql)
+        
+        let result = find(withSQL: sql)
+        if let result = result {
             
             for row in result {
                 for i in 0..<result.columnNames.count {
                     temp.updateValue(row[i] as AnyObject, forKey: result.columnNames[i])
                 }
             }
-        } catch {
-            YodoError(err: "fail to queryFirstData")
         }
-        
         if temp.count != 0 {
             return Account(dic: temp);
         }
@@ -85,25 +83,48 @@ extension AccountManager {
     /// 查询某月的数据
     ///
     /// - Parameter withDate: 日期对象
-    func findMonthAccounds(withDate date: YodoDate, withType type: Account.AccountType?) -> [Account] {
+    
+    func findMonthAccounds(withDate date: YodoDate, withType type: Account.AccountType? = nil) -> [Account] {
         
         var sql = "SELECT * FROM \(tableName) WHERE createdAt LIKE '\(date.year)-\(date.month)-%'"
         if let type = type {
             sql = sql + " AND type = \(type.rawValue)"
         }
         
-        // TODO:
-        var temp: [Account] = []
-        do {
-            let result = try db.prepare(sql)
-        } catch {
+        YodoError(err:" \(Thread.isMainThread)")
+        var out: [Account] = []
+        
+        let result = find(withSQL: sql)
+        if let result = result {
             
+            var temp: [[String: AnyObject]] = []
+            for row in result {
+                var obj: [String: AnyObject] = [:]
+                for i in 0..<result.columnNames.count {
+                    obj.updateValue(row[i] as AnyObject, forKey: result.columnNames[i])
+                }
+                temp.append(obj)
+            }
+            
+            // dic -> Account
+            for t in temp {
+                out.append(Account(dic: t))
+            }
         }
+        
+        return out
     }
     
     /// 执行查询语句
     private func find(withSQL sql: String) -> Statement? {
         
+        do {
+            return try db.prepare(sql)
+        } catch {
+            YodoError(err: "execute sql statement error: \(sql)")
+        }
+        
+        return nil
     }
 }
 

@@ -9,6 +9,10 @@
 import UIKit
 import SnapKit
 
+protocol HomeNavigationViewDelegate: class {
+    /// 点击item回调
+    func navigationView(_ navigationView: HomeNavigationView, itemDidSelectedAt indexPath: IndexPath, _ date: YodoDate)
+}
 
 class HomeNavigationView: UIView {
 
@@ -30,6 +34,7 @@ class HomeNavigationView: UIView {
     }
     
     //MARK: - Getter | Setter
+    weak var delegate: HomeNavigationViewDelegate?
     
     /// item高度
     private let itemHeight: CGFloat = 60
@@ -58,7 +63,6 @@ class HomeNavigationView: UIView {
                     })
                 }
             }
-            
         }
     }
     
@@ -149,12 +153,12 @@ extension HomeNavigationView: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        
         let cell = collectionView.cellForItem(at: indexPath) as? HomeDateItemCell
         guard cell != nil && indexPath != selectedIndex else {
             return
         }
         
+        // 执行动画
         if let last = selectedIndex {
             dates[last.row].isSelected = false
         }
@@ -162,6 +166,11 @@ extension HomeNavigationView: UICollectionViewDataSource, UICollectionViewDelega
         selectedIndex = indexPath
         
         showAnimation(withLastIndex: selectedIndex, indexPath, currentCell: cell!)
+        
+        // 回调给控制器
+        if let delegate = delegate {
+            delegate.navigationView(self, itemDidSelectedAt: indexPath, dates[indexPath.row])
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
