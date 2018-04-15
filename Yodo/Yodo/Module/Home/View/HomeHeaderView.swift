@@ -50,6 +50,30 @@ class HomeHeaderView: UIView {
     
     //MARK: - Getter | Setter
     
+    var incomeMoney: String = "0.00" {
+        didSet {
+            incomeView.money = incomeMoney
+        }
+    }
+    
+    var incomeMonth: String = "" {
+        didSet {
+            incomeView.month = "\(incomeMonth)月收入"
+        }
+    }
+    
+    var expendMoney: String = "0.00" {
+        didSet {
+            expendView.money = expendMoney
+        }
+    }
+    
+    var expendMonth: String = "" {
+        didSet {
+            expendView.month = "\(expendMonth)月支出"
+        }
+    }
+    
     /// 内容区域
     private lazy var contentView: UIView = {
         
@@ -132,6 +156,18 @@ private class HomeHeaderItemView: UIView {
         }
     }
     
+    var money: String! {
+        didSet {
+            moneyLabel.animate(toValue: Double(money)!)
+        }
+    }
+    
+    var month: String! {
+        didSet {
+            titleLabel.text = month
+        }
+    }
+    
     /// 收入图标
     private lazy var iconView: UIImageView = {
         
@@ -142,10 +178,9 @@ private class HomeHeaderItemView: UIView {
     }()
     
     /// 收入金额
-    private lazy var moneyLabel: UILabel = {
+    private lazy var moneyLabel: CountingLabel = {
         
-        var moneyLabel = UILabel()
-        moneyLabel.text = "5403.35"
+        var moneyLabel = CountingLabel()
         moneyLabel.textColor = YodoConfig.color.blackTitle
         moneyLabel.font = YodoConfig.font.bold(size: 20)
         
@@ -156,7 +191,6 @@ private class HomeHeaderItemView: UIView {
     private lazy var titleLabel: UILabel = {
         
         var titleLabel = UILabel()
-        titleLabel.text = "1月收入"
         titleLabel.textColor = YodoConfig.color.darkGraySubTitle
         titleLabel.font = YodoConfig.font.bold(size: 12)
         

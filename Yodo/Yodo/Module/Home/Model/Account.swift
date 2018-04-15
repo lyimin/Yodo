@@ -46,17 +46,21 @@ public struct Account {
     /// 创建日期
     var createdAt: String = ""
     
+    /// 日期对象
+    var date: YodoDate!
+    
     init(){}
     
     init(dic: [String: AnyObject]) {
-        self.id = "\(dic["id"] as! Int64)"
-        self.type = AccountType(rawValue: dic["type"] as! Int)!
-        self.category = dic["category"] as! String
-        self.money =  dic["money"] as? Double ?? 0.00
-        self.remarks = dic["remarks"] as? String ?? ""
-        self.pic = dic["pic"] as? String ?? ""
+        id = "\(dic["id"] as! Int64)"
+        type = AccountType(rawValue: dic["type"] as! Int)!
+        category = dic["category"] as! String
+        money =  dic["money"] as? Double ?? 0.00
+        remarks = dic["remarks"] as? String ?? ""
+        pic = dic["pic"] as? String ?? ""
         
-        self.createdAt = dic["createdAt"] as! String
+        createdAt = dic["createdAt"] as! String
+        date = YodoDate(date: createdAt)
     }
 }
 

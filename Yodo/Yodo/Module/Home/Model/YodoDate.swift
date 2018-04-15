@@ -65,7 +65,7 @@ struct YodoDate {
         }
         
         
-        /* 这种方法行不通，计算得不准确
+        /* 这种方法行不通，计算的结果不是自己想要的
          let calendar = Calendar.current
          let com = calendar.dateComponents([.month], from: self.date.toDate(), to: to.date.toDate())
          return com.month ?? 0

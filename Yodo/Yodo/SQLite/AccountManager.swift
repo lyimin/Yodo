@@ -91,7 +91,6 @@ extension AccountManager {
             sql = sql + " AND type = \(type.rawValue)"
         }
         
-        YodoError(err:" \(Thread.isMainThread)")
         var out: [Account] = []
         
         let result = find(withSQL: sql)

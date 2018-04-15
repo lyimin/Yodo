@@ -53,12 +53,16 @@ class HomeViewController: BaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        
         tableView.tableFooterView = UIView()
-        let headerView = HomeHeaderView(frame: CGRect(x: 0, y: 0, width: view.width-40, height: 120))
         tableView.tableHeaderView = headerView
         
         return tableView
+    }()
+    
+    /// 列表顶部view
+    private lazy var headerView: HomeHeaderView = {
+        let headerView = HomeHeaderView(frame: CGRect(x: 0, y: 0, width: view.width-40, height: 120))
+        return headerView
     }()
     
     /// viewModel
@@ -85,7 +89,12 @@ extension HomeViewController: HomeNavigationViewDelegate {
         
         // 获取列表数据
         let accounts = viewM.getListData(withYodoDate: date)
-        YodoDebug(debug: "\(accounts.count)")
+        let total = viewM.calculatePrice(withAccounts: accounts)
+        
+        headerView.expendMoney = total.expend
+        headerView.expendMonth = date.month
+        headerView.incomeMoney = total.income
+        headerView.incomeMonth = date.month
     }
     
     

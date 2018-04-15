@@ -53,4 +53,23 @@ class AccountViewModel: NSObject {
         let accounts = AccountManager.default.findMonthAccounds(withDate: date)
         return accounts
     }
+    
+    /// 计算总价格
+    ///
+    /// - Parameter accounts: 账单数组
+    func calculatePrice(withAccounts accounts: [Account]) -> (expend: String, income: String) {
+        
+        var expTotal: Double = 0
+        var incomeTotal: Double = 0
+        
+        for account in accounts {
+            
+            if account.type == Account.AccountType.expend {
+                expTotal += account.money
+            } else if account.type == Account.AccountType.income {
+                incomeTotal += account.money
+            }
+        }
+        return (String(format: "%.2f", expTotal), String(format: "%.2f", incomeTotal))
+    }
 }
