@@ -90,6 +90,7 @@ extension AccountManager {
         if let type = type {
             sql = sql + " AND type = \(type.rawValue)"
         }
+        sql = sql + " ORDER BY createdAt DESC"
         
         var out: [Account] = []
         
