@@ -10,6 +10,8 @@ import UIKit
 
 class AccountViewModel: NSObject {
     
+    var accounts: [Account] = []
+    
     /// 获取日期数据
     func getDateDataSource() -> [YodoDate] {
         
@@ -51,6 +53,7 @@ class AccountViewModel: NSObject {
     func getListData(withYodoDate date: YodoDate) -> [[Account]] {
         
         let accounts = AccountManager.default.findMonthAccounds(withDate: date)
+        self.accounts = accounts
         
         var dataSource: [[Account]] = []
         

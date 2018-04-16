@@ -89,7 +89,7 @@ extension HomeViewController: HomeNavigationViewDelegate {
         
         // 获取列表数据
         let accounts = viewM.getListData(withYodoDate: date)
-        let total = viewM.calculatePrice(withAccounts: accounts)
+        let total = viewM.calculatePrice(withAccounts: viewM.accounts)
         
         headerView.expendMoney = total.expend
         headerView.expendMonth = date.month
