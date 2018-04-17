@@ -17,7 +17,6 @@ class HomeDateItemCell: UICollectionViewCell, Reusable {
         
         addSubview(yearLabel)
         addSubview(monthLabel)
-        
     }
     
     override func layoutSubviews() {

@@ -36,6 +36,7 @@ class HomeViewController: BaseViewController {
     }
     
     // MARK: - Getter | Setter
+    private lazy var dataSource: [[Account]] = []
     
     /// 导航栏
     private lazy var navigationView: HomeNavigationView = {
@@ -54,6 +55,7 @@ class HomeViewController: BaseViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
+        tableView.rowHeight = 60
         tableView.tableHeaderView = headerView
         
         return tableView
@@ -72,12 +74,20 @@ class HomeViewController: BaseViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return dataSource.count
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataSource[section].count
+    }
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let rowData = dataSource[indexPath.section][indexPath.row]
+        let cell = HomeItemCell.cell(withTableView: tableView)
+        cell.account = rowData
+        return cell
     }
 }
 
@@ -88,13 +98,15 @@ extension HomeViewController: HomeNavigationViewDelegate {
     func navigationView(_ navigationView: HomeNavigationView, itemDidSelectedAt indexPath: IndexPath, _ date: YodoDate) {
         
         // 获取列表数据
-        let accounts = viewM.getListData(withYodoDate: date)
+        dataSource = viewM.getListData(withYodoDate: date)
         let total = viewM.calculatePrice(withAccounts: viewM.accounts)
         
         headerView.expendMoney = total.expend
         headerView.expendMonth = date.month
         headerView.incomeMoney = total.income
         headerView.incomeMonth = date.month
+        
+        tableView.reloadData()
     }
     
     

@@ -8,16 +8,26 @@
 
 import UIKit
 
-class HomeItemCell: UICollectionViewCell {
+class HomeItemCell: UITableViewCell, Reusable {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .clear
         
         contentView.addSubview(content)
         content.addSubview(iconView)
         content.addSubview(categoryLabel)
         content.addSubview(descLabel)
         content.addSubview(priceLabel)
+    }
+    
+    public class func cell(withTableView tableView: UITableView) -> HomeItemCell {
+        var cell = tableView.dequeueReusableCell() as HomeItemCell?
+        if cell == nil {
+            cell = HomeItemCell(style: .default, reuseIdentifier: HomeItemCell.reuseIdentifier)
+        }
+        return cell!
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,22 +49,30 @@ class HomeItemCell: UICollectionViewCell {
             make.size.equalTo(CGSize(width: 40, height: 40))
         }
         
-        // todo:
+        categoryLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(iconView.snp.right).offset(15)
+            make.centerY.equalTo(iconView)
+            make.height.equalTo(20)
+            make.width.lessThanOrEqualTo(150)
+        }
+        
         priceLabel.snp.makeConstraints { (make) in
             make.right.equalTo(content).offset(-10)
             make.centerY.equalTo(content)
             make.height.equalTo(20)
-            make.left.equalTo()
+            make.left.equalTo(categoryLabel.snp.right).offset(10)
         }
-        
-        categoryLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(iconView.snp.right).offset(15)
-            make.centerY.equalTo(iconView)
-        }
-        
     }
     
     //MARK: - Getter | Setter
+    
+    var account: Account! {
+        didSet {
+            iconView.image = UIImage(named: "ic_category_traffic")
+            priceLabel.text = "\(account.money)"
+            categoryLabel.text = account.category
+        }
+    }
     
     /// 内容区域
     private lazy var content: UIView = {
@@ -62,7 +80,7 @@ class HomeItemCell: UICollectionViewCell {
         let content = UIView()
         content.backgroundColor = .white
         
-        return contentView
+        return content
     }()
     
     
