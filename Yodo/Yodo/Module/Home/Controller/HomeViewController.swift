@@ -17,13 +17,6 @@ class HomeViewController: BaseViewController {
         view.addSubview(navigationView)
         view.addSubview(tableView)
         
-        let dates = viewM.getDateDataSource()
-        navigationView.dates = dates
-    }
-     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
         navigationView.snp.makeConstraints { (make) in
             make.left.right.top.equalTo(self.view)
             make.height.equalTo(145)
@@ -33,7 +26,11 @@ class HomeViewController: BaseViewController {
             make.left.right.bottom.equalTo(self.view)
             make.top.equalTo(navigationView.snp.bottom)
         }
+        
+        let dates = viewM.getDateDataSource()
+        navigationView.dates = dates
     }
+   
     
     // MARK: - Getter | Setter
     private lazy var dataSource: [[Account]] = []

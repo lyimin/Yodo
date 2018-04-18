@@ -9,6 +9,8 @@
 import UIKit
 import SnapKit
 
+
+/// 导航栏日期列表的item
 class HomeDateItemCell: UICollectionViewCell, Reusable {
     
     // MARK: - LifeCycle
@@ -17,9 +19,7 @@ class HomeDateItemCell: UICollectionViewCell, Reusable {
         
         addSubview(yearLabel)
         addSubview(monthLabel)
-    }
-    
-    override func layoutSubviews() {
+        
         setupLayout()
     }
     

@@ -8,8 +8,8 @@
 
 import UIKit
 
+/// 列表条目
 class HomeItemCell: UITableViewCell, Reusable {
-    
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -20,6 +20,8 @@ class HomeItemCell: UITableViewCell, Reusable {
         content.addSubview(categoryLabel)
         content.addSubview(descLabel)
         content.addSubview(priceLabel)
+        
+        setupLayout()
     }
     
     public class func cell(withTableView tableView: UITableView) -> HomeItemCell {
@@ -34,9 +36,7 @@ class HomeItemCell: UITableViewCell, Reusable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
+    private func setupLayout() {
         content.snp.makeConstraints { (make) in
             make.left.equalTo(contentView).offset(20)
             make.right.equalTo(contentView).offset(-20)

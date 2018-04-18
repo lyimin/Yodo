@@ -8,7 +8,7 @@
 
 import UIKit
 
-
+/// 列表头部汇总
 class HomeHeaderView: UIView {
 
     override init(frame: CGRect) {
@@ -18,28 +18,28 @@ class HomeHeaderView: UIView {
         contentView.addSubview(incomeView)
         contentView.addSubview(expendView)
         contentView.addSubview(sepLineView)
+        
+        setupLayout()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
+    private func setupLayout() {
         contentView.snp.makeConstraints { (make) in
             make.left.top.equalTo(self).offset(20)
-            make.bottom.right.equalTo(self).offset(-20)
+            make.size.equalTo(CGSize(width: self.width, height: self.height-40))
         }
         
         incomeView.snp.makeConstraints { (make) in
             make.left.top.bottom.equalTo(contentView)
-            make.width.equalTo(contentView).multipliedBy(0.5)
+            make.width.equalTo(self.width*0.5)
         }
         
         expendView.snp.makeConstraints { (make) in
             make.right.top.bottom.equalTo(contentView)
-            make.width.equalTo(contentView).multipliedBy(0.5)
+            make.width.equalTo(self.width*0.5)
         }
         
         sepLineView.snp.makeConstraints { (make) in
@@ -120,11 +120,11 @@ private class HomeHeaderItemView: UIView {
         addSubview(iconView)
         addSubview(moneyLabel)
         addSubview(titleLabel)
+        
+        setupLayout()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
+    private func setupLayout() {
         iconView.snp.makeConstraints { (make) in
             make.size.equalTo(CGSize(width: 30, height: 30))
             make.left.equalTo(self).offset(20)

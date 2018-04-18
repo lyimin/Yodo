@@ -14,6 +14,7 @@ protocol HomeNavigationViewDelegate: class {
     func navigationView(_ navigationView: HomeNavigationView, itemDidSelectedAt indexPath: IndexPath, _ date: YodoDate)
 }
 
+/// 导航栏
 class HomeNavigationView: UIView {
 
     override init(frame: CGRect) {
@@ -24,13 +25,6 @@ class HomeNavigationView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        setupLayout()
     }
     
     //MARK: - Getter | Setter
@@ -200,6 +194,8 @@ extension HomeNavigationView {
         addSubview(titleLabel)
         addSubview(chartBtn)
         addSubview(dateView)
+        
+        setupLayout()
     }
     
     
@@ -230,8 +226,12 @@ extension HomeNavigationView {
             make.right.equalTo(chartBtn.snp.left).offset(-YodoConfig.frame.nvIconMarginLeft)
         }
         
-        dateView.frame = CGRect(x: 0, y: frame.height-itemHeight-5.0, width: frame.width, height: itemHeight)
-    }
+        dateView.snp.makeConstraints { (make) in
+            make.left.right.equalTo(self)
+            make.bottom.equalTo(self).offset(-5)
+            make.height.equalTo(itemHeight)
+        }
+    } 
     
     /// 选择框执行缩放和渐变动画
     private func showAnimation(withLastIndex last: IndexPath?, _ index: IndexPath, currentCell current: HomeDateItemCell) {
