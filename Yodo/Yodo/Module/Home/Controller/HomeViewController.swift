@@ -29,6 +29,15 @@ class HomeViewController: BaseViewController {
         
         let dates = viewM.getDateDataSource()
         navigationView.dates = dates
+        
+        for family in UIFont.familyNames {
+            print("family: \(family)")
+            for fontName in UIFont.fontNames(forFamilyName: family) {
+                print("font: \(fontName)")
+            }
+            
+            print("--------------------")
+        }
     }
    
     

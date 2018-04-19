@@ -11,6 +11,8 @@
 		E9125BEC65A8E29F47E69EC4 /* Pods_YodoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6246C70E12FDCB06375B0C1 /* Pods_YodoTests.framework */; };
 		EC246C2AD9AC85147D4CAB67 /* Pods_YodoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 505481D2B563172588955C97 /* Pods_YodoUITests.framework */; };
 		F11910592083631400743D7B /* CountingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11910582083631400743D7B /* CountingLabel.swift */; };
+		F12CBE9F20873B9D0063A053 /* HomeItemSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12CBE9E20873B9D0063A053 /* HomeItemSectionView.swift */; };
+		F12CBEA1208742930063A053 /* helvetica-light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F12CBEA0208742920063A053 /* helvetica-light.ttf */; };
 		F14AE36F206B695800F65543 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14AE36E206B695800F65543 /* Account.swift */; };
 		F14AE377206E451000F65543 /* 20180329_account.csv in Resources */ = {isa = PBXBuildFile; fileRef = F14AE376206E451000F65543 /* 20180329_account.csv */; };
 		F1504A1B204E912B00855D00 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A17204E912B00855D00 /* BaseViewController.swift */; };
@@ -64,6 +66,8 @@
 		C88DE1F30E507A75A725115A /* Pods-YodoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YodoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-YodoTests/Pods-YodoTests.release.xcconfig"; sourceTree = "<group>"; };
 		E6246C70E12FDCB06375B0C1 /* Pods_YodoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YodoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F11910582083631400743D7B /* CountingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingLabel.swift; sourceTree = "<group>"; };
+		F12CBE9E20873B9D0063A053 /* HomeItemSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeItemSectionView.swift; sourceTree = "<group>"; };
+		F12CBEA0208742920063A053 /* helvetica-light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "helvetica-light.ttf"; path = "../../../../../../../../../Downloads/helvetica-light.ttf"; sourceTree = "<group>"; };
 		F14AE36E206B695800F65543 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		F14AE376206E451000F65543 /* 20180329_account.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 20180329_account.csv; sourceTree = "<group>"; };
 		F1504A17204E912B00855D00 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -211,10 +215,11 @@
 		F1504A1D204E936D00855D00 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F168386120513F3200B93D84 /* HomeDateItemCell.swift */,
 				F1504A20204E94FD00855D00 /* HomeNavigationView.swift */,
+				F168386120513F3200B93D84 /* HomeDateItemCell.swift */,
 				F16F74B2207E676100E6F194 /* HomeHeaderView.swift */,
 				F16F74B0207E63E000E6F194 /* HomeItemCell.swift */,
+				F12CBE9E20873B9D0063A053 /* HomeItemSectionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -313,6 +318,7 @@
 		F1E1CAE22049550100339163 /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				F12CBEA0208742920063A053 /* helvetica-light.ttf */,
 				F1E1CAE32049553A00339163 /* helvetica-bold.ttf */,
 			);
 			path = Font;
@@ -447,6 +453,7 @@
 				F1A81C09200CA410003D2D4E /* Assets.xcassets in Resources */,
 				F1E1CAE42049553A00339163 /* helvetica-bold.ttf in Resources */,
 				F14AE377206E451000F65543 /* 20180329_account.csv in Resources */,
+				F12CBEA1208742930063A053 /* helvetica-light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,6 +660,7 @@
 				F1504A1B204E912B00855D00 /* BaseViewController.swift in Sources */,
 				F1C16A04207F07C4003C4B5A /* UIView+Frame.swift in Sources */,
 				F11910592083631400743D7B /* CountingLabel.swift in Sources */,
+				F12CBE9F20873B9D0063A053 /* HomeItemSectionView.swift in Sources */,
 				F1504A1C204E912B00855D00 /* HomeViewController.swift in Sources */,
 				F1C16A08207F6423003C4B5A /* Delay.swift in Sources */,
 				F16F74AF207CFF6B00E6F194 /* YodoPrint.swift in Sources */,

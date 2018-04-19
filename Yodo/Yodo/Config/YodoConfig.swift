@@ -27,7 +27,11 @@ struct YodoConfig {
         static let homeTitle = UIFont.boldSystemFont(ofSize: 20)
         
         static func bold(size fontSize: CGFloat) -> UIFont {
-            return UIFont.boldSystemFont(ofSize:fontSize)
+            return UIFont(name: "Helvetica-Bold", size: fontSize)!
+        }
+        
+        static func light(size fontSize: CGFloat) -> UIFont {
+            return UIFont(name: "Helvetica-Light", size: fontSize)!
         }
     }
     
