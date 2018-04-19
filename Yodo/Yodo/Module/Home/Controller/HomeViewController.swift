@@ -29,20 +29,11 @@ class HomeViewController: BaseViewController {
         
         let dates = viewM.getDateDataSource()
         navigationView.dates = dates
-        
-        for family in UIFont.familyNames {
-            print("family: \(family)")
-            for fontName in UIFont.fontNames(forFamilyName: family) {
-                print("font: \(fontName)")
-            }
-            
-            print("--------------------")
-        }
     }
    
     
     // MARK: - Getter | Setter
-    private lazy var dataSource: [[Account]] = []
+    private lazy var dataSource: [AccountDailyModel] = []
     
     /// 导航栏
     private lazy var navigationView: HomeNavigationView = {
@@ -51,11 +42,11 @@ class HomeViewController: BaseViewController {
         navigationView.delegate = self
         return navigationView
     }()
-    
+     
     /// 列表
     private lazy var tableView: UITableView = {
         
-        var tableView = UITableView()
+        var tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.backgroundColor = YodoConfig.color.backgroundColor
         tableView.delegate = self
         tableView.dataSource = self
@@ -85,16 +76,37 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource[section].count
+        return dataSource[section].accounts.count
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let rowData = dataSource[indexPath.section][indexPath.row]
+        
+        let rowData = dataSource[indexPath.section].accounts[indexPath.row]
         let cell = HomeItemCell.cell(withTableView: tableView)
         cell.account = rowData
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let headerView = HomeItemSectionView(frame: CGRect(x: 0, y: 0, width: view.width, height: HomeItemSectionView.sectionViewHeight))
+        headerView.dailyModel = dataSource[section]
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return HomeItemSectionView.sectionViewHeight
+    }
+    
+    /*
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y <= HomeItemSectionView.sectionViewHeight && scrollView.contentOffset.y >= 0 {
+            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+        } else if (scrollView.contentOffset.y >= HomeItemSectionView.sectionViewHeight) {
+            scrollView.contentInset = UIEdgeInsetsMake(-HomeItemSectionView.sectionViewHeight, 0, 0, 0);
+        }
+    }
+    */
 }
 
 // MARK: - HomeNavigationViewDelegate
@@ -114,8 +126,6 @@ extension HomeViewController: HomeNavigationViewDelegate {
         
         tableView.reloadData()
     }
-    
-    
 }
 
 

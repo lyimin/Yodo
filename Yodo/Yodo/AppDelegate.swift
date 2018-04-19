@@ -8,6 +8,7 @@
 
 import UIKit
 import CSV
+import GDPerformanceView_Swift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
         initDB()
         
 //        getCSV()
@@ -23,6 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.rootViewController = HomeViewController()
+        
+        GDPerformanceMonitor.sharedInstance.startMonitoring()
+        GDPerformanceMonitor.sharedInstance.appVersionHidden = true
+        GDPerformanceMonitor.sharedInstance.deviceVersionHidden = true
         
         return true
     }

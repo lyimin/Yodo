@@ -13,7 +13,8 @@ target 'Yodo' do
     pod 'SQLite.swift',     '~> 0.11.4'
     pod 'CSV.swift',        '~> 2.1.0'
     pod 'ViewAnimator',     '~> 1.0.5'
-
+    pod 'GDPerformanceView-Swift', '~> 1.3.2'
+    
   target 'YodoTests' do
     inherit! :search_paths
     # Pods for testing

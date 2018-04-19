@@ -22,6 +22,11 @@ public struct Account {
         case income
     }
     
+    // TODO:
+    enum CategoryType: String {
+        case normal = "一般"
+    }
+    
     /// 账单id
     var id: String = ""
     
@@ -84,6 +89,8 @@ struct AccountDailyModel {
     /// 当天账单数组
     var accounts: [Account]!
     
+    var isToday: Bool!
+    
     /// 星期
     var week: String!
     
@@ -103,6 +110,7 @@ struct AccountDailyModel {
         self.expendOfDaily = expendOfDaily
         date = accounts.first!.date
         week = Date.weekWithDateString(dateString: date.date)
+        isToday = Date.isToday(dateString: date.date)
     }
 }
 

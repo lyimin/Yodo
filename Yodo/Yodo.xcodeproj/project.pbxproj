@@ -12,7 +12,6 @@
 		EC246C2AD9AC85147D4CAB67 /* Pods_YodoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 505481D2B563172588955C97 /* Pods_YodoUITests.framework */; };
 		F11910592083631400743D7B /* CountingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11910582083631400743D7B /* CountingLabel.swift */; };
 		F12CBE9F20873B9D0063A053 /* HomeItemSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12CBE9E20873B9D0063A053 /* HomeItemSectionView.swift */; };
-		F12CBEA1208742930063A053 /* helvetica-light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F12CBEA0208742920063A053 /* helvetica-light.ttf */; };
 		F14AE36F206B695800F65543 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14AE36E206B695800F65543 /* Account.swift */; };
 		F14AE377206E451000F65543 /* 20180329_account.csv in Resources */ = {isa = PBXBuildFile; fileRef = F14AE376206E451000F65543 /* 20180329_account.csv */; };
 		F1504A1B204E912B00855D00 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A17204E912B00855D00 /* BaseViewController.swift */; };
@@ -34,6 +33,7 @@
 		F1C16A02207EFF64003C4B5A /* HomeNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A20204E94FD00855D00 /* HomeNavigationView.swift */; };
 		F1C16A04207F07C4003C4B5A /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C16A03207F07C4003C4B5A /* UIView+Frame.swift */; };
 		F1C16A08207F6423003C4B5A /* Delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C16A07207F6423003C4B5A /* Delay.swift */; };
+		F1D036F32088C99700D22995 /* helvetica-light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1D036F22088C99700D22995 /* helvetica-light.ttf */; };
 		F1E1CAE42049553A00339163 /* helvetica-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1E1CAE32049553A00339163 /* helvetica-bold.ttf */; };
 		F1FEA64820503DCF00D7733B /* YodoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FEA64720503DCF00D7733B /* YodoConfig.swift */; };
 /* End PBXBuildFile section */
@@ -67,7 +67,6 @@
 		E6246C70E12FDCB06375B0C1 /* Pods_YodoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YodoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F11910582083631400743D7B /* CountingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingLabel.swift; sourceTree = "<group>"; };
 		F12CBE9E20873B9D0063A053 /* HomeItemSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeItemSectionView.swift; sourceTree = "<group>"; };
-		F12CBEA0208742920063A053 /* helvetica-light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "helvetica-light.ttf"; path = "../../../../../../../../../Downloads/helvetica-light.ttf"; sourceTree = "<group>"; };
 		F14AE36E206B695800F65543 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		F14AE376206E451000F65543 /* 20180329_account.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 20180329_account.csv; sourceTree = "<group>"; };
 		F1504A17204E912B00855D00 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +94,7 @@
 		F1BCD08E207E0BC700E4A791 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		F1C16A03207F07C4003C4B5A /* UIView+Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
 		F1C16A07207F6423003C4B5A /* Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delay.swift; sourceTree = "<group>"; };
+		F1D036F22088C99700D22995 /* helvetica-light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "helvetica-light.ttf"; sourceTree = "<group>"; };
 		F1E1CAE32049553A00339163 /* helvetica-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "helvetica-bold.ttf"; sourceTree = "<group>"; };
 		F1FEA64720503DCF00D7733B /* YodoConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodoConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -318,7 +318,7 @@
 		F1E1CAE22049550100339163 /* Font */ = {
 			isa = PBXGroup;
 			children = (
-				F12CBEA0208742920063A053 /* helvetica-light.ttf */,
+				F1D036F22088C99700D22995 /* helvetica-light.ttf */,
 				F1E1CAE32049553A00339163 /* helvetica-bold.ttf */,
 			);
 			path = Font;
@@ -452,8 +452,8 @@
 			files = (
 				F1A81C09200CA410003D2D4E /* Assets.xcassets in Resources */,
 				F1E1CAE42049553A00339163 /* helvetica-bold.ttf in Resources */,
+				F1D036F32088C99700D22995 /* helvetica-light.ttf in Resources */,
 				F14AE377206E451000F65543 /* 20180329_account.csv in Resources */,
-				F12CBEA1208742930063A053 /* helvetica-light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,6 +576,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Yodo/Pods-Yodo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CSV.swift/CSV.framework",
+				"${BUILT_PRODUCTS_DIR}/GDPerformanceView-Swift/GDPerformanceView_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MonkeyKing/MonkeyKing.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
@@ -588,6 +589,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSV.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GDPerformanceView_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MonkeyKing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",

@@ -50,23 +50,24 @@ class AccountViewModel: NSObject {
     ///
     /// - Parameter date: 日期对象
     /// - Returns: 返回当前日期对象对应的数据
-    func getListData(withYodoDate date: YodoDate) -> [[Account]] {
+    func getListData(withYodoDate date: YodoDate) -> [AccountDailyModel] {
         
         let accounts = AccountManager.default.findMonthAccounds(withDate: date)
         self.accounts = accounts
         
-        var dataSource: [[Account]] = []
+        var dataSource: [AccountDailyModel] = []
         
         var temp: [Account] = []
         for account in accounts {
             
             if temp.count != 0 {
-                
                 let first = temp.first!
                 if first.date == account.date {
                     temp.append(account)
                 } else {
-                    dataSource.append(temp)
+                    let daily = calculatePrice(withAccounts: temp)
+                    let dailyModel = AccountDailyModel(accounts: temp, incomeOfDaily: daily.income, expendOfDaily: daily.expend)
+                    dataSource.append(dailyModel)
                     temp.removeAll()
                     temp.append(account)
                 }

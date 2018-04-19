@@ -14,6 +14,8 @@ class HomeItemSectionView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        backgroundColor = YodoConfig.color.backgroundColor
+        
         addSubview(weekLabel)
         addSubview(dateLabel)
         addSubview(priceLabel)
@@ -29,15 +31,16 @@ class HomeItemSectionView: UIView {
         
         dateLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(20)
-            make.top.equalTo(self).offset(10)
+            make.top.equalTo(self).offset(0)
             make.height.equalTo(20)
             make.width.greaterThanOrEqualTo(200)
         }
         
         weekLabel.snp.makeConstraints { (make) in
-            make.left.height.equalTo(dateLabel)
-            make.bottom.equalTo(self).offset(-10)
+            make.left.equalTo(dateLabel)
+            make.bottom.equalTo(self).offset(-15)
             make.width.greaterThanOrEqualTo(200)
+            make.height.equalTo(25)
         }
         
         priceLabel.snp.makeConstraints { (make) in
@@ -49,8 +52,21 @@ class HomeItemSectionView: UIView {
     
     
     
-    
     //MARK: - Getter | Setter
+    static var sectionViewHeight: CGFloat = 60
+    
+    var dailyModel: AccountDailyModel! {
+        didSet {
+            if dailyModel.isToday {
+                weekLabel.text = "Today"
+                dateLabel.text = "\(dailyModel.date.month)月\(dailyModel.date.day)日 \(dailyModel.week)"
+            } else {
+                weekLabel.text = dailyModel.week
+                dateLabel.text = "\(dailyModel.date.month)月\(dailyModel.date.day)日"
+                
+            }
+        }
+    }
     
     /// 星期
     private lazy var weekLabel: UILabel = {
