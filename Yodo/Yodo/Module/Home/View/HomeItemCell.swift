@@ -68,9 +68,15 @@ class HomeItemCell: UITableViewCell, Reusable {
     
     var account: Account! {
         didSet {
-            iconView.image = UIImage(named: "ic_category_traffic")
-            priceLabel.text = "\(account.money)"
+            iconView.image = UIImage(named: account.categoryType.iconName())
+            priceLabel.text = String(format: "￥%.2f", account.money)
             categoryLabel.text = account.category
+            
+            if account.type == .expend {
+                priceLabel.textColor = YodoConfig.color.rgb(red: 208, green: 2, blue: 27, alpha: 73)
+            } else if account.type == .income {
+                priceLabel.textColor = YodoConfig.color.rgb(red: 81, green: 222, blue: 147)
+            }
         }
     }
     

@@ -37,6 +37,10 @@ struct YodoConfig {
     
     struct color {
         
+        static func rgb(red r: CGFloat, green g: CGFloat, blue b: CGFloat, alpha a: CGFloat = 1) -> UIColor {
+            return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
+        }
+        
         // 主题色
         static let theme = UIColor(red: 0, green: 118.0/255, blue: 1, alpha: 1)
         // 黑色标题
