@@ -12,8 +12,10 @@ import UIKit
 class HomeItemCell: UITableViewCell, Reusable {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .clear
+        selectionStyle = .none
         
         contentView.addSubview(content)
         content.addSubview(iconView)
@@ -64,6 +66,31 @@ class HomeItemCell: UITableViewCell, Reusable {
         }
     }
     
+    private func resetLayout(remarkIsEmpty: Bool) {
+        
+        descLabel.isHidden = remarkIsEmpty
+        if remarkIsEmpty {
+            categoryLabel.snp.remakeConstraints { (make) in
+                make.left.equalTo(iconView.snp.right).offset(15)
+                make.centerY.equalTo(iconView)
+                make.height.equalTo(20)
+                make.width.lessThanOrEqualTo(150)
+            }
+        } else {
+            categoryLabel.snp.remakeConstraints { (make) in
+                make.left.equalTo(iconView.snp.right).offset(15)
+                make.centerY.equalTo(iconView).offset(-10)
+                make.height.equalTo(20)
+                make.width.lessThanOrEqualTo(150)
+            }
+            
+            descLabel.snp.remakeConstraints { (make) in
+                make.left.width.height.equalTo(categoryLabel)
+                make.centerY.equalTo(iconView).offset(10)
+            }
+        }
+    }
+    
     //MARK: - Getter | Setter
     
     var account: Account! {
@@ -77,14 +104,17 @@ class HomeItemCell: UITableViewCell, Reusable {
             } else if account.type == .income {
                 priceLabel.textColor = YodoConfig.color.rgb(red: 81, green: 222, blue: 147)
             }
+            
+            descLabel.text = account.remarks
+            
+            resetLayout(remarkIsEmpty: account.remarks == "")
         }
     }
     
     /// 内容区域
-    private lazy var content: UIView = {
+    var content: UIView = {
        
         let content = UIView()
-        content.backgroundColor = .white
         
         return content
     }()

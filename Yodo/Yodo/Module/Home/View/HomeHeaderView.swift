@@ -80,6 +80,10 @@ class HomeHeaderView: UIView {
         var contentView = UIView()
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 5
+        layer.shadowRadius = 3
+        layer.shadowOpacity = 0.1
+        layer.shadowColor = UIColor.lightGray.cgColor
+        contentView.layer.shadowOffset = CGSize(width: 3, height: 3)
         
         return contentView
     }()

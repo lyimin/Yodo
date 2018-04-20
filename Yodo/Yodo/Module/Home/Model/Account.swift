@@ -93,7 +93,7 @@ public struct Account {
         case movie           = "电影"
         case normal          = "一般"
         case redPack         = "红包"
-        case rent            = "房租"
+        case rent            = "住房"
         case shopping        = "购物"
         case snacks          = "零食"
         case tour            = "旅游"

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ViewAnimator
 
 class HomeViewController: BaseViewController {
     
@@ -26,7 +27,7 @@ class HomeViewController: BaseViewController {
             make.left.right.bottom.equalTo(self.view)
             make.top.equalTo(navigationView.snp.bottom)
         }
-        
+                
         let dates = viewM.getDateDataSource()
         navigationView.dates = dates
     }
@@ -98,15 +99,24 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return HomeItemSectionView.sectionViewHeight
     }
     
-    /*
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y <= HomeItemSectionView.sectionViewHeight && scrollView.contentOffset.y >= 0 {
-            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
-        } else if (scrollView.contentOffset.y >= HomeItemSectionView.sectionViewHeight) {
-            scrollView.contentInset = UIEdgeInsetsMake(-HomeItemSectionView.sectionViewHeight, 0, 0, 0);
-        }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        let cell = cell as! HomeItemCell
+        cell.content.backgroundColor = UIColor.clear
+        
+        let rect = CGRect(x: 20, y: 0, width: view.width-40, height: 60)
+        
+        // 获取path
+        let path = sectionBackgroundPath(cell: cell, indexPath: indexPath, rect: rect)
+        
+        // 创建layer
+        let layer = createCellLayer(path: path, indexPath: indexPath)
+        
+        let backgroundView = UIView(frame: rect)
+        backgroundView.backgroundColor = .clear
+        backgroundView.layer.insertSublayer(layer, at: 0)
+        cell.backgroundView = backgroundView
     }
-    */
 }
 
 // MARK: - HomeNavigationViewDelegate
@@ -125,6 +135,68 @@ extension HomeViewController: HomeNavigationViewDelegate {
         headerView.incomeMonth = date.month
         
         tableView.reloadData()
+        
+        let animations = [AnimationType.from(direction: .bottom, offset: 30.0)]
+        UIView.animate(views: tableView.visibleCells, animations: animations)
+    }
+}
+
+// MARK: - Getter | Setter
+extension HomeViewController {
+    
+    /// 根据cell去绘制section的圆角
+    ///
+    /// - Parameter cell: cell
+    /// - Returns: 返回绘制cell的路径
+    func sectionBackgroundPath(cell: HomeItemCell, indexPath: IndexPath, rect: CGRect) -> UIBezierPath {
+        
+        let cornerRadiusSize = CGSize(width: 5, height: 5)
+        let numberOfRows = tableView.numberOfRows(inSection: indexPath.section)
+        
+        var path: UIBezierPath
+        if indexPath.row == 0 && numberOfRows == 1 {
+            // 一个为一组时，四个角都为圆角
+            path = UIBezierPath(roundedRect: rect, byRoundingCorners: .allCorners, cornerRadii: cornerRadiusSize)
+        } else if (indexPath.row == 0) {
+            // 为组的第一行时，左上、右上角为圆角
+            path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.topLeft, .topRight], cornerRadii: cornerRadiusSize)
+        } else if (indexPath.row == numberOfRows - 1) {
+            path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: cornerRadiusSize)
+        } else {
+            path = UIBezierPath(rect: rect)
+        }
+        
+        return path
+    }
+    
+    /// 创建cell的图层
+    ///
+    /// - Parameter indexPath: 索引
+    /// - Returns: 返回cell的背景图片
+    func createCellLayer(path: UIBezierPath, indexPath: IndexPath) -> CALayer {
+        
+        let layer = CAShapeLayer()
+        layer.path = path.cgPath
+        layer.fillColor = UIColor.white.cgColor
+        
+        let numberOfRows = tableView.numberOfRows(inSection: indexPath.section)
+        
+        // 设置阴影
+        layer.shadowRadius = 3
+        layer.shadowOpacity = 0.1
+        layer.shadowColor = UIColor.lightGray.cgColor
+        
+        if indexPath.row == 0 && numberOfRows == 1 {
+            layer.shadowOffset = CGSize(width: 3, height: 3)
+        } else if (indexPath.row == 0) {
+            layer.shadowOffset = CGSize(width: 3, height: -1)
+        } else if (indexPath.row == numberOfRows - 1) {
+            layer.shadowOffset = CGSize(width: 3, height: 3)
+        } else {
+            layer.shadowOffset = CGSize(width: 3, height: -1)
+        }
+        
+        return layer
     }
 }
 
