@@ -42,5 +42,9 @@ public extension UITableView {
     func dequeueReusableCell<T: Reusable>() -> T? {
         return self.dequeueReusableCell(withIdentifier: T.reuseIdentifier) as! T?
     }
+    
+    func dequeueReusableHeaderFooterView<T: Reusable>() -> T? {
+        return self.dequeueReusableHeaderFooterView(withIdentifier: T.reuseIdentifier) as! T?
+    }
 }
 

@@ -90,9 +90,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let headerView = HomeItemSectionView(frame: CGRect(x: 0, y: 0, width: view.width, height: HomeItemSectionView.sectionViewHeight))
-        headerView.dailyModel = dataSource[section]
-        return headerView
+        var headerView = tableView.dequeueReusableHeaderFooterView() as HomeItemSectionView?
+        if headerView == nil {
+            headerView = HomeItemSectionView(reuseIdentifier: HomeItemSectionView.reuseIdentifier)
+        }
+        headerView!.dailyModel = dataSource[section]
+        return headerView!
+//        let headerView = HomeItemSectionView(frame: CGRect(x: 0, y: 0, width: view.width, height: HomeItemSectionView.sectionViewHeight))
+//
+//        return headerView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -136,8 +142,8 @@ extension HomeViewController: HomeNavigationViewDelegate {
         
         tableView.reloadData()
         
-        let animations = [AnimationType.from(direction: .bottom, offset: 30.0)]
-        UIView.animate(views: tableView.visibleCells, animations: animations)
+        // cell动画
+        cellsOffsetAnimat()
     }
 }
 
@@ -148,7 +154,7 @@ extension HomeViewController {
     ///
     /// - Parameter cell: cell
     /// - Returns: 返回绘制cell的路径
-    func sectionBackgroundPath(cell: HomeItemCell, indexPath: IndexPath, rect: CGRect) -> UIBezierPath {
+    private func sectionBackgroundPath(cell: HomeItemCell, indexPath: IndexPath, rect: CGRect) -> UIBezierPath {
         
         let cornerRadiusSize = CGSize(width: 5, height: 5)
         let numberOfRows = tableView.numberOfRows(inSection: indexPath.section)
@@ -173,7 +179,7 @@ extension HomeViewController {
     ///
     /// - Parameter indexPath: 索引
     /// - Returns: 返回cell的背景图片
-    func createCellLayer(path: UIBezierPath, indexPath: IndexPath) -> CALayer {
+    private func createCellLayer(path: UIBezierPath, indexPath: IndexPath) -> CALayer {
         
         let layer = CAShapeLayer()
         layer.path = path.cgPath
@@ -197,6 +203,32 @@ extension HomeViewController {
         }
         
         return layer
+    }
+    
+    // 执行动画
+    private func cellsOffsetAnimat() {
+        
+        let visibleCells = tableView.visibleCells
+        if visibleCells.count == 0 { return }
+        
+        var animateViews: [UIView] = []
+        for visibleCell in visibleCells {
+            
+            // 添加headerView
+            if let indexPath = tableView.indexPath(for: visibleCell) {
+                if let headerView = tableView.headerView(forSection: indexPath.section) {
+                    if !animateViews.contains(headerView) {
+                        animateViews.append(headerView)
+                    }
+                }
+            }
+            
+            // 添加cell
+            animateViews.append(visibleCell)
+        }
+ 
+        let animations = [AnimationType.from(direction: .bottom, offset: 30.0)]
+        UIView.animate(views: animateViews, animations: animations)
     }
 }
 
