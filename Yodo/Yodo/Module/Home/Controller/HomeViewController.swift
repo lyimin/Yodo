@@ -43,7 +43,7 @@ class HomeViewController: BaseViewController {
         navigationView.delegate = self
         return navigationView
     }()
-     
+    
     /// 列表
     private lazy var tableView: UITableView = {
         
@@ -96,9 +96,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         headerView!.dailyModel = dataSource[section]
         return headerView!
-//        let headerView = HomeItemSectionView(frame: CGRect(x: 0, y: 0, width: view.width, height: HomeItemSectionView.sectionViewHeight))
-//
-//        return headerView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -212,6 +209,7 @@ extension HomeViewController {
         if visibleCells.count == 0 { return }
         
         var animateViews: [UIView] = []
+        animateViews.append(headerView)
         for visibleCell in visibleCells {
             
             // 添加headerView
