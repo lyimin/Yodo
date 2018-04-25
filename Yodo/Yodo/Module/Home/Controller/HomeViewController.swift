@@ -15,17 +15,17 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         
         view.addSubview(navigationView)
-//        view.addSubview(displayView)
+        view.addSubview(displayView)
         
         navigationView.snp.makeConstraints { (make) in
             make.left.right.top.equalTo(self.view)
             make.height.equalTo(145)
         }
         
-//        displayView.snp.makeConstraints { (make) in
-//            make.left.right.bottom.equalTo(self.view)
-//            make.top.equalTo(navigationView.snp.bottom)
-//        }
+        displayView.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalTo(self.view)
+            make.top.equalTo(navigationView.snp.bottom)
+        }
         
         viewM.getHomeData { [unowned self](homeModel) in
             self.dataSource = homeModel
@@ -33,9 +33,15 @@ class HomeViewController: BaseViewController {
         }
     }
    
-    private var dataSource: HomeModel?
+    private var dataSource: HomeModel? {
+        didSet {
+            if dataSource != nil {
+                displayView.reloadData()
+            }
+        }
+    }
     
-    // MARK: - Getter | Setter
+    // MARK: - Getter | Setter    
     private lazy var displayView: DisplayView = {
         
         var displayView = DisplayView()
@@ -82,10 +88,15 @@ extension HomeViewController: HomeNavigationViewDelegate {
 }
 
 // MARK: - DisplayViewDataSrouce
-extension HomeViewController: DisplayViewDataSrouce {
+extension HomeViewController: DisplayViewDataSource {
     
-    func displayView(_ displayView: DisplayView, contentViewForRowAt index: Int) -> UIView {
-        return UIView()
+    func displayView(_ displayView: DisplayView, contentViewForRowAt index: Int) -> UIView? {
+        
+        if dataSource == nil { return nil }
+        
+        let contentView = AccountContentView(frame: displayView.bounds)
+        contentView.monthModel = dataSource!.monthModels[index]
+        return contentView
     }
 }
 

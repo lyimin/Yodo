@@ -8,9 +8,9 @@
 
 import UIKit
 
-public protocol DisplayViewDataSrouce: NSObjectProtocol {
+public protocol DisplayViewDataSource: NSObjectProtocol {
     
-    func displayView(_ displayView: DisplayView, contentViewForRowAt index: Int) -> UIView
+    func displayView(_ displayView: DisplayView, contentViewForRowAt index: Int) -> UIView?
 }
 
 
@@ -20,14 +20,24 @@ public class DisplayView: UIView {
         super.init(frame: frame)
         
         addSubview(scrollView)
-        addSubview(leftPage)
-        addSubview(rightPage)
+        scrollView.addSubview(leftPage)
+        scrollView.addSubview(centerPage)
+        scrollView.addSubview(rightPage)
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        scrollView.frame = bounds
+        leftPage.frame = bounds
+        centerPage.frame = CGRect(x: frame.width, y: 0, width: bounds.width, height: bounds.height)
+        rightPage.frame = CGRect(x: 2*frame.width, y: 0, width: bounds.width, height: bounds.height)
+        scrollView.contentSize = CGSize(width: width*3, height: 0)
+    }
     
     //MARK: - Getter | Setter
     
@@ -73,16 +83,15 @@ public class DisplayView: UIView {
     /// scrollView
     private (set) lazy var scrollView: UIScrollView = {
         
-        let scrollView = UIScrollView()
+        let scrollView = UIScrollView(frame: bounds)
         scrollView.delegate = self
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
-        scrollView.contentSize = CGSize(width: width*3, height: 0)
         
         return scrollView
     }()
     
-    weak open var ds: DisplayViewDataSrouce? {
+    weak open var ds: DisplayViewDataSource? {
         didSet {
             if ds != nil {
                 reloadData()
@@ -125,15 +134,18 @@ extension DisplayView {
         
         for i in 0..<total {
             let v = ds!.displayView(self, contentViewForRowAt: i)
-            switch i {
-            case 0:
-                leftPage.addSubview(v)
-            case 1:
-                centerPage.addSubview(v)
-            case 2:
-                rightPage.addSubview(v)
-            default:
-                break
+            if let v = v {
+                v.frame = scrollView.bounds;
+                switch i {
+                case 0:
+                    leftPage.addSubview(v)
+                case 1:
+                    centerPage.addSubview(v)
+                case 2:
+                    rightPage.addSubview(v)
+                default:
+                    break
+                }
             }
         }
     }

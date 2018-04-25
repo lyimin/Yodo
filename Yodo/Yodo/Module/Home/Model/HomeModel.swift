@@ -52,14 +52,22 @@ struct HomeDailyModel {
 /// 首页一个月的数据
 struct HomeMonthModel {
     
+    /// 当月总收入
+    var income: String!
+    
+    /// 当月总支出
+    var expend: String!
+    
     /// 日期
     var date: YodoDate!
     
     /// 当月每日的数据
     var dailyModels: [HomeDailyModel] = []
     
-    init(date: YodoDate, dailyModels: [HomeDailyModel]) {
+    init(date: YodoDate, dailyModels: [HomeDailyModel], income: String, expend: String) {
         self.date = date
         self.dailyModels = dailyModels
+        self.income = income
+        self.expend = expend
     }
 }

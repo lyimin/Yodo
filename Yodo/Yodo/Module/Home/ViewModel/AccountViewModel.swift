@@ -21,8 +21,9 @@ class AccountViewModel: NSObject {
     func getMonthData(withYodoDate date: YodoDate) -> HomeMonthModel {
         
         let accounts = AccountHelper.default.manager.findMonthAccounds(withDate: date)
+        let total = AccountHelper.default.calculatePrice(withAccounts: accounts)
         
-        var monthModel = HomeMonthModel(date: date, dailyModels: [])
+        var monthModel = HomeMonthModel(date: date, dailyModels: [], income:total.income, expend: total.expend)
         var temp: [Account] = []
         
         for account in accounts {

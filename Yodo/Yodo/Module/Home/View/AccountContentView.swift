@@ -45,7 +45,18 @@ class AccountContentView: UIView {
         return tableView
     }()
     
-    var monthModel: HomeMonthModel!
+    var monthModel: HomeMonthModel? {
+        didSet {
+            if let monthModel = monthModel {
+                tableView.reloadData()
+                
+                headerView.expendMoney = monthModel.expend
+                headerView.expendMonth = monthModel.date.month
+                headerView.incomeMoney = monthModel.income
+                headerView.incomeMonth = monthModel.date.month
+            }
+        }
+    }
     
     /// 列表顶部view
     private lazy var headerView: HomeHeaderView = {
@@ -60,16 +71,21 @@ class AccountContentView: UIView {
 extension AccountContentView: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return monthModel.dailyModels.count
+        
+        if monthModel == nil {
+            return 0
+        }
+        
+        return monthModel!.dailyModels.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return monthModel.dailyModels[section].accounts.count
+        return monthModel!.dailyModels[section].accounts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let rowData = monthModel.dailyModels[indexPath.section].accounts[indexPath.row]
+        let rowData = monthModel!.dailyModels[indexPath.section].accounts[indexPath.row]
         let cell = HomeItemCell.cell(withTableView: tableView)
         cell.account = rowData
         return cell
@@ -77,11 +93,13 @@ extension AccountContentView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
+        if monthModel == nil { return nil }
+        
         var headerView = tableView.dequeueReusableHeaderFooterView() as HomeItemSectionView?
         if headerView == nil {
             headerView = HomeItemSectionView(reuseIdentifier: HomeItemSectionView.reuseIdentifier)
         }
-        headerView!.dailyModel = monthModel.dailyModels[section]
+        headerView!.dailyModel = monthModel!.dailyModels[section]
         return headerView!
     }
     
