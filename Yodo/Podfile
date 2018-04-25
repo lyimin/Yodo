@@ -10,7 +10,7 @@ target 'Yodo' do
     pod 'Moya’,  	        ‘~> 10.0.0'
     pod 'MonkeyKing',       '~> 1.4.2'
     pod 'Kingfisher',       '~> 4.2.0'
-    pod 'SQLite.swift',     '~> 0.11.4'
+    pod 'SQLite.swift',     '= 0.11.4'
     pod 'CSV.swift',        '~> 2.1.0'
     pod 'ViewAnimator',     '~> 2.0.0'
     pod 'GDPerformanceView-Swift', '~> 1.3.2'

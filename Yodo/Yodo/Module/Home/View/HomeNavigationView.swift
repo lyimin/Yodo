@@ -9,12 +9,15 @@
 import UIKit
 import SnapKit
 
+/// 首页导航栏
+
+
 protocol HomeNavigationViewDelegate: class {
     /// 点击item回调
     func navigationView(_ navigationView: HomeNavigationView, itemDidSelectedAt indexPath: IndexPath, _ date: YodoDate)
 }
 
-/// 导航栏
+
 class HomeNavigationView: UIView {
 
     override init(frame: CGRect) {
@@ -45,16 +48,20 @@ class HomeNavigationView: UIView {
                 
                 // 滚到底部
                 if (self.dateView.contentSize.width > self.frame.width && oldValue.count == 0) {
+                    
                     let offset = CGPoint(x: self.dateView.contentSize.width-self.frame.width, y: 0)
                     self.dateView.setContentOffset(offset, animated: false)
                     self.dateView.insertSubview(self.selectView, at: 0)
                     
+                    
                     delay(delay: 0.1, closure: {
                         // 默认选中最后一个cell
                         let lastSelectedIndex = IndexPath(row: self.dates.count-1, section: 0)
-                        
-                        self.collectionView(self.dateView, didSelectItemAt: lastSelectedIndex)
+                        let cell = self.dateView.cellForItem(at: lastSelectedIndex) as! HomeDateItemCell
+                        self.selectedIndex = lastSelectedIndex
+                        self.showAnimation(currentCell: cell)
                     })
+                    
                 }
             }
         }
@@ -64,7 +71,7 @@ class HomeNavigationView: UIView {
     private lazy var menuBtn: UIButton = {
         
         var menuBtn = UIButton()
-        menuBtn.setImage(UIImage(named: "ic_home_menu"), for: .normal)
+        menuBtn.setImage(#imageLiteral(resourceName: "ic_home_menu"), for: .normal)
         return menuBtn
     }()
     
@@ -90,7 +97,7 @@ class HomeNavigationView: UIView {
     private lazy var chartBtn: UIButton = {
         
         var chartBtn = UIButton()
-        chartBtn.setImage(UIImage(named: "ic_home_chart"), for: .normal)
+        chartBtn.setImage(#imageLiteral(resourceName: "ic_home_chart"), for: .normal)
         return chartBtn
     }()
     
@@ -234,7 +241,7 @@ extension HomeNavigationView {
     } 
     
     /// 选择框执行缩放和渐变动画
-    private func showAnimation(withLastIndex last: IndexPath?, _ index: IndexPath, currentCell current: HomeDateItemCell) {
+    private func showAnimation(withLastIndex last: IndexPath? = nil, _ index: IndexPath? = nil, currentCell current: HomeDateItemCell) {
     
         selectView.frame = current.frame
         selectView.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)

@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// 首页每日账单的头部
 class HomeItemSectionView: UITableViewHeaderFooterView, Reusable {
     
     
@@ -59,7 +60,7 @@ class HomeItemSectionView: UITableViewHeaderFooterView, Reusable {
     //MARK: - Getter | Setter
     static var sectionViewHeight: CGFloat = 60
     
-    var dailyModel: AccountDailyModel! {
+    var dailyModel: HomeDailyModel! {
         didSet {
             if dailyModel.isToday {
                 weekLabel.text = "Today"

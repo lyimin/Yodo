@@ -12,50 +12,16 @@ class AccountViewModel: NSObject {
     
     var accounts: [Account] = []
     
-    /// 获取日期数据
-    func getDateDataSource() -> [YodoDate] {
-        
-        let firstDate = AccountManager.default.queryFirstData()?.createdAt;
-        let nowDate = Date().toString()
-        
-        if let firstDate = firstDate {
-            
-            // 数据库有数据
-            let first = YodoDate(date: firstDate)
-            let now = YodoDate(date: nowDate)
-            
-            // 获取两个日期计算日期差
-            let total = first.MonthGapCount(toDate: now)
-            
-            var outs: [YodoDate] = []
-            for i in 0..<total {
-                var newDate = first.getYodoDate(withIndex: i)
-                if i == total-1 {
-                    newDate.isThisMonth = true
-                    newDate.isSelected = true
-                }
-                outs.append(newDate);
-            }
-            return outs
-        } else {
-            
-            // 数据库没有数据
-        }
-        
-        return []
-    }
-    
-    
-    /// 获取列表数据
+    /// 获取某月的数据 转化成 HomeMonthModel对象
     ///
     /// - Parameter date: 日期对象
     /// - Returns: 返回当前日期对象对应的数据
-    func getListData(withYodoDate date: YodoDate) -> [AccountDailyModel] {
+    func getMonthData(withYodoDate date: YodoDate) -> HomeMonthModel {
         
-        let accounts = AccountManager.default.findMonthAccounds(withDate: date)
+        let accounts = AccountHelper.default.manager.findMonthAccounds(withDate: date)
         self.accounts = accounts
         
-        var dataSource: [AccountDailyModel] = []
+        var monthModel = HomeMonthModel(date: date, dailyModels: [])
         
         var temp: [Account] = []
         for account in accounts {
@@ -65,9 +31,10 @@ class AccountViewModel: NSObject {
                 if first.date == account.date {
                     temp.append(account)
                 } else {
-                    let daily = calculatePrice(withAccounts: temp)
-                    let dailyModel = AccountDailyModel(accounts: temp, incomeOfDaily: daily.income, expendOfDaily: daily.expend)
-                    dataSource.append(dailyModel)
+                    let daily = AccountHelper.default.calculatePrice(withAccounts: temp)
+                    let dailyModel = HomeDailyModel(accounts: temp, incomeOfDaily: daily.income, expendOfDaily: daily.expend)
+                    monthModel.dailyModels.append(dailyModel)
+
                     temp.removeAll()
                     temp.append(account)
                 }
@@ -76,25 +43,32 @@ class AccountViewModel: NSObject {
             }
         }
         
-        return dataSource
+        return monthModel
     }
+}
+
+extension AccountViewModel {
     
-    /// 计算总价格
-    ///
-    /// - Parameter accounts: 账单数组
-    func calculatePrice(withAccounts accounts: [Account]) -> (expend: String, income: String) {
+    // TODO
+    /// 获取首页的数据
+    func getHomeData() {
         
-        var expTotal: Double = 0
-        var incomeTotal: Double = 0
-        
-        for account in accounts {
+        /// 先获取日期
+        DispatchQueue.global().async {
             
-            if account.type == Account.AccountType.expend {
-                expTotal += account.money
-            } else if account.type == Account.AccountType.income {
-                incomeTotal += account.money
+            // 查询数据库日期
+            let dates = AccountHelper.default.getDates()
+            
+            // 分两种情况。日期数组<3 和 日期数组>=3(获取3组)
+            var dataSource: [HomeMonthModel] = []
+            
+            if dates.count < 3 {
+                // 获取全部日期
+                for date in dates {
+//                    let ds = self.getListData(withYodoDate: date)
+                }
             }
+
         }
-        return (String(format: "%.2f", expTotal), String(format: "%.2f", incomeTotal))
     }
 }

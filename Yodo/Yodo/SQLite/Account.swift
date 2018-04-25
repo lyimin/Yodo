@@ -12,9 +12,6 @@ import SQLite
 
 
 public struct Account {
-    
-  
-    
     /// 账单id
     var id: String = ""
     
@@ -180,37 +177,6 @@ extension String {
         default:
             return Account.AccountType.expend
         }
-    }
-}
-
-// 首页每日的收支 model(首页一个section)
-struct AccountDailyModel {
-    
-    /// 当天账单数组
-    var accounts: [Account]!
-    
-    var isToday: Bool!
-    
-    /// 星期
-    var week: String!
-    
-    /// 日期
-    var date: YodoDate!
-
-    /// 当天收入
-    var incomeOfDaily: String!
-    
-    /// 当天支出
-    var expendOfDaily: String!
-    
-    init(accounts: [Account], incomeOfDaily: String, expendOfDaily: String) {
-        
-        self.accounts = accounts
-        self.incomeOfDaily = incomeOfDaily
-        self.expendOfDaily = expendOfDaily
-        date = accounts.first!.date
-        week = Date.weekWithDateString(dateString: date.date)
-        isToday = Date.isToday(dateString: date.date)
     }
 }
 

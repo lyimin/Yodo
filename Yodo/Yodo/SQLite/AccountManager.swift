@@ -9,6 +9,7 @@
 import Foundation
 import SQLite
 
+/// AccountManager 直接跟sql打交道的类
 public class AccountManager {
     
     public let tableName = "account"
@@ -30,11 +31,7 @@ public class AccountManager {
     private let docName = "com.eamon.EMSQLite"
     private let dbName = "Yodo.sqlite3"
     
-    // 单例对象
-    public static let `default`: AccountManager = {
-       
-        return AccountManager()
-    }()
+  
     
     // 数据库保存地址
     public var path: String
@@ -161,7 +158,7 @@ extension AccountManager {
         debugPrint("[EMSQLite] connection db. path: \(fileName)")
         
         do {
-            AccountManager.default.db = try Connection(fileName)
+            db = try Connection(fileName)
         } catch {
             assertionFailure("[EMSQLite] fail to create db \(dbName)")
         }
