@@ -9,9 +9,13 @@
 import UIKit
 
 struct HomeModel {
-    
     var dates: [YodoDate] = []
+    var monthModels: [HomeMonthModel] = []
     
+    init(dates: [YodoDate], monthModels: [HomeMonthModel]) {
+        self.dates = dates
+        self.monthModels = monthModels
+    }
 }
 
 /// 首页每日的收支 model(首页一个section)

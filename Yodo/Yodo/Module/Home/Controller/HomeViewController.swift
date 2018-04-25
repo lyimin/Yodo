@@ -27,10 +27,13 @@ class HomeViewController: BaseViewController {
 //            make.top.equalTo(navigationView.snp.bottom)
 //        }
         
-        let dates = AccountHelper.default.getDates()
-        navigationView.dates = dates
+        viewM.getHomeData { [unowned self](homeModel) in
+            self.dataSource = homeModel
+            self.navigationView.dates = homeModel.dates
+        }
     }
    
+    private var dataSource: HomeModel?
     
     // MARK: - Getter | Setter
     private lazy var displayView: DisplayView = {
