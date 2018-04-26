@@ -15,6 +15,7 @@ import UIKit
     
     @objc optional func displayViewScrollToTop(_ displayView: DisplayView) -> Bool
     @objc optional func displayViewScrollToBottom(_ displayView: DisplayView) -> Bool
+    @objc optional func displayView(_ displayView: DisplayView, shouldReloadDataAt index: Int, lastIndex: Int)
 }
 
 
@@ -95,9 +96,8 @@ public class DisplayView: UIView {
         return scrollView
     }()
     
-    weak public var delegate: DisplayViewDelegate? {
+    weak public var delegate: DisplayViewDelegate! {
         didSet {
-            if delegate == nil { return }
             reloadData()
         }
     }
@@ -112,13 +112,19 @@ public class DisplayView: UIView {
 // MARK: - UIScrollViewDelegate
 extension DisplayView: UIScrollViewDelegate {
     
- 
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         YodoDebug(debug: "begingragging \(scrollView.contentOffset.x)")
     }
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        YodoDebug(debug: "EndDecelerating \(scrollView.contentOffset.x)")
+        
+        let i = Int(scrollView.contentOffset.x/scrollView.width)
+        
+        if i == index || (index != 1 && i == 1) { return }
+        
+        if delegate.responds(to: #selector(DisplayViewDelegate.displayView(_:shouldReloadDataAt:lastIndex:))) {
+            delegate.displayView!(self, shouldReloadDataAt: i, lastIndex: index)
+        }
     }
  
 }
@@ -175,26 +181,27 @@ extension DisplayView {
     
     private func contentOffset() {
         
-        if delegate == nil { return }
-        
-        if delegate!.responds(to: #selector(DisplayViewDelegate.displayViewScrollToTop(_:))) {
+        if delegate.responds(to: #selector(DisplayViewDelegate.displayViewScrollToTop(_:))) {
             
-            scrollToTop = delegate!.displayViewScrollToTop!(self)
+            scrollToTop = delegate.displayViewScrollToTop!(self)
             if scrollToTop {
                 scrollView.setContentOffset(CGPoint.zero, animated: false)
+                index = 0
             }
         }
         
-        if delegate!.responds(to: #selector(DisplayViewDelegate.displayViewScrollToBottom(_:))) {
+        if delegate.responds(to: #selector(DisplayViewDelegate.displayViewScrollToBottom(_:))) {
             
-            scrollToBottom = delegate!.displayViewScrollToBottom!(self)
+            scrollToBottom = delegate.displayViewScrollToBottom!(self)
             if scrollToBottom {
                 scrollView.setContentOffset(CGPoint(x: width*2, y: 0), animated: false)
+                index = 2
             }
         }
         
         if !scrollToTop && !scrollToBottom {
             scrollView.setContentOffset(CGPoint(x: width, y: 0), animated: false)
+            index = 1
         }
     }
 }

@@ -47,6 +47,9 @@ extension AccountHelper {
                 
                 for i in 0..<total {
                     var newDate = first.getYodoDate(withIndex: i)
+                    
+                    newDate.isFirstMonth = i == 0
+                    
                     if i == total-1 {
                         newDate.isThisMonth = true
                         newDate.isSelected = true

@@ -23,6 +23,9 @@ struct YodoDate {
     /// 日期
     var day: String
     
+    /// 是否是最初一个月的
+    var isFirstMonth: Bool = false
+    
     /// 是否是这个月
     var isThisMonth: Bool = false
     
@@ -87,7 +90,6 @@ struct YodoDate {
         return YodoDate(date: dateString)
     }
 }
-
 
 precedencegroup DatePrecedence {
     associativity: none
