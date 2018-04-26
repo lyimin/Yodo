@@ -19,35 +19,52 @@ class HomeViewController: BaseViewController {
         
         navigationView.snp.makeConstraints { (make) in
             make.left.right.top.equalTo(self.view)
-            make.height.equalTo(145)
+            make.height.equalTo(navigationH)
         }
         
-        displayView.snp.makeConstraints { (make) in
-            make.left.right.bottom.equalTo(self.view)
-            make.top.equalTo(navigationView.snp.bottom)
-        }
-        
-        viewM.getHomeData { [unowned self](homeModel) in
-            self.dataSource = homeModel
-            self.navigationView.dates = homeModel.dates
+        AccountHelper.default.getDates { (dates) in
+            self.dates = dates
         }
     }
    
-    private var dataSource: HomeModel? {
-        didSet {
-            if dataSource != nil {
-                displayView.reloadData()
-            }
-        }
-    }
+    // MARK: - Getter | Setter
     
-    // MARK: - Getter | Setter    
+    
+    /// 导航栏高度
+    private let navigationH: CGFloat = 145
+    
+    /// 中间滚动器
     private lazy var displayView: DisplayView = {
         
-        var displayView = DisplayView()
-        displayView.ds = self
+        var displayView = DisplayView(frame: CGRect(x: 0, y: navigationH, width: view.width, height: view.height-navigationH))
+        displayView.delegate = self
+        
         return displayView
     }()
+    
+    /// 账单列表对应的日期
+    /// 一.日期数组>=3的情况下
+    /// 1.当前月份是最早的一个月(2017.4)  -> 2017.4, 2017.5, 2017,6 三个月的数据
+    /// 2.当前月份是当前月份(2018.4) -> 2018.2, 2018.3, 2018.4 三个月的数据
+    /// 二.日期数组小于3的情况下全部返回
+    private var displayDates: [YodoDate] = []
+    
+    /// 所有日期数据
+    private var dates: [YodoDate] = [] {
+        didSet {
+            if dates.count >= 3 {
+                let right = dates.last!
+                displayDates.append(right.getYodoDate(withIndex: -2))
+                displayDates.append(right.getYodoDate(withIndex: -1))
+                displayDates.append(right)
+            } else {
+                displayDates = dates
+            }
+            
+            navigationView.dates = dates
+            displayView.reloadData()
+        }
+    }
     
     /// 导航栏
     private lazy var navigationView: HomeNavigationView = {
@@ -88,15 +105,21 @@ extension HomeViewController: HomeNavigationViewDelegate {
 }
 
 // MARK: - DisplayViewDataSrouce
-extension HomeViewController: DisplayViewDataSource {
+extension HomeViewController: DisplayViewDelegate {
     
-    func displayView(_ displayView: DisplayView, contentViewForRowAt index: Int) -> UIView? {
-        
-        if dataSource == nil { return nil }
+    func numberOfContentView(_ displayView: DisplayView) -> Int {
+        return displayDates.count
+    }
+    
+    func displayView(_ displayView: DisplayView, contentViewForRowAt index: Int) -> UIView {
         
         let contentView = AccountContentView(frame: displayView.bounds)
-        contentView.monthModel = dataSource!.monthModels[index]
+        contentView.date = displayDates[index]
         return contentView
+    }
+    
+    func displayViewScrollToBottom(_ displayView: DisplayView) -> Bool {
+        return true
     }
 }
 

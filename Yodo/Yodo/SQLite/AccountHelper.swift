@@ -28,35 +28,82 @@ public class AccountHelper: NSObject {
 extension AccountHelper {
     
     /// 获取日期数据
-    func getDates() -> [YodoDate] {
+    func getDates(callback: @escaping ([YodoDate]) -> Void) {
         
-        let firstDate = manager.queryFirstData()?.createdAt;
-        let nowDate = Date().toString()
-        
-        if let firstDate = firstDate {
-            
-            // 数据库有数据
-            let first = YodoDate(date: firstDate)
-            let now = YodoDate(date: nowDate)
-            
-            // 获取两个日期计算日期差
-            let total = first.MonthGapCount(toDate: now)
+        DispatchQueue.global().async {
+            let firstDate = AccountHelper.default.manager.queryFirstData()?.createdAt;
+            let nowDate = Date().toString()
             
             var outs: [YodoDate] = []
-            for i in 0..<total {
-                var newDate = first.getYodoDate(withIndex: i)
-                if i == total-1 {
-                    newDate.isThisMonth = true
-                    newDate.isSelected = true
+            if let firstDate = firstDate {
+                
+                // 数据库有数据
+                let first = YodoDate(date: firstDate)
+                let now = YodoDate(date: nowDate)
+                
+                // 获取两个日期计算日期差
+                let total = first.MonthGapCount(toDate: now)
+                
+                
+                for i in 0..<total {
+                    var newDate = first.getYodoDate(withIndex: i)
+                    if i == total-1 {
+                        newDate.isThisMonth = true
+                        newDate.isSelected = true
+                    }
+                    outs.append(newDate);
                 }
-                outs.append(newDate);
+                
+            } else {
+                
+                // 数据库没有数据 (返回当前月份的数据)
+                let now = YodoDate(date: nowDate)
+                outs.append(now)
             }
-            return outs
-        } else {
             
-            // 数据库没有数据 (返回当前月份的数据)
-            let now = YodoDate(date: nowDate)
-            return [now]
+            DispatchQueue.main.async {
+                callback(outs)
+            }
+        }
+    }
+    
+    /// 获取某月的数据 转化成 HomeMonthModel对象
+    ///
+    /// - Parameter date: 日期对象
+    /// - Returns: 返回当前日期对象对应的数据
+    func getMonthData(withYodoDate date: YodoDate, callback: @escaping (HomeMonthModel) -> Void) {
+        
+        DispatchQueue.global().async {
+            
+            let accounts = AccountHelper.default.manager.findMonthAccounds(withDate: date)
+            let total = AccountHelper.default.calculatePrice(withAccounts: accounts)
+            
+            var monthModel = HomeMonthModel(date: date, dailyModels: [], income:total.income, expend: total.expend)
+            var temp: [Account] = []
+            
+            for account in accounts {
+                
+                if temp.count == 0 {
+                    temp.append(account)
+                    continue
+                }
+                
+                let first = temp.first!
+                if first.date == account.date {
+                    temp.append(account)
+                } else {
+                    let daily = AccountHelper.default.calculatePrice(withAccounts: temp)
+                    let dailyModel = HomeDailyModel(accounts: temp, incomeOfDaily: daily.income, expendOfDaily: daily.expend)
+                    monthModel.dailyModels.append(dailyModel)
+                    
+                    temp.removeAll()
+                    temp.append(account)
+                }
+            }
+            
+            DispatchQueue.main.async {
+                callback(monthModel)
+            }
         }
     }
     

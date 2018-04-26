@@ -23,13 +23,19 @@ class AccountContentView: UIView {
         }
     }
     
+    convenience init(frame: CGRect, vm: AccountViewModel) {
+        self.init(frame: frame)
+        self.vm = vm
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
     //MARK: - Getter | Setter
+    
+    private var vm: AccountViewModel!
+    
     /// 列表
     private lazy var tableView: UITableView = {
         
@@ -45,9 +51,16 @@ class AccountContentView: UIView {
         return tableView
     }()
     
+    var date: YodoDate? {
+        didSet {
+            loadingMonthDate()
+        }
+    }
+    
     var monthModel: HomeMonthModel? {
         didSet {
             if let monthModel = monthModel {
+                
                 tableView.reloadData()
                 
                 headerView.expendMoney = monthModel.expend
@@ -63,7 +76,6 @@ class AccountContentView: UIView {
         let headerView = HomeHeaderView(frame: CGRect(x: 0, y: 0, width: width-40, height: 120))
         return headerView
     }()
-    
 }
 
 
@@ -209,5 +221,14 @@ extension AccountContentView {
         
         let animations = [AnimationType.from(direction: .bottom, offset: 30.0)]
         UIView.animate(views: animateViews, animations: animations)
+    }
+    
+    /// 加载当月的数据
+    private func loadingMonthDate() {
+        if let date = date {
+            AccountHelper.default.getMonthData(withYodoDate: date, callback: {
+                self.monthModel = $0
+            })
+        }
     }
 }

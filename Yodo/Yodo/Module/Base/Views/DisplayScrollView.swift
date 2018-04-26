@@ -8,9 +8,13 @@
 
 import UIKit
 
-public protocol DisplayViewDataSource: NSObjectProtocol {
+@objc public protocol DisplayViewDelegate: UIScrollViewDelegate {
     
-    func displayView(_ displayView: DisplayView, contentViewForRowAt index: Int) -> UIView?
+    func numberOfContentView(_ displayView: DisplayView) -> Int
+    func displayView(_ displayView: DisplayView, contentViewForRowAt index: Int) -> UIView
+    
+    @objc optional func displayViewScrollToTop(_ displayView: DisplayView) -> Bool
+    @objc optional func displayViewScrollToBottom(_ displayView: DisplayView) -> Bool
 }
 
 
@@ -41,7 +45,7 @@ public class DisplayView: UIView {
     
     //MARK: - Getter | Setter
     
-    private let total = 3
+    private var total = 3
     
     public var index: Int = 0 {
         didSet {
@@ -91,18 +95,32 @@ public class DisplayView: UIView {
         return scrollView
     }()
     
-    weak open var ds: DisplayViewDataSource? {
+    weak public var delegate: DisplayViewDelegate? {
         didSet {
-            if ds != nil {
-                reloadData()
-            }
+            if delegate == nil { return }
+            reloadData()
         }
     }
+    
+    /// 是否滚到底部
+    private var scrollToBottom: Bool = false
+    
+    /// 是否滚动顶部
+    private var scrollToTop: Bool = false
 }
 
 // MARK: - UIScrollViewDelegate
 extension DisplayView: UIScrollViewDelegate {
     
+ 
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        YodoDebug(debug: "begingragging \(scrollView.contentOffset.x)")
+    }
+    
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        YodoDebug(debug: "EndDecelerating \(scrollView.contentOffset.x)")
+    }
+ 
 }
 
 // MARK: - Public Methods
@@ -112,6 +130,8 @@ extension DisplayView {
         removeSubviews()
         
         initPage()
+        
+        contentOffset()
     }
 }
 
@@ -132,21 +152,49 @@ extension DisplayView {
     
     private func initPage() {
         
+        let total = delegate!.numberOfContentView(self)
+        self.total = total
+        
         for i in 0..<total {
-            let v = ds!.displayView(self, contentViewForRowAt: i)
-            if let v = v {
-                v.frame = scrollView.bounds;
-                switch i {
-                case 0:
-                    leftPage.addSubview(v)
-                case 1:
-                    centerPage.addSubview(v)
-                case 2:
-                    rightPage.addSubview(v)
-                default:
-                    break
-                }
+            let v = delegate!.displayView(self, contentViewForRowAt: i)
+            
+            v.frame = scrollView.bounds;
+            switch i {
+            case 0:
+                leftPage.addSubview(v)
+            case 1:
+                centerPage.addSubview(v)
+            case 2:
+                rightPage.addSubview(v)
+            default:
+                break
             }
+            
+        }
+    }
+    
+    private func contentOffset() {
+        
+        if delegate == nil { return }
+        
+        if delegate!.responds(to: #selector(DisplayViewDelegate.displayViewScrollToTop(_:))) {
+            
+            scrollToTop = delegate!.displayViewScrollToTop!(self)
+            if scrollToTop {
+                scrollView.setContentOffset(CGPoint.zero, animated: false)
+            }
+        }
+        
+        if delegate!.responds(to: #selector(DisplayViewDelegate.displayViewScrollToBottom(_:))) {
+            
+            scrollToBottom = delegate!.displayViewScrollToBottom!(self)
+            if scrollToBottom {
+                scrollView.setContentOffset(CGPoint(x: width*2, y: 0), animated: false)
+            }
+        }
+        
+        if !scrollToTop && !scrollToBottom {
+            scrollView.setContentOffset(CGPoint(x: width, y: 0), animated: false)
         }
     }
 }

@@ -40,29 +40,27 @@ class HomeNavigationView: UIView {
     private var selectedIndex: IndexPath?
     
     /// 导航栏日期数据
-    var dates: [YodoDate] = []{
+    var dates: [YodoDate] = [] {
         didSet {
+            
             dateView.reloadData()
             
-            DispatchQueue.main.async {
+            // 滚到底部
+            let contentSizeW = dateView.collectionViewLayout.collectionViewContentSize.width;
+            if (contentSizeW > frame.width && oldValue.count == 0) {
                 
-                // 滚到底部
-                if (self.dateView.contentSize.width > self.frame.width && oldValue.count == 0) {
+                let offset = CGPoint(x: contentSizeW-frame.width, y: 0)
+                dateView.setContentOffset(offset, animated: false)
+                
+                delay(delay: 0.2, closure: {
                     
-                    let offset = CGPoint(x: self.dateView.contentSize.width-self.frame.width, y: 0)
-                    self.dateView.setContentOffset(offset, animated: false)
                     self.dateView.insertSubview(self.selectView, at: 0)
-                    
-                    
-                    delay(delay: 0.1, closure: {
-                        // 默认选中最后一个cell
-                        let lastSelectedIndex = IndexPath(row: self.dates.count-1, section: 0)
-                        let cell = self.dateView.cellForItem(at: lastSelectedIndex) as! HomeDateItemCell
-                        self.selectedIndex = lastSelectedIndex
-                        self.showAnimation(currentCell: cell)
-                    })
-                    
-                }
+                    // 默认选中最后一个cell
+                    let lastSelectedIndex = IndexPath(row: self.dates.count-1, section: 0)
+                    let cell = self.dateView.cellForItem(at: lastSelectedIndex) as! HomeDateItemCell
+                    self.selectedIndex = lastSelectedIndex
+                    self.showAnimation(currentCell: cell)
+                })
             }
         }
     }
