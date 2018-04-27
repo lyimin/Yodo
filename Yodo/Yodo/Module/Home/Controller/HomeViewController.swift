@@ -136,9 +136,47 @@ extension HomeViewController: DisplayViewDelegate {
         return false
     }
     
-    // TODO
-    func displayView(_ displayView: DisplayView, shouldReloadDataAt leftView: UIView, _ centerView: UIView, _ rightView: UIView) {
+    func displayView(_ displayView: DisplayView, shouldResetFrame leftView: UIView, _ centerView: UIView, _ rightView: UIView) -> Bool {
         
+        // TODO:
+        let left = leftView as! AccountContentView
+        let right = rightView as! AccountContentView
+        
+        guard let leftDate = left.date, let rightDate = right.date else {
+            return false
+        }
+        
+        // 获取第一个date和最后一个date
+        let firstDate = dates.first!
+        let lastDate = dates.last!
+        
+        if firstDate <=> leftDate || lastDate <=> rightDate {
+            return false
+        }
+        
+        return true
+    }
+    
+    func displayView(_ displayView: DisplayView, didResetFrame leftView: UIView, _ centerView: UIView, _ rightView: UIView, _ dir: DisplayView.ScrollDirection) {
+        
+        let currView = centerView as! AccountContentView
+        let currDate = currView.date
+        
+        guard currDate != nil else {
+            return
+        }
+        
+        if dir == DisplayView.ScrollDirection.left {
+            
+            let lastDate = currDate!.getYodoDate(withIndex: -1)
+            (leftView as! AccountContentView).tableView.setContentOffset(CGPoint.zero, animated: false)
+            (leftView as! AccountContentView).date = lastDate
+        } else if dir == DisplayView.ScrollDirection.right {
+            
+            let nextDate = currDate!.getYodoDate(withIndex: 1)
+            (rightView as! AccountContentView).tableView.setContentOffset(CGPoint.zero, animated: false)
+            (rightView as! AccountContentView).date = nextDate
+        }
     }
 }
 

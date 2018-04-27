@@ -130,6 +130,15 @@ class HomeNavigationView: UIView {
         
         return dateView
     }()
+    
+    /// 底部分割线
+    private lazy var borderLine: UIView = {
+        
+        let borderLine = UIView()
+        borderLine.backgroundColor = YodoConfig.color.backgroundColor
+        
+        return borderLine
+    }()
 }
 
 extension HomeNavigationView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -199,6 +208,7 @@ extension HomeNavigationView {
         addSubview(titleLabel)
         addSubview(chartBtn)
         addSubview(dateView)
+        addSubview(borderLine)
         
         setupLayout()
     }
@@ -235,6 +245,11 @@ extension HomeNavigationView {
             make.left.right.equalTo(self)
             make.bottom.equalTo(self).offset(-5)
             make.height.equalTo(itemHeight)
+        }
+        
+        borderLine.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalTo(self)
+            make.height.equalTo(0.5)
         }
     } 
     

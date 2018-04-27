@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+
 @objc public protocol DisplayViewDelegate: UIScrollViewDelegate {
     
     func numberOfContentView(_ displayView: DisplayView) -> Int
@@ -15,11 +17,19 @@ import UIKit
     
     @objc optional func displayViewScrollToTop(_ displayView: DisplayView) -> Bool
     @objc optional func displayViewScrollToBottom(_ displayView: DisplayView) -> Bool
-    @objc optional func displayView(_ displayView: DisplayView, shouldReloadDataAt leftView: UIView, _ centerView: UIView, _ rightView: UIView)
+    func displayView(_ displayView: DisplayView, shouldResetFrame leftView: UIView, _ centerView: UIView, _ rightView: UIView) -> Bool
+    func displayView(_ displayView: DisplayView, didResetFrame leftView: UIView, _ centerView: UIView, _ rightView: UIView, _ dir: DisplayView.ScrollDirection)
 }
 
 
 public class DisplayView: UIView {
+    
+    /// scrollView的滚动方向
+    @objc public enum ScrollDirection: Int {
+        case left = 0
+        case right = 2
+        case normal
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -116,17 +126,43 @@ extension DisplayView: UIScrollViewDelegate {
         let index = Int(scrollView.contentOffset.x/scrollView.width)
         if index == lastIndex || (lastIndex != 1 && index == 1) {
             
-            scrollView.isUserInteractionEnabled = true
+            // 动画差
+            delay(delay: 0.3) {
+                scrollView.isUserInteractionEnabled = true
+            }
             lastIndex = index
             return
         }
         
-        let subview = resetFrame(index: index)
-        if delegate.responds(to: #selector(DisplayViewDelegate.displayView(_:shouldReloadDataAt:_:_:))) {
-            delegate.displayView!(self, shouldReloadDataAt: subview.left, subview.center, subview.right)
+        // 判断是否要更新frame
+        var subview = getSubviews()
+        let isResetFrame = delegate.displayView(self, shouldResetFrame: subview.left, subview.center, subview.right)
+        
+        if !isResetFrame {
+            // 动画差
+            delay(delay: 0.3) {
+                scrollView.isUserInteractionEnabled = true
+            }
+            lastIndex = index
+            return
+            
         }
         
-        scrollView.isUserInteractionEnabled = true
+        // 重新更新frame
+        let dir: ScrollDirection = ScrollDirection(rawValue: index)!
+        resetFrame(dir: dir)
+        subview = getSubviews()
+        
+        // 设置frame后，回调给控制器
+        if delegate.responds(to: #selector(DisplayViewDelegate.displayView(_:didResetFrame:_:_:_:))) {
+            delegate.displayView(self, didResetFrame: subview.left, subview.center, subview.right, dir)
+        }
+        
+        // 动画差
+        delay(delay: 0.3) {
+            scrollView.isUserInteractionEnabled = true
+        }
+        lastIndex = index
     }
 }
 
@@ -196,45 +232,52 @@ extension DisplayView {
     
     /// 重新设置frame
     /// 这里 index的取值只有两种 0 和 2
-    private func resetFrame(index: Int) -> (left: UIView, center: UIView, right: UIView) {
+    private func resetFrame(dir: ScrollDirection) {
         
-        var left, center, right: UIView!
-        
-        if index == 0 {
+        if dir == ScrollDirection.left {
             
             // 往左边滑动
             for subView in scrollView.subviews {
                 if subView.x == 0 {
                     subView.x = width
-                    center = subView
                 } else if (subView.x == width) {
                     subView.x = 2*width
-                    right = subView
                 } else if (subView.x == 2*width) {
                     subView.x = 0
-                    left = subView
                 }
             }
             
-        } else if index == 2 {
+        } else if dir == ScrollDirection.right {
             
             // 往右边滑动
             for subView in scrollView.subviews {
                 if subView.x == 0 {
                     subView.x = 2*width
-                    right = subView
                 } else if (subView.x == width) {
                     subView.x = 0
-                    left = subView
                 } else if (subView.x == 2*width) {
                     subView.x = width
-                    center = subView
                 }
             }
         }
         
         scrollView.setContentOffset(CGPoint(x: width, y: 0), animated: false)
+    }
+    
+    /// 根据frame获取子view
+    private func getSubviews() -> (left: UIView, center: UIView, right: UIView) {
         
+        var left, center, right: UIView!
+        
+        for subView in scrollView.subviews {
+            if subView.x == 0 {
+                left = subView.subviews.first!
+            } else if (subView.x == width) {
+                center = subView.subviews.first!
+            } else if (subView.x == 2*width) {
+                right = subView.subviews.first!
+            }
+        }
         return (left, center, right)
     }
 }

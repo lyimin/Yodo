@@ -37,7 +37,7 @@ class AccountContentView: UIView {
     private var vm: AccountViewModel!
     
     /// 列表
-    private lazy var tableView: UITableView = {
+    private(set) lazy var tableView: UITableView = {
         
         var tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.backgroundColor = YodoConfig.color.backgroundColor
@@ -225,9 +225,21 @@ extension AccountContentView {
     
     /// 加载当月的数据
     private func loadingMonthDate() {
+        
         if let date = date {
+            
+            tableView.isHidden = true
+            showProgress()
+            
             AccountHelper.default.getMonthData(withYodoDate: date, callback: {
+                
                 self.monthModel = $0
+                delay(delay: 0.8, closure: {
+                    
+                    self.hiddenProgress()
+                    self.tableView.isHidden = false
+                    self.cellsOffsetAnimat()
+                })
             })
         }
     }

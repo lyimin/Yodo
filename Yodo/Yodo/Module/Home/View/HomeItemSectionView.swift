@@ -16,11 +16,11 @@ class HomeItemSectionView: UITableViewHeaderFooterView, Reusable {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = YodoConfig.color.backgroundColor
+        contentView.backgroundColor = YodoConfig.color.backgroundColor
         
-        addSubview(weekLabel)
-        addSubview(dateLabel)
-        addSubview(priceLabel)
+        contentView.addSubview(weekLabel)
+        contentView.addSubview(dateLabel)
+        contentView.addSubview(priceLabel)
         
         setupLayout()
     }
@@ -35,22 +35,22 @@ class HomeItemSectionView: UITableViewHeaderFooterView, Reusable {
     private func setupLayout() {
         
         dateLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(self).offset(20)
-            make.top.equalTo(self).offset(0)
+            make.left.equalTo(self.contentView).offset(20)
+            make.top.equalTo(self.contentView).offset(0)
             make.height.equalTo(20)
             make.width.greaterThanOrEqualTo(200)
         }
         
         weekLabel.snp.makeConstraints { (make) in
             make.left.equalTo(dateLabel)
-            make.bottom.equalTo(self).offset(-15)
+            make.bottom.equalTo(self.contentView).offset(-15)
             make.width.greaterThanOrEqualTo(200)
             make.height.equalTo(25)
         }
         
         priceLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self)
-            make.right.equalTo(self).offset(-30)
+            make.centerY.equalTo(self.contentView)
+            make.right.equalTo(self.contentView).offset(-30)
             make.left.equalTo(dateLabel.snp.right).offset(10)
         }
     }
