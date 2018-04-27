@@ -136,30 +136,9 @@ extension HomeViewController: DisplayViewDelegate {
         return false
     }
     
-    /// 需要更新数据源 TODO
-    ///
-    /// - Parameters:
-    ///   - displayView: <#displayView description#>
-    ///   - index: <#index description#>
-    func displayView(_ displayView: DisplayView, shouldReloadDataAt index: Int, lastIndex: Int) {
-        /*
-        let currDate = displayDates[index]
+    // TODO
+    func displayView(_ displayView: DisplayView, shouldReloadDataAt leftView: UIView, _ centerView: UIView, _ rightView: UIView) {
         
-        if index > lastIndex {
-            // 获取下个月
-            let nextDate = currDate.getYodoDate(withIndex: 1)
-            displayDates.removeFirst()
-            displayDates.append(nextDate)
-            displayView.reloadData()
-        } else {
-            // 获取上个月
-            let lastDate = currDate.getYodoDate(withIndex: -1)
-            displayDates.removeLast()
-            displayDates.insert(lastDate, at: 0)
-            displayView.reloadData()
-        }
-        YodoDebug(debug: currDate.date)
-        */
     }
 }
 

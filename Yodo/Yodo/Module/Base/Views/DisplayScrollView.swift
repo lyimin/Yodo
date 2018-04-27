@@ -15,7 +15,7 @@ import UIKit
     
     @objc optional func displayViewScrollToTop(_ displayView: DisplayView) -> Bool
     @objc optional func displayViewScrollToBottom(_ displayView: DisplayView) -> Bool
-    @objc optional func displayView(_ displayView: DisplayView, shouldReloadDataAt index: Int, lastIndex: Int)
+    @objc optional func displayView(_ displayView: DisplayView, shouldReloadDataAt leftView: UIView, _ centerView: UIView, _ rightView: UIView)
 }
 
 
@@ -121,10 +121,9 @@ extension DisplayView: UIScrollViewDelegate {
             return
         }
         
-        resetFrame(index: index)
-        
-        if delegate.responds(to: #selector(DisplayViewDelegate.displayView(_:shouldReloadDataAt:lastIndex:))) {
-            delegate.displayView!(self, shouldReloadDataAt: index, lastIndex: lastIndex)
+        let subview = resetFrame(index: index)
+        if delegate.responds(to: #selector(DisplayViewDelegate.displayView(_:shouldReloadDataAt:_:_:))) {
+            delegate.displayView!(self, shouldReloadDataAt: subview.left, subview.center, subview.right)
         }
         
         scrollView.isUserInteractionEnabled = true
@@ -197,19 +196,23 @@ extension DisplayView {
     
     /// 重新设置frame
     /// 这里 index的取值只有两种 0 和 2
-    private func resetFrame(index: Int) {
+    private func resetFrame(index: Int) -> (left: UIView, center: UIView, right: UIView) {
         
+        var left, center, right: UIView!
         
         if index == 0 {
-            // 往左边滑动
             
+            // 往左边滑动
             for subView in scrollView.subviews {
                 if subView.x == 0 {
                     subView.x = width
+                    center = subView
                 } else if (subView.x == width) {
                     subView.x = 2*width
+                    right = subView
                 } else if (subView.x == 2*width) {
                     subView.x = 0
+                    left = subView
                 }
             }
             
@@ -219,14 +222,19 @@ extension DisplayView {
             for subView in scrollView.subviews {
                 if subView.x == 0 {
                     subView.x = 2*width
+                    right = subView
                 } else if (subView.x == width) {
                     subView.x = 0
+                    left = subView
                 } else if (subView.x == 2*width) {
                     subView.x = width
+                    center = subView
                 }
             }
         }
         
         scrollView.setContentOffset(CGPoint(x: width, y: 0), animated: false)
+        
+        return (left, center, right)
     }
 }

@@ -14,7 +14,7 @@ PODS:
   - SQLite.swift (0.11.4):
     - SQLite.swift/standard (= 0.11.4)
   - SQLite.swift/standard (0.11.4)
-  - ViewAnimator (2.0.0)
+  - ViewAnimator (2.0.1)
 
 DEPENDENCIES:
   - Alamofire (~> 4.5.1)
@@ -37,7 +37,7 @@ SPEC CHECKSUMS:
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SQLite.swift: 3e3bee21da701b5b9f87c4a672cb54f233505692
-  ViewAnimator: 9d60ae822b6637832bc0a4f7dd8e01489103ee7c
+  ViewAnimator: 0c70ee4e1dfbe9d4f129407f81db91f6948900aa
 
 PODFILE CHECKSUM: b43b06330fa298f62bc2c7e99b292cdb287948b2
 
