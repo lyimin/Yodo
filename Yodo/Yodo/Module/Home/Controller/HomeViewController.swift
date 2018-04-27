@@ -142,7 +142,7 @@ extension HomeViewController: DisplayViewDelegate {
     ///   - displayView: <#displayView description#>
     ///   - index: <#index description#>
     func displayView(_ displayView: DisplayView, shouldReloadDataAt index: Int, lastIndex: Int) {
-        
+        /*
         let currDate = displayDates[index]
         
         if index > lastIndex {
@@ -159,6 +159,7 @@ extension HomeViewController: DisplayViewDelegate {
             displayView.reloadData()
         }
         YodoDebug(debug: currDate.date)
+        */
     }
 }
 

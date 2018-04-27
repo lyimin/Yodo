@@ -48,13 +48,7 @@ public class DisplayView: UIView {
     
     private var total = 3
     
-    public var index: Int = 0 {
-        didSet {
-            if index < 0 || index >= 3 {
-                index = 0
-            }
-        }
-    }
+    private var lastIndex: Int = 0
     
     /// 中间page
     private lazy var centerPage: UIView = {
@@ -112,29 +106,36 @@ public class DisplayView: UIView {
 // MARK: - UIScrollViewDelegate
 extension DisplayView: UIScrollViewDelegate {
     
-    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        YodoDebug(debug: "begingragging \(scrollView.contentOffset.x)")
+    // 防止滑动过快
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        scrollView.isUserInteractionEnabled = false
     }
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
-        let i = Int(scrollView.contentOffset.x/scrollView.width)
+        let index = Int(scrollView.contentOffset.x/scrollView.width)
+        if index == lastIndex || (lastIndex != 1 && index == 1) {
+            
+            scrollView.isUserInteractionEnabled = true
+            lastIndex = index
+            return
+        }
         
-        if i == index || (index != 1 && i == 1) { return }
+        resetFrame(index: index)
         
         if delegate.responds(to: #selector(DisplayViewDelegate.displayView(_:shouldReloadDataAt:lastIndex:))) {
-            delegate.displayView!(self, shouldReloadDataAt: i, lastIndex: index)
+            delegate.displayView!(self, shouldReloadDataAt: index, lastIndex: lastIndex)
         }
+        
+        scrollView.isUserInteractionEnabled = true
     }
- 
 }
 
 // MARK: - Public Methods
 extension DisplayView {
     
     public func reloadData() {
-        removeSubviews()
-        
+    
         initPage()
         
         contentOffset()
@@ -143,18 +144,6 @@ extension DisplayView {
 
 // MARK: - Private Methods
 extension DisplayView {
-    
-    private func removeSubviews() {
-        for left in leftPage.subviews {
-            left.removeFromSuperview()
-        }
-        for center in centerPage.subviews {
-            center.removeFromSuperview()
-        }
-        for right in rightPage.subviews {
-            right.removeFromSuperview()
-        }
-    }
     
     private func initPage() {
         
@@ -186,7 +175,7 @@ extension DisplayView {
             scrollToTop = delegate.displayViewScrollToTop!(self)
             if scrollToTop {
                 scrollView.setContentOffset(CGPoint.zero, animated: false)
-                index = 0
+                lastIndex = 0
             }
         }
         
@@ -195,13 +184,49 @@ extension DisplayView {
             scrollToBottom = delegate.displayViewScrollToBottom!(self)
             if scrollToBottom {
                 scrollView.setContentOffset(CGPoint(x: width*2, y: 0), animated: false)
-                index = 2
+                lastIndex = 2
             }
         }
+ 
         
         if !scrollToTop && !scrollToBottom {
             scrollView.setContentOffset(CGPoint(x: width, y: 0), animated: false)
-            index = 1
+            lastIndex = 1
         }
+    }
+    
+    /// 重新设置frame
+    /// 这里 index的取值只有两种 0 和 2
+    private func resetFrame(index: Int) {
+        
+        
+        if index == 0 {
+            // 往左边滑动
+            
+            for subView in scrollView.subviews {
+                if subView.x == 0 {
+                    subView.x = width
+                } else if (subView.x == width) {
+                    subView.x = 2*width
+                } else if (subView.x == 2*width) {
+                    subView.x = 0
+                }
+            }
+            
+        } else if index == 2 {
+            
+            // 往右边滑动
+            for subView in scrollView.subviews {
+                if subView.x == 0 {
+                    subView.x = 2*width
+                } else if (subView.x == width) {
+                    subView.x = 0
+                } else if (subView.x == 2*width) {
+                    subView.x = width
+                }
+            }
+        }
+        
+        scrollView.setContentOffset(CGPoint(x: width, y: 0), animated: false)
     }
 }
