@@ -17,7 +17,7 @@ import UIKit
     
     @objc optional func displayViewScrollToTop(_ displayView: DisplayView) -> Bool
     @objc optional func displayViewScrollToBottom(_ displayView: DisplayView) -> Bool
-    func displayView(_ displayView: DisplayView, shouldResetFrame leftView: UIView, _ centerView: UIView, _ rightView: UIView) -> Bool
+    func displayView(_ displayView: DisplayView, shouldResetFrame leftView: UIView, _ centerView: UIView, _ rightView: UIView, _ dir: DisplayView.ScrollDirection) -> Bool
     func displayView(_ displayView: DisplayView, didResetFrame leftView: UIView, _ centerView: UIView, _ rightView: UIView, _ dir: DisplayView.ScrollDirection)
 }
 
@@ -27,8 +27,8 @@ public class DisplayView: UIView {
     /// scrollView的滚动方向
     @objc public enum ScrollDirection: Int {
         case left = 0
+        case middle = 1
         case right = 2
-        case normal
     }
 
     override init(frame: CGRect) {
@@ -106,11 +106,8 @@ public class DisplayView: UIView {
         }
     }
     
-    /// 是否滚到底部
-    private var scrollToBottom: Bool = false
     
-    /// 是否滚动顶部
-    private var scrollToTop: Bool = false
+    private var critical: Bool = true
 }
 
 // MARK: - UIScrollViewDelegate
@@ -124,32 +121,36 @@ extension DisplayView: UIScrollViewDelegate {
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         let index = Int(scrollView.contentOffset.x/scrollView.width)
+        let dir: ScrollDirection = ScrollDirection(rawValue: index)!
+        
         if index == lastIndex || (lastIndex != 1 && index == 1) {
             
             // 动画差
-            delay(delay: 0.3) {
+            delay(delay: 0.1) {
                 scrollView.isUserInteractionEnabled = true
             }
+            critical = false
             lastIndex = index
             return
         }
         
         // 判断是否要更新frame
         var subview = getSubviews()
-        let isResetFrame = delegate.displayView(self, shouldResetFrame: subview.left, subview.center, subview.right)
+        
+        let isResetFrame = delegate.displayView(self, shouldResetFrame: subview.left, subview.center, subview.right, dir)
         
         if !isResetFrame {
             // 动画差
-            delay(delay: 0.3) {
+            delay(delay: 0.1) {
                 scrollView.isUserInteractionEnabled = true
             }
+            critical = true
             lastIndex = index
             return
             
         }
-        
+ 
         // 重新更新frame
-        let dir: ScrollDirection = ScrollDirection(rawValue: index)!
         resetFrame(dir: dir)
         subview = getSubviews()
         
@@ -159,10 +160,9 @@ extension DisplayView: UIScrollViewDelegate {
         }
         
         // 动画差
-        delay(delay: 0.3) {
+        delay(delay: 0.1) {
             scrollView.isUserInteractionEnabled = true
         }
-        lastIndex = index
     }
 }
 
@@ -207,26 +207,27 @@ extension DisplayView {
         
         if delegate.responds(to: #selector(DisplayViewDelegate.displayViewScrollToTop(_:))) {
             
-            scrollToTop = delegate.displayViewScrollToTop!(self)
-            if scrollToTop {
+            if delegate.displayViewScrollToTop!(self) {
                 scrollView.setContentOffset(CGPoint.zero, animated: false)
                 lastIndex = 0
+                critical = true
             }
         }
         
         if delegate.responds(to: #selector(DisplayViewDelegate.displayViewScrollToBottom(_:))) {
             
-            scrollToBottom = delegate.displayViewScrollToBottom!(self)
-            if scrollToBottom {
+            if delegate.displayViewScrollToBottom!(self) {
                 scrollView.setContentOffset(CGPoint(x: width*2, y: 0), animated: false)
                 lastIndex = 2
+                critical = true
             }
         }
  
         
-        if !scrollToTop && !scrollToBottom {
+        if !critical {
             scrollView.setContentOffset(CGPoint(x: width, y: 0), animated: false)
             lastIndex = 1
+            critical = false
         }
     }
     

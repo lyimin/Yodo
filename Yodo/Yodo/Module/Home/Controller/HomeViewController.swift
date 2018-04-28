@@ -136,7 +136,7 @@ extension HomeViewController: DisplayViewDelegate {
         return false
     }
     
-    func displayView(_ displayView: DisplayView, shouldResetFrame leftView: UIView, _ centerView: UIView, _ rightView: UIView) -> Bool {
+    func displayView(_ displayView: DisplayView, shouldResetFrame leftView: UIView, _ centerView: UIView, _ rightView: UIView, _ dir: DisplayView.ScrollDirection) -> Bool {
         
         // TODO:
         let left = leftView as! AccountContentView
@@ -150,7 +150,7 @@ extension HomeViewController: DisplayViewDelegate {
         let firstDate = dates.first!
         let lastDate = dates.last!
         
-        if firstDate <=> leftDate || lastDate <=> rightDate {
+        if (firstDate <=> leftDate && dir == .left) || (lastDate <=> rightDate && dir == .right) {
             return false
         }
         
