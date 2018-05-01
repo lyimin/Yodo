@@ -40,7 +40,7 @@ class AccountContentView: UIView {
     private(set) lazy var tableView: UITableView = {
         
         var tableView = UITableView(frame: CGRect.zero, style: .grouped)
-        tableView.backgroundColor = YodoConfig.color.backgroundColor
+        tableView.backgroundColor = YodoConfig.color.background
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none

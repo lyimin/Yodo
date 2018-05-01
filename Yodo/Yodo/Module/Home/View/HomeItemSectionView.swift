@@ -16,7 +16,7 @@ class HomeItemSectionView: UITableViewHeaderFooterView, Reusable {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
-        contentView.backgroundColor = YodoConfig.color.backgroundColor
+        contentView.backgroundColor = YodoConfig.color.background
         
         contentView.addSubview(weekLabel)
         contentView.addSubview(dateLabel)

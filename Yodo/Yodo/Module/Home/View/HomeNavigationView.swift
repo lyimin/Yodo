@@ -135,7 +135,7 @@ class HomeNavigationView: UIView {
     private lazy var borderLine: UIView = {
         
         let borderLine = UIView()
-        borderLine.backgroundColor = YodoConfig.color.backgroundColor
+        borderLine.backgroundColor = YodoConfig.color.background
         
         return borderLine
     }()

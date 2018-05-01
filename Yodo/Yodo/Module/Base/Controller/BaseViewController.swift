@@ -13,6 +13,6 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = YodoConfig.color.backgroundColor
+        self.view.backgroundColor = YodoConfig.color.background
     }
 }

@@ -45,7 +45,6 @@ extension AppDelegate {
         }
         
         manager.createdAccountTable()
-//        manager.createTable(withName: "abc", model: Account())
     }
     
     private func getCSV() {

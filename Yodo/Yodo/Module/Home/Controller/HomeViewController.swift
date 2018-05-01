@@ -138,7 +138,6 @@ extension HomeViewController: DisplayViewDelegate {
     
     func displayView(_ displayView: DisplayView, shouldResetFrame leftView: UIView, _ centerView: UIView, _ rightView: UIView, _ dir: DisplayView.ScrollDirection) -> Bool {
         
-        // TODO:
         let left = leftView as! AccountContentView
         let right = rightView as! AccountContentView
         
@@ -171,6 +170,7 @@ extension HomeViewController: DisplayViewDelegate {
             let lastDate = currDate!.getYodoDate(withIndex: -1)
             (leftView as! AccountContentView).tableView.setContentOffset(CGPoint.zero, animated: false)
             (leftView as! AccountContentView).date = lastDate
+            // 更新date
         } else if dir == DisplayView.ScrollDirection.right {
             
             let nextDate = currDate!.getYodoDate(withIndex: 1)

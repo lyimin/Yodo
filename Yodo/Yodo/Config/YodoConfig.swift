@@ -50,7 +50,8 @@ struct YodoConfig {
         // 分割线
         static let sepLine = UIColor(red: 216/255.0, green: 216/255.0, blue: 216/255.0, alpha: 1)
         // 背景色
-        static let backgroundColor = UIColor(red: 229/255.0, green: 235/255.0, blue: 239/255.0, alpha: 1)
+        static let background = UIColor(red: 229/255.0, green: 235/255.0, blue: 239/255.0, alpha: 1)
+//        static let expend = 
         
     }
 }
