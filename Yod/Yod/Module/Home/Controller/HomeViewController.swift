@@ -34,35 +34,45 @@ class HomeViewController: BaseViewController {
     private let navigationH: CGFloat = 145
     
     /// 中间滚动器
-    private lazy var displayView: DisplayView = {
-        
-        var displayView = DisplayView(frame: CGRect(x: 0, y: navigationH, width: view.width, height: view.height-navigationH))
-        displayView.delegate = self
-        
+    private lazy var displayView: HomeDisplayView = {
+        var displayView = HomeDisplayView(frame: CGRect(x: 0, y: navigationH, width: view.width, height: view.height-navigationH))
         return displayView
     }()
+    
+//    private lazy var displayView: DisplayView = {
+//
+//        var displayView = DisplayView(frame: CGRect(x: 0, y: navigationH, width: view.width, height: view.height-navigationH))
+//        displayView.delegate = self
+//
+//        return displayView
+//    }()
     
     /// 账单列表对应的日期
     /// 一.日期数组>=3的情况下
     /// 1.当前月份是最早的一个月(2017.4)  -> 2017.4, 2017.5, 2017,6 三个月的数据
     /// 2.当前月份是当前月份(2018.4) -> 2018.2, 2018.3, 2018.4 三个月的数据
     /// 二.日期数组小于3的情况下全部返回
-    private var displayDates: [YodDate] = []
+    private var currentDate: YodDate! {
+        didSet {
+            
+            guard oldValue != nil else {
+                displayView.rightDate = currentDate
+                return
+            }
+            
+            if oldValue => currentDate {
+                displayView.rightDate = currentDate
+            } else {
+                displayView.leftDate = currentDate
+            }
+        }
+    }
     
     /// 所有日期数据
     private var dates: [YodDate] = [] {
         didSet {
-            if dates.count >= 3 {
-                let right = dates.last!
-                displayDates.append(right.getYodDate(withIndex: -2))
-                displayDates.append(right.getYodDate(withIndex: -1))
-                displayDates.append(right)
-            } else {
-                displayDates = dates
-            }
-            
+            currentDate = dates.last!
             navigationView.dates = dates
-            displayView.reloadData()
         }
     }
     
@@ -73,10 +83,6 @@ class HomeViewController: BaseViewController {
         navigationView.delegate = self
         return navigationView
     }()
-
-    
-    /// viewModel
-    private let viewM = AccountViewModel()
 }
 
 
@@ -101,9 +107,12 @@ extension HomeViewController: HomeNavigationViewDelegate {
         // cell动画
         cellsOffsetAnimat()
         */
+        
+        currentDate = date
     }
 }
 
+/*
 // MARK: - DisplayViewDataSrouce
 extension HomeViewController: DisplayViewDelegate {
     
@@ -179,7 +188,7 @@ extension HomeViewController: DisplayViewDelegate {
         }
     }
 }
-
+*/
 // MARK: - Getter | Setter
 extension HomeViewController {
     

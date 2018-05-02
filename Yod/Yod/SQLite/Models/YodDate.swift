@@ -97,6 +97,7 @@ precedencegroup DatePrecedence {
 }
 
 infix operator <=>: DatePrecedence
+infix operator =>: DatePrecedence
 
 extension YodDate: Equatable {
     
@@ -108,6 +109,15 @@ extension YodDate: Equatable {
     /// 判断年月是否相等
     static func <=> (lhs: YodDate, rhs: YodDate) -> Bool {
         return (lhs.yearInt() == rhs.yearInt()) && (lhs.monthInt() == rhs.monthInt())
+    }
+    
+    static func => (lhs: YodDate, rhs: YodDate) -> Bool {
+        
+        if lhs.yearInt() < rhs.yearInt() || (lhs.yearInt() == rhs.yearInt() && lhs.monthInt() < rhs.monthInt()) {
+            return true
+        }
+        
+        return false
     }
     
     func dateInt() -> Int {

@@ -12,6 +12,8 @@
 		EC246C2AD9AC85147D4CAB67 /* Pods_YodUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 505481D2B563172588955C97 /* Pods_YodUITests.framework */; };
 		F11910592083631400743D7B /* CountingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11910582083631400743D7B /* CountingLabel.swift */; };
 		F12CBE9F20873B9D0063A053 /* HomeItemSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12CBE9E20873B9D0063A053 /* HomeItemSectionView.swift */; };
+		F149D89920999D6B00E7BA59 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F149D89820999D6B00E7BA59 /* Info.plist */; };
+		F149D89B2099A9AA00E7BA59 /* HomeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F149D89A2099A9AA00E7BA59 /* HomeDisplayView.swift */; };
 		F14AE377206E451000F65543 /* 20180329_account.csv in Resources */ = {isa = PBXBuildFile; fileRef = F14AE376206E451000F65543 /* 20180329_account.csv */; };
 		F150358E2098C3680055617D /* String+Yod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F150358C2098C3670055617D /* String+Yod.swift */; };
 		F150358F2098C3680055617D /* Date+Yod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F150358D2098C3670055617D /* Date+Yod.swift */; };
@@ -30,7 +32,6 @@
 		F1A6FFD7208CEF220021EAEA /* DisplayScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A6FFD6208CEF220021EAEA /* DisplayScrollView.swift */; };
 		F1A81C02200CA410003D2D4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A81C01200CA410003D2D4E /* AppDelegate.swift */; };
 		F1A81C09200CA410003D2D4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1A81C08200CA410003D2D4E /* Assets.xcassets */; };
-		F1BCD08B207DB39000E4A791 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BCD08A207DB39000E4A791 /* AccountViewModel.swift */; };
 		F1BCD08F207E0BC700E4A791 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BCD08E207E0BC700E4A791 /* Reusable.swift */; };
 		F1C16A02207EFF64003C4B5A /* HomeNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A20204E94FD00855D00 /* HomeNavigationView.swift */; };
 		F1C16A04207F07C4003C4B5A /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C16A03207F07C4003C4B5A /* UIView+Frame.swift */; };
@@ -70,6 +71,8 @@
 		E6246C70E12FDCB06375B0C1 /* Pods_YodTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YodTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F11910582083631400743D7B /* CountingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingLabel.swift; sourceTree = "<group>"; };
 		F12CBE9E20873B9D0063A053 /* HomeItemSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeItemSectionView.swift; sourceTree = "<group>"; };
+		F149D89820999D6B00E7BA59 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F149D89A2099A9AA00E7BA59 /* HomeDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDisplayView.swift; sourceTree = "<group>"; };
 		F14AE376206E451000F65543 /* 20180329_account.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 20180329_account.csv; sourceTree = "<group>"; };
 		F150358C2098C3670055617D /* String+Yod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Yod.swift"; sourceTree = "<group>"; };
 		F150358D2098C3670055617D /* Date+Yod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Yod.swift"; sourceTree = "<group>"; };
@@ -90,10 +93,8 @@
 		F1A81BFE200CA410003D2D4E /* Yod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yod.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A81C01200CA410003D2D4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1A81C08200CA410003D2D4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F1A81C0D200CA410003D2D4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1A81C12200CA410003D2D4E /* YodTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YodTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A81C1D200CA410003D2D4E /* YodUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YodUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F1BCD08A207DB39000E4A791 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		F1BCD08E207E0BC700E4A791 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		F1C16A03207F07C4003C4B5A /* UIView+Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
 		F1C16A07207F6423003C4B5A /* Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delay.swift; sourceTree = "<group>"; };
@@ -192,7 +193,6 @@
 		F1504A18204E912B00855D00 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				F1BCD089207DB28100E4A791 /* ViewModel */,
 				F1504A1D204E936D00855D00 /* View */,
 				F1504A19204E912B00855D00 /* Controller */,
 			);
@@ -216,6 +216,7 @@
 				F16F74B0207E63E000E6F194 /* HomeItemCell.swift */,
 				F12CBE9E20873B9D0063A053 /* HomeItemSectionView.swift */,
 				F15D2632208F1EBF0027D3EA /* AccountContentView.swift */,
+				F149D89A2099A9AA00E7BA59 /* HomeDisplayView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -270,7 +271,7 @@
 				F1E1CAE1204954EA00339163 /* Resource */,
 				F1A81C01200CA410003D2D4E /* AppDelegate.swift */,
 				F1A81C08200CA410003D2D4E /* Assets.xcassets */,
-				F1A81C0D200CA410003D2D4E /* Info.plist */,
+				F149D89820999D6B00E7BA59 /* Info.plist */,
 			);
 			path = Yod;
 			sourceTree = "<group>";
@@ -285,14 +286,6 @@
 				F1E4163C209378FB00C4A7AF /* UIView+Load.swift */,
 			);
 			path = Extension;
-			sourceTree = "<group>";
-		};
-		F1BCD089207DB28100E4A791 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				F1BCD08A207DB39000E4A791 /* AccountViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		F1E1CAE1204954EA00339163 /* Resource */ = {
@@ -442,6 +435,7 @@
 				F1A81C09200CA410003D2D4E /* Assets.xcassets in Resources */,
 				F1E1CAE42049553A00339163 /* helvetica-bold.ttf in Resources */,
 				F1D036F32088C99700D22995 /* helvetica-light.ttf in Resources */,
+				F149D89920999D6B00E7BA59 /* Info.plist in Resources */,
 				F14AE377206E451000F65543 /* 20180329_account.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -631,7 +625,6 @@
 			files = (
 				F1C16A02207EFF64003C4B5A /* HomeNavigationView.swift in Sources */,
 				F1BCD08F207E0BC700E4A791 /* Reusable.swift in Sources */,
-				F1BCD08B207DB39000E4A791 /* AccountViewModel.swift in Sources */,
 				F1A6FFD7208CEF220021EAEA /* DisplayScrollView.swift in Sources */,
 				F15D2635209078890027D3EA /* AccountHelper.swift in Sources */,
 				F16F74B1207E63E000E6F194 /* HomeItemCell.swift in Sources */,
@@ -649,6 +642,7 @@
 				F11910592083631400743D7B /* CountingLabel.swift in Sources */,
 				F150358E2098C3680055617D /* String+Yod.swift in Sources */,
 				F15D2633208F1EBF0027D3EA /* AccountContentView.swift in Sources */,
+				F149D89B2099A9AA00E7BA59 /* HomeDisplayView.swift in Sources */,
 				F12CBE9F20873B9D0063A053 /* HomeItemSectionView.swift in Sources */,
 				F1504A1C204E912B00855D00 /* HomeViewController.swift in Sources */,
 				F1C16A08207F6423003C4B5A /* Delay.swift in Sources */,

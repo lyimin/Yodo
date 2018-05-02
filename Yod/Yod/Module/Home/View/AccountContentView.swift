@@ -17,15 +17,11 @@ class AccountContentView: UIView {
         super.init(frame: frame)
         
         addSubview(tableView)
-        
-        tableView.snp.makeConstraints { (make) in
-            make.left.right.bottom.top.equalTo(self)
-        }
     }
     
-    convenience init(frame: CGRect, vm: AccountViewModel) {
-        self.init(frame: frame)
-        self.vm = vm
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        tableView.frame = bounds
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,8 +29,6 @@ class AccountContentView: UIView {
     }
     
     //MARK: - Getter | Setter
-    
-    private var vm: AccountViewModel!
     
     /// 列表
     private(set) lazy var tableView: UITableView = {
