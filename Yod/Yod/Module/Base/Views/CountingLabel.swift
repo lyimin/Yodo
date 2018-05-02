@@ -11,7 +11,7 @@ import UIKit
 class CountingLabel: UILabel {
 
     /// 动画时间
-    private let duration: TimeInterval = 0.5
+    private let duration: TimeInterval = 0.7
     
     /// 开始数字
     private var fromValue: Double = 0

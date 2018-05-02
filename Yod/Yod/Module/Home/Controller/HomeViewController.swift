@@ -52,26 +52,11 @@ class HomeViewController: BaseViewController {
     /// 1.当前月份是最早的一个月(2017.4)  -> 2017.4, 2017.5, 2017,6 三个月的数据
     /// 2.当前月份是当前月份(2018.4) -> 2018.2, 2018.3, 2018.4 三个月的数据
     /// 二.日期数组小于3的情况下全部返回
-    private var currentDate: YodDate! {
-        didSet {
-            
-            guard oldValue != nil else {
-                displayView.rightDate = currentDate
-                return
-            }
-            
-            if oldValue => currentDate {
-                displayView.rightDate = currentDate
-            } else {
-                displayView.leftDate = currentDate
-            }
-        }
-    }
     
     /// 所有日期数据
     private var dates: [YodDate] = [] {
         didSet {
-            currentDate = dates.last!
+            displayView.currentDate = dates.last!
             navigationView.dates = dates
         }
     }
@@ -91,24 +76,8 @@ extension HomeViewController: HomeNavigationViewDelegate {
     
     /// 点击日期
     func navigationView(_ navigationView: HomeNavigationView, itemDidSelectedAt indexPath: IndexPath, _ date: YodDate) {
-        
-        /* TODO
-        // 获取列表数据
-        dataSource = viewM.getListData(withYodDate: date)
-        let total = viewM.calculatePrice(withAccounts: viewM.accounts)
-        
-        headerView.expendMoney = total.expend
-        headerView.expendMonth = date.month
-        headerView.incomeMoney = total.income
-        headerView.incomeMonth = date.month
-        
-        tableView.reloadData()
-        
-        // cell动画
-        cellsOffsetAnimat()
-        */
-        
-        currentDate = date
+       
+        displayView.currentDate = date
     }
 }
 

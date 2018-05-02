@@ -29,7 +29,6 @@ class AccountContentView: UIView {
     }
     
     //MARK: - Getter | Setter
-    
     /// 列表
     private(set) lazy var tableView: UITableView = {
         
@@ -45,7 +44,7 @@ class AccountContentView: UIView {
         return tableView
     }()
     
-    var date: YodDate? {
+    var date: YodDate! {
         didSet {
             loadingMonthDate()
         }
@@ -191,7 +190,7 @@ extension AccountContentView {
     }
     
     /// 执行动画
-    private func cellsOffsetAnimat() {
+    private func cellsOffsetAnimation() {
         
         let visibleCells = tableView.visibleCells
         if visibleCells.count == 0 { return }
@@ -217,6 +216,39 @@ extension AccountContentView {
         UIView.animate(views: animateViews, animations: animations)
     }
     
+    /*
+    /// tableview动画
+    private func showTableAnimation() {
+        
+        if dir == .right {
+            // 往左边滑动
+            UIView.animate(withDuration: 0.3, animations: {
+                self.transform = CGAffineTransform(translationX: -self.width*0.1, y: 0)
+                self.alpha = 0
+            }) { (_) in
+                
+                self.transform = CGAffineTransform(translationX: self.width*0.1, y: 0)
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.transform = CGAffineTransform.identity
+                    self.alpha = 1
+                })
+            }
+        } else {
+            // 往右边滑动
+            UIView.animate(withDuration: 0.3, animations: {
+                self.transform = CGAffineTransform(translationX: self.width*0.1, y: 0)
+                self.alpha = 0
+            }) { (_) in
+                
+                self.transform = CGAffineTransform(translationX: -self.width*0.1, y: 0)
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.transform = CGAffineTransform.identity
+                    self.alpha = 1
+                })
+            }
+        }
+    }
+    */
     /// 加载当月的数据
     private func loadingMonthDate() {
         
@@ -228,12 +260,11 @@ extension AccountContentView {
             AccountHelper.default.getMonthData(withYodDate: date, callback: {
                 
                 self.monthModel = $0
-                delay(delay: 0.8, closure: {
                     
-                    self.hiddenProgress()
-                    self.tableView.isHidden = false
-                    self.cellsOffsetAnimat()
-                })
+                self.hiddenProgress()
+                self.tableView.isHidden = false
+                
+                self.cellsOffsetAnimation()
             })
         }
     }

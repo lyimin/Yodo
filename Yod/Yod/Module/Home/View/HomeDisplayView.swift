@@ -9,6 +9,7 @@
 import UIKit
 
 class HomeDisplayView: UIView {
+    
 
     //MARK: - Life Cycle
     override init(frame: CGRect) {
@@ -22,33 +23,58 @@ class HomeDisplayView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var leftDate: YodDate? {
+    var currentDate: YodDate! {
         didSet {
-            leftView.date = leftDate
+            guard oldValue != nil else {
+//                rightAnimation()
+                rightView.date = currentDate
+                return
+            }
             
-            UIView.animate(withDuration: 0.5) {
-                self.rightView.alpha = 0
+            if oldValue => currentDate {
                 
-                self.rightView.transform = CGAffineTransform(translationX: self.width*0.2, y: 0)
-                
-                self.leftView.alpha = 1
-                self.leftView.transform = CGAffineTransform.identity
+                rightAnimation()
+                rightView.date = currentDate
+            } else {
+
+                leftAnimation()
+                leftView.date = currentDate
             }
         }
     }
     
-    var rightDate: YodDate? {
-        didSet {
-            rightView.date = rightDate
-            
-            UIView.animate(withDuration: 0.5) {
-                self.leftView.alpha = 0
-                self.leftView.transform = CGAffineTransform(translationX: -self.width*0.2, y: 0)
-                
-                self.rightView.alpha = 1
-                self.rightView.transform = CGAffineTransform.identity
+    private func rightAnimation() {
+        
+        self.rightView.transform = CGAffineTransform(translationX: self.width*0.15, y: 0)
+        self.rightView.alpha = 0
+        self.rightView.tableView.setContentOffset(CGPoint.zero, animated: false)
+        self.leftView.transform = CGAffineTransform.identity
+        self.leftView.alpha = 1
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.leftView.transform = CGAffineTransform(translationX: -self.width*0.15, y: 0)
+            self.leftView.alpha = 0
+            self.rightView.transform = CGAffineTransform.identity
+            self.rightView.alpha = 1
+        })
+    }
+    
+    private func leftAnimation() {
+        
+        self.leftView.transform = CGAffineTransform(translationX: -self.width*0.15, y: 0)
+        self.leftView.alpha = 0
+        self.leftView.tableView.setContentOffset(CGPoint.zero, animated: false)
+        self.rightView.transform = CGAffineTransform.identity
+        self.rightView.alpha = 1
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate(withDuration: 0.3) {
+                self.rightView.transform = CGAffineTransform(translationX: self.width*0.15, y: 0)
+                self.rightView.alpha = 0
+                self.leftView.transform = CGAffineTransform.identity
+                self.leftView.alpha = 1
             }
-        }
+        })
     }
     
     //MARK: - Getter | Setter

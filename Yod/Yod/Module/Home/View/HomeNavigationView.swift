@@ -45,6 +45,10 @@ class HomeNavigationView: UIView {
             
             dateView.reloadData()
             
+            guard oldValue.count == 0 else {
+                return
+            }
+            
             // 滚到底部
             let contentSizeW = dateView.collectionViewLayout.collectionViewContentSize.width;
             if (contentSizeW > frame.width) {
@@ -52,8 +56,6 @@ class HomeNavigationView: UIView {
                 let offset = CGPoint(x: contentSizeW-frame.width, y: 0)
                 dateView.setContentOffset(offset, animated: false)
             }
-            
-            if oldValue.count != 0 { return }
             
             // 默认选中当前月份
             delay(delay: 0.2, closure: {
