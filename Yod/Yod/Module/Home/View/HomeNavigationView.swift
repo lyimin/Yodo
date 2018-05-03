@@ -33,6 +33,9 @@ class HomeNavigationView: UIView {
     //MARK: - Getter | Setter
     weak var delegate: HomeNavigationViewDelegate?
     
+    /// 防止频繁点击
+    private var tapEnable: Bool = true
+    
     /// item高度
     private let itemHeight: CGFloat = 60
     
@@ -171,6 +174,13 @@ extension HomeNavigationView: UICollectionViewDataSource, UICollectionViewDelega
             return
         }
         
+        // 防止频繁点击
+        guard tapEnable else {
+            return
+        }
+        tapEnable = false
+        perform(#selector(tapEnough), with: nil, afterDelay: 0.3)
+        
         // 执行动画
         if let last = selectedIndex {
             dates[last.row].isSelected = false
@@ -274,6 +284,9 @@ extension HomeNavigationView {
         }) { (final) in
             
         }
-        
+    }
+    
+    @objc private func tapEnough() {
+        tapEnable = true
     }
 }

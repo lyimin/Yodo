@@ -16,19 +16,24 @@ class HomeViewController: BaseViewController {
         
         view.addSubview(navigationView)
         view.addSubview(displayView)
+        view.addSubview(createdBtn)
         
         navigationView.snp.makeConstraints { (make) in
             make.left.right.top.equalTo(self.view)
             make.height.equalTo(navigationH)
         }
         
+        createdBtn.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view)
+            make.size.equalTo(CGSize(width: 45, height: 45))
+            make.bottom.equalTo(self.view).offset(-20)
+        }
         AccountHelper.default.getDates { (dates) in
             self.dates = dates
         }
     }
    
     // MARK: - Getter | Setter
-    
     
     /// 导航栏高度
     private let navigationH: CGFloat = 145
@@ -67,6 +72,17 @@ class HomeViewController: BaseViewController {
         var navigationView = HomeNavigationView()
         navigationView.delegate = self
         return navigationView
+    }()
+    
+    private lazy var createdBtn: UIButton = {
+        
+        var createdBtn = UIButton()
+        createdBtn.setImage(#imageLiteral(resourceName: "ic_home_created"), for: .normal)
+        createdBtn.layer.shadowRadius = 5
+        createdBtn.layer.shadowOpacity = 0.3
+        createdBtn.layer.shadowColor = UIColor.lightGray.cgColor
+        createdBtn.layer.shadowOffset = CGSize(width: 5, height: 5)
+        return createdBtn
     }()
 }
 
@@ -158,10 +174,11 @@ extension HomeViewController: DisplayViewDelegate {
     }
 }
 */
-// MARK: - Getter | Setter
+
+// MARK:- Getter | Setter
 extension HomeViewController {
     
-   
+    
 }
 
 
