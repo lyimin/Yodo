@@ -26,6 +26,8 @@
 		F16F74B1207E63E000E6F194 /* HomeItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F74B0207E63E000E6F194 /* HomeItemCell.swift */; };
 		F16F74B3207E676100E6F194 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F74B2207E676100E6F194 /* HomeHeaderView.swift */; };
 		F1749F3F209EF830000C613C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1749F3E209EF830000C613C /* Launch Screen.storyboard */; };
+		F1749F43209F00A9000C613C /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1749F42209F00A9000C613C /* LaunchViewController.swift */; };
+		F1749F45209F06F0000C613C /* ShapeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1749F44209F06F0000C613C /* ShapeLabel.swift */; };
 		F1754DF52052370400A7CF77 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1754DF42052370400A7CF77 /* AccountManager.swift */; };
 		F1A0C7B82091B7CE000A62F7 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0C7B62091B7CE000A62F7 /* Account.swift */; };
 		F1A0C7B92091B7CE000A62F7 /* YodDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0C7B72091B7CE000A62F7 /* YodDate.swift */; };
@@ -87,6 +89,8 @@
 		F16F74B0207E63E000E6F194 /* HomeItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeItemCell.swift; sourceTree = "<group>"; };
 		F16F74B2207E676100E6F194 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 		F1749F3E209EF830000C613C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		F1749F42209F00A9000C613C /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		F1749F44209F06F0000C613C /* ShapeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeLabel.swift; sourceTree = "<group>"; };
 		F1754DF42052370400A7CF77 /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		F1A0C7B62091B7CE000A62F7 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		F1A0C7B72091B7CE000A62F7 /* YodDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YodDate.swift; sourceTree = "<group>"; };
@@ -162,6 +166,7 @@
 			children = (
 				F11910582083631400743D7B /* CountingLabel.swift */,
 				F1A6FFD6208CEF220021EAEA /* DisplayScrollView.swift */,
+				F1749F44209F06F0000C613C /* ShapeLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -169,6 +174,7 @@
 		F1504A14204E912B00855D00 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				F1749F41209F007B000C613C /* Root */,
 				F1504A15204E912B00855D00 /* Base */,
 				F1504A18204E912B00855D00 /* Home */,
 			);
@@ -221,6 +227,14 @@
 				F1AC66CD209A0B3E000909DA /* HomeDisplayView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		F1749F41209F007B000C613C /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				F1749F42209F00A9000C613C /* LaunchViewController.swift */,
+			);
+			path = Root;
 			sourceTree = "<group>";
 		};
 		F1754DF120522D8A00A7CF77 /* SQLite */ = {
@@ -640,8 +654,10 @@
 				F1E4163D209378FB00C4A7AF /* UIView+Load.swift in Sources */,
 				F1754DF52052370400A7CF77 /* AccountManager.swift in Sources */,
 				F1A81C02200CA410003D2D4E /* AppDelegate.swift in Sources */,
+				F1749F43209F00A9000C613C /* LaunchViewController.swift in Sources */,
 				F1FEA64820503DCF00D7733B /* YodConfig.swift in Sources */,
 				F1504A1B204E912B00855D00 /* BaseViewController.swift in Sources */,
+				F1749F45209F06F0000C613C /* ShapeLabel.swift in Sources */,
 				F1C16A04207F07C4003C4B5A /* UIView+Frame.swift in Sources */,
 				F11910592083631400743D7B /* CountingLabel.swift in Sources */,
 				F150358E2098C3680055617D /* String+Yod.swift in Sources */,
