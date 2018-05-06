@@ -19,28 +19,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_logo_launch" translatesAutoresizingMaskIntoConstraints="NO" id="z8W-w6-MB1">
-                                <rect key="frame" x="162.5" y="278.5" width="50" height="50"/>
+                                <rect key="frame" x="147.5" y="243.5" width="80" height="80"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="PZE-Il-p1Q"/>
-                                    <constraint firstAttribute="width" constant="50" id="rqM-5Y-Gaz"/>
+                                    <constraint firstAttribute="height" constant="80" id="PZE-Il-p1Q"/>
+                                    <constraint firstAttribute="width" constant="80" id="rqM-5Y-Gaz"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="记录每一笔消费，让生活有度" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XXd-Rx-6JX">
-                                <rect key="frame" x="101" y="353.5" width="173" height="16"/>
+                                <rect key="frame" x="88.5" y="353.5" width="199" height="16"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="173" id="TIw-g8-lCO"/>
                                     <constraint firstAttribute="height" constant="16" id="ug8-wI-NsK"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                <color key="textColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" red="0.17254901960784313" green="0.22745098039215686" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="XXd-Rx-6JX" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="4QM-df-RUT"/>
-                            <constraint firstItem="XXd-Rx-6JX" firstAttribute="top" secondItem="z8W-w6-MB1" secondAttribute="bottom" constant="25" id="TIA-CA-XZs"/>
-                            <constraint firstItem="z8W-w6-MB1" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-30" id="lRY-zJ-x7T"/>
+                            <constraint firstItem="XXd-Rx-6JX" firstAttribute="top" secondItem="z8W-w6-MB1" secondAttribute="bottom" constant="30" id="TIA-CA-XZs"/>
+                            <constraint firstItem="z8W-w6-MB1" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-50" id="lRY-zJ-x7T"/>
                             <constraint firstItem="z8W-w6-MB1" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="piD-0g-udT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
@@ -52,6 +51,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_logo_launch" width="50" height="51"/>
+        <image name="ic_logo_launch" width="80" height="80"/>
     </resources>
 </document>
