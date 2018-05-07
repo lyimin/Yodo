@@ -12,6 +12,10 @@ import Foundation
 // String -> Date
 extension String {
     
+    var length: Int {
+        return count
+    }
+    
     /// 转化为date对象
     func toDate() -> Date? {
         let formatter = DateFormatter()
