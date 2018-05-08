@@ -28,7 +28,7 @@ class HomeViewController: BaseViewController {
             make.size.equalTo(CGSize(width: 45, height: 45))
             make.bottom.equalTo(self.view).offset(-20)
         }
-        AccountHelper.default.getDates { (dates) in
+        AccountHelper().getDates { (dates) in
             self.dates = dates
         }
     }

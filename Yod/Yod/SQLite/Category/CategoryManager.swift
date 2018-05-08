@@ -24,4 +24,10 @@ public class CategoryManager {
     private let updatedAt = Expression<String?>("updatedAt")
     private let deletedAt = Expression<String?>("deletedAt")
     
+    private var db: Connection!
+    
+    convenience init(db: Connection!) {
+        self.init()
+        self.db = db
+    }
 }

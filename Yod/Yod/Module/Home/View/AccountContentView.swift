@@ -257,7 +257,7 @@ extension AccountContentView {
             tableView.isHidden = true
             showProgress()
             
-            AccountHelper.default.getMonthData(withYodDate: date, callback: {
+            AccountHelper().getMonthData(withYodDate: date, callback: {
                 
                 self.monthModel = $0
                     

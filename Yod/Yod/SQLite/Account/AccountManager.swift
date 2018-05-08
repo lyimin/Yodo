@@ -28,27 +28,13 @@ public class AccountManager {
     public let updatedAt = Expression<String?>("updatedAt")
     public let deletedAt = Expression<String?>("deletedAt")
     
-    private let docName = "com.eamon.EMSQLite"
-    private let dbName = "Yod.sqlite3"
-    
+    private var db: Connection!
   
-    
-    // 数据库保存地址
-    public var path: String
-    
-    // 数据库对象
-    public var db: Connection!
-    
-    public init(path: String? = nil) {
-        let rootPath = path ?? NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-        self.path = (rootPath as NSString).appendingPathComponent(docName)
-        
-        do {
-            try FileManager.default.createDirectory(atPath: self.path, withIntermediateDirectories: true, attributes: nil)
-        } catch {
-            assertionFailure("[EMSQLite] fail to create directory \(self.path)")
-        }
+    convenience init(db: Connection!) {
+        self.init()
+        self.db = db
     }
+   
 }
 
 // MARK: - Query
@@ -147,24 +133,6 @@ extension AccountManager {
 
 // MARK: - Created
 extension AccountManager {
-    
-    /// 创建数据库
-    /// - withName 数据库名称
-    public func createdDB(withName name: String?) -> Self {
-        
-        let dbName = name ?? self.dbName
-        let fileName = (path as NSString).appendingPathComponent(dbName)
-        
-        debugPrint("[EMSQLite] connection db. path: \(fileName)")
-        
-        do {
-            db = try Connection(fileName)
-        } catch {
-            assertionFailure("[EMSQLite] fail to create db \(dbName)")
-        }
-        
-        return self
-    }
     
     /// 创建表
     public func createdAccountTable() {

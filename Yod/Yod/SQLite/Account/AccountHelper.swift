@@ -12,17 +12,7 @@ import UIKit
 /// 基于AccountManger 获取账单api接口类
 public class AccountHelper: NSObject {
 
-    public override init() {}
     
-    /// manager
-    public var manager: AccountManager!
-
-    /// 单例对象
-    public static let `default`: AccountHelper = {
-        let helper = AccountHelper()
-        helper.manager = AccountManager()
-        return helper
-    }()
 }
 
 extension AccountHelper {
@@ -31,7 +21,8 @@ extension AccountHelper {
     func getDates(callback: @escaping ([YodDate]) -> Void) {
         
         DispatchQueue.global().async {
-            let firstDate = self.manager.queryFirstData()?.createdAt;
+            let accountManager: AccountManager! = SQLManager.default.account
+            let firstDate = accountManager.queryFirstData()?.createdAt;
             let nowDate = Date().toString()
             
             var outs: [YodDate] = []
@@ -78,9 +69,9 @@ extension AccountHelper {
     func getMonthData(withYodDate date: YodDate, callback: @escaping (HomeMonthModel) -> Void) {
         
         DispatchQueue.global().async {
-            
-            let accounts = self.manager.findMonthAccounds(withDate: date)
-            let total = AccountHelper.default.calculatePrice(withAccounts: accounts)
+            let accountManager: AccountManager! = SQLManager.default.account
+            let accounts = accountManager.findMonthAccounds(withDate: date)
+            let total = self.calculatePrice(withAccounts: accounts)
             
             var monthModel = HomeMonthModel(date: date, dailyModels: [], income:total.income, expend: total.expend)
             var temp: [Account] = []
@@ -96,7 +87,7 @@ extension AccountHelper {
                 if first.date == account.date {
                     temp.append(account)
                 } else {
-                    let daily = AccountHelper.default.calculatePrice(withAccounts: temp)
+                    let daily = self.calculatePrice(withAccounts: temp)
                     let dailyModel = HomeDailyModel(accounts: temp, incomeOfDaily: daily.income, expendOfDaily: daily.expend)
                     monthModel.dailyModels.append(dailyModel)
                     

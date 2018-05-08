@@ -38,13 +38,13 @@ extension AppDelegate {
     /// 初始化db
     private func initDB() {
         
-        let manager = AccountHelper.default.manager.createdDB(withName: nil)
+        let manager = SQLManager.default.createdDB(withName: nil)
         manager.db.busyTimeout = 5
         manager.db.busyHandler { (tries) -> Bool in
             return tries >= 3 ?false :true
         }
         
-        manager.createdAccountTable()
+        manager.account.createdAccountTable()
     }
     
     private func getCSV() {
@@ -88,6 +88,6 @@ extension AppDelegate {
                 continue
             }
         }
-        AccountHelper.default.manager.insertAccount(model: model)
+        SQLManager.default.account.insertAccount(model: model)
     }
 }
