@@ -31,3 +31,60 @@ public class CategoryManager {
         self.db = db
     }
 }
+
+extension CategoryManager {
+    
+    /// 创建表
+    public func createdCategoryTable() {
+        
+        do {
+            try db.run(categoryT.create(ifNotExists: true){ t in
+                t.column(id, primaryKey: .autoincrement)
+                t.column(name)
+                t.column(icon)
+                t.column(color)
+                t.column(type)
+                t.column(createdAt)
+                t.column(updatedAt)
+                t.column(deletedAt)
+            })
+        } catch {
+            assertionFailure("[EMSQLite] fail to create table")
+        }
+    }
+}
+
+// MARK: - insert
+extension CategoryManager {
+    // 添加默认分类到数据库
+    public func loadCategories() {
+        let path = Bundle.main.path(forResource: "categories.plist", ofType: nil)
+        let categories = NSArray(contentsOfFile: path)
+        
+        for
+    }
+    
+    /// 添加分类
+    public func insertCategory(model: Category) {
+        let sql = "INSERT INTO \(tableName) (name, icon, color, type, createdAt) VALUES " +
+        "(\(model.type.rawValue), '\(model.category)', \(model.money), '\(model.remarks)', '\(model.address)', '\(model.pic)', '\(model.createdAt)')"
+        do {
+            try db.execute(sql)
+            debugPrint("插入成功)")
+        } catch {
+            assertionFailure("[EMSQLite] undefine \(tableName) propreties")
+        }
+    }
+}
+
+// MARK: - delete
+extension CategoryManager {
+    
+    public func deleteTable() {
+        do {
+            try db.run(categoryT.drop(ifExists: true))
+        } catch {
+            assertionFailure("[EMSQLite] undefine \(tableName) propreties")
+        }
+    }
+}

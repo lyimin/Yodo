@@ -16,11 +16,10 @@ public struct Account {
     var id: String = ""
     
     /// 账单类型
-    var type: AccountType = .expend
+    var type: Category.AccountType = .expend
     
-    /// 分类
-    var category: String = ""
-    var categoryType: CategoryType = .none
+    /// 分类 TODO
+    var category: Category!
     
     /// 金额
     var money: Double = 0.00
@@ -45,7 +44,7 @@ public struct Account {
     init(dic: [String: AnyObject]) {
         id = "\(dic["id"] as! Int64)"
         type = AccountType(rawValue: dic["type"] as! Int)!
-        category = dic["category"] as! String
+        category = dic["categoryID"] as! String
         if let type = CategoryType(rawValue: category) {
             categoryType = type
         } else {
@@ -58,16 +57,6 @@ public struct Account {
         createdAt = dic["createdAt"] as! String
         date = YodDate(date: createdAt)
     }
-    
-    /// 账单类型
-    ///
-    /// - expend: 支出
-    /// - income: 收入
-    enum AccountType: Int {
-        case expend = 0
-        case income
-    }
-    
     
     /// 分类
     enum CategoryType: String {
@@ -166,17 +155,5 @@ public struct Account {
     }
 }
 
-extension String {
-    
-    func formatAccountType() -> Account.AccountType {
-        switch self {
-        case "支出":
-            return Account.AccountType.expend
-        case "收入":
-            return Account.AccountType.income
-        default:
-            return Account.AccountType.expend
-        }
-    }
-}
+
 

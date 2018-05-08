@@ -8,6 +8,7 @@
 
 import Foundation
 import SQLite
+import CSV
 
 /// AccountManager 直接跟sql打交道的类
 public class AccountManager {
@@ -34,14 +35,13 @@ public class AccountManager {
         self.init()
         self.db = db
     }
-   
 }
 
 // MARK: - Query
 extension AccountManager {
     
     /// 查询第一条数据
-    func queryFirstData() -> Account? {
+    public func queryFirstData() -> Account? {
         
         let sql = "SELECT * FROM \(tableName) WHERE createdAt = (SELECT MIN(createdAt) FROM \(tableName))"
         
@@ -67,7 +67,7 @@ extension AccountManager {
     ///
     /// - Parameter withDate: 日期对象
     
-    func findMonthAccounds(withDate date: YodDate, withType type: Account.AccountType? = nil) -> [Account] {
+    func findMonthAccounds(withDate date: YodDate, withType type: Category.AccountType? = nil) -> [Account] {
         
         var sql = "SELECT * FROM \(tableName) WHERE createdAt LIKE '\(date.year)-\(date.month)-%'"
         if let type = type {
@@ -115,15 +115,71 @@ extension AccountManager {
 // MARK: - Insert
 extension AccountManager {
     
+    /// 导入csv文件
+    public func loadCSV() {
+        let path = Bundle.main.path(forResource: "20180329_account.csv", ofType: nil)
+        
+        do {
+            let csv = try CSVReader(stream: InputStream(fileAtPath: path!)!, hasHeaderRow: true)
+            while let row = csv.next() {
+                writeToDB(items: row)
+            }
+        } catch {
+            assertionFailure("fail to open csv file")
+        }
+    }
+    
+    private func writeToDB(items: [String]) {
+        // 创建model
+        var model = Account()
+        for i in 0..<items.count {
+            
+            let item = items[i]
+            if i == 1 {
+                model.type = item.formatAccountType()
+            }
+                
+            else if i == 2 {
+                model.category = item
+            }
+                
+            else if i == 3 {
+                model.money = Double(item)!
+            }
+            else if i == 4 {
+                model.createdAt = item
+            }
+                
+            else if i == 5 {
+                model.remarks = item
+            } else {
+                continue
+            }
+        }
+        insertAccount(model: model)
+    }
+    
     /// 插入数据
     ///
     /// - Parameter model: 账单model
-    func insertAccount(model: Account) {
+    public func insertAccount(model: Account) {
         let sql = "INSERT INTO \(tableName) (type, category, money, remarks, address, pic, createdAt) VALUES " +
         "(\(model.type.rawValue), '\(model.category)', \(model.money), '\(model.remarks)', '\(model.address)', '\(model.pic)', '\(model.createdAt)')"
         do {
             try db.execute(sql)
             debugPrint("插入成功)")
+        } catch {
+            assertionFailure("[EMSQLite] undefine \(tableName) propreties")
+        }
+    }
+}
+
+// MARK: - delete
+extension AccountManager {
+    
+    func deleteTable() {
+        do {
+            try db.run(accountT.drop(ifExists: true))
         } catch {
             assertionFailure("[EMSQLite] undefine \(tableName) propreties")
         }
@@ -157,3 +213,5 @@ extension AccountManager {
         }
     }
 }
+
+

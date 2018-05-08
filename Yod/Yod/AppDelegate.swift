@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CSV
 import GDPerformanceView_Swift
 
 @UIApplicationMain
@@ -19,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         initDB()
         sleep(1)
-//        getCSV()
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
@@ -38,56 +36,27 @@ extension AppDelegate {
     /// 初始化db
     private func initDB() {
         
-        let manager = SQLManager.default.createdDB(withName: nil)
-        manager.db.busyTimeout = 5
-        manager.db.busyHandler { (tries) -> Bool in
-            return tries >= 3 ?false :true
+        if YodManager.default.isFirstLoad() {
+            
+            let manager = SQLManager.default.createdDB(withName: nil)
+            
+            manager.db.busyTimeout = 5
+            manager.db.busyHandler { (tries) -> Bool in
+                return tries >= 3 ?false :true
+            }
+            
+            // 删除table重新创建
+            manager.account.deleteTable()
+            manager.category.deleteTable()
+            
+            manager.account.createdAccountTable()
+            manager.category.createdCategoryTable()
+            
+            // 添加账单
+            manager.account.loadCSV()
+            
+            // 添加分类
+            manager.category.loadCategories()
         }
-        
-        manager.account.createdAccountTable()
-    }
-    
-    private func getCSV() {
-        let path = Bundle.main.path(forResource: "20180329_account.csv", ofType: nil)
-        
-        do {
-            let csv = try CSVReader(stream: InputStream(fileAtPath: path!)!, hasHeaderRow: true)
-            while let row = csv.next() {
-                writeToDB(items: row)
-                
-            }
-        } catch {
-            assertionFailure("fail to open csv file")
-        }
-    }
-    
-    private func writeToDB(items: [String]) {
-        // 创建model
-        var model = Account()
-        for i in 0..<items.count {
-            
-            let item = items[i]
-            if i == 1 {
-                model.type = item.formatAccountType()
-            }
-            
-            else if i == 2 {
-                model.category = item
-            }
-            
-            else if i == 3 {
-                model.money = Double(item)!
-            }
-            else if i == 4 {
-                model.createdAt = item
-            }
-            
-            else if i == 5 {
-                model.remarks = item
-            } else {
-                continue
-            }
-        }
-        SQLManager.default.account.insertAccount(model: model)
     }
 }
