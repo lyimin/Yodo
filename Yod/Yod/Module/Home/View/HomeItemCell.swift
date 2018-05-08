@@ -18,6 +18,7 @@ class HomeItemCell: UITableViewCell, Reusable {
         selectionStyle = .none
         
         contentView.addSubview(content)
+        content.addSubview(iconBackground)
         content.addSubview(iconView)
         content.addSubview(categoryLabel)
         content.addSubview(descLabel)
@@ -45,11 +46,12 @@ class HomeItemCell: UITableViewCell, Reusable {
             make.top.bottom.equalTo(contentView)
         }
         
-        iconView.snp.makeConstraints { (make) in
+        iconBackground.snp.makeConstraints { (make) in
             make.left.equalTo(content).offset(10)
             make.centerY.equalTo(content)
             make.size.equalTo(CGSize(width: 40, height: 40))
         }
+        
         
         categoryLabel.snp.makeConstraints { (make) in
             make.left.equalTo(iconView.snp.right).offset(15)
@@ -89,13 +91,23 @@ class HomeItemCell: UITableViewCell, Reusable {
                 make.centerY.equalTo(iconView).offset(10)
             }
         }
+        
+        iconView.snp.remakeConstraints { (make) in
+            make.size.equalTo(iconView.image!.size)
+            make.center.equalTo(iconBackground)
+        }
     }
     
     //MARK: - Getter | Setter
     
     var account: Account! {
         didSet {
+            
             iconView.image = UIImage(named: account.categoryType.iconName())
+            if account.categoryType == .normal {
+                iconBackground.backgroundColor = UIColor(hexString: "#3294FA")
+                YodDebug(debug: "\(String(describing: iconView.image!.size))")
+            }
             priceLabel.text = String(format: "￥%.2f", account.money)
             categoryLabel.text = account.category
             
@@ -119,6 +131,11 @@ class HomeItemCell: UITableViewCell, Reusable {
         return content
     }()
     
+    private lazy var iconBackground: UIView = {
+        let iconBackground = UIView()
+        iconBackground.layer.cornerRadius = 20
+        return iconBackground
+    }()
     
     /// 图标
     private lazy var iconView: UIImageView = {

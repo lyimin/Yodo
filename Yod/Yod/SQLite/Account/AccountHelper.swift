@@ -31,7 +31,7 @@ extension AccountHelper {
     func getDates(callback: @escaping ([YodDate]) -> Void) {
         
         DispatchQueue.global().async {
-            let firstDate = AccountHelper.default.manager.queryFirstData()?.createdAt;
+            let firstDate = self.manager.queryFirstData()?.createdAt;
             let nowDate = Date().toString()
             
             var outs: [YodDate] = []
@@ -79,7 +79,7 @@ extension AccountHelper {
         
         DispatchQueue.global().async {
             
-            let accounts = AccountHelper.default.manager.findMonthAccounds(withDate: date)
+            let accounts = self.manager.findMonthAccounds(withDate: date)
             let total = AccountHelper.default.calculatePrice(withAccounts: accounts)
             
             var monthModel = HomeMonthModel(date: date, dailyModels: [], income:total.income, expend: total.expend)

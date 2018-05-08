@@ -21,6 +21,10 @@
 		F15D2633208F1EBF0027D3EA /* AccountContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D2632208F1EBF0027D3EA /* AccountContentView.swift */; };
 		F15D2635209078890027D3EA /* AccountHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D2634209078890027D3EA /* AccountHelper.swift */; };
 		F15D263920907A810027D3EA /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D263820907A810027D3EA /* HomeModel.swift */; };
+		F164212920A14495000ECC7C /* categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = F164212820A14495000ECC7C /* categories.plist */; };
+		F164212B20A14C0B000ECC7C /* UIColor+Yod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F164212A20A14C0B000ECC7C /* UIColor+Yod.swift */; };
+		F164213020A18729000ECC7C /* SQLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F164212F20A18729000ECC7C /* SQLManager.swift */; };
+		F164213220A19DF8000ECC7C /* CategoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F164213120A19DF8000ECC7C /* CategoryManager.swift */; };
 		F168386220513F3200B93D84 /* HomeDateItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F168386120513F3200B93D84 /* HomeDateItemCell.swift */; };
 		F16F74AF207CFF6B00E6F194 /* YodPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F74AE207CFF6B00E6F194 /* YodPrint.swift */; };
 		F16F74B1207E63E000E6F194 /* HomeItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F74B0207E63E000E6F194 /* HomeItemCell.swift */; };
@@ -85,6 +89,10 @@
 		F15D2632208F1EBF0027D3EA /* AccountContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountContentView.swift; sourceTree = "<group>"; };
 		F15D2634209078890027D3EA /* AccountHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHelper.swift; sourceTree = "<group>"; };
 		F15D263820907A810027D3EA /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
+		F164212820A14495000ECC7C /* categories.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = categories.plist; sourceTree = "<group>"; };
+		F164212A20A14C0B000ECC7C /* UIColor+Yod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Yod.swift"; sourceTree = "<group>"; };
+		F164212F20A18729000ECC7C /* SQLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLManager.swift; sourceTree = "<group>"; };
+		F164213120A19DF8000ECC7C /* CategoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryManager.swift; sourceTree = "<group>"; };
 		F168386120513F3200B93D84 /* HomeDateItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDateItemCell.swift; sourceTree = "<group>"; };
 		F16F74AE207CFF6B00E6F194 /* YodPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodPrint.swift; sourceTree = "<group>"; };
 		F16F74B0207E63E000E6F194 /* HomeItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeItemCell.swift; sourceTree = "<group>"; };
@@ -203,6 +211,7 @@
 		F1504A18204E912B00855D00 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				F164212D20A18227000ECC7C /* Model */,
 				F1504A1D204E936D00855D00 /* View */,
 				F1504A19204E912B00855D00 /* Controller */,
 			);
@@ -231,6 +240,31 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		F164212C20A17D1D000ECC7C /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				F1754DF42052370400A7CF77 /* AccountManager.swift */,
+				F15D2634209078890027D3EA /* AccountHelper.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		F164212D20A18227000ECC7C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F15D263820907A810027D3EA /* HomeModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F164212E20A18371000ECC7C /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				F164213120A19DF8000ECC7C /* CategoryManager.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		F1749F41209F007B000C613C /* Root */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,9 +276,10 @@
 		F1754DF120522D8A00A7CF77 /* SQLite */ = {
 			isa = PBXGroup;
 			children = (
+				F164212E20A18371000ECC7C /* Category */,
+				F164212C20A17D1D000ECC7C /* Account */,
 				F1A0C7B52091B7CE000A62F7 /* Models */,
-				F1754DF42052370400A7CF77 /* AccountManager.swift */,
-				F15D2634209078890027D3EA /* AccountHelper.swift */,
+				F164212F20A18729000ECC7C /* SQLManager.swift */,
 			);
 			path = SQLite;
 			sourceTree = "<group>";
@@ -277,7 +312,6 @@
 		F1A0C7B52091B7CE000A62F7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F15D263820907A810027D3EA /* HomeModel.swift */,
 				F1A0C7B62091B7CE000A62F7 /* Account.swift */,
 				F1A0C7B72091B7CE000A62F7 /* YodDate.swift */,
 			);
@@ -328,6 +362,7 @@
 				F150358C2098C3670055617D /* String+Yod.swift */,
 				F1C16A03207F07C4003C4B5A /* UIView+Frame.swift */,
 				F1E4163C209378FB00C4A7AF /* UIView+Load.swift */,
+				F164212A20A14C0B000ECC7C /* UIColor+Yod.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -336,6 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				F14AE376206E451000F65543 /* 20180329_account.csv */,
+				F164212820A14495000ECC7C /* categories.plist */,
 				F1E1CAE22049550100339163 /* Font */,
 			);
 			path = Resource;
@@ -483,6 +519,7 @@
 				F1D036F32088C99700D22995 /* helvetica-light.ttf in Resources */,
 				F149D89920999D6B00E7BA59 /* Info.plist in Resources */,
 				F14AE377206E451000F65543 /* 20180329_account.csv in Resources */,
+				F164212920A14495000ECC7C /* categories.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -689,11 +726,14 @@
 				F1C16A04207F07C4003C4B5A /* UIView+Frame.swift in Sources */,
 				F18C5CDF20A05E07007050F9 /* BillDetailContentView.swift in Sources */,
 				F11910592083631400743D7B /* CountingLabel.swift in Sources */,
+				F164213220A19DF8000ECC7C /* CategoryManager.swift in Sources */,
+				F164212B20A14C0B000ECC7C /* UIColor+Yod.swift in Sources */,
 				F150358E2098C3680055617D /* String+Yod.swift in Sources */,
 				F15D2633208F1EBF0027D3EA /* AccountContentView.swift in Sources */,
 				F1AC66CE209A0B3E000909DA /* HomeDisplayView.swift in Sources */,
 				F12CBE9F20873B9D0063A053 /* HomeItemSectionView.swift in Sources */,
 				F1504A1C204E912B00855D00 /* HomeViewController.swift in Sources */,
+				F164213020A18729000ECC7C /* SQLManager.swift in Sources */,
 				F1C16A08207F6423003C4B5A /* Delay.swift in Sources */,
 				F15D263920907A810027D3EA /* HomeModel.swift in Sources */,
 				F16F74AF207CFF6B00E6F194 /* YodPrint.swift in Sources */,
