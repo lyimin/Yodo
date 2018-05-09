@@ -59,9 +59,9 @@ extension CategoryManager {
     // 添加默认分类到数据库
     public func loadCategories() {
         let path = Bundle.main.path(forResource: "categories.plist", ofType: nil)
-        let categories = NSArray(contentsOfFile: path)
+        let categories = NSArray(contentsOfFile: path!)
         
-        for
+        // todo
     }
     
     /// 添加分类

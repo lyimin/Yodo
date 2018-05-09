@@ -17,8 +17,7 @@ public class AccountManager {
     public let accountT = Table("account")
     
     public let id = Expression<Int64>("id")
-    public let type = Expression<Int>("type")
-    public let category = Expression<String>("category")
+    public let category = Expression<String>("categoryId")
     public let money = Expression<Double>("money")
     public let remarks = Expression<String?>("remarks")
     public let longitude = Expression<String?>("longitude")
@@ -44,7 +43,7 @@ extension AccountManager {
     public func queryFirstData() -> Account? {
         
         let sql = "SELECT * FROM \(tableName) WHERE createdAt = (SELECT MIN(createdAt) FROM \(tableName))"
-        
+
         var temp: [String: AnyObject] = [:]
         
         let result = find(withSQL: sql)
@@ -57,7 +56,7 @@ extension AccountManager {
             }
         }
         if temp.count != 0 {
-            return Account(dic: temp);
+            let account = Account(dic: temp);
         }
         
         return nil
@@ -140,7 +139,7 @@ extension AccountManager {
             }
                 
             else if i == 2 {
-                model.category = item
+                model.category.id = item
             }
                 
             else if i == 3 {
@@ -163,8 +162,8 @@ extension AccountManager {
     ///
     /// - Parameter model: 账单model
     public func insertAccount(model: Account) {
-        let sql = "INSERT INTO \(tableName) (type, category, money, remarks, address, pic, createdAt) VALUES " +
-        "(\(model.type.rawValue), '\(model.category)', \(model.money), '\(model.remarks)', '\(model.address)', '\(model.pic)', '\(model.createdAt)')"
+        let sql = "INSERT INTO \(tableName) (categoryId, money, remarks, address, pic, createdAt) VALUES " +
+        "('\(model.category.id)', \(model.money), '\(model.remarks)', '\(model.address)', '\(model.pic)', '\(model.createdAt)')"
         do {
             try db.execute(sql)
             debugPrint("插入成功)")
@@ -196,7 +195,6 @@ extension AccountManager {
         do {
             try db.run(accountT.create(ifNotExists: true){ t in
                 t.column(id, primaryKey: .autoincrement)
-                t.column(type)
                 t.column(category)
                 t.column(money)
                 t.column(remarks)
