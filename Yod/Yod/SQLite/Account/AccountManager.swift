@@ -9,6 +9,7 @@
 import Foundation
 import SQLite
 import CSV
+import ObjectMapper
 
 /// AccountManager 直接跟sql打交道的类
 public class AccountManager {
@@ -18,12 +19,13 @@ public class AccountManager {
     
     public let id = Expression<Int64>("id")
     public let category = Expression<String>("categoryId")
+    public let type = Expression<Int>("type")
     public let money = Expression<Double>("money")
-    public let remarks = Expression<String?>("remarks")
+    public let remarks = Expression<String>("remarks")
     public let longitude = Expression<String?>("longitude")
     public let latitude = Expression<String?>("latitude")
     public let address = Expression<String?>("address")
-    public let pic = Expression<String?>("pic")
+    public let pictures = Expression<String>("pictures")
     public let createdAt = Expression<String>("createdAt")
     public let updatedAt = Expression<String?>("updatedAt")
     public let deletedAt = Expression<String?>("deletedAt")
@@ -40,7 +42,7 @@ public class AccountManager {
 extension AccountManager {
     
     /// 查询第一条数据
-    public func queryFirstData() -> Account? {
+    public func queryFirstData() -> AccountDao? {
         
         let sql = "SELECT * FROM \(tableName) WHERE createdAt = (SELECT MIN(createdAt) FROM \(tableName))"
 
@@ -56,7 +58,8 @@ extension AccountManager {
             }
         }
         if temp.count != 0 {
-            let account = Account(dic: temp);
+            let account = AccountDao(JSON: temp)
+            return account
         }
         
         return nil
@@ -66,15 +69,15 @@ extension AccountManager {
     ///
     /// - Parameter withDate: 日期对象
     
-    func findMonthAccounds(withDate date: YodDate, withType type: Category.AccountType? = nil) -> [Account] {
+    func findMonthAccounds(withDate date: YodDate, withType type: Int? = nil) -> [AccountDao] {
         
         var sql = "SELECT * FROM \(tableName) WHERE createdAt LIKE '\(date.year)-\(date.month)-%'"
         if let type = type {
-            sql = sql + " AND type = \(type.rawValue)"
+            sql = sql + " AND type = \(type)"
         }
         sql = sql + " ORDER BY createdAt DESC"
         
-        var out: [Account] = []
+        var out: [AccountDao] = []
         
         let result = find(withSQL: sql)
         if let result = result {
@@ -89,9 +92,7 @@ extension AccountManager {
             }
             
             // dic -> Account
-            for t in temp {
-                out.append(Account(dic: t))
-            }
+            out = Mapper<AccountDao>().mapArray(JSONArray: temp)
         }
         
         return out
@@ -116,7 +117,7 @@ extension AccountManager {
     
     /// 导入csv文件
     public func loadCSV() {
-        let path = Bundle.main.path(forResource: "20180329_account.csv", ofType: nil)
+        let path = Bundle.main.path(forResource: "20180509_account.csv", ofType: nil)
         
         do {
             let csv = try CSVReader(stream: InputStream(fileAtPath: path!)!, hasHeaderRow: true)
@@ -129,41 +130,42 @@ extension AccountManager {
     }
     
     private func writeToDB(items: [String]) {
+
         // 创建model
-        var model = Account()
+        var dict: [String: Any] = [:]
         for i in 0..<items.count {
             
             let item = items[i]
             if i == 1 {
-                model.type = item.formatAccountType()
+                dict["type"] = Int(item)
             }
                 
             else if i == 2 {
-                model.category.id = item
+                dict["categoryId"] = item
             }
                 
             else if i == 3 {
-                model.money = Double(item)!
+                dict["money"] = Double(item)!
             }
             else if i == 4 {
-                model.createdAt = item
+                dict["createdAt"] = item
             }
                 
             else if i == 5 {
-                model.remarks = item
+                dict["remarks"] = item
             } else {
                 continue
             }
         }
-        insertAccount(model: model)
+        insertAccount(model: AccountDao(JSON: dict)!)
     }
     
     /// 插入数据
     ///
     /// - Parameter model: 账单model
-    public func insertAccount(model: Account) {
-        let sql = "INSERT INTO \(tableName) (categoryId, money, remarks, address, pic, createdAt) VALUES " +
-        "('\(model.category.id)', \(model.money), '\(model.remarks)', '\(model.address)', '\(model.pic)', '\(model.createdAt)')"
+    public func insertAccount(model: AccountDao) {
+        let sql = "INSERT INTO \(tableName) (categoryId, type, money, remarks, pictures, createdAt) VALUES " +
+        "('\(model.categoryId!)', '\(model.type!)', '\(model.money!)', '\(model.remarks!)', '\(model.pictures)', '\(model.createdAt!)')"
         do {
             try db.execute(sql)
             debugPrint("插入成功)")
@@ -196,12 +198,13 @@ extension AccountManager {
             try db.run(accountT.create(ifNotExists: true){ t in
                 t.column(id, primaryKey: .autoincrement)
                 t.column(category)
+                t.column(type)
                 t.column(money)
                 t.column(remarks)
                 t.column(longitude)
                 t.column(latitude)
                 t.column(address)
-                t.column(pic)
+                t.column(pictures)
                 t.column(createdAt)
                 t.column(updatedAt)
                 t.column(deletedAt)

@@ -262,5 +262,15 @@
 		<key>name</key>
 		<string>投资</string>
 	</dict>
+	<dict>
+		<key>type</key>
+		<integer>2</integer>
+		<key>color</key>
+		<string>#F0461E</string>
+		<key>icon</key>
+		<string>ic_category_redPack</string>
+		<key>name</key>
+		<string>红包</string>
+	</dict>
 </array>
 </plist>

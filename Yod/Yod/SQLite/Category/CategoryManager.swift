@@ -8,7 +8,7 @@
 
 import Foundation
 import SQLite
-
+import ObjectMapper
 
 public class CategoryManager {
 
@@ -59,18 +59,22 @@ extension CategoryManager {
     // 添加默认分类到数据库
     public func loadCategories() {
         let path = Bundle.main.path(forResource: "categories.plist", ofType: nil)
-        let categories = NSArray(contentsOfFile: path!)
         
-        // todo
+        let categories = NSArray(contentsOfFile: path!) as! Array<Dictionary<String, Any>>
+
+        for category in categories {
+            let dao = CategoryDao(JSON: category)!
+            dao.createdAt = Date.now()
+            insertCategory(model: dao)
+        }
     }
     
     /// 添加分类
-    public func insertCategory(model: Category) {
+    public func insertCategory(model: CategoryDao) {
         let sql = "INSERT INTO \(tableName) (name, icon, color, type, createdAt) VALUES " +
-        "(\(model.type.rawValue), '\(model.category)', \(model.money), '\(model.remarks)', '\(model.address)', '\(model.pic)', '\(model.createdAt)')"
+        "('\(model.name!)', '\(model.icon!)', '\(model.color!)', '\(model.type!)', '\(model.createdAt!)')"
         do {
             try db.execute(sql)
-            debugPrint("插入成功)")
         } catch {
             assertionFailure("[EMSQLite] undefine \(tableName) propreties")
         }

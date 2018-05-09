@@ -37,6 +37,10 @@ extension Date {
         return ("\(year)", String(format: "%02d", month), String(format: "%02d", day))
     }
     
+    static func now() -> String {
+        return Date().toString()
+    }
+    
     /// 获取今天日期
     static func today() -> String {
         let dataFormatter = DateFormatter()

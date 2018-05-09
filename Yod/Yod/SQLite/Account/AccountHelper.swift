@@ -16,7 +16,7 @@ public class AccountHelper: NSObject {
 }
 
 extension AccountHelper {
-    
+    /*
     /// 获取日期数据
     func getDates(callback: @escaping ([YodDate]) -> Void) {
         
@@ -120,5 +120,6 @@ extension AccountHelper {
         }
         return (String(format: "%.2f", expTotal), String(format: "%.2f", incomeTotal))
     }
+    */
 }
 

@@ -103,13 +103,10 @@ class HomeItemCell: UITableViewCell, Reusable {
     var account: Account! {
         didSet {
             
-            iconView.image = UIImage(named: account.categoryType.iconName())
-            if account.categoryType == .normal {
-                iconBackground.backgroundColor = UIColor(hexString: "#3294FA")
-                YodDebug(debug: "\(String(describing: iconView.image!.size))")
-            }
+            iconView.image = UIImage(named: account.category.icon)
+            iconBackground.backgroundColor = UIColor(hexString: account.category.color)
             priceLabel.text = String(format: "￥%.2f", account.money)
-            categoryLabel.text = account.category
+            categoryLabel.text = account.category.name
             
             if account.type == .expend {
                 priceLabel.textColor = YodConfig.color.rgb(red: 208, green: 2, blue: 27, alpha: 73)

@@ -27,7 +27,7 @@ public class YodManager {
             
             let lastVersion = UserDefaults.standard.object(forKey: LAST_RUN_VERSION_KEY) as! String?
             if lastVersion == nil || lastVersion! != currentVersion {
-                UserDefaults.standard.set(lastVersion, forKey: LAST_RUN_VERSION_KEY)
+                UserDefaults.standard.set(currentVersion, forKey: LAST_RUN_VERSION_KEY)
                 return true
             }
         }

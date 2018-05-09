@@ -13,7 +13,7 @@ class HomeViewController: BaseViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        /*
         view.addSubview(navigationView)
         view.addSubview(displayView)
         view.addSubview(createdBtn)
@@ -28,9 +28,11 @@ class HomeViewController: BaseViewController {
             make.size.equalTo(CGSize(width: 45, height: 45))
             make.bottom.equalTo(self.view).offset(-20)
         }
+        
         AccountHelper().getDates { (dates) in
             self.dates = dates
         }
+         */
     }
    
     // MARK: - Getter | Setter
