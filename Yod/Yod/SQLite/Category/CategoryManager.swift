@@ -54,6 +54,8 @@ extension CategoryManager {
     }
 }
 
+infix operator <-: ColumnAssignment
+
 // MARK: - insert
 extension CategoryManager {
     // 添加默认分类到数据库
@@ -71,13 +73,34 @@ extension CategoryManager {
     
     /// 添加分类
     public func insertCategory(model: CategoryDao) {
-        let sql = "INSERT INTO \(tableName) (name, icon, color, type, createdAt) VALUES " +
-        "('\(model.name!)', '\(model.icon!)', '\(model.color!)', '\(model.type!)', '\(model.createdAt!)')"
+        
+        let insert = categoryT.insert(name <- model.name!, icon <- model.icon!, color <- model.color!, type <- model.type!, createdAt <- model.createdAt!)
+        
         do {
-            try db.execute(sql)
+            try db.run(insert)
         } catch {
             assertionFailure("[EMSQLite] undefine \(tableName) propreties")
         }
+    }
+}
+
+extension CategoryManager {
+    
+    public func findCategory(byID categoryId: Int64) {
+        
+        let query = categoryT.filter(id == categoryId)
+        
+        
+        do {
+            for category in try db.prepare(categoryT.filter(id == 1)) {
+                category.get(id)
+            }
+            
+        } catch {
+            
+        }
+        
+//        query.column
     }
 }
 

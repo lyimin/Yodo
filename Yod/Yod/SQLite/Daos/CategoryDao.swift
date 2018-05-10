@@ -24,7 +24,6 @@ public class CategoryDao: Mappable {
     }
     
     public init() {
-        
     }
     
     public func mapping(map: Map) {
