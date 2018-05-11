@@ -52,9 +52,8 @@ class HomeItemCell: UITableViewCell, Reusable {
             make.size.equalTo(CGSize(width: 40, height: 40))
         }
         
-        
         categoryLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(iconView.snp.right).offset(15)
+            make.left.equalTo(iconBackground.snp.right).offset(15)
             make.centerY.equalTo(iconView)
             make.height.equalTo(20)
             make.width.lessThanOrEqualTo(150)
@@ -73,14 +72,14 @@ class HomeItemCell: UITableViewCell, Reusable {
         descLabel.isHidden = remarkIsEmpty
         if remarkIsEmpty {
             categoryLabel.snp.remakeConstraints { (make) in
-                make.left.equalTo(iconView.snp.right).offset(15)
-                make.centerY.equalTo(iconView)
+                make.left.equalTo(iconBackground.snp.right).offset(15)
+                make.centerY.equalTo(iconBackground)
                 make.height.equalTo(20)
                 make.width.lessThanOrEqualTo(150)
             }
         } else {
             categoryLabel.snp.remakeConstraints { (make) in
-                make.left.equalTo(iconView.snp.right).offset(15)
+                make.left.equalTo(iconBackground.snp.right).offset(15)
                 make.centerY.equalTo(iconView).offset(-10)
                 make.height.equalTo(20)
                 make.width.lessThanOrEqualTo(150)
@@ -88,7 +87,7 @@ class HomeItemCell: UITableViewCell, Reusable {
             
             descLabel.snp.remakeConstraints { (make) in
                 make.left.width.height.equalTo(categoryLabel)
-                make.centerY.equalTo(iconView).offset(10)
+                make.centerY.equalTo(iconBackground).offset(10)
             }
         }
         

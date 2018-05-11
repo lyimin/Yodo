@@ -27,11 +27,8 @@ public struct Account {
     /// 备注
     var remarks: String = ""
     
-    /// 地址
-    var address: String = ""
-
     /// 图片
-    var pic: String = ""
+    var pictures: String = ""
     
     /// 创建日期
     var createdAt: String = ""
@@ -53,10 +50,22 @@ public struct Account {
         category = Category(id: categoryId)
         money =  dic["money"] as? Double ?? 0.00
         remarks = dic["remarks"] as? String ?? ""
-        pic = dic["pic"] as? String ?? ""
+        pictures = dic["pictures"] as? String ?? ""
         
         createdAt = dic["createdAt"] as! String
         date = YodDate(date: createdAt)
+    }
+    
+    init(dao: AccountDao) {
+        id = "\(dao.id)"
+        type = Category.AccountType(rawValue: dao.type)!
+        money = dao.money
+        remarks = dao.remarks ?? ""
+        pictures = dao.pictures ?? ""
+        createdAt = dao.createdAt
+        updateAt = dao.updateAt
+        deleteAt = dao.deleteAt
+        date = YodDate(date: dao.createdAt)
     }
 }
 

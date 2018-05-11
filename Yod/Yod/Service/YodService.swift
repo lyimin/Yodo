@@ -14,6 +14,7 @@ class YodService {
     class func getDates(callback: @escaping ([YodDate]) -> Void) {
         
         DispatchQueue.global().async {
+            
             let accountManager: AccountManager! = SQLManager.default.account
             let firstDate = accountManager.queryFirstData()?.createdAt;
             let nowDate = Date().toString()
@@ -72,7 +73,24 @@ class YodService {
             // 获取category
             var accounts: [Account] = []
             for dao in accountDaos {
-                // TODO:
+                
+                var account = Account(dao: dao)
+                
+                // 分类
+                let cDao: CategoryDao?
+                if let categoryId = Int64(dao.categoryId) {
+                    cDao = categoryManager.findCategory(byID: categoryId)
+                } else {
+                    cDao = categoryManager.findCategory(byID: 1)
+                }
+                
+                if let cDao = cDao {
+                    account.category = Category(dao: cDao)
+                } else {
+                    YodDebug(debug: "fail to find category id:\(dao.categoryId)")
+                }
+                
+                accounts.append(account)
             }
             
             

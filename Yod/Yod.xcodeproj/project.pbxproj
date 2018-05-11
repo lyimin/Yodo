@@ -19,7 +19,6 @@
 		F1504A1B204E912B00855D00 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A17204E912B00855D00 /* BaseViewController.swift */; };
 		F1504A1C204E912B00855D00 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A1A204E912B00855D00 /* HomeViewController.swift */; };
 		F15D2633208F1EBF0027D3EA /* AccountContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D2632208F1EBF0027D3EA /* AccountContentView.swift */; };
-		F15D2635209078890027D3EA /* AccountHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D2634209078890027D3EA /* AccountHelper.swift */; };
 		F15D263920907A810027D3EA /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D263820907A810027D3EA /* HomeModel.swift */; };
 		F164212920A14495000ECC7C /* categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = F164212820A14495000ECC7C /* categories.plist */; };
 		F164212B20A14C0B000ECC7C /* UIColor+Yod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F164212A20A14C0B000ECC7C /* UIColor+Yod.swift */; };
@@ -93,7 +92,6 @@
 		F1504A1A204E912B00855D00 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F1504A20204E94FD00855D00 /* HomeNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationView.swift; sourceTree = "<group>"; };
 		F15D2632208F1EBF0027D3EA /* AccountContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountContentView.swift; sourceTree = "<group>"; };
-		F15D2634209078890027D3EA /* AccountHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHelper.swift; sourceTree = "<group>"; };
 		F15D263820907A810027D3EA /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		F164212820A14495000ECC7C /* categories.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = categories.plist; sourceTree = "<group>"; };
 		F164212A20A14C0B000ECC7C /* UIColor+Yod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Yod.swift"; sourceTree = "<group>"; };
@@ -252,29 +250,12 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		F164212C20A17D1D000ECC7C /* Account */ = {
-			isa = PBXGroup;
-			children = (
-				F1754DF42052370400A7CF77 /* AccountManager.swift */,
-				F15D2634209078890027D3EA /* AccountHelper.swift */,
-			);
-			path = Account;
-			sourceTree = "<group>";
-		};
 		F164212D20A18227000ECC7C /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				F15D263820907A810027D3EA /* HomeModel.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		F164212E20A18371000ECC7C /* Category */ = {
-			isa = PBXGroup;
-			children = (
-				F164213120A19DF8000ECC7C /* CategoryManager.swift */,
-			);
-			path = Category;
 			sourceTree = "<group>";
 		};
 		F1749F41209F007B000C613C /* Root */ = {
@@ -288,10 +269,8 @@
 		F1754DF120522D8A00A7CF77 /* SQLite */ = {
 			isa = PBXGroup;
 			children = (
-				F164212F20A18729000ECC7C /* SQLManager.swift */,
+				F1AA360620A5395400761DA8 /* Manager */,
 				F1F8A68320A2F7E7001DF3F1 /* Daos */,
-				F164212E20A18371000ECC7C /* Category */,
-				F164212C20A17D1D000ECC7C /* Account */,
 				F1A0C7B52091B7CE000A62F7 /* Models */,
 			);
 			path = SQLite;
@@ -300,6 +279,7 @@
 		F18C5CD720A052B7007050F9 /* BillDetail */ = {
 			isa = PBXGroup;
 			children = (
+				F1AA360720A53E6100761DA8 /* Transition */,
 				F18C5CDB20A05C7F007050F9 /* View */,
 				F18C5CDA20A05C6A007050F9 /* Controller */,
 			);
@@ -375,6 +355,23 @@
 				F1AA360420A4496100761DA8 /* YodService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		F1AA360620A5395400761DA8 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				F164212F20A18729000ECC7C /* SQLManager.swift */,
+				F1754DF42052370400A7CF77 /* AccountManager.swift */,
+				F164213120A19DF8000ECC7C /* CategoryManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		F1AA360720A53E6100761DA8 /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Transition;
 			sourceTree = "<group>";
 		};
 		F1BCD084207DA94C00E4A791 /* Extension */ = {
@@ -747,7 +744,6 @@
 				F1BCD08F207E0BC700E4A791 /* Reusable.swift in Sources */,
 				F18C5CD920A0550B007050F9 /* BillDetailViewController.swift in Sources */,
 				F1A6FFD7208CEF220021EAEA /* DisplayScrollView.swift in Sources */,
-				F15D2635209078890027D3EA /* AccountHelper.swift in Sources */,
 				F16F74B1207E63E000E6F194 /* HomeItemCell.swift in Sources */,
 				F1A0C7B82091B7CE000A62F7 /* Account.swift in Sources */,
 				F150358F2098C3680055617D /* Date+Yod.swift in Sources */,

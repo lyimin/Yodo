@@ -26,7 +26,7 @@ class HomeDisplayView: UIView {
     var currentDate: YodDate! {
         didSet {
             guard oldValue != nil else {
-//                rightAnimation()
+                rightAnimation()
                 rightView.date = currentDate
                 return
             }

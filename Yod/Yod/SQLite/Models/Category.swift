@@ -49,6 +49,19 @@ struct Category {
         type = AccountType(rawValue: dict["type"] as! Int)
         deletedAt = dict["deletedAt"] as? String
     }
+    
+    init(dao: CategoryDao?) {
+        
+        if let dao = dao {
+        
+            id = "\(dao.id)"
+            name = dao.name
+            icon = dao.icon
+            color = dao.color
+            type = AccountType(rawValue: dao.type)
+            deletedAt = dao.deletedAt
+        }
+    }
 }
 
 extension String {

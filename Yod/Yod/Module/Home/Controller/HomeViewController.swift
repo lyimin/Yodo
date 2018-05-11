@@ -13,7 +13,7 @@ class HomeViewController: BaseViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        /*
+        
         view.addSubview(navigationView)
         view.addSubview(displayView)
         view.addSubview(createdBtn)
@@ -29,10 +29,9 @@ class HomeViewController: BaseViewController {
             make.bottom.equalTo(self.view).offset(-20)
         }
         
-        AccountHelper().getDates { (dates) in
-            self.dates = dates
+        YodService.getDates {
+            self.dates = $0
         }
-         */
     }
    
     // MARK: - Getter | Setter
@@ -80,6 +79,7 @@ class HomeViewController: BaseViewController {
         
         var createdBtn = UIButton()
         createdBtn.setImage(#imageLiteral(resourceName: "ic_home_created"), for: .normal)
+        createdBtn.addTarget(self, action: #selector(createdBtnDidClick), for: .touchUpInside)
         createdBtn.layer.shadowRadius = 5
         createdBtn.layer.shadowOpacity = 0.3
         createdBtn.layer.shadowColor = UIColor.lightGray.cgColor
@@ -96,6 +96,15 @@ extension HomeViewController: HomeNavigationViewDelegate {
     func navigationView(_ navigationView: HomeNavigationView, itemDidSelectedAt indexPath: IndexPath, _ date: YodDate) {
        
         displayView.currentDate = date
+    }
+}
+
+
+// MARK: - Event | Action
+extension HomeViewController {
+    
+    @objc func createdBtnDidClick() {
+        present(BillDetailViewController(), animated: true, completion: nil)
     }
 }
 

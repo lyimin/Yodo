@@ -251,22 +251,21 @@ extension AccountContentView {
     */
     /// 加载当月的数据
     private func loadingMonthDate() {
-        /*
+        
         if let date = date {
             
             tableView.isHidden = true
             showProgress()
             
-            AccountHelper().getMonthData(withYodDate: date, callback: {
+            YodService.getMonthData(withYodDate: date) {
                 
                 self.monthModel = $0
-                    
+                
                 self.hiddenProgress()
                 self.tableView.isHidden = false
                 
                 self.cellsOffsetAnimation()
-            })
+            }
         }
-        */
     }
 }

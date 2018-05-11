@@ -86,21 +86,31 @@ extension CategoryManager {
 
 extension CategoryManager {
     
-    public func findCategory(byID categoryId: Int64) {
-        
-        let query = categoryT.filter(id == categoryId)
-        
+    /// 根据id获取分类
+    public func findCategory(byID categoryId: Int64) -> CategoryDao? {
         
         do {
-            for category in try db.prepare(categoryT.filter(id == 1)) {
-                category.get(id)
+            
+            for category in try db.prepare(categoryT.filter(id == categoryId)) {
+                
+                let dao = CategoryDao()
+                dao.id = try category.get(id)
+                dao.color = try category.get(color)
+                dao.name = try category.get(name)
+                dao.icon = try category.get(icon)
+                dao.type = try category.get(type)
+                dao.createdAt = try category.get(createdAt)
+                dao.updatedAt = try category.get(updatedAt)
+                dao.deletedAt = try category.get(deletedAt)
+                
+                return dao
             }
             
         } catch {
-            
+            assertionFailure("[EMSQLite] Fail to find \(tableName) categoryId: \(categoryId)")
         }
         
-//        query.column
+        return nil
     }
 }
 

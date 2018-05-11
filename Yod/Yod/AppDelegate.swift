@@ -36,14 +36,14 @@ extension AppDelegate {
     /// 初始化db
     private func initDB() {
         
+        let manager = SQLManager.default.createdDB(withName: nil)
+        
+        manager.db.busyTimeout = 5
+        manager.db.busyHandler { (tries) -> Bool in
+            return tries >= 3 ?false :true
+        }
+        
         if YodManager.default.isFirstLoad() {
-            
-            let manager = SQLManager.default.createdDB(withName: nil)
-            
-            manager.db.busyTimeout = 5
-            manager.db.busyHandler { (tries) -> Bool in
-                return tries >= 3 ?false :true
-            }
             
             // 删除table重新创建
             manager.account.deleteTable()
