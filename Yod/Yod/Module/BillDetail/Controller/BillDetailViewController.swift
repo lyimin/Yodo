@@ -17,11 +17,13 @@ public enum BillDetailControllerType {
     case edit
 }
 
+// TODO:
 class BillDetailViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.addSubview(contentView)
     }
     
     convenience init(controllerType: BillDetailControllerType = .created) {
@@ -36,8 +38,17 @@ class BillDetailViewController: BaseViewController {
 
     private lazy var contentView: BillDetailContentView = {
         
-        let contentView = BillDetailContentView()
-        
+        let contentView = BillDetailContentView(frame: view.bounds)
+        contentView.delegate = self
         return contentView
     }()
+}
+
+// MARK: - BillDetailContentViewDelegate
+extension BillDetailViewController: BillDetailContentViewDelegate {
+    
+    /// 点击返回
+    func backBtnDidClick() {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
