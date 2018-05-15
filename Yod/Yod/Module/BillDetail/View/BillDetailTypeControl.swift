@@ -24,13 +24,19 @@ class BillDetailTypeControl: UIView {
     private(set) lazy var backgroundView: UIView = {
         
         var backgroundView = UIView()
+        backgroundView.layer.cornerRadius = 17.5
+        backgroundView.backgroundColor = YodConfig.color.rgb(red: 60, green: 66, blue: 90, alpha: 0.2)
         return backgroundView
     }()
     
     /// 当前选中
-    private(set) lazy var indexView: UIView = {
+    private(set) lazy var expendBtn: UIButton = {
         
-        var indexView = UIView()
-        return indexView
+        var expendBtn = UIButton()
+        expendBtn.setTitle("支出", for: .normal)
+        expendBtn.setTitleColor(YodConfig.color.blackTitle, for: .selected)
+        expendBtn.setTitleColor(.white, for: .normal)
+        expendBtn.setBackgroundImage(UIImage(, for: <#T##UIControlState#>)
+        return expendBtn
     }()
 }

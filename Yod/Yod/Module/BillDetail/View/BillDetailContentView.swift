@@ -17,9 +17,9 @@ class BillDetailContentView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        addSubview(backgroundColorView)
         addSubview(backBtn)
         addSubview(iconView)
-        addSubview(backgroundColorView)
         
         setupLayout()
 
@@ -38,6 +38,7 @@ class BillDetailContentView: UIView {
     private lazy var backBtn: UIButton = {
         
         let backBtn = UIButton()
+        backBtn.addTarget(self, action: #selector(backBtnDidClick), for: .touchUpInside)
         backBtn.setImage(#imageLiteral(resourceName: "ic_white_back"), for: .normal)
         return backBtn
     }()
@@ -67,6 +68,16 @@ class BillDetailContentView: UIView {
     }()
 }
 
+// MARK: - Event | Action
+extension BillDetailContentView {
+    
+    @objc func backBtnDidClick() {
+        if let delegate = delegate {
+            delegate.backBtnDidClick()
+        }
+    }
+}
+
 // MARK: - Getter | Setter
 extension BillDetailContentView {
     
@@ -76,6 +87,15 @@ extension BillDetailContentView {
             make.left.equalTo(self).offset(25)
             make.top.equalTo(self).offset(40)
             make.size.equalTo(CGSize(width: 23, height: 23))
+        }
+        
+        backgroundColorView.snp.makeConstraints { (make) in
+            make.left.right.top.equalTo(self)
+            make.height.equalTo(200)
+        }
+        
+        iconView.snp.makeConstraints { (make) in
+            make.size.equalTo(CGSize(width: <#T##CGFloat#>, height: <#T##CGFloat#>))
         }
     }
 }
