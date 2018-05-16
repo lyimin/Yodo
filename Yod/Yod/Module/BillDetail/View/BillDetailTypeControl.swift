@@ -8,11 +8,14 @@
 
 import UIKit
 
+// TODO:
 class BillDetailTypeControl: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         addSubview(backgroundView)
+        addSubview(expendBtn)
+        addSubview(incomeBtn)
         addSubview(indexView)
     }
     
@@ -20,7 +23,7 @@ class BillDetailTypeControl: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    /// 背景色
+    /// 黑色背景色
     private(set) lazy var backgroundView: UIView = {
         
         var backgroundView = UIView()
@@ -29,14 +32,31 @@ class BillDetailTypeControl: UIView {
         return backgroundView
     }()
     
-    /// 当前选中
+    private lazy var indexView: UIView = {
+        
+        var indexView = UIView()
+        indexView.backgroundColor = UIColor.white
+        indexView.isUserInteractionEnabled = false
+        return indexView
+    }()
+    
+    /// 支出
     private(set) lazy var expendBtn: UIButton = {
         
         var expendBtn = UIButton()
         expendBtn.setTitle("支出", for: .normal)
         expendBtn.setTitleColor(YodConfig.color.blackTitle, for: .selected)
         expendBtn.setTitleColor(.white, for: .normal)
-        expendBtn.setBackgroundImage(UIImage(, for: <#T##UIControlState#>)
         return expendBtn
+    }()
+    
+    /// 收入
+    private(set) lazy var incomeBtn: UIButton = {
+        
+        var incomeBtn = UIButton()
+        incomeBtn.setTitle("收入", for: .normal)
+        incomeBtn.setTitleColor(YodConfig.color.blackTitle, for: .selected)
+        incomeBtn.setTitleColor(.white, for: .normal)
+        return incomeBtn
     }()
 }
