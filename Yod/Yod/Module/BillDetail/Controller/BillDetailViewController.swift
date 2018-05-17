@@ -24,6 +24,10 @@ class BillDetailViewController: BaseViewController {
         super.viewDidLoad()
         
         view.addSubview(contentView)
+        
+        contentView.snp.makeConstraints { (make) in
+            make.edges.equalTo(self.view)
+        }
     }
     
     convenience init(controllerType: BillDetailControllerType = .created) {
@@ -38,7 +42,7 @@ class BillDetailViewController: BaseViewController {
 
     private lazy var contentView: BillDetailContentView = {
         
-        let contentView = BillDetailContentView(frame: view.bounds)
+        let contentView = BillDetailContentView()
         contentView.delegate = self
         return contentView
     }()
