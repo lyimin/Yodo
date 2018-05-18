@@ -17,7 +17,6 @@ public enum BillDetailControllerType {
     case edit
 }
 
-// TODO:
 class BillDetailViewController: BaseViewController {
 
     override func viewDidLoad() {
@@ -28,6 +27,8 @@ class BillDetailViewController: BaseViewController {
         contentView.snp.makeConstraints { (make) in
             make.edges.equalTo(self.view)
         }
+        
+//        let categories = SQLManager.default.category.findCategory(byID: <#T##Int64#>)
     }
     
     convenience init(controllerType: BillDetailControllerType = .created) {
@@ -42,7 +43,7 @@ class BillDetailViewController: BaseViewController {
 
     private lazy var contentView: BillDetailContentView = {
         
-        let contentView = BillDetailContentView()
+        let contentView = BillDetailContentView(frame: view.bounds)
         contentView.delegate = self
         return contentView
     }()
@@ -55,4 +56,10 @@ extension BillDetailViewController: BillDetailContentViewDelegate {
     func backBtnDidClick() {
         self.dismiss(animated: true, completion: nil)
     }
+}
+
+// MARK: - Private Methods
+extension BillDetailViewController {
+    
+    
 }

@@ -145,8 +145,6 @@ class YodService {
     }
     
     /// 获取所有分类
-    ///
-    /// - Returns: <#return value description#>
     class func getCategories(withType type: Category.AccountType? = nil, callback: @escaping ([Category]) -> Void) {
         
         DispatchQueue.global().async {

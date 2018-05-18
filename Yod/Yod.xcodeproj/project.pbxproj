@@ -36,6 +36,8 @@
 		F1754DF52052370400A7CF77 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1754DF42052370400A7CF77 /* AccountManager.swift */; };
 		F183E71120A1E8FE0028F280 /* YodManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F183E71020A1E8FE0028F280 /* YodManager.swift */; };
 		F183E71320A1F9390028F280 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = F183E71220A1F9390028F280 /* Category.swift */; };
+		F1882E2C20AEADA5002BEDAA /* BillDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1882E2B20AEADA5002BEDAA /* BillDetailHeaderView.swift */; };
+		F1882E3020AEC039002BEDAA /* BillDetailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1882E2F20AEC039002BEDAA /* BillDetailCardView.swift */; };
 		F18C5CD920A0550B007050F9 /* BillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18C5CD820A0550B007050F9 /* BillDetailViewController.swift */; };
 		F18C5CDF20A05E07007050F9 /* BillDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18C5CDE20A05E07007050F9 /* BillDetailContentView.swift */; };
 		F1A0C7B82091B7CE000A62F7 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0C7B62091B7CE000A62F7 /* Account.swift */; };
@@ -44,7 +46,6 @@
 		F1A81C02200CA410003D2D4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A81C01200CA410003D2D4E /* AppDelegate.swift */; };
 		F1A81C09200CA410003D2D4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1A81C08200CA410003D2D4E /* Assets.xcassets */; };
 		F1AA360520A4496100761DA8 /* YodService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AA360420A4496100761DA8 /* YodService.swift */; };
-		F1AA360920A58C9200761DA8 /* BillDetailTypeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AA360820A58C9200761DA8 /* BillDetailTypeControl.swift */; };
 		F1AC66CE209A0B3E000909DA /* HomeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AC66CD209A0B3E000909DA /* HomeDisplayView.swift */; };
 		F1BCD08F207E0BC700E4A791 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BCD08E207E0BC700E4A791 /* Reusable.swift */; };
 		F1C16A02207EFF64003C4B5A /* HomeNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A20204E94FD00855D00 /* HomeNavigationView.swift */; };
@@ -111,6 +112,8 @@
 		F1754DF42052370400A7CF77 /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		F183E71020A1E8FE0028F280 /* YodManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodManager.swift; sourceTree = "<group>"; };
 		F183E71220A1F9390028F280 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		F1882E2B20AEADA5002BEDAA /* BillDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailHeaderView.swift; sourceTree = "<group>"; };
+		F1882E2F20AEC039002BEDAA /* BillDetailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailCardView.swift; sourceTree = "<group>"; };
 		F18C5CD820A0550B007050F9 /* BillDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailViewController.swift; sourceTree = "<group>"; };
 		F18C5CDE20A05E07007050F9 /* BillDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailContentView.swift; sourceTree = "<group>"; };
 		F1A0C7B62091B7CE000A62F7 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
@@ -122,7 +125,6 @@
 		F1A81C12200CA410003D2D4E /* YodTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YodTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A81C1D200CA410003D2D4E /* YodUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YodUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1AA360420A4496100761DA8 /* YodService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodService.swift; sourceTree = "<group>"; };
-		F1AA360820A58C9200761DA8 /* BillDetailTypeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailTypeControl.swift; sourceTree = "<group>"; };
 		F1AC66CD209A0B3E000909DA /* HomeDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDisplayView.swift; sourceTree = "<group>"; };
 		F1BCD08E207E0BC700E4A791 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		F1C16A03207F07C4003C4B5A /* UIView+Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
@@ -302,7 +304,8 @@
 			isa = PBXGroup;
 			children = (
 				F18C5CDE20A05E07007050F9 /* BillDetailContentView.swift */,
-				F1AA360820A58C9200761DA8 /* BillDetailTypeControl.swift */,
+				F1882E2B20AEADA5002BEDAA /* BillDetailHeaderView.swift */,
+				F1882E2F20AEC039002BEDAA /* BillDetailCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -774,15 +777,16 @@
 				F16ADECB20A34174004BED51 /* CategoryDao.swift in Sources */,
 				F1AC66CE209A0B3E000909DA /* HomeDisplayView.swift in Sources */,
 				F12CBE9F20873B9D0063A053 /* HomeItemSectionView.swift in Sources */,
+				F1882E3020AEC039002BEDAA /* BillDetailCardView.swift in Sources */,
 				F1AA360520A4496100761DA8 /* YodService.swift in Sources */,
 				F1504A1C204E912B00855D00 /* HomeViewController.swift in Sources */,
 				F164213020A18729000ECC7C /* SQLManager.swift in Sources */,
 				F1C16A08207F6423003C4B5A /* Delay.swift in Sources */,
-				F1AA360920A58C9200761DA8 /* BillDetailTypeControl.swift in Sources */,
 				F1F8A68520A2F7F9001DF3F1 /* AccountDao.swift in Sources */,
 				F15D263920907A810027D3EA /* HomeModel.swift in Sources */,
 				F16F74AF207CFF6B00E6F194 /* YodPrint.swift in Sources */,
 				F183E71320A1F9390028F280 /* Category.swift in Sources */,
+				F1882E2C20AEADA5002BEDAA /* BillDetailHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
