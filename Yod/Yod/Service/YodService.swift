@@ -87,7 +87,7 @@ class YodService {
                 if let cDao = cDao {
                     account.category = Category(dao: cDao)
                 } else {
-                    YodDebug(debug: "fail to find category id:\(dao.categoryId)")
+                    YodDebug("fail to find category id:\(dao.categoryId)")
                 }
                 
                 accounts.append(account)
@@ -142,5 +142,25 @@ class YodService {
             }
         }
         return (String(format: "%.2f", expTotal), String(format: "%.2f", incomeTotal))
+    }
+    
+    /// 获取所有分类
+    ///
+    /// - Returns: <#return value description#>
+    class func getCategories(withType type: Category.AccountType? = nil, callback: @escaping ([Category]) -> Void) {
+        
+        DispatchQueue.global().async {
+            
+            let categoryDaos = SQLManager.default.category.findCategories(withType: type?.rawValue)
+            
+            var out: [Category] = []
+            for dao in categoryDaos {
+                out.append(Category(dao: dao))
+            }
+            
+            DispatchQueue.main.async {
+                callback(out)
+            }
+        }
     }
 }

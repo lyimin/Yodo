@@ -112,6 +112,48 @@ extension CategoryManager {
         
         return nil
     }
+    
+    
+    /// 获取所有分类 // TODO:
+    public func findCategories(withType type: Int? = nil) -> [CategoryDao] {
+
+        var sql = "SELECT * FROM \(tableName)"
+        if let type = type {
+            sql += " WHERE type = \(type)"
+        }
+        
+        var out: [CategoryDao] = []
+        
+        let result = find(withSQL: sql)
+        if let result = result {
+            
+            var temp: [[String: AnyObject]] = []
+            for row in result {
+                var obj: [String: AnyObject] = [:]
+                for i in 0..<result.columnNames.count {
+                    obj.updateValue(row[i] as AnyObject, forKey: result.columnNames[i])
+                }
+                temp.append(obj)
+            }
+            
+            // dic -> Category
+            out = Mapper<CategoryDao>().mapArray(JSONArray: temp)
+        }
+        
+        return out
+    }
+    
+    /// 执行查询语句
+    private func find(withSQL sql: String) -> Statement? {
+        
+        do {
+            return try db.prepare(sql)
+        } catch {
+            YodError("execute sql statement error: \(sql)")
+        }
+        
+        return nil
+    }
 }
 
 // MARK: - delete
