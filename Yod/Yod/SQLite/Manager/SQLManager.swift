@@ -49,7 +49,7 @@ public class SQLManager {
         let dbName = name ?? self.dbName
         let fileName = (path as NSString).appendingPathComponent(dbName)
         
-        debugPrint("[EMSQLite] connection db. path: \(fileName)")
+        YodDebug("connection db. path: \(fileName)")
         
         do {
             db = try Connection(fileName)

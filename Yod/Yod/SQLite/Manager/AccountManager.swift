@@ -104,7 +104,7 @@ extension AccountManager {
         do {
             return try db.prepare(sql)
         } catch {
-            YodError(err: "execute sql statement error: \(sql)")
+            YodError("execute sql statement error: \(sql)")
         }
         
         return nil
