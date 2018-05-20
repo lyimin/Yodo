@@ -15,4 +15,9 @@ class BaseViewController: UIViewController {
         
         self.view.backgroundColor = YodConfig.color.background
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .default;
+    }
 }

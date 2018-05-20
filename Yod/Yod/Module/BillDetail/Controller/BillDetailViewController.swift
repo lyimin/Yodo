@@ -36,6 +36,10 @@ class BillDetailViewController: BaseViewController {
         self.type = controllerType
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent;
+    }
+    
     //MARK: - Getter | Setter
     
     /// 类型

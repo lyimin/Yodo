@@ -16,7 +16,7 @@ class BillDetailCardView: UIView {
         // 添加背景色
         let backgroundLayer = CAShapeLayer()
         backgroundLayer.fillColor = UIColor.white.cgColor
-        backgroundLayer.path = UIBezierPath(roundedRect: bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 15, height: 15)).cgPath
+        backgroundLayer.path = UIBezierPath(roundedRect: bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 20, height: 20)).cgPath
         layer.insertSublayer(backgroundLayer, at: 0)
         
         addSubview(categoryTitleLabel)
@@ -58,7 +58,7 @@ extension BillDetailCardView {
         categoryTitleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(30)
             make.top.equalTo(self).offset(25)
-            make.size.right.equalTo(self).offset(-30)
+            make.right.equalTo(self).offset(-30)
             make.height.equalTo(25)
         }
     }
