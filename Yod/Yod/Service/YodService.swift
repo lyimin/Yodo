@@ -145,19 +145,24 @@ class YodService {
     }
     
     /// 获取所有分类
-    class func getCategories(withType type: Category.AccountType? = nil, callback: @escaping ([Category]) -> Void) {
+    class func getCategories(callback: @escaping (_ expends: [Category], _ incomes: [Category]) -> Void) {
         
         DispatchQueue.global().async {
             
-            let categoryDaos = SQLManager.default.category.findCategories(withType: type?.rawValue)
+            let categoryDaos = SQLManager.default.category.findCategories()
             
-            var out: [Category] = []
+            var expends: [Category] = []
+            var incomes: [Category] = []
             for dao in categoryDaos {
-                out.append(Category(dao: dao))
+                if Category.AccountType(rawValue: dao.type) == Category.AccountType.expend {
+                    expends.append(Category(dao: dao))
+                } else {
+                    incomes.append(Category(dao: dao))
+                }
             }
             
             DispatchQueue.main.async {
-                callback(out)
+                callback(expends, incomes)
             }
         }
     }

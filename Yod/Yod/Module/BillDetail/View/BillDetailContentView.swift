@@ -44,7 +44,11 @@ class BillDetailContentView: UIView {
         return cardView
     }()
     
-    
+    var categories: (expends: [Category], incomes: [Category])! {
+        didSet {
+            
+        }
+    }
 }
 
 

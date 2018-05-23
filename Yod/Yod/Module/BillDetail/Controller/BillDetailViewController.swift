@@ -28,7 +28,12 @@ class BillDetailViewController: BaseViewController {
             make.edges.equalTo(self.view)
         }
         
-//        let categories = SQLManager.default.category.findCategory(byID: <#T##Int64#>)
+        YodService.getCategories { (expends, incomes) in
+            self.expends = expends
+            self.incomes = incomes
+            
+            self.contentView.categories = (expends, incomes)
+        }
     }
     
     convenience init(controllerType: BillDetailControllerType = .created) {
@@ -45,12 +50,17 @@ class BillDetailViewController: BaseViewController {
     /// 类型
     private var type: BillDetailControllerType = .created
 
+    /// 内容显示
     private lazy var contentView: BillDetailContentView = {
         
         let contentView = BillDetailContentView(frame: view.bounds)
         contentView.delegate = self
         return contentView
     }()
+    
+    /// 分类
+    private var expends: [Category] = []
+    private var incomes: [Category] = []
 }
 
 // MARK: - BillDetailContentViewDelegate
