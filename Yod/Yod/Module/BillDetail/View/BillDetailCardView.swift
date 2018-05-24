@@ -47,7 +47,30 @@ class BillDetailCardView: UIView {
         return categoryTitleLabel
     }()
     
+    private lazy var categoryView: UICollectionView = {
+        
+        let categoryView = UICollectionView()
+        categoryView.delegate = self
+        categoryView.dataSource = self
+        return categoryView
+    }()
     
+    var categories: [Category]! {
+        didSet {
+            
+        }
+    }
+}
+
+extension BillDetailCardView: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return categories.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+    }
 }
 
 // MARK: - Private Methods
