@@ -50,6 +50,9 @@ class BillDetailCardView: UIView {
     private lazy var categoryView: UICollectionView = {
         
         let categoryView = UICollectionView()
+        categoryView.showsHorizontalScrollIndicator = false
+        categoryView.backgroundColor = .clear
+        categoryView.registerClass(BillDetailCategoryCell.self)
         categoryView.delegate = self
         categoryView.dataSource = self
         return categoryView
@@ -68,8 +71,16 @@ extension BillDetailCardView: UICollectionViewDelegate, UICollectionViewDataSour
         return categories.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let cell = cell as! BillDetailCategoryCell
+        cell.category = categories[indexPath.row]
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        let cell = collectionView.dequeueReusableCell(indexPath: indexPath) as BillDetailCategoryCell
+        
+        return cell
     }
 }
 

@@ -47,6 +47,7 @@
 		F1A81C09200CA410003D2D4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1A81C08200CA410003D2D4E /* Assets.xcassets */; };
 		F1AA360520A4496100761DA8 /* YodService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AA360420A4496100761DA8 /* YodService.swift */; };
 		F1AC66CE209A0B3E000909DA /* HomeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AC66CD209A0B3E000909DA /* HomeDisplayView.swift */; };
+		F1B2662920B7AF1D00D42140 /* BillDetailCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B2662820B7AF1D00D42140 /* BillDetailCategoryCell.swift */; };
 		F1BCD08F207E0BC700E4A791 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BCD08E207E0BC700E4A791 /* Reusable.swift */; };
 		F1C16A02207EFF64003C4B5A /* HomeNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A20204E94FD00855D00 /* HomeNavigationView.swift */; };
 		F1C16A04207F07C4003C4B5A /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C16A03207F07C4003C4B5A /* UIView+Frame.swift */; };
@@ -126,6 +127,7 @@
 		F1A81C1D200CA410003D2D4E /* YodUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YodUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1AA360420A4496100761DA8 /* YodService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodService.swift; sourceTree = "<group>"; };
 		F1AC66CD209A0B3E000909DA /* HomeDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDisplayView.swift; sourceTree = "<group>"; };
+		F1B2662820B7AF1D00D42140 /* BillDetailCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailCategoryCell.swift; sourceTree = "<group>"; };
 		F1BCD08E207E0BC700E4A791 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		F1C16A03207F07C4003C4B5A /* UIView+Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
 		F1C16A07207F6423003C4B5A /* Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delay.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				F18C5CDE20A05E07007050F9 /* BillDetailContentView.swift */,
 				F1882E2B20AEADA5002BEDAA /* BillDetailHeaderView.swift */,
 				F1882E2F20AEC039002BEDAA /* BillDetailCardView.swift */,
+				F1B2662820B7AF1D00D42140 /* BillDetailCategoryCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -774,6 +777,7 @@
 				F164212B20A14C0B000ECC7C /* UIColor+Yod.swift in Sources */,
 				F150358E2098C3680055617D /* String+Yod.swift in Sources */,
 				F15D2633208F1EBF0027D3EA /* AccountContentView.swift in Sources */,
+				F1B2662920B7AF1D00D42140 /* BillDetailCategoryCell.swift in Sources */,
 				F16ADECB20A34174004BED51 /* CategoryDao.swift in Sources */,
 				F1AC66CE209A0B3E000909DA /* HomeDisplayView.swift in Sources */,
 				F12CBE9F20873B9D0063A053 /* HomeItemSectionView.swift in Sources */,
