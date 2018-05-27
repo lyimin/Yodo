@@ -113,3 +113,43 @@ extension BillDetailCardView {
         }
     }
 }
+
+
+class BillDetailItem: UIView {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        addSubview(iconView)
+        addSubview(titleLabel)
+        addSubview(descLabel)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private lazy var iconView: UIImageView = {
+        
+        var iconView = UIImageView()
+        iconView.contentMode = .scaleAspectFit
+        return iconView
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+        
+        var titleLabel = UILabel()
+        titleLabel.textColor = YodConfig.color.blackTitle
+        titleLabel.font = YodConfig.font.bold(size: 16)
+        return titleLabel
+    }()
+    
+    private lazy var descLabel: UILabel = {
+        
+        var descLabel = UILabel()
+        descLabel.textColor = YodConfig.color.darkGraySubTitle
+        descLabel.font = YodConfig.font.bold(size: 16)
+        descLabel.textAlignment = .right
+        return descLabel
+    }()
+}
