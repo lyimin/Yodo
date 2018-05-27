@@ -31,7 +31,8 @@ class BillDetailCategoryCell: UICollectionViewCell, Reusable {
         
         iconBackground.snp.makeConstraints { (make) in
             make.size.equalTo(CGSize(width: 40, height: 40))
-            make.left.top.equalTo(self.contentView)
+            make.top.equalTo(self.contentView)
+            make.centerX.equalTo(self.contentView)
         }
         
         titleLabel.snp.makeConstraints { (make) in
@@ -49,7 +50,7 @@ class BillDetailCategoryCell: UICollectionViewCell, Reusable {
             iconBackground.backgroundColor = UIColor(hexString: category.color)
             titleLabel.text = category.name
             
-            iconView.snp.makeConstraints { (make) in
+            iconView.snp.remakeConstraints { (make) in
                 make.size.equalTo(iconView.image!.size)
                 make.center.equalTo(iconBackground)
             }
@@ -66,6 +67,7 @@ class BillDetailCategoryCell: UICollectionViewCell, Reusable {
     private lazy var iconBackground: UIView = {
         
         let iconBackground = UIView()
+        iconBackground.layer.cornerRadius = 20
         return iconBackground
     }()
     
@@ -74,7 +76,7 @@ class BillDetailCategoryCell: UICollectionViewCell, Reusable {
         let titleLabel = UILabel()
         titleLabel.textColor = YodConfig.color.blackTitle
         titleLabel.font = YodConfig.font.bold(size: 14)
-        
+        titleLabel.textAlignment = .center
         return titleLabel
     }()
 }

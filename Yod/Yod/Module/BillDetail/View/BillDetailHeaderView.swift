@@ -8,6 +8,9 @@
 
 import UIKit
 
+
+typealias CategoryType = Category.AccountType
+
 class BillDetailHeaderView: UIView {
     
     override init(frame: CGRect) {
@@ -33,6 +36,9 @@ class BillDetailHeaderView: UIView {
     
     weak var contentView: BillDetailContentView!
     
+    /// 当前选中的类型（支出，收入）
+    private weak var selectedBtn: UIButton!
+    
     /// 返回
     private lazy var backBtn: UIButton = {
         
@@ -54,6 +60,10 @@ class BillDetailHeaderView: UIView {
     private lazy var typeControl: BillDetailTypeControl = {
         
         var typeControl = BillDetailTypeControl()
+        // 默认选中支出
+        selectedBtn = typeControl.expendBtn;
+        typeControl.incomeBtn.addTarget(self, action: #selector(typeBtnDidClick(btn:)), for: .touchUpInside)
+        typeControl.expendBtn.addTarget(self, action: #selector(typeBtnDidClick(btn:)), for: .touchUpInside)
         return typeControl
     }()
     
@@ -83,6 +93,27 @@ extension BillDetailHeaderView {
     @objc func backBtnDidClick() {
         if let delegate = contentView.delegate {
             delegate.backBtnDidClick()
+        }
+    }
+    
+    
+    @objc func typeBtnDidClick(btn: UIButton) {
+        
+        guard btn != selectedBtn else {
+            return
+        }
+        
+        selectedBtn.isSelected = false
+        btn.isSelected = true
+        selectedBtn = btn
+        
+        UIView.animate(withDuration: 0.2) {
+            self.typeControl.indexView.center = btn.center
+        }
+        
+        // 回调给控制器
+        if let delegate = contentView.delegate {
+            delegate.typeBtnDidClick(currentType: btn.titleLabel!.text!.formatAccountType())
         }
     }
 }
@@ -137,33 +168,15 @@ class BillDetailTypeControl: UIView {
         addSubview(incomeBtn)
         
         setupLayout()
-        
-        // 默认选中支出
-        selectedBtn = expendBtn;
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func typeBtnDidClick(btn: UIButton) {
-        
-        guard btn != selectedBtn else {
-            return
-        }
-        
-        selectedBtn.isSelected = false
-        btn.isSelected = true
-        selectedBtn = btn
-        
-        UIView.animate(withDuration: 0.2) {
-            self.indexView.center = btn.center
-        }
-    }
-    
     
     //MARK: - Getter | Setter
-    private weak var selectedBtn: UIButton!
+    
     
     /// 黑色背景色
     private(set) lazy var backgroundView: UIView = {
@@ -174,7 +187,7 @@ class BillDetailTypeControl: UIView {
         return backgroundView
     }()
     
-    private lazy var indexView: UIView = {
+    private(set) lazy var indexView: UIView = {
         
         var indexView = UIView()
         indexView.layer.cornerRadius = 17.5
@@ -193,7 +206,6 @@ class BillDetailTypeControl: UIView {
         expendBtn.setTitleColor(.white, for: .normal)
         expendBtn.setTitleColor(YodConfig.color.blackTitle, for: [.highlighted, .selected])
         expendBtn.setTitleColor(YodConfig.color.blackTitle, for: .selected)
-        expendBtn.addTarget(self, action: #selector(BillDetailTypeControl.typeBtnDidClick(btn:)), for: .touchUpInside)
         return expendBtn
     }()
     
@@ -206,7 +218,6 @@ class BillDetailTypeControl: UIView {
         incomeBtn.setTitleColor(.white, for: .normal)
         incomeBtn.setTitleColor(YodConfig.color.blackTitle, for: [.highlighted, .selected])
         incomeBtn.setTitleColor(YodConfig.color.blackTitle, for: .selected)
-        incomeBtn.addTarget(self, action: #selector(BillDetailTypeControl.typeBtnDidClick(btn:)), for: .touchUpInside)
         return incomeBtn
     }()
 }

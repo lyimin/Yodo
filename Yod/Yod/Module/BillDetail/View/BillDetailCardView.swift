@@ -20,6 +20,7 @@ class BillDetailCardView: UIView {
         layer.insertSublayer(backgroundLayer, at: 0)
         
         addSubview(categoryTitleLabel)
+        addSubview(categoryView)
         
         setupLayout()
     }
@@ -49,7 +50,10 @@ class BillDetailCardView: UIView {
     
     private lazy var categoryView: UICollectionView = {
         
-        let categoryView = UICollectionView()
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        let frame = CGRect(x: 0, y: 50, width: width, height: 180)
+        let categoryView = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
         categoryView.showsHorizontalScrollIndicator = false
         categoryView.backgroundColor = .clear
         categoryView.registerClass(BillDetailCategoryCell.self)
@@ -58,14 +62,14 @@ class BillDetailCardView: UIView {
         return categoryView
     }()
     
-    var categories: [Category]! {
+    var categories: [Category] = [] {
         didSet {
-            
+            categoryView.reloadData()
         }
     }
 }
 
-extension BillDetailCardView: UICollectionViewDelegate, UICollectionViewDataSource {
+extension BillDetailCardView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categories.count
@@ -82,6 +86,18 @@ extension BillDetailCardView: UICollectionViewDelegate, UICollectionViewDataSour
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 50, height: 70)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 30
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(20, 30, 0, 30)
+    }
 }
 
 // MARK: - Private Methods
@@ -96,5 +112,4 @@ extension BillDetailCardView {
             make.height.equalTo(25)
         }
     }
-    
 }

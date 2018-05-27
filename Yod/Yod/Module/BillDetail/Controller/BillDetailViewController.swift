@@ -32,7 +32,7 @@ class BillDetailViewController: BaseViewController {
             self.expends = expends
             self.incomes = incomes
             
-            self.contentView.categories = (expends, incomes)
+            self.contentView.categories = expends
         }
     }
     
@@ -65,6 +65,16 @@ class BillDetailViewController: BaseViewController {
 
 // MARK: - BillDetailContentViewDelegate
 extension BillDetailViewController: BillDetailContentViewDelegate {
+    
+    /// 点击支出，收入
+    func typeBtnDidClick(currentType: CategoryType) {
+        if currentType == CategoryType.expend {
+            contentView.categories = expends
+        } else {
+            contentView.categories = incomes
+        }
+    }
+    
     
     /// 点击返回
     func backBtnDidClick() {

@@ -9,7 +9,12 @@
 import UIKit
 
 protocol BillDetailContentViewDelegate: NSObjectProtocol {
+    
+    /// 点击返回按钮
     func backBtnDidClick()
+    
+    /// 点击收入支出
+    func typeBtnDidClick(currentType: CategoryType)
 }
 
 class BillDetailContentView: UIView {
@@ -45,7 +50,9 @@ class BillDetailContentView: UIView {
     }()
     
     var categories: [Category]! {
-        didSet 
+        didSet {
+            cardView.categories = categories
+        }
     }
 }
 
