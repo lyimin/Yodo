@@ -21,6 +21,9 @@ class BillDetailCardView: UIView {
         
         addSubview(categoryTitleLabel)
         addSubview(categoryView)
+        addSubview(dateItem)
+        addSubview(noteItem)
+        addSubview(saveBtn)
         
         setupLayout()
     }
@@ -38,6 +41,13 @@ class BillDetailCardView: UIView {
     
     weak var contentView: BillDetailContentView!
     
+    /// 分类数据
+    var categories: [Category] = [] {
+        didSet {
+            categoryView.reloadData()
+        }
+    }
+    
     /// 标题
     private lazy var categoryTitleLabel: UILabel = {
         
@@ -48,11 +58,14 @@ class BillDetailCardView: UIView {
         return categoryTitleLabel
     }()
     
+    /// 分类
+    private var categoryViewHeight: CGFloat = 180
+    
     private lazy var categoryView: UICollectionView = {
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        let frame = CGRect(x: 0, y: 50, width: width, height: 180)
+        let frame = CGRect(x: 0, y: 50, width: width, height: categoryViewHeight)
         let categoryView = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
         categoryView.showsHorizontalScrollIndicator = false
         categoryView.backgroundColor = .clear
@@ -62,11 +75,39 @@ class BillDetailCardView: UIView {
         return categoryView
     }()
     
-    var categories: [Category] = [] {
-        didSet {
-            categoryView.reloadData()
-        }
-    }
+    /// 日期
+    private lazy var dateItem: BillDetailItem = {
+        
+        var dateItem = BillDetailItem()
+        dateItem.iconView.image = #imageLiteral(resourceName: "ic_billDetail_date")
+        dateItem.titleLabel.text = "日期"
+        dateItem.descLabel.text = "今天"
+        return dateItem
+    }()
+    
+    /// 备注
+    private lazy var noteItem: BillDetailItem = {
+        
+        var noteItem = BillDetailItem()
+        noteItem.isShowLineView = false
+        noteItem.iconView.image = #imageLiteral(resourceName: "ic_billDetail_note")
+        noteItem.titleLabel.text = "备注"
+        noteItem.descLabel.text = "无"
+        return noteItem
+    }()
+    
+    /// 保存
+    private lazy var saveBtn: UIButton = {
+        
+        var saveBtn = UIButton()
+        saveBtn.setTitle("保存", for: .normal)
+        saveBtn.setTitleColor(.white, for: .normal)
+        saveBtn.titleLabel?.font = YodConfig.font.bold(size: 16)
+        saveBtn.backgroundColor = YodConfig.color.theme
+        saveBtn.layer.cornerRadius = 17.5
+        return saveBtn
+    }()
+    
 }
 
 extension BillDetailCardView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
@@ -111,6 +152,23 @@ extension BillDetailCardView {
             make.right.equalTo(self).offset(-30)
             make.height.equalTo(25)
         }
+        
+        dateItem.snp.makeConstraints { (make) in
+            make.left.right.equalTo(self)
+            make.height.equalTo(49)
+            make.top.equalTo(categoryTitleLabel.snp.bottom).offset(categoryViewHeight+50)
+        }
+        
+        noteItem.snp.makeConstraints { (make) in
+            make.left.right.height.equalTo(dateItem)
+            make.top.equalTo(dateItem.snp.bottom)
+        }
+        
+        saveBtn.snp.makeConstraints { (make) in
+            make.size.equalTo(CGSize(width: 130, height: 35))
+            make.bottom.equalTo(self).offset(-30)
+            make.centerX.equalTo(self)
+        }
     }
 }
 
@@ -123,20 +181,58 @@ class BillDetailItem: UIView {
         addSubview(iconView)
         addSubview(titleLabel)
         addSubview(descLabel)
+        addSubview(lineViw)
+        
+        setupLayout()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private lazy var iconView: UIImageView = {
+    var isShowLineView: Bool = true {
+        didSet {
+            lineViw.isHidden = !isShowLineView
+        }
+    }
+    
+    private func setupLayout() {
+        
+        iconView.snp.makeConstraints { (make) in
+            make.left.equalTo(self).offset(30)
+            make.size.equalTo(CGSize(width: 23, height: 23))
+            make.centerY.equalTo(self)
+        }
+        
+        titleLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(iconView.snp.right).offset(15)
+            make.height.equalTo(20)
+            make.centerY.equalTo(iconView)
+            make.width.greaterThanOrEqualTo(100)
+        }
+        
+        descLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(titleLabel.snp.right).offset(10)
+            make.right.equalTo(self).offset(-30)
+            make.centerY.height.equalTo(titleLabel)
+        }
+        
+        lineViw.snp.makeConstraints { (make) in
+            make.left.equalTo(iconView)
+            make.right.equalTo(self)
+            make.height.equalTo(0.5)
+            make.bottom.equalTo(self)
+        }
+    }
+    
+    private(set) lazy var iconView: UIImageView = {
         
         var iconView = UIImageView()
         iconView.contentMode = .scaleAspectFit
         return iconView
     }()
     
-    private lazy var titleLabel: UILabel = {
+    private(set) lazy var titleLabel: UILabel = {
         
         var titleLabel = UILabel()
         titleLabel.textColor = YodConfig.color.blackTitle
@@ -144,12 +240,19 @@ class BillDetailItem: UIView {
         return titleLabel
     }()
     
-    private lazy var descLabel: UILabel = {
+    private(set) lazy var descLabel: UILabel = {
         
         var descLabel = UILabel()
         descLabel.textColor = YodConfig.color.darkGraySubTitle
         descLabel.font = YodConfig.font.bold(size: 16)
         descLabel.textAlignment = .right
         return descLabel
+    }()
+    
+    private lazy var lineViw: UIView = {
+        
+        var lineView = UIView()
+        lineView.backgroundColor = YodConfig.color.sepLine
+        return lineView
     }()
 }

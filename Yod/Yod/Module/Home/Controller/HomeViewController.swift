@@ -26,7 +26,7 @@ class HomeViewController: BaseViewController {
         createdBtn.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view)
             make.size.equalTo(CGSize(width: 45, height: 45))
-            make.bottom.equalTo(self.view).offset(-20)
+            make.bottom.equalTo(self.view).offset(-30)
         }
         
         YodService.getDates {
