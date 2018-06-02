@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeViewController: BaseViewController {
+class HomeViewController: BaseViewController, UINavigationControllerDelegate {
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -33,9 +33,13 @@ class HomeViewController: BaseViewController {
             self.dates = $0
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
    
     // MARK: - Getter | Setter
-    
     /// 导航栏高度
     private let navigationH: CGFloat = 145
     
@@ -44,14 +48,6 @@ class HomeViewController: BaseViewController {
         var displayView = HomeDisplayView(frame: CGRect(x: 0, y: navigationH, width: view.width, height: view.height-navigationH))
         return displayView
     }()
-    
-//    private lazy var displayView: DisplayView = {
-//
-//        var displayView = DisplayView(frame: CGRect(x: 0, y: navigationH, width: view.width, height: view.height-navigationH))
-//        displayView.delegate = self
-//
-//        return displayView
-//    }()
     
     /// 账单列表对应的日期
     /// 一.日期数组>=3的情况下
@@ -99,92 +95,27 @@ extension HomeViewController: HomeNavigationViewDelegate {
     }
 }
 
+extension HomeViewController: CircleTransitionable {
+    
+    var triggerButton: UIButton {
+        return createdBtn
+    }
+    
+    var mainView: UIView {
+        return view
+    }
+}
+
 
 // MARK: - Event | Action
 extension HomeViewController {
     
     @objc func createdBtnDidClick() {
-        present(BillDetailViewController(), animated: true, completion: nil)
+        navigationController?.pushViewController(BillDetailViewController(), animated: true)
     }
 }
 
-/*
-// MARK: - DisplayViewDataSrouce
-extension HomeViewController: DisplayViewDelegate {
-    
-    func numberOfContentView(_ displayView: DisplayView) -> Int {
-        return displayDates.count
-    }
-    
-    func displayView(_ displayView: DisplayView, contentViewForRowAt index: Int) -> UIView {
-        
-        let contentView = AccountContentView(frame: displayView.bounds)
-        contentView.date = displayDates[index]
-        return contentView
-    }
-    
-    func displayViewScrollToBottom(_ displayView: DisplayView) -> Bool {
 
-        if displayDates.count > 0 {
-            return displayDates.last!.isThisMonth
-        }
-        
-        return false
-    }
-    
-    func displayViewScrollToTop(_ displayView: DisplayView) -> Bool {
-        
-        if displayDates.count > 0 {
-            return displayDates.first!.isFirstMonth
-        }
-        
-        return false
-    }
-    
-    func displayView(_ displayView: DisplayView, shouldResetFrame leftView: UIView, _ centerView: UIView, _ rightView: UIView, _ dir: DisplayView.ScrollDirection) -> Bool {
-        
-        let left = leftView as! AccountContentView
-        let right = rightView as! AccountContentView
-        
-        guard let leftDate = left.date, let rightDate = right.date else {
-            return false
-        }
-        
-        // 获取第一个date和最后一个date
-        let firstDate = dates.first!
-        let lastDate = dates.last!
-        
-        if (firstDate <=> leftDate && dir == .left) || (lastDate <=> rightDate && dir == .right) {
-            return false
-        }
-        
-        return true
-    }
-    
-    func displayView(_ displayView: DisplayView, didResetFrame leftView: UIView, _ centerView: UIView, _ rightView: UIView, _ dir: DisplayView.ScrollDirection) {
-        
-        let currView = centerView as! AccountContentView
-        let currDate = currView.date
-        
-        guard currDate != nil else {
-            return
-        }
-        
-        if dir == DisplayView.ScrollDirection.left {
-            
-            let lastDate = currDate!.getYodDate(withIndex: -1)
-            (leftView as! AccountContentView).tableView.setContentOffset(CGPoint.zero, animated: false)
-            (leftView as! AccountContentView).date = lastDate
-            // 更新date
-        } else if dir == DisplayView.ScrollDirection.right {
-            
-            let nextDate = currDate!.getYodDate(withIndex: 1)
-            (rightView as! AccountContentView).tableView.setContentOffset(CGPoint.zero, animated: false)
-            (rightView as! AccountContentView).date = nextDate
-        }
-    }
-}
-*/
 
 // MARK:- Getter | Setter
 extension HomeViewController {

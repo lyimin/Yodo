@@ -36,6 +36,9 @@
 		F1754DF52052370400A7CF77 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1754DF42052370400A7CF77 /* AccountManager.swift */; };
 		F183E71120A1E8FE0028F280 /* YodManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F183E71020A1E8FE0028F280 /* YodManager.swift */; };
 		F183E71320A1F9390028F280 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = F183E71220A1F9390028F280 /* Category.swift */; };
+		F185F23A20C21C2F001DA1F7 /* CircularTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F185F23920C21C2F001DA1F7 /* CircularTransition.swift */; };
+		F185F23C20C21CE4001DA1F7 /* TransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F185F23B20C21CE4001DA1F7 /* TransitionCoordinator.swift */; };
+		F185F23E20C22A39001DA1F7 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F185F23D20C22A39001DA1F7 /* BaseNavigationController.swift */; };
 		F1882E2C20AEADA5002BEDAA /* BillDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1882E2B20AEADA5002BEDAA /* BillDetailHeaderView.swift */; };
 		F1882E3020AEC039002BEDAA /* BillDetailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1882E2F20AEC039002BEDAA /* BillDetailCardView.swift */; };
 		F18C5CD920A0550B007050F9 /* BillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18C5CD820A0550B007050F9 /* BillDetailViewController.swift */; };
@@ -113,6 +116,9 @@
 		F1754DF42052370400A7CF77 /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		F183E71020A1E8FE0028F280 /* YodManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodManager.swift; sourceTree = "<group>"; };
 		F183E71220A1F9390028F280 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		F185F23920C21C2F001DA1F7 /* CircularTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularTransition.swift; sourceTree = "<group>"; };
+		F185F23B20C21CE4001DA1F7 /* TransitionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionCoordinator.swift; sourceTree = "<group>"; };
+		F185F23D20C22A39001DA1F7 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		F1882E2B20AEADA5002BEDAA /* BillDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailHeaderView.swift; sourceTree = "<group>"; };
 		F1882E2F20AEC039002BEDAA /* BillDetailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailCardView.swift; sourceTree = "<group>"; };
 		F18C5CD820A0550B007050F9 /* BillDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailViewController.swift; sourceTree = "<group>"; };
@@ -222,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				F1504A17204E912B00855D00 /* BaseViewController.swift */,
+				F185F23D20C22A39001DA1F7 /* BaseNavigationController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -284,10 +291,19 @@
 			path = SQLite;
 			sourceTree = "<group>";
 		};
+		F185F23820C21C1C001DA1F7 /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+				F185F23920C21C2F001DA1F7 /* CircularTransition.swift */,
+				F185F23B20C21CE4001DA1F7 /* TransitionCoordinator.swift */,
+			);
+			path = Transition;
+			sourceTree = "<group>";
+		};
 		F18C5CD720A052B7007050F9 /* BillDetail */ = {
 			isa = PBXGroup;
 			children = (
-				F1AA360720A53E6100761DA8 /* Transition */,
+				F185F23820C21C1C001DA1F7 /* Transition */,
 				F18C5CDB20A05C7F007050F9 /* View */,
 				F18C5CDA20A05C6A007050F9 /* Controller */,
 			);
@@ -376,13 +392,6 @@
 				F164213120A19DF8000ECC7C /* CategoryManager.swift */,
 			);
 			path = Manager;
-			sourceTree = "<group>";
-		};
-		F1AA360720A53E6100761DA8 /* Transition */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Transition;
 			sourceTree = "<group>";
 		};
 		F1BCD084207DA94C00E4A791 /* Extension */ = {
@@ -755,6 +764,7 @@
 				F1C16A02207EFF64003C4B5A /* HomeNavigationView.swift in Sources */,
 				F1BCD08F207E0BC700E4A791 /* Reusable.swift in Sources */,
 				F18C5CD920A0550B007050F9 /* BillDetailViewController.swift in Sources */,
+				F185F23C20C21CE4001DA1F7 /* TransitionCoordinator.swift in Sources */,
 				F1A6FFD7208CEF220021EAEA /* DisplayScrollView.swift in Sources */,
 				F16F74B1207E63E000E6F194 /* HomeItemCell.swift in Sources */,
 				F1A0C7B82091B7CE000A62F7 /* Account.swift in Sources */,
@@ -784,9 +794,11 @@
 				F1882E3020AEC039002BEDAA /* BillDetailCardView.swift in Sources */,
 				F1AA360520A4496100761DA8 /* YodService.swift in Sources */,
 				F1504A1C204E912B00855D00 /* HomeViewController.swift in Sources */,
+				F185F23E20C22A39001DA1F7 /* BaseNavigationController.swift in Sources */,
 				F164213020A18729000ECC7C /* SQLManager.swift in Sources */,
 				F1C16A08207F6423003C4B5A /* Delay.swift in Sources */,
 				F1F8A68520A2F7F9001DF3F1 /* AccountDao.swift in Sources */,
+				F185F23A20C21C2F001DA1F7 /* CircularTransition.swift in Sources */,
 				F15D263920907A810027D3EA /* HomeModel.swift in Sources */,
 				F16F74AF207CFF6B00E6F194 /* YodPrint.swift in Sources */,
 				F183E71320A1F9390028F280 /* Category.swift in Sources */,

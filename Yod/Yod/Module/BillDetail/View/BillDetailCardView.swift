@@ -23,7 +23,6 @@ class BillDetailCardView: UIView {
         addSubview(categoryView)
         addSubview(dateItem)
         addSubview(noteItem)
-        addSubview(saveBtn)
         
         setupLayout()
     }
@@ -95,19 +94,6 @@ class BillDetailCardView: UIView {
         noteItem.descLabel.text = "无"
         return noteItem
     }()
-    
-    /// 保存
-    private lazy var saveBtn: UIButton = {
-        
-        var saveBtn = UIButton()
-        saveBtn.setTitle("保存", for: .normal)
-        saveBtn.setTitleColor(.white, for: .normal)
-        saveBtn.titleLabel?.font = YodConfig.font.bold(size: 16)
-        saveBtn.backgroundColor = YodConfig.color.theme
-        saveBtn.layer.cornerRadius = 17.5
-        return saveBtn
-    }()
-    
 }
 
 extension BillDetailCardView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
@@ -162,12 +148,6 @@ extension BillDetailCardView {
         noteItem.snp.makeConstraints { (make) in
             make.left.right.height.equalTo(dateItem)
             make.top.equalTo(dateItem.snp.bottom)
-        }
-        
-        saveBtn.snp.makeConstraints { (make) in
-            make.size.equalTo(CGSize(width: 130, height: 35))
-            make.bottom.equalTo(self).offset(-30)
-            make.centerX.equalTo(self)
         }
     }
 }
