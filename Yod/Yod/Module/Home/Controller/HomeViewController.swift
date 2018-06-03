@@ -36,10 +36,14 @@ class HomeViewController: BaseViewController, UINavigationControllerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        navigationController?.delegate = coordinator
     }
    
     // MARK: - Getter | Setter
+    
+    /// 转场动画
+    private let coordinator = TransitionCoordinator()
+    
     /// 导航栏高度
     private let navigationH: CGFloat = 145
     

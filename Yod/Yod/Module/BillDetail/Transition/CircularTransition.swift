@@ -7,15 +7,17 @@
 //
 
 import UIKit
+import ViewAnimator
 
-protocol CircleTransitionable {
+@objc protocol CircleTransitionable {
     var triggerButton: UIButton { get }
     var mainView: UIView { get }
+    @objc optional var movingViews: [UIView]? { get }
 }
 
 class CircularTransition: NSObject, UIViewControllerAnimatedTransitioning {
     
-    weak var context: UIViewControllerContextTransitioning?
+    weak var context: UIViewControllerContextTransitioning!
     
     private var operation: UINavigationControllerOperation = .push
     
@@ -27,7 +29,7 @@ class CircularTransition: NSObject, UIViewControllerAnimatedTransitioning {
     }
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.5
+        return 0.3
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -49,14 +51,19 @@ class CircularTransition: NSObject, UIViewControllerAnimatedTransitioning {
             containerView.addSubview(snapshot)
             fromVC.mainView.removeFromSuperview()
             containerView.addSubview(toVC.mainView)
-        } else {
-            containerView.addSubview(toVC.mainView)
-            containerView.addSubview(fromVC.mainView)
-        }
-        
-        if operation == .push {
+            
+            toVC.triggerButton.alpha = 0
+            toVC.triggerButton.transform = CGAffineTransform(translationX: 0, y: 60)
+            if let views = toVC.movingViews {
+                views?.forEach{ $0.isHidden = true }
+            }
+            
             animate(fromView: fromVC.mainView, toView: toVC.mainView, triggerButton: fromVC.triggerButton)
         } else if operation == .pop {
+            
+            containerView.addSubview(toVC.mainView)
+            containerView.addSubview(fromVC.mainView)
+            
             animate(fromView: fromVC.mainView, toView: toVC.mainView, triggerButton: toVC.triggerButton)
         }
     }
@@ -101,8 +108,6 @@ class CircularTransition: NSObject, UIViewControllerAnimatedTransitioning {
         maskLayerAnimation.fillMode = kCAFillModeForwards;
         maskLayerAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         maskLayer.add(maskLayerAnimation, forKey: "path")
-        
-        
     }
 }
 
@@ -110,11 +115,26 @@ extension CircularTransition: CAAnimationDelegate {
     
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         
-        if operation == .pop {
-//            context?.viewController(forKey: .from)?.view.layer.mask = nil
-//            context?.viewController(forKey: .from)?.view.removeFromSuperview()
+        if operation == .push {
+            
+            let toVC = context.viewController(forKey: .to) as! CircleTransitionable
+            let animateViews = toVC.movingViews
+            if let views = animateViews {
+                
+                views?.forEach { $0.isHidden = false }
+                let animations = [AnimationType.from(direction: .bottom, offset: 30.0)]
+                UIView.animate(views: views!, animations: animations)
+            }
+            
+            UIView.animate(withDuration: 0.2, delay: 0.2, options: .curveEaseOut, animations: {
+                toVC.triggerButton.transform = .identity
+                toVC.triggerButton.alpha = 1
+            }, completion: nil)
+            
+            context.completeTransition(flag)
+        } else if operation == .pop {
+            context.completeTransition(flag)
         }
-        context?.completeTransition(flag)
-
+        
     }
 }

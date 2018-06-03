@@ -35,7 +35,7 @@ class BillDetailContentView: UIView {
     
     //MARK: - Getter | Setter
     
-    private lazy var headerView: BillDetailHeaderView = {
+    private(set) lazy var headerView: BillDetailHeaderView = {
         
         var headerView = BillDetailHeaderView(frame: CGRect(x: 0, y: 0, width: width, height: 200), contentView: self);
         return headerView
@@ -43,7 +43,7 @@ class BillDetailContentView: UIView {
     
     
     /// 内容区域
-    private lazy var cardView: BillDetailCardView = {
+    private(set) lazy var cardView: BillDetailCardView = {
         
         var cardView = BillDetailCardView(frame: CGRect(x: 0, y: 160, width: width, height: height-160), contentView: self)
         return cardView

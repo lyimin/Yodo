@@ -46,6 +46,11 @@ class BillDetailViewController: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        navigationController?.delegate = coordinator
+        // 添加滑动手势
+        let pan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(panGesture(pan:)))
+        pan.edges = .left
+        view.addGestureRecognizer(pan)
     }
     
     convenience init(controllerType: BillDetailControllerType = .created) {
@@ -53,11 +58,17 @@ class BillDetailViewController: BaseViewController {
         self.type = controllerType
     }
     
+    
+    //MARK: - Getter | Setter
+    
+    /// 状态栏颜色
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent;
     }
     
-    //MARK: - Getter | Setter
+    /// 执行动画对象,手势驱动
+    private let coordinator = TransitionCoordinator()
+    private var percentDrivenTransition: UIPercentDrivenInteractiveTransition?
     
     /// 类型
     private var type: BillDetailControllerType = .created
@@ -106,13 +117,43 @@ extension BillDetailViewController: BillDetailContentViewDelegate {
     }
 }
 
-// MARK: - Private Methods
-extension BillDetailViewController: CircleTransitionable {
+// MARK: - Event | Action
+extension BillDetailViewController {
+    
+    @objc private func panGesture(pan: UIScreenEdgePanGestureRecognizer) {
+        
+        let progress = pan.translation(in: view).x / view.width
+        
+        print(progress)
+        if pan.state == .began {
+            percentDrivenTransition = UIPercentDrivenInteractiveTransition()
+            coordinator.setPercentDrivenTransition(percentDrivenTransition: percentDrivenTransition)
+            navigationController?.popViewController(animated: true)
+        } else if pan.state == .changed {
+            percentDrivenTransition!.update(progress)
+        } else if pan.state == .ended {
+            if progress > 0.4 {
+                percentDrivenTransition?.finish()
+            } else {
+                percentDrivenTransition?.cancel()
+            }
+            percentDrivenTransition = nil
+        }
+    }
+}
+
+// MARK: - CircleTransitionable
+extension BillDetailViewController: CircleTransitionable, UINavigationControllerDelegate  {
+    
     var triggerButton: UIButton {
         return saveBtn
     }
     
     var mainView: UIView {
         return view
+    }
+    
+    var movingViews: [UIView]? {
+        return contentView.cardView.subviews
     }
 }

@@ -216,39 +216,6 @@ extension AccountContentView {
         UIView.animate(views: animateViews, animations: animations)
     }
     
-    /*
-    /// tableview动画
-    private func showTableAnimation() {
-        
-        if dir == .right {
-            // 往左边滑动
-            UIView.animate(withDuration: 0.3, animations: {
-                self.transform = CGAffineTransform(translationX: -self.width*0.1, y: 0)
-                self.alpha = 0
-            }) { (_) in
-                
-                self.transform = CGAffineTransform(translationX: self.width*0.1, y: 0)
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.transform = CGAffineTransform.identity
-                    self.alpha = 1
-                })
-            }
-        } else {
-            // 往右边滑动
-            UIView.animate(withDuration: 0.3, animations: {
-                self.transform = CGAffineTransform(translationX: self.width*0.1, y: 0)
-                self.alpha = 0
-            }) { (_) in
-                
-                self.transform = CGAffineTransform(translationX: -self.width*0.1, y: 0)
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.transform = CGAffineTransform.identity
-                    self.alpha = 1
-                })
-            }
-        }
-    }
-    */
     /// 加载当月的数据
     private func loadingMonthDate() {
         

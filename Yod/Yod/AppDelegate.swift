@@ -13,7 +13,7 @@ import GDPerformanceView_Swift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let coordinator = TransitionCoordinator()
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -25,7 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let navigationController = BaseNavigationController(rootViewController: HomeViewController())
         window?.rootViewController = navigationController
-        navigationController.delegate = coordinator
         
         GDPerformanceMonitor.sharedInstance.startMonitoring()
         GDPerformanceMonitor.sharedInstance.appVersionHidden = true
