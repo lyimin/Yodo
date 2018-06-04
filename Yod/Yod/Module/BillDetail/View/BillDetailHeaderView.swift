@@ -36,6 +36,16 @@ class BillDetailHeaderView: UIView {
     
     weak var contentView: BillDetailContentView!
     
+    /// 当前选中的分类
+    var category: Category! {
+        didSet {
+            UIView.animate(withDuration: 0.3) {
+                self.backgroundColorView.backgroundColor = UIColor(hexString: self.category.color)
+                self.iconView.image = UIImage(named: self.category.icon)
+            }
+        }
+    }
+    
     /// 当前选中的类型（支出，收入）
     private weak var selectedBtn: UIButton!
     
@@ -52,7 +62,6 @@ class BillDetailHeaderView: UIView {
     private lazy var backgroundColorView: UIView = {
         
         var backgroundColorView = UIView()
-        backgroundColorView.backgroundColor = UIColor(hexString: "#3294FA")
         return backgroundColorView
     }()
     

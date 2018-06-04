@@ -43,6 +43,7 @@
 		F1882E3020AEC039002BEDAA /* BillDetailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1882E2F20AEC039002BEDAA /* BillDetailCardView.swift */; };
 		F18C5CD920A0550B007050F9 /* BillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18C5CD820A0550B007050F9 /* BillDetailViewController.swift */; };
 		F18C5CDF20A05E07007050F9 /* BillDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18C5CDE20A05E07007050F9 /* BillDetailContentView.swift */; };
+		F19FB51B20C59278003D490D /* YodConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19FB51A20C59278003D490D /* YodConst.swift */; };
 		F1A0C7B82091B7CE000A62F7 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0C7B62091B7CE000A62F7 /* Account.swift */; };
 		F1A0C7B92091B7CE000A62F7 /* YodDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0C7B72091B7CE000A62F7 /* YodDate.swift */; };
 		F1A6FFD7208CEF220021EAEA /* DisplayScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A6FFD6208CEF220021EAEA /* DisplayScrollView.swift */; };
@@ -123,6 +124,7 @@
 		F1882E2F20AEC039002BEDAA /* BillDetailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailCardView.swift; sourceTree = "<group>"; };
 		F18C5CD820A0550B007050F9 /* BillDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailViewController.swift; sourceTree = "<group>"; };
 		F18C5CDE20A05E07007050F9 /* BillDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailContentView.swift; sourceTree = "<group>"; };
+		F19FB51A20C59278003D490D /* YodConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodConst.swift; sourceTree = "<group>"; };
 		F1A0C7B62091B7CE000A62F7 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		F1A0C7B72091B7CE000A62F7 /* YodDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YodDate.swift; sourceTree = "<group>"; };
 		F1A6FFD6208CEF220021EAEA /* DisplayScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayScrollView.swift; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 			isa = PBXGroup;
 			children = (
 				F1FEA64720503DCF00D7733B /* YodConfig.swift */,
+				F19FB51A20C59278003D490D /* YodConst.swift */,
 				F16F74AE207CFF6B00E6F194 /* YodPrint.swift */,
 				F1C16A07207F6423003C4B5A /* Delay.swift */,
 				F183E71020A1E8FE0028F280 /* YodManager.swift */,
@@ -768,6 +771,7 @@
 				F1A6FFD7208CEF220021EAEA /* DisplayScrollView.swift in Sources */,
 				F16F74B1207E63E000E6F194 /* HomeItemCell.swift in Sources */,
 				F1A0C7B82091B7CE000A62F7 /* Account.swift in Sources */,
+				F19FB51B20C59278003D490D /* YodConst.swift in Sources */,
 				F150358F2098C3680055617D /* Date+Yod.swift in Sources */,
 				F168386220513F3200B93D84 /* HomeDateItemCell.swift in Sources */,
 				F1A0C7B92091B7CE000A62F7 /* YodDate.swift in Sources */,

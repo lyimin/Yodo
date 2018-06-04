@@ -15,6 +15,9 @@ protocol BillDetailContentViewDelegate: NSObjectProtocol {
     
     /// 点击收入支出
     func typeBtnDidClick(currentType: CategoryType)
+    
+    /// 某个分类
+    func categoryItemDidClick(category: Category)
 }
 
 class BillDetailContentView: UIView {
@@ -49,9 +52,22 @@ class BillDetailContentView: UIView {
         return cardView
     }()
     
+    /// 全部分类
     var categories: [Category]! {
         didSet {
             cardView.categories = categories
+        }
+    }
+    
+    /// 当前选中的分类
+    var currentCategory: Category! {
+        didSet {
+            if oldValue == nil {
+                headerView.category = currentCategory
+            } else if oldValue.id != currentCategory.id {
+                shake(action: .selection)
+                headerView.category = currentCategory
+            }
         }
     }
 }

@@ -125,6 +125,13 @@ extension BillDetailCardView: UICollectionViewDelegateFlowLayout, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsetsMake(20, 30, 0, 30)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if let delegate = contentView.delegate {
+            delegate.categoryItemDidClick(category: categories[indexPath.row])
+        }
+    }
 }
 
 // MARK: - Private Methods

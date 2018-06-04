@@ -40,6 +40,7 @@ class BillDetailViewController: BaseViewController {
             self.incomes = incomes
             
             self.contentView.categories = expends
+            self.contentView.currentCategory = expends.first
         }
     }
     
@@ -105,11 +106,17 @@ extension BillDetailViewController: BillDetailContentViewDelegate {
     func typeBtnDidClick(currentType: CategoryType) {
         if currentType == CategoryType.expend {
             contentView.categories = expends
+            contentView.currentCategory = expends.first
         } else {
             contentView.categories = incomes
+            contentView.currentCategory = incomes.first
         }
     }
     
+    /// 点击某个分类
+    func categoryItemDidClick(category: Category) {
+        contentView.currentCategory = category
+    }
     
     /// 点击返回
     func backBtnDidClick() {
@@ -124,7 +131,6 @@ extension BillDetailViewController {
         
         let progress = pan.translation(in: view).x / view.width
         
-        print(progress)
         if pan.state == .began {
             percentDrivenTransition = UIPercentDrivenInteractiveTransition()
             coordinator.setPercentDrivenTransition(percentDrivenTransition: percentDrivenTransition)

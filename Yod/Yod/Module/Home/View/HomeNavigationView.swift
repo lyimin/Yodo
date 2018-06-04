@@ -190,11 +190,8 @@ extension HomeNavigationView: UICollectionViewDataSource, UICollectionViewDelega
         
         showAnimation(withLastIndex: selectedIndex, indexPath, currentCell: cell!)
         
-        // 震动效果
-        if #available(iOS 10, *) {
-            let generator = UISelectionFeedbackGenerator()
-            generator.selectionChanged()
-        }
+        // 震动
+        shake(action: .selection)
         
         // 回调给控制器
         if let delegate = delegate {
