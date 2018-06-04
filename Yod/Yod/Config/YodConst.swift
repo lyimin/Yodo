@@ -8,14 +8,22 @@
 
 import UIKit
 
-class YodConst: UIView {
+public enum TouchAction {
+    case selection
+    case notification
+}
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+public func shake(action: TouchAction) {
+    
+    if #available(iOS 10.0, *) {
+        switch action {
+        case .selection:
+            
+            let generator = UISelectionFeedbackGenerator()
+            generator.selectionChanged()
+            
+        default:
+            break
+        }
     }
-    */
-
 }
