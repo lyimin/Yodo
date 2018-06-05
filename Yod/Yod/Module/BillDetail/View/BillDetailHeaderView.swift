@@ -18,11 +18,13 @@ class BillDetailHeaderView: UIView {
         
         addSubview(backgroundColorView)
         addSubview(backBtn)
-        addSubview(moneyLabel)
+        addSubview(textField)
         addSubview(iconView)
         addSubview(typeControl)
         
         setupLayout()
+        
+        let keyboardView = NumberKeyboardView(textField: textField)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -86,6 +88,17 @@ class BillDetailHeaderView: UIView {
     }()
     
     /// 价格
+    private lazy var textField: UITextField = {
+       
+        let textField = UITextField()
+        textField.textColor = .white
+        textField.textAlignment = .right
+        textField.text = "- 0.00"
+        textField.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.ultraLight)
+        return textField
+    }()
+    
+    /*
     private lazy var moneyLabel: UILabel = {
         
         let moneyLabel = UILabel()
@@ -95,6 +108,7 @@ class BillDetailHeaderView: UIView {
         moneyLabel.text = "- 0.00";
         return moneyLabel
     }()
+    */
 }
 
 extension BillDetailHeaderView {
@@ -149,7 +163,7 @@ extension BillDetailHeaderView {
             make.centerY.equalTo(backBtn)
         }
         
-        moneyLabel.snp.makeConstraints { (make) in
+        textField.snp.makeConstraints { (make) in
             make.right.equalTo(self).offset(-10)
             make.left.equalTo(iconView).offset(10)
             make.centerY.equalTo(iconView)
