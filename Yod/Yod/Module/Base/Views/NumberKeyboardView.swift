@@ -31,9 +31,14 @@ class NumberKeyboardView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public func textDidChange(block: TextDidChangeBlock?) {
+        self.block = block
+    }
+    
     // MARK: - Getter | Setter
+    typealias TextDidChangeBlock = (_ textField: UITextField, _ value: String?) -> Void
     
-    
+    private var block: TextDidChangeBlock?
     /// 字体颜色
     public var fontColor: UIColor! = .black
     
@@ -91,7 +96,6 @@ class NumberKeyboardView: UIView {
         keyboardView.delegate = self
         keyboardView.dataSource = self
         keyboardView.registerClass(KeyboardTextCell.self)
-        keyboardView.registerClass(KeyboardImageCell.self)
         return keyboardView
     }()
     
@@ -99,7 +103,8 @@ class NumberKeyboardView: UIView {
     private var titleArray: [String] = ["1", "2", "3",
                                         "4", "5", "6",
                                         "7", "8", "9",
-                                        "c", "0", "D"]
+                                        "c", "0", "."]
+    private var defaultText: String = "- 0.00"
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout | UICollectionViewDataSource
@@ -111,19 +116,26 @@ extension NumberKeyboardView: UICollectionViewDelegateFlowLayout, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+       
+        let cell = collectionView.dequeueReusableCell(indexPath: indexPath) as KeyboardTextCell
+        cell.titleLabel.textColor = fontColor
+        cell.titleLabel.font = font
+        cell.titleLabel.text = titleArray[indexPath.row]
+    
+        return cell
         
-        if indexPath.row == titleArray.count - 1 {
-            
-            let cell = collectionView.dequeueReusableCell(indexPath: indexPath) as KeyboardImageCell
-            cell.imageView.image = #imageLiteral(resourceName: "ic_keyboard_delete")
-            return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let text = titleArray[indexPath.row]
+        if text == "c" {
+            textField.text = defaultText
         } else {
             
-            let cell = collectionView.dequeueReusableCell(indexPath: indexPath) as KeyboardTextCell
-            cell.titleLabel.textColor = fontColor
-            cell.titleLabel.font = font
-            cell.titleLabel.text = titleArray[indexPath.row]
-            return cell
+            YodLog(textField.text!)
+            textField.insertText(text)
+
         }
     }
     
@@ -162,7 +174,9 @@ extension NumberKeyboardView {
     
     /// 文本改变时调用
     @objc private func textFieldChangedEditing() {
-        
+        if let block = self.block {
+            block(textField, textField.text)
+        }
     }
 }
 
@@ -188,33 +202,5 @@ class KeyboardTextCell: UICollectionViewCell, Reusable {
         var titleLabel = UILabel()
         titleLabel.textAlignment = .center
         return titleLabel
-    }()
-}
-
-
-class KeyboardImageCell: UICollectionViewCell, Reusable {
-    
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        contentView.backgroundColor = .white
-        
-        contentView.addSubview(imageView)
-        contentView.snp.makeConstraints { (make) in
-            make.edges.equalTo(self.contentView)
-        }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    //MARK: - Getter | Setter
-    private(set) lazy var imageView: UIImageView = {
-        
-        var imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        return imageView
     }()
 }

@@ -87,28 +87,17 @@ class BillDetailHeaderView: UIView {
         return iconView
     }()
     
+    
     /// 价格
-    private lazy var textField: UITextField = {
+    private lazy var textField: YodTextField = {
        
-        let textField = UITextField()
+        let textField = YodTextField()
         textField.textColor = .white
         textField.textAlignment = .right
         textField.text = "- 0.00"
         textField.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.ultraLight)
         return textField
     }()
-    
-    /*
-    private lazy var moneyLabel: UILabel = {
-        
-        let moneyLabel = UILabel()
-        moneyLabel.textColor = .white
-        moneyLabel.textAlignment = .right
-        moneyLabel.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.ultraLight)
-        moneyLabel.text = "- 0.00";
-        return moneyLabel
-    }()
-    */
 }
 
 extension BillDetailHeaderView {
