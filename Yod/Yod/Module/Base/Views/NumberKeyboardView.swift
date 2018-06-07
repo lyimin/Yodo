@@ -22,6 +22,7 @@ class NumberKeyboardView: UIView {
         self.init(frame: CGRect.zero)
         
         self.textField = textField
+        textField.keyboardType = .decimalPad
         
         textField.inputView = self
         textField.addTarget(self, action: #selector(textFieldChangedEditing), for: .editingChanged)
@@ -104,7 +105,12 @@ class NumberKeyboardView: UIView {
                                         "4", "5", "6",
                                         "7", "8", "9",
                                         ".", "0", "c"]
-    private var defaultText: String = "- 0.00"
+    private var defaultNumber: Double = 0
+    private var defaultText: String {
+        return String(format: "- %.2f", defaultNumber)
+    }
+    private var isHasPoint: Bool = false
+    private var maxLength = 10
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout | UICollectionViewDataSource
@@ -128,7 +134,8 @@ extension NumberKeyboardView: UICollectionViewDelegateFlowLayout, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let text = titleArray[indexPath.row]
+        let value = titleArray[indexPath.row]
+        /*
         if text == "c" {
             textField.text = defaultText
         } else {
@@ -137,6 +144,9 @@ extension NumberKeyboardView: UICollectionViewDelegateFlowLayout, UICollectionVi
             textField.insertText(text)
 
         }
+        */
+        
+        input(value: value)
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
@@ -161,6 +171,48 @@ extension NumberKeyboardView {
             make.top.left.right.equalTo(self)
             make.height.equalTo(toolbarHeight)
         }
+    }
+    
+    private func input(value: String) {
+        
+        var text = textField.text!
+        let number = text.subString(from: 2)
+        
+        print("numebr:\(number)   value:\(value.subString(from: text.length-2))")
+        
+        guard text.length < maxLength else {
+            // TODO:动画
+            return
+        }
+        
+        switch value {
+        case ".":
+            // 小数点
+            isHasPoint = true
+            if value.subString(from: text.length-2) != "00" {
+                // TODO:动画
+                return
+            }
+            break
+        case "c":
+            // 清除
+            isHasPoint = false
+            textField.text = defaultText
+            break
+        default:
+            
+            // 数字
+            if isHasPoint {
+                
+                // 有小数点
+            } else {
+                // 没有小数点
+                let pointPosition = text.positionOf(sub: ".")
+                text = text.insert(value, at: pointPosition)
+            }
+            break
+        }
+        
     }
     
     /// 点击完成按钮
