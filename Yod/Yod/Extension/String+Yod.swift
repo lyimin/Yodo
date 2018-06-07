@@ -26,12 +26,31 @@ extension String {
         }
     }
     
+    public func contains(_ string: String, caseSensitive: Bool = true) -> Bool {
+        if !caseSensitive {
+            return range(of: string, options: .caseInsensitive) != nil
+        }
+        return range(of: string) != nil
+    }
+    
     public func double(locale: Locale = .current) -> Double? {
         let formatter = NumberFormatter()
         formatter.locale = locale
         formatter.allowsFloats = true
         return formatter.number(from: self)?.doubleValue
     }
+    
+        
+    public func positionOf(sub:String, backwards:Bool = false) -> Int {
+        var pos = -1
+        if let range = range(of:sub, options: backwards ? .backwards : .literal ) {
+            if !range.isEmpty {
+                pos = self.distance(from:startIndex, to:range.lowerBound)
+            }
+        }
+        return pos
+    }
+
     
     /// 转化为date对象
     func toDate() -> Date? {
