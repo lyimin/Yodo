@@ -24,7 +24,7 @@ class BillDetailHeaderView: UIView {
         
         setupLayout()
         
-        let keyboardView = NumberKeyboardView(textField: textField)
+        keyboardView = NumberKeyboardView(textField: textField)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -47,6 +47,8 @@ class BillDetailHeaderView: UIView {
             }
         }
     }
+    
+    private var keyboardView: NumberKeyboardView!
     
     /// 当前选中的类型（支出，收入）
     private weak var selectedBtn: UIButton!
@@ -123,9 +125,12 @@ extension BillDetailHeaderView {
             self.typeControl.indexView.center = btn.center
         }
         
+        let accountType = btn.titleLabel!.text!.formatAccountType()
+        keyboardView.accountType = accountType
+        
         // 回调给控制器
         if let delegate = contentView.delegate {
-            delegate.typeBtnDidClick(currentType: btn.titleLabel!.text!.formatAccountType())
+            delegate.typeBtnDidClick(currentType: accountType)
         }
     }
 }
@@ -153,8 +158,8 @@ extension BillDetailHeaderView {
         }
         
         textField.snp.makeConstraints { (make) in
-            make.right.equalTo(self).offset(-10)
-            make.left.equalTo(iconView).offset(10)
+            make.right.equalTo(self).offset(-20)
+            make.left.equalTo(iconView.snp.right).offset(20)
             make.centerY.equalTo(iconView)
             make.height.equalTo(50)
         }

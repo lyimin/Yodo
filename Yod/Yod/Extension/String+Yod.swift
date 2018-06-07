@@ -42,6 +42,7 @@ extension String {
     
         
     public func positionOf(sub:String, backwards:Bool = false) -> Int {
+        
         var pos = -1
         if let range = range(of:sub, options: backwards ? .backwards : .literal ) {
             if !range.isEmpty {
@@ -53,7 +54,7 @@ extension String {
 
     
     /// 转化为date对象
-    func toDate() -> Date? {
+    func toDate() -> Date? { 
         let formatter = DateFormatter()
         formatter.locale = Locale.current
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -94,5 +95,18 @@ extension String {
     /// 获取日
     func getDay() -> String {
         return format(withDateFormat: "MM")
+    }
+}
+
+extension String {
+    
+    func addPrefix(prefix: String) -> String {
+        return prefix+self
+    }
+    func formatPriceText() -> String {
+        if let d = self.double() {
+            return String(format: "%.2f", d)
+        }
+        return self
     }
 }

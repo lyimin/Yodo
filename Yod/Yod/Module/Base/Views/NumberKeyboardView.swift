@@ -22,7 +22,6 @@ class NumberKeyboardView: UIView {
         self.init(frame: CGRect.zero)
         
         self.textField = textField
-        textField.keyboardType = .decimalPad
         
         textField.inputView = self
         textField.addTarget(self, action: #selector(textFieldChangedEditing), for: .editingChanged)
@@ -100,17 +99,30 @@ class NumberKeyboardView: UIView {
         return keyboardView
     }()
     
+    private var prefix: String = "- "
+    var accountType: Category.AccountType = .expend {
+        didSet {
+            let text = textField.text!.subString(from: 2)
+            if accountType == .expend {
+                prefix = "- "
+            } else {
+                prefix = "+ "
+            }
+            textField.text = text.addPrefix(prefix: prefix)
+        }
+    }
+    
     /// 数据源
     private var titleArray: [String] = ["1", "2", "3",
                                         "4", "5", "6",
                                         "7", "8", "9",
                                         ".", "0", "c"]
-    private var defaultNumber: Double = 0
     private var defaultText: String {
-        return String(format: "- %.2f", defaultNumber)
+        return currentText.formatPriceText().addPrefix(prefix: prefix)
     }
     private var isHasPoint: Bool = false
-    private var maxLength = 10
+    private var maxLength = 8
+    private var currentText: String = "0"
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout | UICollectionViewDataSource
@@ -135,16 +147,6 @@ extension NumberKeyboardView: UICollectionViewDelegateFlowLayout, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let value = titleArray[indexPath.row]
-        /*
-        if text == "c" {
-            textField.text = defaultText
-        } else {
-            
-            YodLog(textField.text!)
-            textField.insertText(text)
-
-        }
-        */
         
         input(value: value)
     }
@@ -175,44 +177,79 @@ extension NumberKeyboardView {
     
     private func input(value: String) {
         
-        var text = textField.text!
-        let number = text.subString(from: 2)
+        var text = currentText
         
-        print("numebr:\(number)   value:\(value.subString(from: text.length-2))")
-        
-        guard text.length < maxLength else {
-            // TODO:动画
-            return
-        }
+        print(text)
         
         switch value {
         case ".":
             // 小数点
+            if isHasPoint { return }
+            
             isHasPoint = true
-            if value.subString(from: text.length-2) != "00" {
-                // TODO:动画
-                return
-            }
+            currentText.insert(contentsOf: value, at: currentText.endIndex)
             break
         case "c":
             // 清除
             isHasPoint = false
+            currentText = "0"
             textField.text = defaultText
             break
         default:
             
             // 数字
             if isHasPoint {
-                
                 // 有小数点
-            } else {
-                // 没有小数点
                 let pointPosition = text.positionOf(sub: ".")
-                text = text.insert(value, at: pointPosition)
+                
+                // 保留两位小数
+                if text.length - pointPosition > 2 {
+                    shakeAnimate()
+                    return
+                }
+                
+                text.insert(contentsOf: value, at: text.endIndex)
+                
+                textField.text = text.formatPriceText().addPrefix(prefix: prefix)
+                currentText = text
+                
+            } else {
+                
+                if text.length > maxLength {
+                    shakeAnimate()
+                    return
+                }
+                
+                // 没有小数点
+                text.insert(contentsOf: value, at: text.endIndex)
+                while text.hasPrefix("0") && text.length > 1 {
+                    text = text.subString(from: 1)
+                }
+                
+                textField.text = text.formatPriceText().addPrefix(prefix: prefix)
+                currentText = text
             }
             break
         }
+    }
+    
+    
+    /// 抖动动画
+    private func shakeAnimate() {
         
+        textField.layer.removeAllAnimations()
+        
+        let start = textField.x + 10 + textField.width*0.5
+        let end = textField.x - 10 + textField.width*0.5
+        
+        let animate = CABasicAnimation(keyPath: "position.x")
+        animate.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animate.fromValue = start
+        animate.toValue = end
+        animate.autoreverses = true
+        animate.duration = 0.08
+        animate.repeatCount = 2
+        textField.layer.add(animate, forKey: nil)
     }
     
     /// 点击完成按钮
