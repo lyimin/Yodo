@@ -61,6 +61,7 @@
 		F1E1CAE42049553A00339163 /* helvetica-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1E1CAE32049553A00339163 /* helvetica-bold.ttf */; };
 		F1E4163D209378FB00C4A7AF /* UIView+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E4163C209378FB00C4A7AF /* UIView+Load.swift */; };
 		F1E41AC620C837E700AAC406 /* YodTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E41AC520C837E700AAC406 /* YodTextField.swift */; };
+		F1EF1A9420C97BF500FFDC06 /* YodDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EF1A9320C97BF500FFDC06 /* YodDateView.swift */; };
 		F1F8A68520A2F7F9001DF3F1 /* AccountDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F8A68420A2F7F9001DF3F1 /* AccountDao.swift */; };
 		F1FEA64820503DCF00D7733B /* YodConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FEA64720503DCF00D7733B /* YodConfig.swift */; };
 /* End PBXBuildFile section */
@@ -146,6 +147,7 @@
 		F1E1CAE32049553A00339163 /* helvetica-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "helvetica-bold.ttf"; sourceTree = "<group>"; };
 		F1E4163C209378FB00C4A7AF /* UIView+Load.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Load.swift"; sourceTree = "<group>"; };
 		F1E41AC520C837E700AAC406 /* YodTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodTextField.swift; sourceTree = "<group>"; };
+		F1EF1A9320C97BF500FFDC06 /* YodDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodDateView.swift; sourceTree = "<group>"; };
 		F1F8A68420A2F7F9001DF3F1 /* AccountDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDao.swift; sourceTree = "<group>"; };
 		F1FEA64720503DCF00D7733B /* YodConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -208,6 +210,7 @@
 				F1A6FFD6208CEF220021EAEA /* DisplayScrollView.swift */,
 				F109428320C6C306003D9EB6 /* NumberKeyboardView.swift */,
 				F1E41AC520C837E700AAC406 /* YodTextField.swift */,
+				F1EF1A9320C97BF500FFDC06 /* YodDateView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -703,6 +706,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Yod/Pods-Yod-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CSV.swift/CSV.framework",
+				"${BUILT_PRODUCTS_DIR}/CVCalendar/CVCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/GDPerformanceView-Swift/GDPerformanceView_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/MonkeyKing/MonkeyKing.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
@@ -714,6 +718,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSV.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CVCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GDPerformanceView_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MonkeyKing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
@@ -787,6 +792,7 @@
 				F1754DF52052370400A7CF77 /* AccountManager.swift in Sources */,
 				F1A81C02200CA410003D2D4E /* AppDelegate.swift in Sources */,
 				F1749F43209F00A9000C613C /* LaunchViewController.swift in Sources */,
+				F1EF1A9420C97BF500FFDC06 /* YodDateView.swift in Sources */,
 				F1FEA64820503DCF00D7733B /* YodConfig.swift in Sources */,
 				F117B5CB20AAE70700793767 /* UIImage+Yod.swift in Sources */,
 				F1504A1B204E912B00855D00 /* BaseViewController.swift in Sources */,

@@ -13,6 +13,7 @@ target 'Yod' do
     pod 'GDPerformanceView-Swift', '~> 1.3.2'
     pod 'SkeletonView', '~> 1.1.1'
     pod 'ObjectMapper', '~> 3.1'
+    pod 'CVCalendar', '~> 1.6.1'
     
   target 'YodTests' do
     inherit! :search_paths
