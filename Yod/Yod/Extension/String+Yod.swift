@@ -16,6 +16,23 @@ extension String {
         return count
     }
     
+    public func subString(from index: Int) -> String {
+        if length > index && index > 0 {
+            let startIndex = self.index(self.startIndex, offsetBy: index)
+            let subString = self[startIndex..<self.endIndex]
+            return String(subString)
+        } else {
+            return self
+        }
+    }
+    
+    public func double(locale: Locale = .current) -> Double? {
+        let formatter = NumberFormatter()
+        formatter.locale = locale
+        formatter.allowsFloats = true
+        return formatter.number(from: self)?.doubleValue
+    }
+    
     /// 转化为date对象
     func toDate() -> Date? {
         let formatter = DateFormatter()
