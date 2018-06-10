@@ -36,6 +36,7 @@ class BillDetailCardView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     //MARK: - Getter | Setter
     
     weak var contentView: BillDetailContentView!
@@ -78,6 +79,7 @@ class BillDetailCardView: UIView {
     private lazy var dateItem: BillDetailItem = {
         
         var dateItem = BillDetailItem()
+        dateItem.viewAddTarget(target: self, action: #selector(dateItemDidClick))
         dateItem.iconView.image = #imageLiteral(resourceName: "ic_billDetail_date")
         dateItem.titleLabel.text = "日期"
         dateItem.descLabel.text = "今天"
@@ -155,6 +157,14 @@ extension BillDetailCardView {
         noteItem.snp.makeConstraints { (make) in
             make.left.right.height.equalTo(dateItem)
             make.top.equalTo(dateItem.snp.bottom)
+        }
+    }
+    
+    /// 点击日历
+    @objc private func dateItemDidClick() {
+        
+        if let delegate = contentView.delegate {
+            delegate.calendarItemDidClick(date: YodDate.now())
         }
     }
 }

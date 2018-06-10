@@ -102,6 +102,13 @@ class BillDetailViewController: BaseViewController {
 // MARK: - BillDetailContentViewDelegate
 extension BillDetailViewController: BillDetailContentViewDelegate {
     
+    /// 点击日历
+    func calendarItemDidClick(date: YodDate) {
+        
+        let calendarView = YodCalendarView(frame: CGRect(x: 20, y: 100, width: view.width-40, height: 500))
+        view.addSubview(calendarView)
+    }
+    
     /// 点击支出，收入
     func typeBtnDidClick(currentType: CategoryType) {
         if currentType == CategoryType.expend {

@@ -89,6 +89,11 @@ struct YodDate {
         let dateString = newDate!.toString()
         return YodDate(date: dateString)
     }
+    
+    static func now() -> YodDate {
+        let nowDate = Date().toString()
+        return YodDate(date: nowDate)
+    }
 }
 
 precedencegroup DatePrecedence {

@@ -46,6 +46,8 @@ struct YodConfig {
         static let blackTitle = rgb(red: 44, green: 58, blue: 88)
         // 深灰色副标题
         static let darkGraySubTitle = rgb(red: 155, green: 155, blue: 155)
+        // 浅灰色标题
+        static let gary = rgb(red: 200, green: 200, blue: 200)
         // 分割线
         static let sepLine = rgb(red: 216, green: 216, blue: 216)
         // 背景色
