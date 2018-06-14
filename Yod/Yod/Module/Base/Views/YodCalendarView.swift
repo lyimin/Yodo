@@ -9,34 +9,22 @@
 import UIKit
 import CVCalendar
 
+let CalendarView = YodCalendarView(frame: UIScreen.main.bounds)
+
 class YodCalendarView: UIView {
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = YodConfig.color.rgb(red: 30, green: 33, blue: 40)
+        addSubview(coverView)
+        addSubview(contentView)
         
-        weekView = CVCalendarMenuView()
-        weekView.delegate = self
-        addSubview(weekView)
-        
-        calendarView = CVCalendarView()
-        calendarView.calendarAppearanceDelegate = self
-        calendarView.delegate = self
-        addSubview(calendarView)
+        contentView.addSubview(weekView)
+        contentView.addSubview(calendarView)
         
         
-        weekView.snp.makeConstraints { (make) in
-            make.left.right.top.equalTo(self)
-            make.height.equalTo(20)
-        }
-        
-        calendarView.snp.makeConstraints { (make) in
-            make.left.right.equalTo(self)
-            make.top.equalTo(weekView.snp.bottom)
-            make.height.equalTo(350)
-        }
+        setupLayout()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,16 +37,48 @@ class YodCalendarView: UIView {
         weekView.commitMenuViewUpdate()
         calendarView.commitCalendarViewUpdate()
     }
-
+    
+    public func show() {
+        
+    }
+    
+  
     //MARK: - Getter | Setter
     
     var currentCalendar: Calendar = Calendar(identifier: .gregorian)
     
+    /// 遮盖层
+    private lazy var coverView: UIView = {
+        
+        var coverView = UIView()
+        coverView.backgroundColor = .black
+        coverView.alpha = 0.3
+        return coverView
+    }()
+    
+    private lazy var contentView: UIView = {
+        
+        var contentView = UIView()
+        contentView.backgroundColor = YodConfig.color.rgb(red: 30, green: 33, blue: 40)
+        return contentView
+    }()
+    
     /// 星期
-    private var weekView: CVCalendarMenuView!
+    private lazy var weekView: CVCalendarMenuView = {
+        
+        var weekView = CVCalendarMenuView()
+        weekView.delegate = self
+        return weekView
+    }()
     
     /// 日历
-    private var calendarView: CVCalendarView!
+    private lazy var calendarView: CVCalendarView = {
+        
+        var calendarView = CVCalendarView()
+        calendarView.calendarAppearanceDelegate = self
+        calendarView.delegate = self
+        return calendarView
+    }()
 }
 
 extension YodCalendarView: CVCalendarMenuViewDelegate, CVCalendarViewDelegate {
@@ -101,4 +121,26 @@ extension YodCalendarView: CVCalendarViewAppearanceDelegate {
     }
     
 //    @objc optional func dayLabelWeekdaySelectedTextColor() -> UIColor
+}
+
+// MARK: - Private
+extension YodCalendarView {
+    
+    private func setupLayout() {
+        
+        coverView.snp.makeConstraints { (make) in
+            <#code#>
+        }
+        
+        weekView.snp.makeConstraints { (make) in
+            make.left.right.top.equalTo(contentView)
+            make.height.equalTo(20)
+        }
+        
+        calendarView.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalTo(contentView)
+            make.top.equalTo(weekView.snp.bottom)
+//            make.height.equalTo(350)
+        }
+    }
 }
