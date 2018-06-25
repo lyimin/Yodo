@@ -105,7 +105,7 @@ extension BillDetailViewController: BillDetailContentViewDelegate {
     /// 点击日历
     func calendarItemDidClick(date: YodDate) {
         
-        let calendarView = YodCalendarView(frame: CGRect(x: 20, y: 100, width: view.width-40, height: 500))
+        let calendarView = YodCalendarView(frame: view.bounds)
         view.addSubview(calendarView)
     }
     
