@@ -132,6 +132,7 @@ extension YodCalendarView: CVCalendarMenuViewDelegate, CVCalendarViewDelegate {
         return .short
     }
     
+    /// 取消横线
     func topMarker(shouldDisplayOnDayView dayView: DayView) -> Bool {
         return false
     }
@@ -141,16 +142,28 @@ extension YodCalendarView: CVCalendarMenuViewDelegate, CVCalendarViewDelegate {
         return false
     }
     
+    /// 是否显示下个月和上个月
     func shouldShowWeekdaysOut() -> Bool {
         return true
     }
     
+    /// 点击本月外的日期滚动到对应的月份
     func shouldScrollOnOutDayViewSelection() -> Bool {
-        return false
+        return true
     }
     
     func shouldAnimateResizing() -> Bool {
-        return false
+        return true
+    }
+    
+    /// 日历滚动范围不能小于2016-01-01
+    func disableScrollingBeforeDate() -> Date {
+        return Date.start()
+    }
+    
+    /// 日历滚动范围不能大于当前日期
+    func disableScrollingBeyondDate() -> Date {
+        return Date()
     }
 }
 
@@ -161,8 +174,6 @@ extension YodCalendarView: CVCalendarViewAppearanceDelegate {
         }
         return .white
     }
-    
-//    @objc optional func dayLabelWeekdaySelectedTextColor() -> UIColor
 }
 
 // MARK: - Private

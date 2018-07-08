@@ -54,6 +54,10 @@ extension Date {
         return dateString == self.today()
     }
     
+    static func start() -> Date {
+        return Date(timeIntervalSince1970: getTimestamp(dateString: "2016-01-01"))
+    }
+    
     /// 根据日期获取时间戳
     static func getTimestamp (dateString: String) -> TimeInterval {
         if dateString.count <= 0 {
