@@ -118,8 +118,8 @@ extension YodCalendarView: CVCalendarMenuViewDelegate, CVCalendarViewDelegate {
         return .sunday
     }
     
-    func calendar() -> Calendar? {
-        return currentCalendar
+    func shouldShowCustomSingleSelection() -> Bool {
+        return true
     }
     
     // 日期更新时调用
@@ -147,12 +147,15 @@ extension YodCalendarView: CVCalendarMenuViewDelegate, CVCalendarViewDelegate {
         return true
     }
     
-    /// 点击本月外的日期滚动到对应的月份
-    func shouldScrollOnOutDayViewSelection() -> Bool {
+    func shouldAnimateResizing() -> Bool {
         return true
     }
     
-    func shouldAnimateResizing() -> Bool {
+    func shouldSelectDayView(_ dayView: DayView) -> Bool {
+        if dayView.isOut {
+            return false
+        }
+        
         return true
     }
     
@@ -169,10 +172,22 @@ extension YodCalendarView: CVCalendarMenuViewDelegate, CVCalendarViewDelegate {
 
 extension YodCalendarView: CVCalendarViewAppearanceDelegate {
     func dayLabelColor(by weekDay: Weekday, status: CVStatus, present: CVPresent) -> UIColor? {
-        if status == .out {
+        if status == .disabled {
             return YodConfig.color.rgb(red: 200, green: 200, blue: 200, alpha: 0.3)
         }
         return .white
+    }
+    
+    func dayLabelPresentWeekdaySelectedBackgroundColor() -> UIColor {
+        return .green
+    }
+    
+    func dayLabelPresentWeekdayHighlightedBackgroundColor() -> UIColor {
+        return .yellow
+    }
+    
+    func dayLabelBackgroundColor(by weekDay: Weekday, status: CVStatus, present: CVPresent) -> UIColor? {
+        return YodConfig.color.theme
     }
 }
 
