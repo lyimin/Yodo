@@ -27,6 +27,7 @@ class YodCalendarView: UIView {
         
         setupLayout()
         
+        calendarView.contentController.refreshPresentedMonth()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,6 +37,7 @@ class YodCalendarView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        calendarView.toggleViewWithDate(Date())
         weekView.commitMenuViewUpdate()
         calendarView.commitCalendarViewUpdate()
     }
@@ -159,6 +161,15 @@ extension YodCalendarView: CVCalendarMenuViewDelegate, CVCalendarViewDelegate {
         return true
     }
     
+    /// 最迟的可选时间（今日）
+    func latestSelectableDate() -> Date {
+        return Date()
+    }
+    
+    func earliestSelectableDate() -> Date {
+        return Date.start()
+    }
+    
     /// 日历滚动范围不能小于2016-01-01
     func disableScrollingBeforeDate() -> Date {
         return Date.start()
@@ -171,19 +182,18 @@ extension YodCalendarView: CVCalendarMenuViewDelegate, CVCalendarViewDelegate {
 }
 
 extension YodCalendarView: CVCalendarViewAppearanceDelegate {
+    
+    
     func dayLabelColor(by weekDay: Weekday, status: CVStatus, present: CVPresent) -> UIColor? {
+        
         if status == .disabled {
             return YodConfig.color.rgb(red: 200, green: 200, blue: 200, alpha: 0.3)
+        } else if status == .in {
+            return .red
+        } else if status == .out {
+            return .yellow
         }
         return .white
-    }
-    
-    func dayLabelPresentWeekdaySelectedBackgroundColor() -> UIColor {
-        return .green
-    }
-    
-    func dayLabelPresentWeekdayHighlightedBackgroundColor() -> UIColor {
-        return .yellow
     }
     
     func dayLabelBackgroundColor(by weekDay: Weekday, status: CVStatus, present: CVPresent) -> UIColor? {
