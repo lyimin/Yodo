@@ -20,7 +20,7 @@ protocol BillDetailContentViewDelegate: NSObjectProtocol {
     func categoryItemDidClick(category: Category)
     
     /// 点击某个日历
-    func calendarItemDidClick(date: YodDate)
+    func calendarItemDidClick(item: BillDetailItem, date: YodDate)
 }
 
 class BillDetailContentView: UIView {

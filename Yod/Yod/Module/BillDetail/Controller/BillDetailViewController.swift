@@ -103,10 +103,15 @@ class BillDetailViewController: BaseViewController {
 extension BillDetailViewController: BillDetailContentViewDelegate {
     
     /// 点击日历
-    func calendarItemDidClick(date: YodDate) {
+    func calendarItemDidClick(item: BillDetailItem, date: YodDate) {
         
         let calendarView = YodCalendarView(frame: view.bounds)
         view.addSubview(calendarView)
+        calendarView.callBack = { [unowned item](date: YodDate) -> Void in
+            item.descLabel.text = date.gobalDesc
+        }
+        
+        calendarView.show()
     }
     
     /// 点击支出，收入

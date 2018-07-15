@@ -164,7 +164,7 @@ extension BillDetailCardView {
     @objc private func dateItemDidClick() {
         
         if let delegate = contentView.delegate {
-            delegate.calendarItemDidClick(date: YodDate.now())
+            delegate.calendarItemDidClick(item: dateItem, date: YodDate.now())
         }
     }
 }

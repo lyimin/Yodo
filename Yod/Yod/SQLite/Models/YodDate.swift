@@ -32,6 +32,13 @@ struct YodDate {
     /// 是否选中
     var isSelected: Bool = false
     
+    var isToday: Bool! {
+        get {
+            let now = Date().format()
+            return now == self.description
+        }
+    }
+    
     init(date: String) {
         self.date = date.format()
         
@@ -139,5 +146,19 @@ extension YodDate: Equatable {
     
     func dayInt() -> Int {
         return Int(day)!
+    }
+}
+
+extension YodDate {
+    var description: String {
+        return String(format: "%@-%@-%@", year, month, day)
+    }
+    
+    var gobalDesc: String {
+        if isToday {
+            return "今天"
+        } else {
+            return description
+        }
     }
 }
