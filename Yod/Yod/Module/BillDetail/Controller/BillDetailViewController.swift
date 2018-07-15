@@ -102,6 +102,13 @@ class BillDetailViewController: BaseViewController {
 // MARK: - BillDetailContentViewDelegate
 extension BillDetailViewController: BillDetailContentViewDelegate {
     
+    func noteItemDidClick(item: BillDetailItem, content: String) {
+        
+        let noteView = BillDetailNoteView(frame: view.bounds)
+        view.addSubview(noteView)
+        noteView.show()
+    }
+    
     /// 点击日历
     func calendarItemDidClick(item: BillDetailItem, date: YodDate) {
         

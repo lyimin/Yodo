@@ -21,6 +21,9 @@ protocol BillDetailContentViewDelegate: NSObjectProtocol {
     
     /// 点击某个日历
     func calendarItemDidClick(item: BillDetailItem, date: YodDate)
+    
+    /// 点击备注
+    func noteItemDidClick(item: BillDetailItem, content: String)
 }
 
 class BillDetailContentView: UIView {

@@ -90,6 +90,7 @@ class BillDetailCardView: UIView {
     private lazy var noteItem: BillDetailItem = {
         
         var noteItem = BillDetailItem()
+        noteItem.viewAddTarget(target: self, action: #selector(noteItemDidClick))
         noteItem.isShowLineView = false
         noteItem.iconView.image = #imageLiteral(resourceName: "ic_billDetail_note")
         noteItem.titleLabel.text = "备注"
@@ -165,6 +166,14 @@ extension BillDetailCardView {
         
         if let delegate = contentView.delegate {
             delegate.calendarItemDidClick(item: dateItem, date: YodDate.now())
+        }
+    }
+    
+    /// 点击备注
+    @objc private func noteItemDidClick() {
+        
+        if let delegate = contentView.delegate {
+            delegate.noteItemDidClick(item: noteItem, content: noteItem.descLabel.text!)
         }
     }
 }

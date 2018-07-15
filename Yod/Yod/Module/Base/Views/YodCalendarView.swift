@@ -124,8 +124,8 @@ class YodCalendarView: UIView {
     private lazy var todayRightBtn: UIButton = {
         
         var today = UIButton()
-        today.setBackgroundImage(UIImage(color: YodConfig.color.rgb(red: 39, green: 41, blue: 49)), for: .normal)
-        today.layer.cornerRadius = 20
+        today.backgroundColor = YodConfig.color.rgb(red: 39, green: 41, blue: 49)
+        today.layer.cornerRadius = 5
         today.titleLabel?.font = YodConfig.font.bold(size: 16)
         today.setTitleColor(YodConfig.color.gary.withAlphaComponent(0.4), for: .normal)
         today.setTitle("今天", for: .normal)

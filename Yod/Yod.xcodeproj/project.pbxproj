@@ -13,6 +13,7 @@
 		F109428420C6C306003D9EB6 /* NumberKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F109428320C6C306003D9EB6 /* NumberKeyboardView.swift */; };
 		F117B5CB20AAE70700793767 /* UIImage+Yod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117B5CA20AAE70700793767 /* UIImage+Yod.swift */; };
 		F11910592083631400743D7B /* CountingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11910582083631400743D7B /* CountingLabel.swift */; };
+		F120C12D20FB491000EDB155 /* BillDetailNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F120C12C20FB491000EDB155 /* BillDetailNoteView.swift */; };
 		F12CBE9F20873B9D0063A053 /* HomeItemSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12CBE9E20873B9D0063A053 /* HomeItemSectionView.swift */; };
 		F149D89920999D6B00E7BA59 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F149D89820999D6B00E7BA59 /* Info.plist */; };
 		F14AE377206E451000F65543 /* 20180329_account.csv in Resources */ = {isa = PBXBuildFile; fileRef = F14AE376206E451000F65543 /* 20180329_account.csv */; };
@@ -96,6 +97,7 @@
 		F109428320C6C306003D9EB6 /* NumberKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberKeyboardView.swift; sourceTree = "<group>"; };
 		F117B5CA20AAE70700793767 /* UIImage+Yod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Yod.swift"; sourceTree = "<group>"; };
 		F11910582083631400743D7B /* CountingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingLabel.swift; sourceTree = "<group>"; };
+		F120C12C20FB491000EDB155 /* BillDetailNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailNoteView.swift; sourceTree = "<group>"; };
 		F12CBE9E20873B9D0063A053 /* HomeItemSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeItemSectionView.swift; sourceTree = "<group>"; };
 		F149D89820999D6B00E7BA59 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F14AE376206E451000F65543 /* 20180329_account.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 20180329_account.csv; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 				F1882E2B20AEADA5002BEDAA /* BillDetailHeaderView.swift */,
 				F1882E2F20AEC039002BEDAA /* BillDetailCardView.swift */,
 				F1B2662820B7AF1D00D42140 /* BillDetailCategoryCell.swift */,
+				F120C12C20FB491000EDB155 /* BillDetailNoteView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -789,6 +792,7 @@
 				F1A0C7B92091B7CE000A62F7 /* YodDate.swift in Sources */,
 				F16F74B3207E676100E6F194 /* HomeHeaderView.swift in Sources */,
 				F1E4163D209378FB00C4A7AF /* UIView+Load.swift in Sources */,
+				F120C12D20FB491000EDB155 /* BillDetailNoteView.swift in Sources */,
 				F1754DF52052370400A7CF77 /* AccountManager.swift in Sources */,
 				F1A81C02200CA410003D2D4E /* AppDelegate.swift in Sources */,
 				F1749F43209F00A9000C613C /* LaunchViewController.swift in Sources */,
