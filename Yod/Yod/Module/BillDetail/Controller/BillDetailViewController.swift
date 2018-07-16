@@ -49,9 +49,9 @@ class BillDetailViewController: BaseViewController {
         
         navigationController?.delegate = coordinator
         // 添加滑动手势
-        let pan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(panGesture(pan:)))
-        pan.edges = .left
-        view.addGestureRecognizer(pan)
+//        let pan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(panGesture(pan:)))
+//        pan.edges = .left
+//        view.addGestureRecognizer(pan)
     }
     
     convenience init(controllerType: BillDetailControllerType = .created) {
@@ -105,9 +105,13 @@ extension BillDetailViewController: BillDetailContentViewDelegate {
     func noteItemDidClick(item: BillDetailItem, content: String) {
         
         let noteView = BillDetailNoteView(frame: view.bounds)
-        noteView.content =
+        noteView.content = content
         view.addSubview(noteView)
         noteView.show()
+        
+        noteView.callBack = { [unowned item] (text: String) -> Void in
+            item.descLabel.text = text
+        }
     }
     
     /// 点击日历
@@ -115,11 +119,11 @@ extension BillDetailViewController: BillDetailContentViewDelegate {
         
         let calendarView = YodCalendarView(frame: view.bounds)
         view.addSubview(calendarView)
+        calendarView.show()
+        
         calendarView.callBack = { [unowned item](date: YodDate) -> Void in
             item.descLabel.text = date.gobalDesc
         }
-        
-        calendarView.show()
     }
     
     /// 点击支出，收入

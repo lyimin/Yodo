@@ -53,7 +53,7 @@ class BillDetailNoteView: UIView {
     
     public var callBack: TextChangeCallBack?
     
-    var content: String {
+    public var content: String! {
         didSet {
             if content != "无" {
                 textView.text = content
@@ -111,7 +111,7 @@ class BillDetailNoteView: UIView {
         var countLabel = UILabel()
         countLabel.textColor = YodConfig.color.darkGraySubTitle
         countLabel.textAlignment = .right
-        countLabel.text = "30"
+        countLabel.text = "20"
         countLabel.font = YodConfig.font.bold(size: 16)
         return countLabel
     }()
@@ -146,7 +146,7 @@ extension BillDetailNoteView: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
-        if textView.text.length >= 30 && text != "" {
+        if textView.text.length >= 20 && text != "" {
             return false
         }
         
@@ -156,9 +156,9 @@ extension BillDetailNoteView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
     
         if let text = textView.text {
-            countLabel.text = "\(30-text.length)"
+            countLabel.text = "\(20-text.length)"
         } else {
-            countLabel.text = "30"
+            countLabel.text = "20"
         }
     }
 }
