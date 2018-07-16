@@ -101,10 +101,11 @@ class BillDetailViewController: BaseViewController {
 
 // MARK: - BillDetailContentViewDelegate
 extension BillDetailViewController: BillDetailContentViewDelegate {
-    
+    /// 点击备注
     func noteItemDidClick(item: BillDetailItem, content: String) {
         
         let noteView = BillDetailNoteView(frame: view.bounds)
+        noteView.content =
         view.addSubview(noteView)
         noteView.show()
     }

@@ -49,6 +49,18 @@ class BillDetailNoteView: UIView {
     
     //MARK: - Getter | Setter
     
+    typealias TextChangeCallBack = (_ text: String) -> Void
+    
+    public var callBack: TextChangeCallBack?
+    
+    var content: String {
+        didSet {
+            if content != "无" {
+                textView.text = content
+            }
+        }
+    }
+    
     /// 遮盖层
     private lazy var coverView: UIView = {
         
@@ -87,6 +99,7 @@ class BillDetailNoteView: UIView {
     private lazy var textView: UITextView = {
         
         var textView = UITextView()
+        textView.delegate = self
         textView.layer.cornerRadius = 5
         textView.textColor = YodConfig.color.blackTitle
         textView.font = YodConfig.font.bold(size: 16)
@@ -123,9 +136,33 @@ class BillDetailNoteView: UIView {
         saveBtn.backgroundColor = YodConfig.color.theme
         saveBtn.setTitleColor(.white, for: .normal)
         saveBtn.setTitle("保存", for: .normal)
+        saveBtn.addTarget(self, action: #selector(saveBtnDidClick), for: .touchUpInside)
         return saveBtn
     }()
 }
+
+// MARK: - UITextViewDelegate
+extension BillDetailNoteView: UITextViewDelegate {
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if textView.text.length >= 30 && text != "" {
+            return false
+        }
+        
+        return true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+    
+        if let text = textView.text {
+            countLabel.text = "\(30-text.length)"
+        } else {
+            countLabel.text = "30"
+        }
+    }
+}
+
 
 // MARK: - Private Methods
 extension BillDetailNoteView {
@@ -139,7 +176,14 @@ extension BillDetailNoteView {
         }) { (_) in
             self.removeFromSuperview()
         }
-        
+    }
+    
+    @objc func saveBtnDidClick() {
+        dismiss()
+        let text = textView.text.length == 0 ? "无" : textView.text!
+        if let callBack = callBack {
+            callBack(text)
+        }
     }
     
     @objc private func keyboardWillShow() {
