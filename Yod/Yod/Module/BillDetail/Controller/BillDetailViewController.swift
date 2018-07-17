@@ -188,7 +188,9 @@ extension BillDetailViewController {
     
     /// 点击保存
     @objc private func saveBtnDidClick() {
-        
+        if account.money == 0 {
+            
+        }
     }
     
     @objc private func panGesture(pan: UIScreenEdgePanGestureRecognizer) {

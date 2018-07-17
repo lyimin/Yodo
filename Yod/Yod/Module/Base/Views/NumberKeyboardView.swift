@@ -178,8 +178,6 @@ extension NumberKeyboardView {
         
         var text = currentText
         
-        print(text)
-        
         switch value {
         case ".":
             // 小数点
