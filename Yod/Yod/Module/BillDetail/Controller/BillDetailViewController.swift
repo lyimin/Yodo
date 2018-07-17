@@ -35,12 +35,15 @@ class BillDetailViewController: BaseViewController {
             make.centerX.equalTo(self.view)
         }
         
-        YodService.getCategories { (expends, incomes) in
+        YodService.getCategories { [unowned self](expends, incomes) in
             self.expends = expends
             self.incomes = incomes
             
             self.contentView.categories = expends
-            self.contentView.currentCategory = expends.first
+            
+            if let normalCategory = expends.first {
+                self.initAccount(withCategory: normalCategory)
+            }
         }
     }
     
@@ -61,6 +64,8 @@ class BillDetailViewController: BaseViewController {
     
     
     //MARK: - Getter | Setter
+    
+    public var account: Account!
     
     /// 状态栏颜色
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -91,6 +96,7 @@ class BillDetailViewController: BaseViewController {
         saveBtn.titleLabel?.font = YodConfig.font.bold(size: 16)
         saveBtn.backgroundColor = YodConfig.color.theme
         saveBtn.layer.cornerRadius = 17.5
+        saveBtn.addTarget(self, action: #selector(saveBtnDidClick), for: .touchUpInside)
         return saveBtn
     }()
     
@@ -101,6 +107,7 @@ class BillDetailViewController: BaseViewController {
 
 // MARK: - BillDetailContentViewDelegate
 extension BillDetailViewController: BillDetailContentViewDelegate {
+    
     /// 点击备注
     func noteItemDidClick(item: BillDetailItem, content: String) {
         
@@ -130,16 +137,19 @@ extension BillDetailViewController: BillDetailContentViewDelegate {
     func typeBtnDidClick(currentType: CategoryType) {
         if currentType == CategoryType.expend {
             contentView.categories = expends
-            contentView.currentCategory = expends.first
+            account.category = expends.first
         } else {
             contentView.categories = incomes
-            contentView.currentCategory = incomes.first
+            account.category = incomes.first
         }
+        contentView.account = account
     }
     
     /// 点击某个分类
     func categoryItemDidClick(category: Category) {
-        contentView.currentCategory = category
+        
+        account.category = category
+        contentView.account = account
     }
     
     /// 点击返回
@@ -150,6 +160,11 @@ extension BillDetailViewController: BillDetailContentViewDelegate {
 
 // MARK: - Event | Action
 extension BillDetailViewController {
+    
+    /// 点击保存
+    @objc private func saveBtnDidClick() {
+        
+    }
     
     @objc private func panGesture(pan: UIScreenEdgePanGestureRecognizer) {
         
@@ -169,6 +184,17 @@ extension BillDetailViewController {
             }
             percentDrivenTransition = nil
         }
+    }
+}
+
+extension BillDetailViewController {
+    
+    // init account model
+    private func initAccount(withCategory category: Category) {
+        account = Account()
+        account.category = category
+        
+        contentView.account = account
     }
 }
 

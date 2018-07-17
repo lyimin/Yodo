@@ -25,13 +25,13 @@ public struct Account {
     var money: Double = 0.00
     
     /// 备注
-    var remarks: String = ""
+    var remarks: String = "无"
     
     /// 图片
     var pictures: String = ""
     
     /// 创建日期
-    var createdAt: String = ""
+    var createdAt: String = Date.now().format()
     
     /// 更新时间
     var updateAt: String?
@@ -40,7 +40,7 @@ public struct Account {
     var deleteAt: String?
     
     /// 日期对象
-    var date: YodDate!
+    var date: YodDate! = YodDate(date: Date.now().format())
     
     init(){}
     

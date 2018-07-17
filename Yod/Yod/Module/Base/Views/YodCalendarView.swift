@@ -257,7 +257,7 @@ extension YodCalendarView: CVCalendarViewAppearanceDelegate {
     }
     
     func dayLabelWeekdayFont() -> UIFont {
-        return YodConfig.font.bold(size: 14)
+        return YodConfig.font.light(size: 16)
     }
     
     func dayLabelBackgroundColor(by weekDay: Weekday, status: CVStatus, present: CVPresent) -> UIColor? {

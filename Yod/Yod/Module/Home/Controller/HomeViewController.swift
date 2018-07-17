@@ -118,13 +118,3 @@ extension HomeViewController {
         navigationController?.pushViewController(BillDetailViewController(), animated: true)
     }
 }
-
-
-
-// MARK:- Getter | Setter
-extension HomeViewController {
-    
-    
-}
-
-

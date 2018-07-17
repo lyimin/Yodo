@@ -39,11 +39,20 @@ class BillDetailHeaderView: UIView {
     weak var contentView: BillDetailContentView!
     
     /// 当前选中的分类
-    var category: Category! {
+    
+    var account: Account! {
         didSet {
+            
+            // 金额
+            textField.text = "\(account.money)"
+            
+            // 收支
+            selectedBtn = account.type == .expend ? typeControl.expendBtn : typeControl.incomeBtn
+            typeControlDidSelected(btn: selectedBtn, accountType: account.type)
+            
             UIView.animate(withDuration: 0.3) {
-                self.backgroundColorView.backgroundColor = UIColor(hexString: self.category.color)
-                self.iconView.image = UIImage(named: self.category.icon)
+                self.backgroundColorView.backgroundColor = UIColor(hexString: self.account.category.color)
+                self.iconView.image = UIImage(named: self.account.category.icon)
             }
         }
     }
@@ -96,7 +105,6 @@ class BillDetailHeaderView: UIView {
         let textField = YodTextField()
         textField.textColor = .white
         textField.textAlignment = .right
-        textField.text = "- 0.00"
         textField.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.ultraLight)
         return textField
     }()
@@ -111,7 +119,24 @@ extension BillDetailHeaderView {
     }
     
     
+    
     @objc func typeBtnDidClick(btn: UIButton) {
+        
+        let accountType = btn.titleLabel!.text!.formatAccountType()
+        
+        typeControlDidSelected(btn: btn, accountType: accountType)
+        
+        // 回调给控制器
+        if let delegate = contentView.delegate {
+            delegate.typeBtnDidClick(currentType: accountType)
+        }
+    }
+}
+
+// MARK: - Private Methods
+extension BillDetailHeaderView {
+    
+    private func typeControlDidSelected(btn: UIButton, accountType: CategoryType) {
         
         guard btn != selectedBtn else {
             return
@@ -125,18 +150,9 @@ extension BillDetailHeaderView {
             self.typeControl.indexView.center = btn.center
         }
         
-        let accountType = btn.titleLabel!.text!.formatAccountType()
+       
         keyboardView.accountType = accountType
-        
-        // 回调给控制器
-        if let delegate = contentView.delegate {
-            delegate.typeBtnDidClick(currentType: accountType)
-        }
     }
-}
-
-// MARK: - Private Methods
-extension BillDetailHeaderView {
     
     private func setupLayout() {
         

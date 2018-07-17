@@ -65,6 +65,14 @@ class BillDetailContentView: UIView {
         }
     }
     
+    var account: Account! {
+        didSet {
+            headerView.account = account
+        }
+    }
+
+    /*
+    
     /// 当前选中的分类
     var currentCategory: Category! {
         didSet {
@@ -76,6 +84,7 @@ class BillDetailContentView: UIView {
             }
         }
     }
+ */
 }
 
 

@@ -214,7 +214,7 @@ class BillDetailItem: UIView {
             make.left.equalTo(iconView.snp.right).offset(15)
             make.height.equalTo(20)
             make.centerY.equalTo(iconView)
-            make.width.greaterThanOrEqualTo(100)
+            make.width.greaterThanOrEqualTo(60)
         }
         
         descLabel.snp.makeConstraints { (make) in
