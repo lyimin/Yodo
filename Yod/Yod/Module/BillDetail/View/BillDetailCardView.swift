@@ -41,6 +41,26 @@ class BillDetailCardView: UIView {
     
     weak var contentView: BillDetailContentView!
     
+    var date: YodDate! {
+        didSet {
+            if contentView.account.date.isToday {
+                dateItem.descLabel.text = "今天"
+            } else {
+                dateItem.descLabel.text = contentView.account.createdAt
+            }
+        }
+    }
+    
+    var note: String! {
+        didSet {
+            if contentView.account.remarks == "" {
+                noteItem.descLabel.text = "无"
+            } else {
+                noteItem.descLabel.text = contentView.account.remarks
+            }
+        }
+    }
+    
     /// 分类数据
     var categories: [Category] = [] {
         didSet {
@@ -82,7 +102,6 @@ class BillDetailCardView: UIView {
         dateItem.viewAddTarget(target: self, action: #selector(dateItemDidClick))
         dateItem.iconView.image = #imageLiteral(resourceName: "ic_billDetail_date")
         dateItem.titleLabel.text = "日期"
-        dateItem.descLabel.text = "今天"
         return dateItem
     }()
     
@@ -94,7 +113,6 @@ class BillDetailCardView: UIView {
         noteItem.isShowLineView = false
         noteItem.iconView.image = #imageLiteral(resourceName: "ic_billDetail_note")
         noteItem.titleLabel.text = "备注"
-        noteItem.descLabel.text = "无"
         return noteItem
     }()
 }
@@ -132,7 +150,7 @@ extension BillDetailCardView: UICollectionViewDelegateFlowLayout, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if let delegate = contentView.delegate {
-            delegate.categoryItemDidClick(category: categories[indexPath.row])
+            delegate.categoryItemDidClick(cardView: self, category: categories[indexPath.row])
         }
     }
 }
@@ -172,8 +190,8 @@ extension BillDetailCardView {
     /// 点击备注
     @objc private func noteItemDidClick() {
         
-        if let delegate = contentView.delegate {
-            delegate.noteItemDidClick(item: noteItem, content: noteItem.descLabel.text!)
+        if let delegate = contentView.delegate, let text = noteItem.descLabel.text {
+            delegate.noteItemDidClick(item: noteItem, content: text)
         }
     }
 }

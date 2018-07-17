@@ -24,7 +24,6 @@ class NumberKeyboardView: UIView {
         self.textField = textField
         
         textField.inputView = self
-        textField.addTarget(self, action: #selector(textFieldChangedEditing), for: .editingChanged)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,7 +35,7 @@ class NumberKeyboardView: UIView {
     }
     
     // MARK: - Getter | Setter
-    typealias TextDidChangeBlock = (_ textField: UITextField, _ value: String?) -> Void
+    typealias TextDidChangeBlock = (_ textField: UITextField, _ value: String) -> Void
     
     private var block: TextDidChangeBlock?
     /// 字体颜色
@@ -188,12 +187,16 @@ extension NumberKeyboardView {
             
             isHasPoint = true
             currentText.insert(contentsOf: value, at: currentText.endIndex)
+            
+            textFieldValueChanged(text: currentText.formatPriceText())
             break
         case "c":
             // 清除
             isHasPoint = false
             currentText = "0"
             textField.text = defaultText
+            
+            textFieldValueChanged(text: currentText.formatPriceText())
             break
         default:
             
@@ -204,18 +207,16 @@ extension NumberKeyboardView {
                 
                 // 保留两位小数
                 if text.length - pointPosition > 2 {
+                    shake(action: .error)
                     shakeAnimate()
                     return
                 }
                 
                 text.insert(contentsOf: value, at: text.endIndex)
-                
-                textField.text = text.formatPriceText().addPrefix(prefix: prefix)
-                currentText = text
-                
             } else {
                 
                 if text.length > maxLength {
+                    shake(action: .heavy)
                     shakeAnimate()
                     return
                 }
@@ -225,10 +226,12 @@ extension NumberKeyboardView {
                 while text.hasPrefix("0") && text.length > 1 {
                     text = text.subString(from: 1)
                 }
-                
-                textField.text = text.formatPriceText().addPrefix(prefix: prefix)
-                currentText = text
             }
+            
+            textField.text = text.formatPriceText().addPrefix(prefix: prefix)
+            currentText = text
+            
+            textFieldValueChanged(text: currentText.formatPriceText())
             break
         }
     }
@@ -262,9 +265,9 @@ extension NumberKeyboardView {
     }
     
     /// 文本改变时调用
-    @objc private func textFieldChangedEditing() {
+    private func textFieldValueChanged(text: String) {
         if let block = self.block {
-            block(textField, textField.text)
+            block(textField, text)
         }
     }
 }

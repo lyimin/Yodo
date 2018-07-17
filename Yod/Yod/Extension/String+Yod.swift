@@ -105,7 +105,7 @@ extension String {
     }
     func formatPriceText() -> String {
         if let d = self.double() {
-            return String(format: "%.2f", d)
+            return d.format()
         }
         return self
     }

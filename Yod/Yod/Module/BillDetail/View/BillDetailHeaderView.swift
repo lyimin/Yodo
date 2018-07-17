@@ -25,6 +25,13 @@ class BillDetailHeaderView: UIView {
         setupLayout()
         
         keyboardView = NumberKeyboardView(textField: textField)
+        
+        keyboardView.textDidChange { (textField, text) in
+            if let delegate = self.contentView.delegate {
+                delegate.priceDidChange(headerView: self, price: text)
+            }
+        }
+ 
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,9 +50,6 @@ class BillDetailHeaderView: UIView {
     var account: Account! {
         didSet {
             
-            // 金额
-            textField.text = "\(account.money)"
-            
             // 收支
             selectedBtn = account.type == .expend ? typeControl.expendBtn : typeControl.incomeBtn
             typeControlDidSelected(btn: selectedBtn, accountType: account.type)
@@ -54,6 +58,9 @@ class BillDetailHeaderView: UIView {
                 self.backgroundColorView.backgroundColor = UIColor(hexString: self.account.category.color)
                 self.iconView.image = UIImage(named: self.account.category.icon)
             }
+            
+            // 金额
+            textField.text = account.type == .expend ? account.money.formatExpend() : account.money.formatIncome()
         }
     }
     
@@ -72,25 +79,23 @@ class BillDetailHeaderView: UIView {
     }()
     
     /// 背景色
-    private lazy var backgroundColorView: UIView = {
+    private(set) lazy var backgroundColorView: UIView = {
         
         var backgroundColorView = UIView()
         return backgroundColorView
     }()
     
     /// 收入支出
-    private lazy var typeControl: BillDetailTypeControl = {
+    private(set) lazy var typeControl: BillDetailTypeControl = {
         
         var typeControl = BillDetailTypeControl()
-        // 默认选中支出
-        selectedBtn = typeControl.expendBtn;
         typeControl.incomeBtn.addTarget(self, action: #selector(typeBtnDidClick(btn:)), for: .touchUpInside)
         typeControl.expendBtn.addTarget(self, action: #selector(typeBtnDidClick(btn:)), for: .touchUpInside)
         return typeControl
     }()
     
     /// 当前选中的分类
-    private lazy var iconView : UIImageView = {
+    private(set) lazy var iconView : UIImageView = {
         
         var iconView = UIImageView()
         iconView.contentMode = .scaleAspectFit
@@ -100,7 +105,7 @@ class BillDetailHeaderView: UIView {
     
     
     /// 价格
-    private lazy var textField: YodTextField = {
+    private(set) lazy var textField: YodTextField = {
        
         let textField = YodTextField()
         textField.textColor = .white
@@ -112,23 +117,20 @@ class BillDetailHeaderView: UIView {
 
 extension BillDetailHeaderView {
     
-    @objc func backBtnDidClick() {
+    @objc private func backBtnDidClick() {
         if let delegate = contentView.delegate {
             delegate.backBtnDidClick()
         }
     }
     
     
-    
-    @objc func typeBtnDidClick(btn: UIButton) {
+    @objc private func typeBtnDidClick(btn: UIButton) {
         
         let accountType = btn.titleLabel!.text!.formatAccountType()
         
-        typeControlDidSelected(btn: btn, accountType: accountType)
-        
         // 回调给控制器
         if let delegate = contentView.delegate {
-            delegate.typeBtnDidClick(currentType: accountType)
+            delegate.typeBtnDidClick(headerView: self, currentType: accountType)
         }
     }
 }
@@ -136,7 +138,7 @@ extension BillDetailHeaderView {
 // MARK: - Private Methods
 extension BillDetailHeaderView {
     
-    private func typeControlDidSelected(btn: UIButton, accountType: CategoryType) {
+    func typeControlDidSelected(btn: UIButton, accountType: CategoryType) {
         
         guard btn != selectedBtn else {
             return
@@ -150,7 +152,6 @@ extension BillDetailHeaderView {
             self.typeControl.indexView.center = btn.center
         }
         
-       
         keyboardView.accountType = accountType
     }
     

@@ -108,6 +108,26 @@ class BillDetailViewController: BaseViewController {
 // MARK: - BillDetailContentViewDelegate
 extension BillDetailViewController: BillDetailContentViewDelegate {
     
+    /// 点击支出，收入
+    func typeBtnDidClick(headerView: BillDetailHeaderView, currentType: CategoryType) {
+        if currentType == CategoryType.expend {
+            contentView.categories = expends
+            account.type = .expend
+            account.category = expends.first
+            
+            headerView.typeControlDidSelected(btn: headerView.typeControl.expendBtn, accountType: account.type)
+        } else {
+            contentView.categories = incomes
+            account.type = .income
+            account.category = incomes.first
+            
+            headerView.typeControlDidSelected(btn: headerView.typeControl.incomeBtn, accountType: account.type)
+        }
+        
+        shake(action: .selection)
+    }
+    
+    
     /// 点击备注
     func noteItemDidClick(item: BillDetailItem, content: String) {
         
@@ -116,7 +136,8 @@ extension BillDetailViewController: BillDetailContentViewDelegate {
         view.addSubview(noteView)
         noteView.show()
         
-        noteView.callBack = { [unowned item] (text: String) -> Void in
+        noteView.callBack = { [unowned self] (text: String) -> Void in
+            self.account.remarks = text
             item.descLabel.text = text
         }
     }
@@ -128,28 +149,32 @@ extension BillDetailViewController: BillDetailContentViewDelegate {
         view.addSubview(calendarView)
         calendarView.show()
         
-        calendarView.callBack = { [unowned item](date: YodDate) -> Void in
+        calendarView.callBack = { [unowned self](date: YodDate) -> Void in
+            self.account.date = date
+            self.account.createdAt = date.description
             item.descLabel.text = date.gobalDesc
         }
     }
     
-    /// 点击支出，收入
-    func typeBtnDidClick(currentType: CategoryType) {
-        if currentType == CategoryType.expend {
-            contentView.categories = expends
-            account.category = expends.first
-        } else {
-            contentView.categories = incomes
-            account.category = incomes.first
-        }
-        contentView.account = account
+    /// 金额改变
+    func priceDidChange(headerView: BillDetailHeaderView, price: String) {
+        account.money = Double(price)!
+        
+        headerView.textField.text = account.type == .expend ? account.money.formatExpend() : account.money.formatIncome()
     }
     
     /// 点击某个分类
-    func categoryItemDidClick(category: Category) {
+    func categoryItemDidClick(cardView: BillDetailCardView, category: Category) {
         
         account.category = category
-        contentView.account = account
+        
+        let headerView = self.contentView.headerView
+        UIView.animate(withDuration: 0.3) {
+            headerView.backgroundColorView.backgroundColor = UIColor(hexString: category.color)
+            headerView.iconView.image = UIImage(named: category.icon)
+        }
+        
+        shake(action: .selection)
     }
     
     /// 点击返回

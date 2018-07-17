@@ -220,6 +220,9 @@ extension YodCalendarView: CVCalendarMenuViewDelegate, CVCalendarViewDelegate {
     
     // 选中日期后回调
     func didSelectDayView(_ dayView: DayView, animationDidFinish: Bool) {
+        
+        shake(action: .selection)
+        
         delay(delay: 0.2) {
             self.dismiss()
             if let callback = self.callBack {

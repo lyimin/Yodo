@@ -14,10 +14,13 @@ protocol BillDetailContentViewDelegate: NSObjectProtocol {
     func backBtnDidClick()
     
     /// 点击收入支出
-    func typeBtnDidClick(currentType: CategoryType)
+    func typeBtnDidClick(headerView: BillDetailHeaderView, currentType: CategoryType)
+    
+    /// 金额改变
+    func priceDidChange(headerView: BillDetailHeaderView, price: String)
     
     /// 某个分类
-    func categoryItemDidClick(category: Category)
+    func categoryItemDidClick(cardView: BillDetailCardView, category: Category)
     
     /// 点击某个日历
     func calendarItemDidClick(item: BillDetailItem, date: YodDate)
@@ -68,23 +71,10 @@ class BillDetailContentView: UIView {
     var account: Account! {
         didSet {
             headerView.account = account
+            cardView.date = account.date
+            cardView.note = account.remarks
         }
     }
-
-    /*
-    
-    /// 当前选中的分类
-    var currentCategory: Category! {
-        didSet {
-            if oldValue == nil {
-                headerView.category = currentCategory
-            } else if oldValue.id != currentCategory.id {
-                shake(action: .selection)
-                headerView.category = currentCategory
-            }
-        }
-    }
- */
 }
 
 

@@ -141,7 +141,7 @@ class YodService {
                 incomeTotal += account.money
             }
         }
-        return (String(format: "%.2f", expTotal), String(format: "%.2f", incomeTotal))
+        return (expTotal.format(), incomeTotal.format())
     }
     
     /// 获取所有分类
