@@ -51,6 +51,4 @@ public class AccountDao: Mappable {
         updateAt <- map["updateAt"]
         deleteAt <- map["deleteAt"]
     }
-    
-    
 }

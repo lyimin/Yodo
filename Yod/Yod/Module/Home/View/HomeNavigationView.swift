@@ -15,6 +15,9 @@ import SnapKit
 protocol HomeNavigationViewDelegate: class {
     /// 点击item回调
     func navigationView(_ navigationView: HomeNavigationView, itemDidSelectedAt indexPath: IndexPath, _ date: YodDate)
+
+    /// 点击菜单
+    func navigationView(_ navigationView: HomeNavigationView, menuBtnDidClick: UIButton)
 }
 
 
@@ -66,9 +69,11 @@ class HomeNavigationView: UIView {
                 self.dateView.insertSubview(self.selectView, at: 0)
                 // 默认选中最后一个cell
                 let lastSelectedIndex = IndexPath(row: self.dates.count-1, section: 0)
-                let cell = self.dateView.cellForItem(at: lastSelectedIndex) as! HomeDateItemCell
-                self.selectedIndex = lastSelectedIndex
-                self.showAnimation(currentCell: cell)
+                
+                if let cell = self.dateView.cellForItem(at: lastSelectedIndex)  {
+                    self.selectedIndex = lastSelectedIndex
+                    self.showAnimation(currentCell: cell as! HomeDateItemCell)
+                }
             })
         }
     }
@@ -77,6 +82,7 @@ class HomeNavigationView: UIView {
     private lazy var menuBtn: UIButton = {
         
         var menuBtn = UIButton()
+        menuBtn.addTarget(self, action: #selector(menuBtnDidClick), for: .touchUpInside)
         menuBtn.setImage(#imageLiteral(resourceName: "ic_home_menu"), for: .normal)
         return menuBtn
     }()
@@ -213,9 +219,17 @@ extension HomeNavigationView: UICollectionViewDataSource, UICollectionViewDelega
 
 }
 
+
+
 //MARK: - PrivateMethods
 extension HomeNavigationView {
     
+    /// 点击菜单
+    @objc private func menuBtnDidClick() {
+        if let delegate = delegate {
+            delegate.navigationView(self, menuBtnDidClick: menuBtn)
+        }
+    }
     
     /// 添加控件
     private func initView() {

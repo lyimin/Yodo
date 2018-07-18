@@ -27,9 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = BaseNavigationController(rootViewController: HomeViewController())
         window?.rootViewController = navigationController
         
-        GDPerformanceMonitor.sharedInstance.startMonitoring()
-        GDPerformanceMonitor.sharedInstance.appVersionHidden = true
-        GDPerformanceMonitor.sharedInstance.deviceVersionHidden = true
+//        GDPerformanceMonitor.sharedInstance.startMonitoring()
+//        GDPerformanceMonitor.sharedInstance.appVersionHidden = true
+//        GDPerformanceMonitor.sharedInstance.deviceVersionHidden = true
         
         return true
     }
@@ -48,19 +48,19 @@ extension AppDelegate {
         }
         
         if YodManager.default.isFirstLoad() {
-            
+
             // 删除table重新创建
             manager.account.deleteTable()
             manager.category.deleteTable()
-            
+
             manager.account.createdAccountTable()
             manager.category.createdCategoryTable()
-            
+
             // 添加分类
             manager.category.loadCategories()
-            
-            // 添加账单
-            manager.account.loadCSV()
+
+//            // 添加账单
+//            manager.account.loadCSV()
         }
     }
 }

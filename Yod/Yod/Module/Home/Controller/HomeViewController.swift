@@ -62,6 +62,7 @@ class HomeViewController: BaseViewController, UINavigationControllerDelegate {
     /// 所有日期数据
     private var dates: [YodDate] = [] {
         didSet {
+            if dates.count == 0 { return }
             displayView.currentDate = dates.last!
             navigationView.dates = dates
         }
@@ -96,6 +97,14 @@ extension HomeViewController: HomeNavigationViewDelegate {
     func navigationView(_ navigationView: HomeNavigationView, itemDidSelectedAt indexPath: IndexPath, _ date: YodDate) {
        
         displayView.currentDate = date
+    }
+    
+    /// 点击菜单
+    func navigationView(_ navigationView: HomeNavigationView, menuBtnDidClick: UIButton) {
+        
+        YodService.getDates {
+            self.dates = $0
+        }
     }
 }
 

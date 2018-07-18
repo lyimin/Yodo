@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+// Select
 class YodService {
     
     /// 获取日期数据
@@ -29,7 +31,6 @@ class YodService {
                 // 获取两个日期计算日期差
                 let total = first.MonthGapCount(toDate: now)
                 
-                
                 for i in 0..<total {
                     var newDate = first.getYodDate(withIndex: i)
                     
@@ -41,9 +42,9 @@ class YodService {
                     }
                     outs.append(newDate);
                 }
-                
-            } else {
-                
+            }
+            
+            if outs.count == 0 {
                 // 数据库没有数据 (返回当前月份的数据)
                 var now = YodDate(date: nowDate)
                 now.isSelected = true
@@ -99,23 +100,31 @@ class YodService {
             var monthModel = HomeMonthModel(date: date, dailyModels: [], income:total.income, expend: total.expend)
             var temp: [Account] = []
             
-            for account in accounts {
+            if accounts.count == 1 {
+                let daily = self.calculatePrice(withAccounts: accounts)
+                let dailyModel = HomeDailyModel(accounts: accounts, incomeOfDaily: daily.income, expendOfDaily: daily.expend)
+                monthModel.dailyModels.append(dailyModel)
                 
-                if temp.count == 0 {
-                    temp.append(account)
-                    continue
-                }
-                
-                let first = temp.first!
-                if first.date == account.date {
-                    temp.append(account)
-                } else {
-                    let daily = self.calculatePrice(withAccounts: temp)
-                    let dailyModel = HomeDailyModel(accounts: temp, incomeOfDaily: daily.income, expendOfDaily: daily.expend)
-                    monthModel.dailyModels.append(dailyModel)
+            } else {
+            
+                for account in accounts {
                     
-                    temp.removeAll()
-                    temp.append(account)
+                    if temp.count == 0 {
+                        temp.append(account)
+                        continue
+                    }
+                    
+                    let first = temp.first!
+                    if first.date == account.date {
+                        temp.append(account)
+                    } else {
+                        let daily = self.calculatePrice(withAccounts: temp)
+                        let dailyModel = HomeDailyModel(accounts: temp, incomeOfDaily: daily.income, expendOfDaily: daily.expend)
+                        monthModel.dailyModels.append(dailyModel)
+                        
+                        temp.removeAll()
+                        temp.append(account)
+                    }
                 }
             }
             
@@ -165,5 +174,24 @@ class YodService {
                 callback(expends, incomes)
             }
         }
+    }
+}
+
+// Insert
+extension YodService {
+    
+    // 添加账单
+    class func insertAccount(_ account: Account, callBack: @escaping () -> Void) {
+        
+        DispatchQueue.global().async {
+            let dao = account.toDao()
+            let aManager = SQLManager.default.account!
+            aManager.insertAccount(model: dao)
+            
+            DispatchQueue.main.async {
+                callBack()
+            }
+        }
+        
     }
 }

@@ -54,10 +54,8 @@ class BillDetailHeaderView: UIView {
             selectedBtn = account.type == .expend ? typeControl.expendBtn : typeControl.incomeBtn
             typeControlDidSelected(btn: selectedBtn, accountType: account.type)
             
-            UIView.animate(withDuration: 0.3) {
-                self.backgroundColorView.backgroundColor = UIColor(hexString: self.account.category.color)
-                self.iconView.image = UIImage(named: self.account.category.icon)
-            }
+            // 分类
+            iconChangeAnimate(icon: account.category.icon, color: account.category.color)
             
             // 金额
             textField.text = account.type == .expend ? account.money.formatExpend() : account.money.formatIncome()
@@ -153,6 +151,13 @@ extension BillDetailHeaderView {
         }
         
         keyboardView.accountType = accountType
+    }
+    
+    func iconChangeAnimate(icon: String, color: String) {
+        UIView.animate(withDuration: 0.3) {
+            self.backgroundColorView.backgroundColor = UIColor(hexString: color)
+            self.iconView.image = UIImage(named: icon)
+        }
     }
     
     private func setupLayout() {

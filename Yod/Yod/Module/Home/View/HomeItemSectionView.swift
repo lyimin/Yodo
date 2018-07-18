@@ -64,7 +64,7 @@ class HomeItemSectionView: UITableViewHeaderFooterView, Reusable {
         didSet {
             if dailyModel.isToday {
                 weekLabel.text = "Today"
-                dateLabel.text = "\(dailyModel.date.month)月\(dailyModel.date.day)日 \(dailyModel.week)"
+                dateLabel.text = "\(dailyModel.date.month)月\(dailyModel.date.day)日 \(dailyModel.week!)"
             } else {
                 weekLabel.text = dailyModel.week
                 dateLabel.text = "\(dailyModel.date.month)月\(dailyModel.date.day)日"

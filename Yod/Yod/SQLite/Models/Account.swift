@@ -57,7 +57,7 @@ public struct Account {
     }
     
     init(dao: AccountDao) {
-        id = "\(dao.id)"
+        id = "\(dao.id!)"
         type = Category.AccountType(rawValue: dao.type)!
         money = dao.money
         remarks = dao.remarks ?? ""
@@ -66,6 +66,24 @@ public struct Account {
         updateAt = dao.updateAt
         deleteAt = dao.deleteAt
         date = YodDate(date: dao.createdAt)
+    }
+    
+    func toDao() -> AccountDao {
+        
+        let json: [String: Any] = [
+            "id": id,
+            "categoryId": category!.id,
+            "type": type.rawValue,
+            "money": money,
+            "remarks": remarks,
+            "pictures": pictures,
+            "createdAt": createdAt,
+            "updateAt": updateAt ?? "",
+            "deleteAt": deleteAt ?? "",
+        ]
+        
+        
+        return AccountDao(JSON: json)!
     }
 }
 

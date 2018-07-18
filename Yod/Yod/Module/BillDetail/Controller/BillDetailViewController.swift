@@ -116,12 +116,14 @@ extension BillDetailViewController: BillDetailContentViewDelegate {
             account.category = expends.first
             
             headerView.typeControlDidSelected(btn: headerView.typeControl.expendBtn, accountType: account.type)
+            headerView.iconChangeAnimate(icon: account.category.icon, color: account.category.color)
         } else {
             contentView.categories = incomes
             account.type = .income
             account.category = incomes.first
             
             headerView.typeControlDidSelected(btn: headerView.typeControl.incomeBtn, accountType: account.type)
+            headerView.iconChangeAnimate(icon: account.category.icon, color: account.category.color)
         }
         
         shake(action: .selection)
@@ -189,7 +191,14 @@ extension BillDetailViewController {
     /// 点击保存
     @objc private func saveBtnDidClick() {
         if account.money == 0 {
-            
+            noticeError("请填写金额💰💰")
+            return 
+        }
+        
+        // 添加数据到数据库
+        YodService.insertAccount(account) {
+            self.noticeSuccess("添加成功🎉🎉")
+            self.navigationController?.popViewController(animated: true)
         }
     }
     

@@ -54,7 +54,7 @@ struct Category {
         
         if let dao = dao {
         
-            id = "\(dao.id)"
+            id = "\(dao.id!)"
             name = dao.name
             icon = dao.icon
             color = dao.color
