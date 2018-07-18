@@ -29,9 +29,6 @@ struct YodDate {
     /// 是否是这个月
     var isThisMonth: Bool = false
     
-    /// 是否选中
-    var isSelected: Bool = false
-    
     var isToday: Bool! {
         get {
             let now = Date().format()

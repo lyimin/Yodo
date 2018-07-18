@@ -31,6 +31,8 @@ class HomeViewController: BaseViewController, UINavigationControllerDelegate {
         
         YodService.getDates {
             self.dates = $0
+            self.displayView.currentDate = $0.last!
+            self.navigationView.selectedIndex = self.dates.count - 1
         }
     }
     
@@ -63,7 +65,6 @@ class HomeViewController: BaseViewController, UINavigationControllerDelegate {
     private var dates: [YodDate] = [] {
         didSet {
             if dates.count == 0 { return }
-            displayView.currentDate = dates.last!
             navigationView.dates = dates
         }
     }
@@ -94,8 +95,7 @@ class HomeViewController: BaseViewController, UINavigationControllerDelegate {
 extension HomeViewController: HomeNavigationViewDelegate {
     
     /// 点击日期
-    func navigationView(_ navigationView: HomeNavigationView, itemDidSelectedAt indexPath: IndexPath, _ date: YodDate) {
-       
+    func navigationView(_ navigationView: HomeNavigationView, itemDidSelectedAt index: Int, _ date: YodDate) {
         displayView.currentDate = date
     }
     
@@ -104,6 +104,26 @@ extension HomeViewController: HomeNavigationViewDelegate {
         
         YodService.getDates {
             self.dates = $0
+        }
+    }
+}
+
+extension HomeViewController: BillDetailViewControllerDelegate {
+    
+    func accountDidChange(type: BillDetailControllerType, account: Account) {
+        // 创建订单
+        if type == .created {
+            YodService.getDates {
+                self.dates = $0
+                self.displayView.currentDate = account.date
+                
+                for i in 0..<$0.count {
+                    if $0[i] <=> account.date {
+                        self.navigationView.selectedIndex = i
+                        break
+                    }
+                }
+            }
         }
     }
 }
@@ -123,7 +143,10 @@ extension HomeViewController: CircleTransitionable {
 // MARK: - Event | Action
 extension HomeViewController {
     
-    @objc func createdBtnDidClick() {
-        navigationController?.pushViewController(BillDetailViewController(), animated: true)
+    @objc private func createdBtnDidClick() {
+        
+        let billDetailController = BillDetailViewController(controllerType: .created)
+        billDetailController.delegate = self
+        navigationController?.pushViewController(billDetailController, animated: true)
     }
 }

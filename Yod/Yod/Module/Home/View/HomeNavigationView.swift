@@ -14,7 +14,7 @@ import SnapKit
 
 protocol HomeNavigationViewDelegate: class {
     /// 点击item回调
-    func navigationView(_ navigationView: HomeNavigationView, itemDidSelectedAt indexPath: IndexPath, _ date: YodDate)
+    func navigationView(_ navigationView: HomeNavigationView, itemDidSelectedAt index: Int, _ date: YodDate)
 
     /// 点击菜单
     func navigationView(_ navigationView: HomeNavigationView, menuBtnDidClick: UIButton)
@@ -40,43 +40,30 @@ class HomeNavigationView: UIView {
     private var tapEnable: Bool = true
     
     /// item高度
-    private let itemHeight: CGFloat = 60
+    private let itemSize: CGSize = CGSize(width: 50, height: 60)
+    private let itemInset: CGFloat = 35
+    private let itemMargin: CGFloat = 20
     
     /// 当前选中cell
-    private var selectedIndex: IndexPath?
+    var selectedIndex: Int = 0 {
+        didSet {
+            
+            guard selectedIndex < dates.count && dates.count > 0 else { return }
+            dateViews[oldValue].isSelected = false
+            dateViews[selectedIndex].isSelected = true
+            showAnimation(current: dateViews[selectedIndex])
+        }
+    }
     
     /// 导航栏日期数据
     var dates: [YodDate] = [] {
         didSet {
             
-            dateView.reloadData()
-            
-            guard oldValue.count == 0 else {
-                return
-            }
-            
-            // 滚到底部
-            let contentSizeW = dateView.collectionViewLayout.collectionViewContentSize.width;
-            if (contentSizeW > frame.width) {
-                
-                let offset = CGPoint(x: contentSizeW-frame.width, y: 0)
-                dateView.setContentOffset(offset, animated: false)
-            }
-            
-            // 默认选中当前月份
-            delay(delay: 0.2, closure: {
-                
-                self.dateView.insertSubview(self.selectView, at: 0)
-                // 默认选中最后一个cell
-                let lastSelectedIndex = IndexPath(row: self.dates.count-1, section: 0)
-                
-                if let cell = self.dateView.cellForItem(at: lastSelectedIndex)  {
-                    self.selectedIndex = lastSelectedIndex
-                    self.showAnimation(currentCell: cell as! HomeDateItemCell)
-                }
-            })
+            reloadData()
         }
     }
+    
+    private var dateViews: [HomeDateItemView] = []
     
     /// 菜单
     private lazy var menuBtn: UIButton = {
@@ -122,29 +109,15 @@ class HomeNavigationView: UIView {
         return selectView
     }()
     
-    enum DateViewType: Int {
-        case normal = 100
-        case hight = 101
-    }
-    
     /// 日期
-    private lazy var dateView: UICollectionView = {
+    private lazy var scrollView: UIScrollView = {
         
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        
-        var dateView: UICollectionView = UICollectionView(frame: CGRect(x: 0, y: frame.height-itemHeight-5.0, width: frame.width, height: itemHeight), collectionViewLayout: flowLayout)
-        dateView.tag = DateViewType.normal.rawValue
-        dateView.backgroundColor = .clear
-        dateView.showsHorizontalScrollIndicator = false
-        dateView.dataSource = self
-        dateView.delegate = self
-        dateView.registerClass(HomeDateItemCell.self)
-        dateView.delaysContentTouches = false
-        
-        return dateView
+        var scrollView = UIScrollView()
+        scrollView.backgroundColor = .clear
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
     }()
-    
+
     /// 底部分割线
     private lazy var borderLine: UIView = {
         
@@ -155,74 +128,60 @@ class HomeNavigationView: UIView {
     }()
 }
 
-extension HomeNavigationView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+//MARK: - PrivateMethods
+extension HomeNavigationView {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dates.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    /// 刷新数据
+    private func reloadData() {
         
-        let cell = cell as! HomeDateItemCell
-        cell.date = dates[indexPath.row]
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        scrollView.subviews.forEach{ $0.removeFromSuperview() }
+        dateViews.removeAll()
         
-        let cell = collectionView.dequeueReusableCell(indexPath: indexPath) as HomeDateItemCell
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let cell = collectionView.cellForItem(at: indexPath) as? HomeDateItemCell
-        guard cell != nil && indexPath != selectedIndex else {
-            return
+        var lastView: HomeDateItemView!
+        for i in 0..<dates.count {
+            
+            let itemFrame = CGRect(origin: CGPoint(x: itemInset+CGFloat(i)*(itemSize.width+itemMargin), y: 0), size: itemSize)
+            let item = HomeDateItemView(frame: itemFrame)
+            item.tag = i
+            item.date = dates[i]
+            scrollView.addSubview(item)
+            dateViews.append(item)
+            
+            item.viewAddTarget(target: self, action: #selector(itemDidClick(tap:)))
+            
+            if i == dates.count - 1 { lastView = item }
         }
+        
+        // 设置contentSize
+        scrollView.contentSize = CGSize(width: lastView.frame.maxX+itemMargin, height: 0)
+    }
+    
+    /// 点击每个日历
+    @objc private func itemDidClick(tap: UITapGestureRecognizer) {
+        
+        let index = tap.view!.tag
+        
+        if index == selectedIndex || !tapEnable { return }
         
         // 防止频繁点击
-        guard tapEnable else {
-            return
-        }
         tapEnable = false
         perform(#selector(tapEnough), with: nil, afterDelay: 0.3)
         
         // 执行动画
-        if let last = selectedIndex {
-            dates[last.row].isSelected = false
-        }
-        dates[indexPath.row].isSelected = true
-        selectedIndex = indexPath
+        dateViews[selectedIndex].isSelected = false
+        dateViews[index].isSelected = true
+        selectedIndex = index
         
-        showAnimation(withLastIndex: selectedIndex, indexPath, currentCell: cell!)
+        showAnimation(current: dateViews[index])
         
         // 震动
         shake(action: .selection)
         
         // 回调给控制器
         if let delegate = delegate {
-            delegate.navigationView(self, itemDidSelectedAt: indexPath, dates[indexPath.row])
+            delegate.navigationView(self, itemDidSelectedAt: index, dates[index])
         }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 50, height: itemHeight)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(0, 35, 0, 35)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
-    }
-
-}
-
-
-
-//MARK: - PrivateMethods
-extension HomeNavigationView {
     
     /// 点击菜单
     @objc private func menuBtnDidClick() {
@@ -239,7 +198,8 @@ extension HomeNavigationView {
         addSubview(sepLine)
         addSubview(titleLabel)
         addSubview(chartBtn)
-        addSubview(dateView)
+        addSubview(selectView)
+        addSubview(scrollView)
         addSubview(borderLine)
         
         setupLayout()
@@ -273,10 +233,10 @@ extension HomeNavigationView {
             make.right.equalTo(chartBtn.snp.left).offset(-YodConfig.frame.nvIconMarginLeft)
         }
         
-        dateView.snp.makeConstraints { (make) in
+        scrollView.snp.makeConstraints { (make) in
             make.left.right.equalTo(self)
             make.bottom.equalTo(self).offset(-5)
-            make.height.equalTo(itemHeight)
+            make.height.equalTo(itemSize.height)
         }
         
         borderLine.snp.makeConstraints { (make) in
@@ -286,9 +246,9 @@ extension HomeNavigationView {
     } 
     
     /// 选择框执行缩放和渐变动画
-    private func showAnimation(withLastIndex last: IndexPath? = nil, _ index: IndexPath? = nil, currentCell current: HomeDateItemCell) {
+    private func showAnimation(current: HomeDateItemView) {
     
-        selectView.frame = current.frame
+        selectView.frame = CGRect(origin: CGPoint(x: current.x, y: scrollView.y), size: current.size)
         selectView.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
         UIView.animate(withDuration: 0.2, animations: {
             self.selectView.transform = CGAffineTransform(scaleX: 1, y: 1)

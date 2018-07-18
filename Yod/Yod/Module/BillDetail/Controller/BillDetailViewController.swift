@@ -17,6 +17,12 @@ public enum BillDetailControllerType {
     case edit
 }
 
+protocol BillDetailViewControllerDelegate: NSObjectProtocol {
+    
+    /// 回调给首页控制器
+    func accountDidChange(type: BillDetailControllerType, account: Account)
+}
+
 class BillDetailViewController: BaseViewController {
 
     override func viewDidLoad() {
@@ -64,6 +70,8 @@ class BillDetailViewController: BaseViewController {
     
     
     //MARK: - Getter | Setter
+    
+    public weak var delegate: BillDetailViewControllerDelegate?
     
     public var account: Account!
     
@@ -181,7 +189,7 @@ extension BillDetailViewController: BillDetailContentViewDelegate {
     
     /// 点击返回
     func backBtnDidClick() {
-        navigationController?.popViewController(animated: true)
+        dismiss()
     }
 }
 
@@ -197,9 +205,21 @@ extension BillDetailViewController {
         
         // 添加数据到数据库
         YodService.insertAccount(account) {
+            
             self.noticeSuccess("添加成功🎉🎉")
-            self.navigationController?.popViewController(animated: true)
+            if let delegate = self.delegate {
+                delegate.accountDidChange(type: self.type, account: self.account)
+            }
+            
+            delay(delay: 1, closure: {
+                self.dismiss()
+            })
+            
         }
+    }
+    
+    private func dismiss() {
+        navigationController?.popViewController(animated: true)
     }
     
     @objc private func panGesture(pan: UIScreenEdgePanGestureRecognizer) {

@@ -25,7 +25,7 @@ public struct Account {
     var money: Double = 0.00
     
     /// 备注
-    var remarks: String = "无"
+    var remarks: String = ""
     
     /// 图片
     var pictures: String = ""

@@ -38,7 +38,6 @@ class YodService {
                     
                     if i == total-1 {
                         newDate.isThisMonth = true
-                        newDate.isSelected = true
                     }
                     outs.append(newDate);
                 }
@@ -47,7 +46,6 @@ class YodService {
             if outs.count == 0 {
                 // 数据库没有数据 (返回当前月份的数据)
                 var now = YodDate(date: nowDate)
-                now.isSelected = true
                 outs.append(now)
             }
             

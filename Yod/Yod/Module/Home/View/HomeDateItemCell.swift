@@ -11,7 +11,7 @@ import SnapKit
 
 
 /// 导航栏日期列表的item
-class HomeDateItemCell: UICollectionViewCell, Reusable {
+class HomeDateItemView: UIView {
     
     // MARK: - LifeCycle
     override init(frame: CGRect) {
@@ -34,8 +34,12 @@ class HomeDateItemCell: UICollectionViewCell, Reusable {
         didSet {
             self.yearLabel.text = date.year
             self.monthLabel.text = date.month
-            
-            if date.isSelected {
+        }
+    }
+    
+    var isSelected: Bool = false {
+        didSet {
+            if isSelected {
                 yearLabel.textColor = .white
                 monthLabel.textColor = .white
             } else {
@@ -69,7 +73,7 @@ class HomeDateItemCell: UICollectionViewCell, Reusable {
 }
 
 // MARK: - Private Methods
-extension HomeDateItemCell {
+extension HomeDateItemView {
     
     /// 约束
     private func setupLayout() {
