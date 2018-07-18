@@ -57,6 +57,10 @@ struct YodConfig {
         // 收入
         static let income = rgb(red: 105, green: 205, blue: 203)
         
+        static let noticeError = rgb(red: 220, green: 20, blue: 60)
+        
+        static let noticeSuccess = rgb(red: 60, green: 179, blue: 113)
+        
     }
 }
 

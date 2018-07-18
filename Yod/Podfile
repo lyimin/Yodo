@@ -7,7 +7,6 @@ target 'Yod' do
     
     # 视图
     pod 'CVCalendar', '~> 1.6.1'
-    pod 'SwiftEntryKit', '~> 0.5.6'
     pod 'GDPerformanceView-Swift', '~> 1.3.2'
     pod 'ViewAnimator',     '~> 2.0.0'
     
