@@ -264,7 +264,6 @@
 		F1504A19204E912B00855D00 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				F1E1CAE1204954EA00339163 /* Resource */,
 				F1504A1A204E912B00855D00 /* HomeViewController.swift */,
 			);
 			path = Controller;
@@ -386,6 +385,7 @@
 				F1BCD084207DA94C00E4A791 /* Extension */,
 				F1754DF120522D8A00A7CF77 /* SQLite */,
 				F1FEA64620503DB500D7733B /* Config */,
+				F1E1CAE1204954EA00339163 /* Resource */,
 				F1504A14204E912B00855D00 /* Module */,
 				F1A81C01200CA410003D2D4E /* AppDelegate.swift */,
 				F1A81C08200CA410003D2D4E /* Assets.xcassets */,
