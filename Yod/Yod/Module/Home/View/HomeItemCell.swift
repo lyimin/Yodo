@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import SwipeCellKit
 
 /// 列表条目
-class HomeItemCell: UITableViewCell, Reusable {
+class HomeItemCell: SwipeTableViewCell, Reusable {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         
@@ -27,12 +28,9 @@ class HomeItemCell: UITableViewCell, Reusable {
         setupLayout()
     }
     
-    public class func cell(withTableView tableView: UITableView) -> HomeItemCell {
-        var cell = tableView.dequeueReusableCell() as HomeItemCell?
-        if cell == nil {
-            cell = HomeItemCell(style: .default, reuseIdentifier: HomeItemCell.reuseIdentifier)
-        }
-        return cell!
+    public class func cell(withTableView tableView: UITableView, indexPath: IndexPath) -> HomeItemCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: HomeItemCell.reuseIdentifier, for: indexPath) as! HomeItemCell
+        return cell
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -108,9 +106,9 @@ class HomeItemCell: UITableViewCell, Reusable {
             categoryLabel.text = account.category.name
             
             if account.type == .expend {
-                priceLabel.textColor = YodConfig.color.rgb(red: 208, green: 2, blue: 27, alpha: 73)
+                priceLabel.textColor = YodConfig.color.expend
             } else if account.type == .income {
-                priceLabel.textColor = YodConfig.color.rgb(red: 81, green: 222, blue: 147)
+                priceLabel.textColor = YodConfig.color.income
             }
             
             descLabel.text = account.remarks

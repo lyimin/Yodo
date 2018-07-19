@@ -41,7 +41,7 @@ class HomeNavigationView: UIView {
     
     /// item高度
     private let itemSize: CGSize = CGSize(width: 50, height: 60)
-    private let itemInset: CGFloat = 35
+    private let itemInset: CGFloat = 20
     private let itemMargin: CGFloat = 20
     
     /// 当前选中cell
@@ -52,10 +52,16 @@ class HomeNavigationView: UIView {
             
             let selectedView = dateViews[selectedIndex]
             dateViews[oldValue].isSelected = false
-            dateViews[selectedIndex].isSelected = true
-            showAnimation(current: dateViews[selectedIndex])
+            selectedView.isSelected = true
+            showAnimation(current: selectedView)
             
-            setContentOffSet(currentView: selectedView)
+            
+            // 计算selectView在self的位置
+            
+            let rect = convert(selectedView.frame, from: scrollView)
+            if rect.origin.x < 0 || rect.origin.x > scrollView.width-itemSize.width {
+                setContentOffSet(currentView: selectedView)
+            }
         }
     }
     
@@ -259,15 +265,16 @@ extension HomeNavigationView {
     private func setContentOffSet(currentView: HomeDateItemView) {
         
         let contentSizeWidth = scrollView.contentSize.width
-        let indexViewX = currentView.x - scrollView.width * 0.5 + currentView.width*0.5
+        let indexViewX = currentView.x - scrollView.width * 0.5
         if indexViewX <= scrollView.width * 0.5 {
-            scrollView.setContentOffset(.zero, animated: false)
+            scrollView.setContentOffset(.zero, animated: true)
         } else if indexViewX >= contentSizeWidth - scrollView.width {
-            scrollView.setContentOffset(CGPoint(x: contentSizeWidth-scrollView.width, y: 0), animated: false)
+            scrollView.setContentOffset(CGPoint(x: contentSizeWidth-scrollView.width, y: 0), animated: true)
         } else {
-            scrollView.setContentOffset(CGPoint(x: indexViewX, y: 0), animated: false)
+            scrollView.setContentOffset(CGPoint(x: indexViewX, y: 0), animated: true)
         }
     }
+    
     
     /// 选择框执行缩放和渐变动画
     private func showAnimation(current: HomeDateItemView) {

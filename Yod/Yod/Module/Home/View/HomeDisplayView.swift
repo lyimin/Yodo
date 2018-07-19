@@ -29,6 +29,7 @@ class HomeDisplayView: UIView {
             guard oldValue != nil else {
                 rightAnimation()
                 rightView.date = currentDate
+                currentView = rightView
                 return
             }
             
@@ -36,13 +37,17 @@ class HomeDisplayView: UIView {
                 
                 rightAnimation()
                 rightView.date = currentDate
+                currentView = rightView
             } else {
 
                 leftAnimation()
                 leftView.date = currentDate
+                currentView = leftView
             }
         }
     }
+    
+    var currentView: AccountContentView!
     
     private func rightAnimation() {
         

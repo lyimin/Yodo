@@ -8,6 +8,7 @@ PODS:
   - SQLite.swift (0.11.4):
     - SQLite.swift/standard (= 0.11.4)
   - SQLite.swift/standard (0.11.4)
+  - SwipeCellKit (2.4.3)
   - ViewAnimator (2.0.1)
 
 DEPENDENCIES:
@@ -18,7 +19,20 @@ DEPENDENCIES:
   - ObjectMapper (~> 3.1)
   - SnapKit (~> 4.0.0)
   - SQLite.swift (= 0.11.4)
+  - SwipeCellKit
   - ViewAnimator (~> 2.0.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - CSV.swift
+    - CVCalendar
+    - GDPerformanceView-Swift
+    - MonkeyKing
+    - ObjectMapper
+    - SnapKit
+    - SQLite.swift
+    - SwipeCellKit
+    - ViewAnimator
 
 SPEC CHECKSUMS:
   CSV.swift: a24fb11c17875523783fe963592762ff163ef8ea
@@ -28,8 +42,9 @@ SPEC CHECKSUMS:
   ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SQLite.swift: 3e3bee21da701b5b9f87c4a672cb54f233505692
+  SwipeCellKit: cee9906e6d3a36e22ad1a852fba7f8fa0839d113
   ViewAnimator: 0c70ee4e1dfbe9d4f129407f81db91f6948900aa
 
-PODFILE CHECKSUM: 88c63b96ab3b4e7f651436051ef3b8058b201177
+PODFILE CHECKSUM: 634285db87d1aefeea2db771534174ecccdcf95d
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.3

@@ -53,9 +53,9 @@ struct YodConfig {
         // 背景色
         static let background = rgb(red: 229, green: 235, blue: 239)
         // 支出
-        static let expend = rgb(red: 234, green: 84, blue: 80)
+        static let expend = color.noticeError
         // 收入
-        static let income = rgb(red: 105, green: 205, blue: 203)
+        static let income = color.noticeSuccess
         
         static let noticeError = rgb(red: 220, green: 20, blue: 60)
         

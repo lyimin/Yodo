@@ -8,6 +8,7 @@
 
 import UIKit
 import ViewAnimator
+import SwipeCellKit
 
 /// 首页每月的数据
 class AccountContentView: UIView {
@@ -22,11 +23,17 @@ class AccountContentView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         tableView.frame = bounds
+        
+        if editIndexPath != nil {
+//            configSwipeButtons()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private var editIndexPath: IndexPath?
     
     //MARK: - Getter | Setter
     /// 列表
@@ -40,6 +47,7 @@ class AccountContentView: UIView {
         tableView.tableFooterView = UIView()
         tableView.rowHeight = 60
         tableView.tableHeaderView = headerView
+        tableView.register(HomeItemCell.self, forCellReuseIdentifier: HomeItemCell.reuseIdentifier)
         
         return tableView
     }()
@@ -53,8 +61,6 @@ class AccountContentView: UIView {
     var monthModel: HomeMonthModel? {
         didSet {
             if let monthModel = monthModel {
-                
-                tableView.reloadData()
                 
                 headerView.expendMoney = monthModel.expend
                 headerView.expendMonth = monthModel.date.month
@@ -73,7 +79,31 @@ class AccountContentView: UIView {
 
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
-extension AccountContentView: UITableViewDelegate, UITableViewDataSource {
+extension AccountContentView: UITableViewDelegate, UITableViewDataSource, SwipeTableViewCellDelegate {
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        
+        if orientation == .right {
+            let action = SwipeAction(style: .default, title: nil) { (_, indexPath) in
+                if self.monthModel!.dailyModels[indexPath.section].accounts.count == 1 {
+                    
+                    self.monthModel!.dailyModels.remove(at: indexPath.section)
+                    self.tableView.deleteSections([indexPath.section], with: .fade)
+                } else {
+                    
+                    self.monthModel!.dailyModels[indexPath.section].accounts.remove(at: indexPath.row)
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+            }
+            action.backgroundColor = YodConfig.color.background
+            action.image = #imageLiteral(resourceName: "ic_home_delete")
+            
+            return [action]
+        }
+        
+        return nil
+    }
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
@@ -91,7 +121,8 @@ extension AccountContentView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let rowData = monthModel!.dailyModels[indexPath.section].accounts[indexPath.row]
-        let cell = HomeItemCell.cell(withTableView: tableView)
+        let cell = HomeItemCell.cell(withTableView: tableView, indexPath: indexPath)
+        cell.delegate = self
         cell.account = rowData
         return cell
     }
@@ -130,10 +161,79 @@ extension AccountContentView: UITableViewDelegate, UITableViewDataSource {
         backgroundView.layer.insertSublayer(layer, at: 0)
         cell.backgroundView = backgroundView
     }
+    /*
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        
+        
+        if monthModel?.dailyModels[indexPath.section].accounts.count == 1 {
+            
+            monthModel?.dailyModels.remove(at: indexPath.section)
+            tableView.beginUpdates()
+            
+            tableView.deleteSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
+            tableView.deleteSections([indexPath.section], with: .fade)
+            tableView.endUpdates()
+        } else {
+            
+            monthModel?.dailyModels[indexPath.section].accounts.remove(at: indexPath.row)
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
+        editIndexPath = indexPath
+        setNeedsLayout()
+    }
+    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
+        editIndexPath = nil
+    }
+    */
 }
 
 // MARK: - Private Methods
 extension AccountContentView {
+    
+    private func configSwipeButtons() {
+        if #available(iOS 11, *) {
+            
+            for subView in tableView.subviews {
+                if subView.isKind(of: NSClassFromString("UISwipeActionPullView")!) && subView.subviews.count > 0 {
+                    subView.backgroundColor = YodConfig.color.background
+                    let deleteButton = subView.subviews.first as! UIButton
+                    configDeleteButton(deleteButton)
+                }
+            }
+        } else {
+            
+            if let indexPath = self.editIndexPath {
+                let cell = tableView.cellForRow(at: indexPath)
+                for subView in cell!.subviews {
+                    if subView.isKind(of: NSClassFromString("UITableViewCellDeleteConfirmationView")!) && subView.subviews.count > 0 {
+                        let deleteButton = subView.subviews.first as! UIButton
+                        configDeleteButton(deleteButton)
+                    }
+                }
+            }
+        }
+    }
+    
+    private func configDeleteButton(_ button: UIButton) {
+        button.setImage(#imageLiteral(resourceName: "ic_home_delete"), for: .normal)
+        button.setBackgroundImage(UIImage(color: YodConfig.color.background), for: .normal)
+        
+        let imageSize = button.imageView!.image!.size
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageSize.width, bottom: 0, right: 0)
+        
+    }
+    
+    
     /// 根据cell去绘制section的圆角
     ///
     /// - Parameter cell: cell
@@ -230,7 +330,7 @@ extension AccountContentView {
                 
                 self.hiddenProgress()
                 self.tableView.isHidden = false
-                
+                self.tableView.reloadData()
                 self.cellsOffsetAnimation()
             }
         }

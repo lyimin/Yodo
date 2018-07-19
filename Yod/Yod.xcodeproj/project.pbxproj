@@ -481,7 +481,6 @@
 				F1A81BFB200CA410003D2D4E /* Frameworks */,
 				F1A81BFC200CA410003D2D4E /* Resources */,
 				8C13F0650F3854BEBC11654B /* [CP] Embed Pods Frameworks */,
-				6F33999E03D84E313726DE95 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -500,8 +499,6 @@
 				F1A81C0E200CA410003D2D4E /* Sources */,
 				F1A81C0F200CA410003D2D4E /* Frameworks */,
 				F1A81C10200CA410003D2D4E /* Resources */,
-				2E7E11D0758EA863C37F1793 /* [CP] Embed Pods Frameworks */,
-				6D3D8CB45B9FF80F0D1CE87E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -521,8 +518,6 @@
 				F1A81C19200CA410003D2D4E /* Sources */,
 				F1A81C1A200CA410003D2D4E /* Frameworks */,
 				F1A81C1B200CA410003D2D4E /* Resources */,
-				2253AE9F5633D4BA630C7164 /* [CP] Embed Pods Frameworks */,
-				35D0503A65E1BD47313233AE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -614,51 +609,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2253AE9F5633D4BA630C7164 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YodUITests/Pods-YodUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2E7E11D0758EA863C37F1793 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YodTests/Pods-YodTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		35D0503A65E1BD47313233AE /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YodUITests/Pods-YodUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		4807B4A8CE41A70AA926956C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -677,36 +627,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6D3D8CB45B9FF80F0D1CE87E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YodTests/Pods-YodTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6F33999E03D84E313726DE95 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Yod/Pods-Yod-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8C13F0650F3854BEBC11654B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -721,6 +641,7 @@
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 				"${BUILT_PRODUCTS_DIR}/ViewAnimator/ViewAnimator.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -732,6 +653,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViewAnimator.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
