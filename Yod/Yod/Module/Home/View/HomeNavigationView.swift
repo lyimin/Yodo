@@ -49,9 +49,13 @@ class HomeNavigationView: UIView {
         didSet {
             
             guard selectedIndex < dates.count && dates.count > 0 else { return }
+            
+            let selectedView = dateViews[selectedIndex]
             dateViews[oldValue].isSelected = false
             dateViews[selectedIndex].isSelected = true
             showAnimation(current: dateViews[selectedIndex])
+            
+            setContentOffSet(currentView: selectedView)
         }
     }
     
@@ -134,9 +138,12 @@ extension HomeNavigationView {
     /// 刷新数据
     private func reloadData() {
         
-        scrollView.subviews.forEach{ $0.removeFromSuperview() }
+        scrollView.subviews.forEach{
+            $0.removeFromSuperview()
+        }
         dateViews.removeAll()
         
+        scrollView.addSubview(selectView)
         var lastView: HomeDateItemView!
         for i in 0..<dates.count {
             
@@ -198,7 +205,6 @@ extension HomeNavigationView {
         addSubview(sepLine)
         addSubview(titleLabel)
         addSubview(chartBtn)
-        addSubview(selectView)
         addSubview(scrollView)
         addSubview(borderLine)
         
@@ -243,12 +249,30 @@ extension HomeNavigationView {
             make.left.right.bottom.equalTo(self)
             make.height.equalTo(0.5)
         }
-    } 
+    }
+    
+    /** 这里会有3种情况出现
+     *   1. 当前page 小于 0.5                                        ===>  滚到最前
+     *   2. 0.5 < page <= contentSize.width - scrollView.width*0.5  ===> 中间位置
+     *   3. page > contentSize.width - scrollView.width*0.5         ===> 滚到最后
+     */
+    private func setContentOffSet(currentView: HomeDateItemView) {
+        
+        let contentSizeWidth = scrollView.contentSize.width
+        let indexViewX = currentView.x - scrollView.width * 0.5 + currentView.width*0.5
+        if indexViewX <= scrollView.width * 0.5 {
+            scrollView.setContentOffset(.zero, animated: false)
+        } else if indexViewX >= contentSizeWidth - scrollView.width {
+            scrollView.setContentOffset(CGPoint(x: contentSizeWidth-scrollView.width, y: 0), animated: false)
+        } else {
+            scrollView.setContentOffset(CGPoint(x: indexViewX, y: 0), animated: false)
+        }
+    }
     
     /// 选择框执行缩放和渐变动画
     private func showAnimation(current: HomeDateItemView) {
     
-        selectView.frame = CGRect(origin: CGPoint(x: current.x, y: scrollView.y), size: current.size)
+        selectView.frame = current.frame
         selectView.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
         UIView.animate(withDuration: 0.2, animations: {
             self.selectView.transform = CGAffineTransform(scaleX: 1, y: 1)
