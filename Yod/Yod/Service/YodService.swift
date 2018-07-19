@@ -45,7 +45,7 @@ class YodService {
             
             if outs.count == 0 {
                 // 数据库没有数据 (返回当前月份的数据)
-                var now = YodDate(date: nowDate)
+                let now = YodDate(date: nowDate)
                 outs.append(now)
             }
             
@@ -86,7 +86,7 @@ class YodService {
                 if let cDao = cDao {
                     account.category = Category(dao: cDao)
                 } else {
-                    YodDebug("fail to find category id:\(dao.categoryId)")
+                    YodDebug("unable to find category id:\(dao.categoryId)")
                 }
                 
                 accounts.append(account)
@@ -96,35 +96,25 @@ class YodService {
             let total = calculatePrice(withAccounts: accounts)
             
             var monthModel = HomeMonthModel(date: date, dailyModels: [], income:total.income, expend: total.expend)
-            var temp: [Account] = []
             
-            if accounts.count == 1 {
-                let daily = self.calculatePrice(withAccounts: accounts)
-                let dailyModel = HomeDailyModel(accounts: accounts, incomeOfDaily: daily.income, expendOfDaily: daily.expend)
-                monthModel.dailyModels.append(dailyModel)
-                
-            } else {
-            
-                for account in accounts {
-                    
-                    if temp.count == 0 {
-                        temp.append(account)
-                        continue
-                    }
-                    
-                    let first = temp.first!
-                    if first.date == account.date {
-                        temp.append(account)
-                    } else {
-                        let daily = self.calculatePrice(withAccounts: temp)
-                        let dailyModel = HomeDailyModel(accounts: temp, incomeOfDaily: daily.income, expendOfDaily: daily.expend)
-                        monthModel.dailyModels.append(dailyModel)
-                        
-                        temp.removeAll()
-                        temp.append(account)
-                    }
+            guard accounts.count != 0 else {
+                DispatchQueue.main.async {
+                    callback(monthModel)
                 }
+                return
             }
+            // 排序，再倒序
+            let dates = Set(accounts.map { $0.date.description }).sorted().reversed()
+            var resArray = [HomeDailyModel]()
+            
+            dates.forEach { date in
+                let accountGroup = accounts.filter { $0.date.description == date }
+                
+                let daily = self.calculatePrice(withAccounts: accountGroup)
+                let dailyModel = HomeDailyModel(accounts: accountGroup, incomeOfDaily: daily.income, expendOfDaily: daily.expend)
+                resArray.append(dailyModel)
+            }
+            monthModel.dailyModels = resArray
             
             DispatchQueue.main.async {
                 callback(monthModel)

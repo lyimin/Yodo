@@ -59,8 +59,8 @@ extension AppDelegate {
             // 添加分类
             manager.category.loadCategories()
 
-//            // 添加账单
-//            manager.account.loadCSV()
+            // 添加账单
+            manager.account.loadCSV()
         }
     }
 }
