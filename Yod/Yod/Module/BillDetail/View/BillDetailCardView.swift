@@ -46,7 +46,7 @@ class BillDetailCardView: UIView {
             if contentView.account.date.isToday {
                 dateItem.descLabel.text = "今天"
             } else {
-                dateItem.descLabel.text = contentView.account.createdAt
+                dateItem.descLabel.text = contentView.account.date.gobalDesc
             }
         }
     }

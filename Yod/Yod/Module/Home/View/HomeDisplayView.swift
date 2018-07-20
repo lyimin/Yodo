@@ -12,6 +12,9 @@ import UIKit
 protocol HomeDisplayViewDelegate: NSObjectProtocol {
     /// 点击删除按钮
     func homeDisplayView(_ contentView: AccountContentView, itemDeleted withIndexPath: IndexPath, callBack: @escaping (_ isDelete: Bool) -> Void)
+    
+    /// 点击item
+    func homeDisplayView(_ contentView: AccountContentView, itemDidClick withIndexPath: IndexPath)
 }
 
 class HomeDisplayView: UIView {
@@ -118,6 +121,12 @@ extension HomeDisplayView: AccountContentViewDelegate {
     func accountContentView(_ contentView: AccountContentView, itemDeleted withIndexPath: IndexPath, callBack: @escaping (Bool) -> Void) {
         if let delegate = self.delegate {
             delegate.homeDisplayView(contentView, itemDeleted: withIndexPath, callBack: callBack)
+        }
+    }
+    
+    func accountContentView(_ contentView: AccountContentView, itemDidClick withIndexPath: IndexPath) {
+        if let delegate = self.delegate {
+            delegate.homeDisplayView(contentView, itemDidClick: withIndexPath)
         }
     }
 }

@@ -175,6 +175,18 @@ extension AccountManager {
     }
 }
 
+// Update
+extension AccountManager {
+    public func updateAccount(model: AccountDao) {
+        let sql = "UPDATE \(tableName) SET categoryId=\(model.categoryId!), type=\(model.type!), money=\(model.money!), remarks='\(model.remarks!)', pictures='\(model.pictures)', createdAt='\(model.createdAt!)', updatedAt='\(Date.now().format())' where id=\(model.id!)"
+        do {
+            try db.execute(sql)
+        } catch {
+            assertionFailure("fail to update account id=\(model.id)")
+        }
+    }
+}
+
 // MARK: - delete
 extension AccountManager {
     
@@ -224,5 +236,4 @@ extension AccountManager {
         }
     }
 }
-
 

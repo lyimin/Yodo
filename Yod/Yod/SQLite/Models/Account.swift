@@ -31,7 +31,7 @@ public struct Account {
     var pictures: String = ""
     
     /// 创建日期
-    var createdAt: String = Date.now().format()
+    var createdAt: String = Date.now()
     
     /// 更新时间
     var updateAt: String?
@@ -40,7 +40,7 @@ public struct Account {
     var deleteAt: String?
     
     /// 日期对象
-    var date: YodDate! = YodDate(date: Date.now().format())
+    var date: YodDate! = YodDate(date: Date.now())
     
     init(){}
     
@@ -71,7 +71,7 @@ public struct Account {
     func toDao() -> AccountDao {
         
         let json: [String: Any] = [
-            "id": id,
+            "id": Int64(id)!,
             "categoryId": category!.id,
             "type": type.rawValue,
             "money": money,

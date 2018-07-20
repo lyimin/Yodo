@@ -47,9 +47,7 @@ class BillDetailViewController: BaseViewController {
             
             self.contentView.categories = expends
             
-            if let normalCategory = expends.first {
-                self.initAccount(withCategory: normalCategory)
-            }
+            self.initAccount(incomes: incomes, expends: expends)
         }
     }
     
@@ -203,23 +201,41 @@ extension BillDetailViewController {
             return 
         }
         
-        // 添加数据到数据库
+        if type == .created {
+            // 添加数据到数据库
+            insertAction()
+        } else {
+            updateAction()
+        }
+        
+        delay(delay: 1, closure: {
+            self.dismiss()
+        })
+    }
+    
+    private func dismiss() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    // 添加
+    private func insertAction() {
         YodService.insertAccount(account) {
             
             self.noticeSuccess("添加成功🎉🎉")
             if let delegate = self.delegate {
                 delegate.accountDidChange(type: self.type, account: self.account)
             }
-            
-            delay(delay: 1, closure: {
-                self.dismiss()
-            })
-            
         }
     }
     
-    private func dismiss() {
-        navigationController?.popViewController(animated: true)
+    private func updateAction() {
+        YodService.updateAccount(account) {
+            
+            self.noticeSuccess("修改成功🎉🎉")
+            if let delegate = self.delegate {
+                delegate.accountDidChange(type: self.type, account: self.account)
+            }
+        }
     }
     
     @objc private func panGesture(pan: UIScreenEdgePanGestureRecognizer) {
@@ -246,10 +262,25 @@ extension BillDetailViewController {
 extension BillDetailViewController {
     
     // init account model
-    private func initAccount(withCategory category: Category) {
-        account = Account()
-        account.category = category
+    private func initAccount(incomes: [Category], expends: [Category]) {
         
+        var category: Category!
+        if type == .created, expends.count > 0 {
+            account = Account()
+            category = expends.first
+        } else {
+            if account.type == .expend {
+                category = expends.filter {
+                    $0.id == account.category.id
+                    }.first
+            } else {
+                category = incomes.filter {
+                    $0.id == account.category.id
+                    }.first
+            }
+        }
+        
+        account.category = category
         contentView.account = account
     }
 }

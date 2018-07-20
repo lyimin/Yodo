@@ -180,7 +180,24 @@ extension YodService {
                 callBack()
             }
         }
+    }
+}
+
+// Update
+extension YodService {
+    
+    class func updateAccount(_ account: Account, callBack: @escaping () -> Void) {
         
+        DispatchQueue.global().async {
+            
+            let dao = account.toDao()
+            let aManager = SQLManager.default.account!
+            aManager.updateAccount(model: dao)
+            
+            DispatchQueue.main.async {
+                callBack()
+            }
+        }
     }
 }
 

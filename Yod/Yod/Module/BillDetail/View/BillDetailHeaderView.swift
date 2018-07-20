@@ -52,7 +52,7 @@ class BillDetailHeaderView: UIView {
             
             // 收支
             selectedBtn = account.type == .expend ? typeControl.expendBtn : typeControl.incomeBtn
-            typeControlDidSelected(btn: selectedBtn, accountType: account.type)
+            typeControlDidSelected(btn: selectedBtn, accountType: account.type, firstLoad: true)
             
             // 分类
             iconChangeAnimate(icon: account.category.icon, color: account.category.color)
@@ -136,9 +136,9 @@ extension BillDetailHeaderView {
 // MARK: - Private Methods
 extension BillDetailHeaderView {
     
-    func typeControlDidSelected(btn: UIButton, accountType: CategoryType) {
+    func typeControlDidSelected(btn: UIButton, accountType: CategoryType, firstLoad: Bool = false) {
         
-        guard btn != selectedBtn else {
+        guard btn != selectedBtn || firstLoad else {
             return
         }
         
@@ -239,7 +239,6 @@ class BillDetailTypeControl: UIView {
     private(set) lazy var expendBtn: UIButton = {
         
         var expendBtn = UIButton()
-        expendBtn.isSelected = true
         expendBtn.setTitle("支出", for: .normal)
         expendBtn.titleLabel?.font = YodConfig.font.bold(size: 16)
         expendBtn.setTitleColor(.white, for: .normal)

@@ -120,29 +120,39 @@ extension HomeViewController: HomeDisplayViewDelegate {
             return
         }
         
-        
         showSheet(msg: "您要删除此账单吗?", otherBtn: "删除") { (_) in
             
             self.deleteAction(account: account, callBack: callBack)
         }
+    }
+    
+    /// 点击item
+    func homeDisplayView(_ contentView: AccountContentView, itemDidClick withIndexPath: IndexPath) {
+        
+        let billDetail = BillDetailViewController(controllerType: .edit)
+        
+        billDetail.delegate = self
+        navigationController?.pushViewController(billDetail, animated: true)
+        if let model = contentView.monthModel?.dailyModels[withIndexPath.section].accounts[withIndexPath.row] {
+            billDetail.account = model
+        }
+        
     }
 }
 
 extension HomeViewController: BillDetailViewControllerDelegate {
     
     func accountDidChange(type: BillDetailControllerType, account: Account) {
-        // 创建订单
-        if type == .created {
-            YodService.getDates {
-                self.dates = $0
-                self.displayView.currentDate = account.date
-                
-                for i in 0..<$0.count {
-                    if $0[i] <=> account.date {
-                        self.navigationView.selectedIndex = i
-                        self.navigationView.setContentOffSet(animate: true)
-                        break
-                    }
+        
+        YodService.getDates {
+            self.dates = $0
+            self.displayView.currentDate = account.date
+            
+            for i in 0..<$0.count {
+                if $0[i] <=> account.date {
+                    self.navigationView.selectedIndex = i
+                    self.navigationView.setContentOffSet(animate: true)
+                    break
                 }
             }
         }

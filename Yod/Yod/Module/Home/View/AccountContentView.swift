@@ -13,6 +13,9 @@ import SwipeCellKit
 protocol AccountContentViewDelegate: NSObjectProtocol {
     /// 点击删除按钮
     func accountContentView(_ contentView: AccountContentView, itemDeleted withIndexPath: IndexPath, callBack: @escaping  (_ isDelete: Bool) -> Void)
+    
+    /// 点击item
+    func accountContentView(_ contentView: AccountContentView, itemDidClick withIndexPath: IndexPath)
 }
 
 /// 首页每月的数据
@@ -164,6 +167,13 @@ extension AccountContentView: UITableViewDelegate, UITableViewDataSource, SwipeT
         backgroundView.backgroundColor = .clear
         backgroundView.layer.insertSublayer(layer, at: 0)
         cell.backgroundView = backgroundView
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if let delegate = self.delegate {
+            delegate.accountContentView(self, itemDidClick: indexPath)
+        }
     }
 }
 
