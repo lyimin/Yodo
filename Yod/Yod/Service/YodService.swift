@@ -183,3 +183,23 @@ extension YodService {
         
     }
 }
+
+// Delete
+extension YodService {
+    
+    // 删除账单
+    class func deleteAccount(_ account: Account, callBack: @escaping () -> Void) {
+        
+        guard let id = Int64(account.id) else { return }
+        
+        DispatchQueue.global().async {
+            
+            let aManager = SQLManager.default.account!
+            aManager.deleteAccount(accountId: id)
+            
+            DispatchQueue.main.async {
+                callBack()
+            }
+        }
+    }
+}

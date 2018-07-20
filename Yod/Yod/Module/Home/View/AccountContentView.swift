@@ -10,8 +10,15 @@ import UIKit
 import ViewAnimator
 import SwipeCellKit
 
+protocol AccountContentViewDelegate: NSObjectProtocol {
+    /// 点击删除按钮
+    func accountContentView(_ contentView: AccountContentView, itemDeleted withIndexPath: IndexPath, callBack: @escaping  (_ isDelete: Bool) -> Void)
+}
+
 /// 首页每月的数据
 class AccountContentView: UIView {
+    
+    weak var delegate: AccountContentViewDelegate?
     
     //MARK: - Life Cycle
     override init(frame: CGRect) {
@@ -83,25 +90,22 @@ extension AccountContentView: UITableViewDelegate, UITableViewDataSource, SwipeT
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         
-        if orientation == .right {
-            let action = SwipeAction(style: .default, title: nil) { (_, indexPath) in
-                if self.monthModel!.dailyModels[indexPath.section].accounts.count == 1 {
-                    
-                    self.monthModel!.dailyModels.remove(at: indexPath.section)
-                    self.tableView.deleteSections([indexPath.section], with: .fade)
-                } else {
-                    
-                    self.monthModel!.dailyModels[indexPath.section].accounts.remove(at: indexPath.row)
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
-                }
-            }
-            action.backgroundColor = YodConfig.color.background
-            action.image = #imageLiteral(resourceName: "ic_home_delete")
-            
-            return [action]
-        }
+        if orientation != .right { return nil }
         
-        return nil
+        let action = SwipeAction(style: .default, title: nil) { (_, indexPath) in
+            
+            guard let delegate = self.delegate else {
+                return
+            }
+            
+            delegate.accountContentView(self, itemDeleted: indexPath, callBack: {
+                if $0 { self.deleteAction(indexPath: indexPath) }
+            })
+        }
+        action.backgroundColor = YodConfig.color.background
+        action.image = #imageLiteral(resourceName: "ic_home_delete")
+        
+        return [action]
     }
     
     
@@ -161,76 +165,36 @@ extension AccountContentView: UITableViewDelegate, UITableViewDataSource, SwipeT
         backgroundView.layer.insertSublayer(layer, at: 0)
         cell.backgroundView = backgroundView
     }
-    /*
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        
-        
-        
-        if monthModel?.dailyModels[indexPath.section].accounts.count == 1 {
-            
-            monthModel?.dailyModels.remove(at: indexPath.section)
-            tableView.beginUpdates()
-            
-            tableView.deleteSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
-            tableView.deleteSections([indexPath.section], with: .fade)
-            tableView.endUpdates()
-        } else {
-            
-            monthModel?.dailyModels[indexPath.section].accounts.remove(at: indexPath.row)
-            tableView.beginUpdates()
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            tableView.endUpdates()
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
-        editIndexPath = indexPath
-        setNeedsLayout()
-    }
-    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
-        editIndexPath = nil
-    }
-    */
 }
 
 // MARK: - Private Methods
 extension AccountContentView {
     
-    private func configSwipeButtons() {
-        if #available(iOS 11, *) {
+    
+    /// 点击删除操作
+    ///
+    /// - Parameter indexPath: indexPath
+    private func deleteAction(indexPath: IndexPath) {
+        
+        let deleteModel = monthModel!.dailyModels[indexPath.section].accounts[indexPath.row]
+        if deleteModel.type == .expend {
+            let expendPrice = monthModel!.expend.double()! - deleteModel.money
+            monthModel?.expend = expendPrice.format()
+        } else {
+            let incomePrice = monthModel!.income.double()! - deleteModel.money
+            monthModel?.income = incomePrice.format()
+        }
+        
+        if monthModel!.dailyModels[indexPath.section].accounts.count == 1 {
             
-            for subView in tableView.subviews {
-                if subView.isKind(of: NSClassFromString("UISwipeActionPullView")!) && subView.subviews.count > 0 {
-                    subView.backgroundColor = YodConfig.color.background
-                    let deleteButton = subView.subviews.first as! UIButton
-                    configDeleteButton(deleteButton)
-                }
-            }
+            monthModel!.dailyModels.remove(at: indexPath.section)
+            tableView.deleteSections([indexPath.section], with: .fade)
+            
         } else {
             
-            if let indexPath = self.editIndexPath {
-                let cell = tableView.cellForRow(at: indexPath)
-                for subView in cell!.subviews {
-                    if subView.isKind(of: NSClassFromString("UITableViewCellDeleteConfirmationView")!) && subView.subviews.count > 0 {
-                        let deleteButton = subView.subviews.first as! UIButton
-                        configDeleteButton(deleteButton)
-                    }
-                }
-            }
+            monthModel!.dailyModels[indexPath.section].accounts.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
-    }
-    
-    private func configDeleteButton(_ button: UIButton) {
-        button.setImage(#imageLiteral(resourceName: "ic_home_delete"), for: .normal)
-        button.setBackgroundImage(UIImage(color: YodConfig.color.background), for: .normal)
-        
-        let imageSize = button.imageView!.image!.size
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageSize.width, bottom: 0, right: 0)
-        
     }
     
     

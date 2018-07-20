@@ -52,6 +52,7 @@ class HomeViewController: BaseViewController, UINavigationControllerDelegate {
     /// 中间滚动器
     private lazy var displayView: HomeDisplayView = {
         var displayView = HomeDisplayView(frame: CGRect(x: 0, y: navigationH, width: view.width, height: view.height-navigationH))
+        displayView.delegate = self
         return displayView
     }()
     
@@ -108,6 +109,24 @@ extension HomeViewController: HomeNavigationViewDelegate {
     }
 }
 
+extension HomeViewController: HomeDisplayViewDelegate {
+    
+    
+    /// 点击删除账单
+    func homeDisplayView(_ contentView: AccountContentView, itemDeleted withIndexPath: IndexPath, callBack: @escaping (Bool) -> Void) {
+        
+        guard let account = contentView.monthModel?.dailyModels[withIndexPath.section].accounts[withIndexPath.row] else {
+            return
+        }
+        
+        
+        showSheet(msg: "您要删除此账单吗?", otherBtn: "删除") { (_) in
+            
+            self.deleteAction(account: account, callBack: callBack)
+        }
+    }
+}
+
 extension HomeViewController: BillDetailViewControllerDelegate {
     
     func accountDidChange(type: BillDetailControllerType, account: Account) {
@@ -142,6 +161,19 @@ extension HomeViewController: CircleTransitionable {
 
 // MARK: - Event | Action
 extension HomeViewController {
+
+    // 点击删除item操作
+    private func deleteAction(account: Account, callBack: @escaping (Bool) -> Void) {
+        
+        YodService.deleteAccount(account) {
+            self.noticeSuccess("删除成功👌👌")
+            shake(action: .success)
+            
+            delay(delay: 1, closure: {
+                callBack(true)
+            })
+        }
+    }
     
     @objc private func createdBtnDidClick() {
         

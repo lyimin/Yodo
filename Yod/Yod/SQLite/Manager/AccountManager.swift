@@ -178,6 +178,16 @@ extension AccountManager {
 // MARK: - delete
 extension AccountManager {
     
+    /// 删除数据
+    public func deleteAccount(accountId: Int64) {
+        let account = accountT.filter(id == accountId)
+        do {
+            try db.run(account.delete())
+        } catch {
+            assertionFailure("[EMSQLite] unable to delete account where id = \(accountId)")
+        }
+    }
+    
     func deleteTable() {
         do {
             try db.run(accountT.drop(ifExists: true))

@@ -8,9 +8,16 @@
 
 import UIKit
 
+
+protocol HomeDisplayViewDelegate: NSObjectProtocol {
+    /// 点击删除按钮
+    func homeDisplayView(_ contentView: AccountContentView, itemDeleted withIndexPath: IndexPath, callBack: @escaping (_ isDelete: Bool) -> Void)
+}
+
 class HomeDisplayView: UIView {
     
-
+    weak var delegate: HomeDisplayViewDelegate?
+    
     //MARK: - Life Cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,7 +54,10 @@ class HomeDisplayView: UIView {
         }
     }
     
+    
     var currentView: AccountContentView!
+    
+    
     
     private func rightAnimation() {
         
@@ -87,6 +97,7 @@ class HomeDisplayView: UIView {
     private lazy var leftView: AccountContentView = {
         
         var leftView = AccountContentView(frame: bounds)
+        leftView.delegate = self
         leftView.alpha = 0
         
         return leftView
@@ -95,8 +106,18 @@ class HomeDisplayView: UIView {
     private lazy var rightView: AccountContentView = {
        
         var rightView = AccountContentView(frame: bounds)
+        rightView.delegate = self
         rightView.alpha = 0
         
         return rightView
     }()
+}
+
+extension HomeDisplayView: AccountContentViewDelegate {
+    
+    func accountContentView(_ contentView: AccountContentView, itemDeleted withIndexPath: IndexPath, callBack: @escaping (Bool) -> Void) {
+        if let delegate = self.delegate {
+            delegate.homeDisplayView(contentView, itemDeleted: withIndexPath, callBack: callBack)
+        }
+    }
 }
