@@ -33,6 +33,7 @@ class HomeViewController: BaseViewController, UINavigationControllerDelegate {
             self.dates = $0
             self.displayView.currentDate = $0.last!
             self.navigationView.selectedIndex = self.dates.count - 1
+            self.navigationView.setContentOffSet(animate: false)
         }
     }
     
@@ -139,6 +140,7 @@ extension HomeViewController: BillDetailViewControllerDelegate {
                 for i in 0..<$0.count {
                     if $0[i] <=> account.date {
                         self.navigationView.selectedIndex = i
+                        self.navigationView.setContentOffSet(animate: true)
                         break
                     }
                 }

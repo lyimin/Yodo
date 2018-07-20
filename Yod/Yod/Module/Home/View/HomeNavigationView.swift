@@ -54,14 +54,6 @@ class HomeNavigationView: UIView {
             dateViews[oldValue].isSelected = false
             selectedView.isSelected = true
             showAnimation(current: selectedView)
-            
-            
-            // 计算selectView在self的位置
-            
-            let rect = convert(selectedView.frame, from: scrollView)
-            if rect.origin.x < 0 || rect.origin.x > scrollView.width-itemSize.width {
-                setContentOffSet(currentView: selectedView)
-            }
         }
     }
     
@@ -136,6 +128,33 @@ class HomeNavigationView: UIView {
         
         return borderLine
     }()
+}
+
+// MARK: - Public Methods
+extension HomeNavigationView {
+    /** 这里会有3种情况出现
+     *   1. 当前page 小于 0.5                                        ===>  滚到最前
+     *   2. 0.5 < page <= contentSize.width - scrollView.width*0.5  ===> 中间位置
+     *   3. page > contentSize.width - scrollView.width*0.5         ===> 滚到最后
+     */
+    func setContentOffSet(animate: Bool) {
+        
+        let selectedView = dateViews[selectedIndex]
+        let rect = convert(selectedView.frame, from: scrollView)
+        guard rect.origin.x < 0 || rect.origin.x > scrollView.width-itemSize.width else {
+            return
+        }
+        
+        let contentSizeWidth = scrollView.contentSize.width
+        let indexViewX = selectedView.x - scrollView.width * 0.5
+        if indexViewX <= scrollView.width * 0.5 {
+            scrollView.setContentOffset(.zero, animated: animate)
+        } else if indexViewX >= contentSizeWidth - scrollView.width {
+            scrollView.setContentOffset(CGPoint(x: contentSizeWidth-scrollView.width, y: 0), animated: animate)
+        } else {
+            scrollView.setContentOffset(CGPoint(x: indexViewX, y: 0), animated: animate)
+        }
+    }
 }
 
 //MARK: - PrivateMethods
@@ -256,25 +275,6 @@ extension HomeNavigationView {
             make.height.equalTo(0.5)
         }
     }
-    
-    /** 这里会有3种情况出现
-     *   1. 当前page 小于 0.5                                        ===>  滚到最前
-     *   2. 0.5 < page <= contentSize.width - scrollView.width*0.5  ===> 中间位置
-     *   3. page > contentSize.width - scrollView.width*0.5         ===> 滚到最后
-     */
-    private func setContentOffSet(currentView: HomeDateItemView) {
-        
-        let contentSizeWidth = scrollView.contentSize.width
-        let indexViewX = currentView.x - scrollView.width * 0.5
-        if indexViewX <= scrollView.width * 0.5 {
-            scrollView.setContentOffset(.zero, animated: true)
-        } else if indexViewX >= contentSizeWidth - scrollView.width {
-            scrollView.setContentOffset(CGPoint(x: contentSizeWidth-scrollView.width, y: 0), animated: true)
-        } else {
-            scrollView.setContentOffset(CGPoint(x: indexViewX, y: 0), animated: true)
-        }
-    }
-    
     
     /// 选择框执行缩放和渐变动画
     private func showAnimation(current: HomeDateItemView) {
