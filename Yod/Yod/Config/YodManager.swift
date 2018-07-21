@@ -10,6 +10,7 @@ import UIKit
 
 public class YodManager {
     
+    
     public init() {}
     
     /// 单例对象

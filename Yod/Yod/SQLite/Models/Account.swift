@@ -70,8 +70,9 @@ public struct Account {
     
     func toDao() -> AccountDao {
         
+        
         let json: [String: Any] = [
-            "id": Int64(id)!,
+            "id": Int64(id) ?? "",
             "categoryId": category!.id,
             "type": type.rawValue,
             "money": money,
