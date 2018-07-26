@@ -65,6 +65,7 @@
 		F1E1CAE42049553A00339163 /* helvetica-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1E1CAE32049553A00339163 /* helvetica-bold.ttf */; };
 		F1E4163D209378FB00C4A7AF /* UIView+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E4163C209378FB00C4A7AF /* UIView+Load.swift */; };
 		F1E41AC620C837E700AAC406 /* YodTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E41AC520C837E700AAC406 /* YodTextField.swift */; };
+		F1E6AFA42104BA77009F234B /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E6AFA32104BA77009F234B /* StatisticsViewController.swift */; };
 		F1EF1A9420C97BF500FFDC06 /* YodCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EF1A9320C97BF500FFDC06 /* YodCalendarView.swift */; };
 		F1F8A68520A2F7F9001DF3F1 /* AccountDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F8A68420A2F7F9001DF3F1 /* AccountDao.swift */; };
 		F1FEA64820503DCF00D7733B /* YodConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FEA64720503DCF00D7733B /* YodConfig.swift */; };
@@ -155,6 +156,7 @@
 		F1E1CAE32049553A00339163 /* helvetica-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "helvetica-bold.ttf"; sourceTree = "<group>"; };
 		F1E4163C209378FB00C4A7AF /* UIView+Load.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Load.swift"; sourceTree = "<group>"; };
 		F1E41AC520C837E700AAC406 /* YodTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodTextField.swift; sourceTree = "<group>"; };
+		F1E6AFA32104BA77009F234B /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		F1EF1A9320C97BF500FFDC06 /* YodCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodCalendarView.swift; sourceTree = "<group>"; };
 		F1F8A68420A2F7F9001DF3F1 /* AccountDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDao.swift; sourceTree = "<group>"; };
 		F1FEA64720503DCF00D7733B /* YodConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodConfig.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 		F1504A14204E912B00855D00 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				F1E6AFA22104BA56009F234B /* Statistics */,
 				F18C5CD720A052B7007050F9 /* BillDetail */,
 				F1749F41209F007B000C613C /* Root */,
 				F1504A15204E912B00855D00 /* Base */,
@@ -449,6 +452,14 @@
 				F1E1CAE32049553A00339163 /* helvetica-bold.ttf */,
 			);
 			path = Font;
+			sourceTree = "<group>";
+		};
+		F1E6AFA22104BA56009F234B /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				F1E6AFA32104BA77009F234B /* StatisticsViewController.swift */,
+			);
+			path = Statistics;
 			sourceTree = "<group>";
 		};
 		F1F8A68320A2F7E7001DF3F1 /* Daos */ = {
@@ -731,6 +742,7 @@
 				F192B87421018EE700A8B8EA /* UIViewController+Yod.swift in Sources */,
 				F117B5CB20AAE70700793767 /* UIImage+Yod.swift in Sources */,
 				F1504A1B204E912B00855D00 /* BaseViewController.swift in Sources */,
+				F1E6AFA42104BA77009F234B /* StatisticsViewController.swift in Sources */,
 				F1C16A04207F07C4003C4B5A /* UIView+Frame.swift in Sources */,
 				F109428420C6C306003D9EB6 /* NumberKeyboardView.swift in Sources */,
 				F183E71120A1E8FE0028F280 /* YodManager.swift in Sources */,

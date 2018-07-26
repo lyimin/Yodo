@@ -45,8 +45,6 @@ class BillDetailViewController: BaseViewController {
             self.expends = expends
             self.incomes = incomes
             
-            self.contentView.categories = expends
-            
             self.initAccount(incomes: incomes, expends: expends)
         }
     }
@@ -131,8 +129,6 @@ extension BillDetailViewController: BillDetailContentViewDelegate {
             headerView.typeControlDidSelected(btn: headerView.typeControl.incomeBtn, accountType: account.type)
             headerView.iconChangeAnimate(icon: account.category.icon, color: account.category.color)
         }
-        
-        shake(action: .selection)
     }
     
     
@@ -264,6 +260,7 @@ extension BillDetailViewController {
     // init account model
     private func initAccount(incomes: [Category], expends: [Category]) {
         
+        
         var category: Category!
         if type == .created, expends.count > 0 {
             account = Account()
@@ -281,6 +278,12 @@ extension BillDetailViewController {
         }
         
         account.category = category
+        
+        if account.type == .expend {
+            self.contentView.categories = expends
+        } else {
+            self.contentView.categories = incomes
+        }
         contentView.account = account
     }
 }

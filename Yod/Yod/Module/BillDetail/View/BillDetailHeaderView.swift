@@ -141,6 +141,8 @@ extension BillDetailHeaderView {
         guard btn != selectedBtn || firstLoad else {
             return
         }
+        // 震动效果
+        shake(action: .selection)
         
         selectedBtn.isSelected = false
         btn.isSelected = true
