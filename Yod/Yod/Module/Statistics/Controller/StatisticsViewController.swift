@@ -22,7 +22,7 @@ class StatisticsViewController: UIViewController {
     private lazy var backBtn: UIButton = {
         
         var backBtn = UIButton()
-        backBtn.setImage(#imageLiteral(resourceName: "ic_white_back"), for: .normal)
+        backBtn.setImage(#imageLiteral(resourceName: "ic_blue_back"), for: .normal)
 //        backBtn.addTarget(self, action: #selector(backBtnDidClick), for: .touchUpInside)
         return backBtn
     }()

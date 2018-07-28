@@ -75,7 +75,10 @@ class HomeDisplayView: UIView {
             self.leftView.alpha = 0
             self.rightView.transform = CGAffineTransform.identity
             self.rightView.alpha = 1
-        })
+        }) { (_) in
+//            self.leftView.monthModel = nil
+//            self.leftView.tableView.yod_reloadData()
+        }
     }
     
     private func leftAnimation() {
@@ -86,14 +89,16 @@ class HomeDisplayView: UIView {
         self.rightView.transform = CGAffineTransform.identity
         self.rightView.alpha = 1
         
+        
         UIView.animate(withDuration: 0.3, animations: {
-            UIView.animate(withDuration: 0.3) {
-                self.rightView.transform = CGAffineTransform(translationX: self.width*0.15, y: 0)
-                self.rightView.alpha = 0
-                self.leftView.transform = CGAffineTransform.identity
-                self.leftView.alpha = 1
-            }
-        })
+            self.rightView.transform = CGAffineTransform(translationX: self.width*0.15, y: 0)
+            self.rightView.alpha = 0
+            self.leftView.transform = CGAffineTransform.identity
+            self.leftView.alpha = 1
+        }) { (_) in
+//            self.rightView.monthModel = nil
+//            self.rightView.tableView.yod_reloadData()
+        }
     }
     
     //MARK: - Getter | Setter

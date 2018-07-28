@@ -89,7 +89,7 @@ class AccountContentView: UIView {
 
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
-extension AccountContentView: UITableViewDelegate, UITableViewDataSource, SwipeTableViewCellDelegate {
+extension AccountContentView: UITableViewDelegate, YodTableViewDataSource, SwipeTableViewCellDelegate {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         
@@ -122,6 +122,7 @@ extension AccountContentView: UITableViewDelegate, UITableViewDataSource, SwipeT
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section >= monthModel!.dailyModels.count { return 0}
         return monthModel!.dailyModels[section].accounts.count
     }
     
@@ -174,6 +175,12 @@ extension AccountContentView: UITableViewDelegate, UITableViewDataSource, SwipeT
         if let delegate = self.delegate {
             delegate.accountContentView(self, itemDidClick: indexPath)
         }
+    }
+    
+    func placeHolderView(tableView: UITableView) -> UIView? {
+        let holderView = UIImageView(image: #imageLiteral(resourceName: "ic_empty"))
+        holderView.bounds = CGRect(x: 0, y: 0, width: holderView.image!.size.width, height: holderView.image!.size.height)
+        return holderView
     }
 }
 
@@ -304,7 +311,7 @@ extension AccountContentView {
                 
                 self.hiddenProgress()
                 self.tableView.isHidden = false
-                self.tableView.reloadData()
+                self.tableView.yod_reloadData()
                 self.cellsOffsetAnimation()
             }
         }

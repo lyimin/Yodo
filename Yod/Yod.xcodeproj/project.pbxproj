@@ -17,6 +17,7 @@
 		F12CBE9F20873B9D0063A053 /* HomeItemSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12CBE9E20873B9D0063A053 /* HomeItemSectionView.swift */; };
 		F149D89920999D6B00E7BA59 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F149D89820999D6B00E7BA59 /* Info.plist */; };
 		F14AE377206E451000F65543 /* 20180329_account.csv in Resources */ = {isa = PBXBuildFile; fileRef = F14AE376206E451000F65543 /* 20180329_account.csv */; };
+		F14DAC0F210CAF2F001110D6 /* YodTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14DAC0E210CAF2F001110D6 /* YodTableViewDataSource.swift */; };
 		F150358E2098C3680055617D /* String+Yod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F150358C2098C3670055617D /* String+Yod.swift */; };
 		F150358F2098C3680055617D /* Date+Yod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F150358D2098C3670055617D /* Date+Yod.swift */; };
 		F1504A1B204E912B00855D00 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A17204E912B00855D00 /* BaseViewController.swift */; };
@@ -36,6 +37,7 @@
 		F1749F3F209EF830000C613C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1749F3E209EF830000C613C /* Launch Screen.storyboard */; };
 		F1749F43209F00A9000C613C /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1749F42209F00A9000C613C /* LaunchViewController.swift */; };
 		F1754DF52052370400A7CF77 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1754DF42052370400A7CF77 /* AccountManager.swift */; };
+		F17BC656210AFD9C006707E7 /* YodCommonNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17BC655210AFD9C006707E7 /* YodCommonNavigationView.swift */; };
 		F183E71120A1E8FE0028F280 /* YodManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F183E71020A1E8FE0028F280 /* YodManager.swift */; };
 		F183E71320A1F9390028F280 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = F183E71220A1F9390028F280 /* Category.swift */; };
 		F185F23A20C21C2F001DA1F7 /* CircularTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F185F23920C21C2F001DA1F7 /* CircularTransition.swift */; };
@@ -105,6 +107,7 @@
 		F12CBE9E20873B9D0063A053 /* HomeItemSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeItemSectionView.swift; sourceTree = "<group>"; };
 		F149D89820999D6B00E7BA59 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F14AE376206E451000F65543 /* 20180329_account.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 20180329_account.csv; sourceTree = "<group>"; };
+		F14DAC0E210CAF2F001110D6 /* YodTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodTableViewDataSource.swift; sourceTree = "<group>"; };
 		F150358C2098C3670055617D /* String+Yod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Yod.swift"; sourceTree = "<group>"; };
 		F150358D2098C3670055617D /* Date+Yod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Yod.swift"; sourceTree = "<group>"; };
 		F1504A17204E912B00855D00 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +128,7 @@
 		F1749F3E209EF830000C613C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		F1749F42209F00A9000C613C /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		F1754DF42052370400A7CF77 /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
+		F17BC655210AFD9C006707E7 /* YodCommonNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodCommonNavigationView.swift; sourceTree = "<group>"; };
 		F183E71020A1E8FE0028F280 /* YodManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodManager.swift; sourceTree = "<group>"; };
 		F183E71220A1F9390028F280 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		F185F23920C21C2F001DA1F7 /* CircularTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularTransition.swift; sourceTree = "<group>"; };
@@ -222,6 +226,7 @@
 				F1E41AC520C837E700AAC406 /* YodTextField.swift */,
 				F1EF1A9320C97BF500FFDC06 /* YodCalendarView.swift */,
 				F192B87120FF13EA00A8B8EA /* YodNotice.swift */,
+				F17BC655210AFD9C006707E7 /* YodCommonNavigationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -312,6 +317,21 @@
 				F1A0C7B52091B7CE000A62F7 /* Models */,
 			);
 			path = SQLite;
+			sourceTree = "<group>";
+		};
+		F17BC653210AFD42006707E7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F17BC654210AFD4D006707E7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F1E6AFA32104BA77009F234B /* StatisticsViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		F185F23820C21C1C001DA1F7 /* Transition */ = {
@@ -430,6 +450,7 @@
 				F117B5CA20AAE70700793767 /* UIImage+Yod.swift */,
 				F19A465220FE12B900D16608 /* Double+Yod.swift */,
 				F192B87321018EE700A8B8EA /* UIViewController+Yod.swift */,
+				F14DAC0E210CAF2F001110D6 /* YodTableViewDataSource.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -457,7 +478,8 @@
 		F1E6AFA22104BA56009F234B /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
-				F1E6AFA32104BA77009F234B /* StatisticsViewController.swift */,
+				F17BC654210AFD4D006707E7 /* Controller */,
+				F17BC653210AFD42006707E7 /* View */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -718,6 +740,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F17BC656210AFD9C006707E7 /* YodCommonNavigationView.swift in Sources */,
 				F1C16A02207EFF64003C4B5A /* HomeNavigationView.swift in Sources */,
 				F1BCD08F207E0BC700E4A791 /* Reusable.swift in Sources */,
 				F18C5CD920A0550B007050F9 /* BillDetailViewController.swift in Sources */,
@@ -752,6 +775,7 @@
 				F164212B20A14C0B000ECC7C /* UIColor+Yod.swift in Sources */,
 				F150358E2098C3680055617D /* String+Yod.swift in Sources */,
 				F15D2633208F1EBF0027D3EA /* AccountContentView.swift in Sources */,
+				F14DAC0F210CAF2F001110D6 /* YodTableViewDataSource.swift in Sources */,
 				F1B2662920B7AF1D00D42140 /* BillDetailCategoryCell.swift in Sources */,
 				F16ADECB20A34174004BED51 /* CategoryDao.swift in Sources */,
 				F1AC66CE209A0B3E000909DA /* HomeDisplayView.swift in Sources */,
