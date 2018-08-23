@@ -13,11 +13,15 @@ import SnapKit
 
 
 protocol HomeNavigationViewDelegate: class {
+    
     /// 点击item回调
     func navigationView(_ navigationView: HomeNavigationView, itemDidSelectedAt index: Int, _ date: YodDate)
 
     /// 点击菜单
     func navigationView(_ navigationView: HomeNavigationView, menuBtnDidClick: UIButton)
+    
+    /// 点击统计
+    func navigationView(_ navigationView: HomeNavigationView, chartBtn: UIButton)
 }
 
 
@@ -99,6 +103,7 @@ class HomeNavigationView: UIView {
         
         var chartBtn = UIButton()
         chartBtn.setImage(#imageLiteral(resourceName: "ic_home_chart"), for: .normal)
+        chartBtn.addTarget(self, action: #selector(chartBtnDidClick), for: .touchUpInside)
         return chartBtn
     }()
     
@@ -219,6 +224,13 @@ extension HomeNavigationView {
     @objc private func menuBtnDidClick() {
         if let delegate = delegate {
             delegate.navigationView(self, menuBtnDidClick: menuBtn)
+        }
+    }
+    
+    /// 点击统计
+    @objc private func chartBtnDidClick() {
+        if let delegate = delegate {
+            delegate.navigationView(self, chartBtn: chartBtn)
         }
     }
     

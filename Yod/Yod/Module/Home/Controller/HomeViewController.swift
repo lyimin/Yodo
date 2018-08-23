@@ -108,6 +108,12 @@ extension HomeViewController: HomeNavigationViewDelegate {
             self.dates = $0
         }
     }
+    
+    /// 点击统计
+    func navigationView(_ navigationView: HomeNavigationView, chartBtn: UIButton) {
+        let chartController = StatisticsViewController()
+        present(chartController, animated: true, completion: nil)
+    }
 }
 
 extension HomeViewController: HomeDisplayViewDelegate {

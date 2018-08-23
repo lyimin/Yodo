@@ -21,6 +21,12 @@ class HomeDisplayView: UIView {
     
     weak var delegate: HomeDisplayViewDelegate?
     
+    private enum AnimateDirection {
+        case none
+        case left
+        case right
+    }
+    
     //MARK: - Life Cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,80 +39,59 @@ class HomeDisplayView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     // TODO:
     var currentDate: YodDate! {
         didSet {
             guard oldValue != nil else {
-                rightAnimation()
+                
                 rightView.date = currentDate
                 currentView = rightView
+                
+                animate(after: leftView, before: currentView, direction: .right)
                 return
             }
             
+            let afterView = currentView == leftView ? leftView : rightView
+            let beforeView = currentView == leftView ? rightView : leftView
+            
+            var direction: AnimateDirection = .left
             if oldValue => currentDate || oldValue <=> currentDate {
-                
-                rightAnimation()
-                rightView.date = currentDate
-                currentView = rightView
-            } else {
-
-                leftAnimation()
-                leftView.date = currentDate
-                currentView = leftView
+                direction = .right
             }
+            
+            beforeView.date = currentDate
+            currentView = beforeView
+            animate(after: afterView, before: beforeView, direction: direction)
         }
     }
+ 
+    weak var currentView: AccountContentView!
     
-    
-    var currentView: AccountContentView!
-    
-    
-    
-    private func rightAnimation() {
+    private func animate(after: AccountContentView!, before: AccountContentView!, direction: AnimateDirection) {
         
-        self.rightView.transform = CGAffineTransform(translationX: self.width*0.15, y: 0)
-        self.rightView.alpha = 0
-        self.rightView.tableView.setContentOffset(CGPoint.zero, animated: false)
-        self.leftView.transform = CGAffineTransform.identity
-        self.leftView.alpha = 1
+        let translationX = direction == .left ? (-width*0.15) : (width*0.15)
         
-        UIView.animate(withDuration: 0.3, animations: {
-            self.leftView.transform = CGAffineTransform(translationX: -self.width*0.15, y: 0)
-            self.leftView.alpha = 0
-            self.rightView.transform = CGAffineTransform.identity
-            self.rightView.alpha = 1
-        }) { (_) in
-//            self.leftView.monthModel = nil
-//            self.leftView.tableView.yod_reloadData()
-        }
-    }
-    
-    private func leftAnimation() {
+        before.transform = CGAffineTransform(translationX: translationX, y: 0)
+        before.alpha = 0
+        before.tableView.setContentOffset(.zero, animated: false)
         
-        self.leftView.transform = CGAffineTransform(translationX: -self.width*0.15, y: 0)
-        self.leftView.alpha = 0
-        self.leftView.tableView.setContentOffset(CGPoint.zero, animated: false)
-        self.rightView.transform = CGAffineTransform.identity
-        self.rightView.alpha = 1
-        
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            self.rightView.transform = CGAffineTransform(translationX: self.width*0.15, y: 0)
-            self.rightView.alpha = 0
-            self.leftView.transform = CGAffineTransform.identity
-            self.leftView.alpha = 1
-        }) { (_) in
-//            self.rightView.monthModel = nil
-//            self.rightView.tableView.yod_reloadData()
+        UIView.animate(withDuration: 0.3) {
+            
+            after.transform = CGAffineTransform(translationX: -translationX, y: 0)
+            after.alpha = 0
+            
+            before.transform = .identity
+            before.alpha = 1
         }
     }
     
     //MARK: - Getter | Setter
+    
     private lazy var leftView: AccountContentView = {
         
         var leftView = AccountContentView(frame: bounds)
         leftView.delegate = self
-        leftView.alpha = 0
         
         return leftView
     }()
@@ -115,7 +100,6 @@ class HomeDisplayView: UIView {
        
         var rightView = AccountContentView(frame: bounds)
         rightView.delegate = self
-        rightView.alpha = 0
         
         return rightView
     }()
