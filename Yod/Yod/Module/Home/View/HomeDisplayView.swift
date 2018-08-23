@@ -39,8 +39,6 @@ class HomeDisplayView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    // TODO:
     var currentDate: YodDate! {
         didSet {
             guard oldValue != nil else {

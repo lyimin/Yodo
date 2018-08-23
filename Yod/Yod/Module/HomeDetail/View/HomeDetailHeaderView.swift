@@ -1,5 +1,5 @@
 //
-//  BillDetailHeaderView.swift
+//  HomeDetailHeaderView.swift
 //  Yod
 //
 //  Created by eamon on 2018/5/18.
@@ -11,7 +11,7 @@ import UIKit
 
 typealias CategoryType = Category.AccountType
 
-class BillDetailHeaderView: UIView {
+class HomeDetailHeaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,12 +38,12 @@ class BillDetailHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(frame: CGRect, contentView: BillDetailContentView) {
+    convenience init(frame: CGRect, contentView: HomeDetailContentView) {
         self.init(frame: frame)
         self.contentView = contentView
     }
     
-    weak var contentView: BillDetailContentView!
+    weak var contentView: HomeDetailContentView!
     
     /// 当前选中的分类
     
@@ -84,9 +84,9 @@ class BillDetailHeaderView: UIView {
     }()
     
     /// 收入支出
-    private(set) lazy var typeControl: BillDetailTypeControl = {
+    private(set) lazy var typeControl: HomeDetailTypeControl = {
         
-        var typeControl = BillDetailTypeControl()
+        var typeControl = HomeDetailTypeControl()
         typeControl.incomeBtn.addTarget(self, action: #selector(typeBtnDidClick(btn:)), for: .touchUpInside)
         typeControl.expendBtn.addTarget(self, action: #selector(typeBtnDidClick(btn:)), for: .touchUpInside)
         return typeControl
@@ -113,7 +113,7 @@ class BillDetailHeaderView: UIView {
     }()
 }
 
-extension BillDetailHeaderView {
+extension HomeDetailHeaderView {
     
     @objc private func backBtnDidClick() {
         if let delegate = contentView.delegate {
@@ -134,7 +134,7 @@ extension BillDetailHeaderView {
 }
 
 // MARK: - Private Methods
-extension BillDetailHeaderView {
+extension HomeDetailHeaderView {
     
     func typeControlDidSelected(btn: UIButton, accountType: CategoryType, firstLoad: Bool = false) {
         
@@ -196,9 +196,9 @@ extension BillDetailHeaderView {
     }
 }
 
-//MARK: --------------------------- BillDetailTypeControl --------------------------
+//MARK: --------------------------- HomeDetailTypeControl --------------------------
 
-class BillDetailTypeControl: UIView {
+class HomeDetailTypeControl: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -263,7 +263,7 @@ class BillDetailTypeControl: UIView {
 }
 
 // MARK: - Private Methods
-extension BillDetailTypeControl {
+extension HomeDetailTypeControl {
     
     
     private func setupLayout() {

@@ -1,5 +1,5 @@
 //
-//  BillDetailCardView.swift
+//  HomeDetailCardView.swift
 //  Yod
 //
 //  Created by eamon on 2018/5/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BillDetailCardView: UIView {
+class HomeDetailCardView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,7 +27,7 @@ class BillDetailCardView: UIView {
         setupLayout()
     }
     
-    convenience init(frame: CGRect, contentView: BillDetailContentView) {
+    convenience init(frame: CGRect, contentView: HomeDetailContentView) {
         self.init(frame: frame)
         self.contentView = contentView
     }
@@ -39,7 +39,7 @@ class BillDetailCardView: UIView {
     
     //MARK: - Getter | Setter
     
-    weak var contentView: BillDetailContentView!
+    weak var contentView: HomeDetailContentView!
     
     var date: YodDate! {
         didSet {
@@ -89,48 +89,48 @@ class BillDetailCardView: UIView {
         let categoryView = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
         categoryView.showsHorizontalScrollIndicator = false
         categoryView.backgroundColor = .clear
-        categoryView.registerClass(BillDetailCategoryCell.self)
+        categoryView.registerClass(HomeDetailCategoryCell.self)
         categoryView.delegate = self
         categoryView.dataSource = self
         return categoryView
     }()
     
     /// 日期
-    private lazy var dateItem: BillDetailItem = {
+    private lazy var dateItem: HomeDetailItem = {
         
-        var dateItem = BillDetailItem()
+        var dateItem = HomeDetailItem()
         dateItem.viewAddTarget(target: self, action: #selector(dateItemDidClick))
-        dateItem.iconView.image = #imageLiteral(resourceName: "ic_billDetail_date")
+        dateItem.iconView.image = #imageLiteral(resourceName: "ic_HomeDetail_date")
         dateItem.titleLabel.text = "日期"
         return dateItem
     }()
     
     /// 备注
-    private lazy var noteItem: BillDetailItem = {
+    private lazy var noteItem: HomeDetailItem = {
         
-        var noteItem = BillDetailItem()
+        var noteItem = HomeDetailItem()
         noteItem.viewAddTarget(target: self, action: #selector(noteItemDidClick))
         noteItem.isShowLineView = false
-        noteItem.iconView.image = #imageLiteral(resourceName: "ic_billDetail_note")
+        noteItem.iconView.image = #imageLiteral(resourceName: "ic_HomeDetail_note")
         noteItem.titleLabel.text = "备注"
         return noteItem
     }()
 }
 
-extension BillDetailCardView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+extension HomeDetailCardView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categories.count
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let cell = cell as! BillDetailCategoryCell
+        let cell = cell as! HomeDetailCategoryCell
         cell.category = categories[indexPath.row]
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(indexPath: indexPath) as BillDetailCategoryCell
+        let cell = collectionView.dequeueReusableCell(indexPath: indexPath) as HomeDetailCategoryCell
         
         return cell
     }
@@ -156,7 +156,7 @@ extension BillDetailCardView: UICollectionViewDelegateFlowLayout, UICollectionVi
 }
 
 // MARK: - Private Methods
-extension BillDetailCardView {
+extension HomeDetailCardView {
     
     private func setupLayout() {
         
@@ -197,7 +197,7 @@ extension BillDetailCardView {
 }
 
 
-class BillDetailItem: UIView {
+class HomeDetailItem: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

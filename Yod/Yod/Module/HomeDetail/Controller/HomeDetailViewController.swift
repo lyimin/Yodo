@@ -1,5 +1,5 @@
 //
-//  BillDetailViewController.swift
+//  HomeDetailViewController.swift
 //  Yod
 //
 //  Created by eamon on 2018/5/7.
@@ -12,18 +12,18 @@ import UIKit
 ///
 /// - created: 创建
 /// - edit: 编辑
-public enum BillDetailControllerType {
+public enum HomeDetailControllerType {
     case created
     case edit
 }
 
-protocol BillDetailViewControllerDelegate: NSObjectProtocol {
+protocol HomeDetailViewControllerDelegate: NSObjectProtocol {
     
     /// 回调给首页控制器
-    func accountDidChange(type: BillDetailControllerType, account: Account)
+    func accountDidChange(type: HomeDetailControllerType, account: Account)
 }
 
-class BillDetailViewController: BaseViewController {
+class HomeDetailViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +59,7 @@ class BillDetailViewController: BaseViewController {
 //        view.addGestureRecognizer(pan)
     }
     
-    convenience init(controllerType: BillDetailControllerType = .created) {
+    convenience init(controllerType: HomeDetailControllerType = .created) {
         self.init()
         self.type = controllerType
     }
@@ -67,7 +67,7 @@ class BillDetailViewController: BaseViewController {
     
     //MARK: - Getter | Setter
     
-    public weak var delegate: BillDetailViewControllerDelegate?
+    public weak var delegate: HomeDetailViewControllerDelegate?
     
     public var account: Account!
     
@@ -81,12 +81,12 @@ class BillDetailViewController: BaseViewController {
     private var percentDrivenTransition: UIPercentDrivenInteractiveTransition?
     
     /// 类型
-    private var type: BillDetailControllerType = .created
+    private var type: HomeDetailControllerType = .created
 
     /// 内容显示
-    private lazy var contentView: BillDetailContentView = {
+    private lazy var contentView: HomeDetailContentView = {
         
-        let contentView = BillDetailContentView(frame: view.bounds)
+        let contentView = HomeDetailContentView(frame: view.bounds)
         contentView.delegate = self
         return contentView
     }()
@@ -109,11 +109,11 @@ class BillDetailViewController: BaseViewController {
     private var incomes: [Category] = []
 }
 
-// MARK: - BillDetailContentViewDelegate
-extension BillDetailViewController: BillDetailContentViewDelegate {
+// MARK: - HomeDetailContentViewDelegate
+extension HomeDetailViewController: HomeDetailContentViewDelegate {
     
     /// 点击支出，收入
-    func typeBtnDidClick(headerView: BillDetailHeaderView, currentType: CategoryType) {
+    func typeBtnDidClick(headerView: HomeDetailHeaderView, currentType: CategoryType) {
         if currentType == CategoryType.expend {
             contentView.categories = expends
             account.type = .expend
@@ -133,9 +133,9 @@ extension BillDetailViewController: BillDetailContentViewDelegate {
     
     
     /// 点击备注
-    func noteItemDidClick(item: BillDetailItem, content: String) {
+    func noteItemDidClick(item: HomeDetailItem, content: String) {
         
-        let noteView = BillDetailNoteView(frame: view.bounds)
+        let noteView = HomeDetailNoteView(frame: view.bounds)
         noteView.content = content
         view.addSubview(noteView)
         noteView.show()
@@ -147,7 +147,7 @@ extension BillDetailViewController: BillDetailContentViewDelegate {
     }
     
     /// 点击日历
-    func calendarItemDidClick(item: BillDetailItem, date: YodDate) {
+    func calendarItemDidClick(item: HomeDetailItem, date: YodDate) {
         
         let calendarView = YodCalendarView(frame: view.bounds)
         view.addSubview(calendarView)
@@ -161,14 +161,14 @@ extension BillDetailViewController: BillDetailContentViewDelegate {
     }
     
     /// 金额改变
-    func priceDidChange(headerView: BillDetailHeaderView, price: String) {
+    func priceDidChange(headerView: HomeDetailHeaderView, price: String) {
         account.money = Double(price)!
         
         headerView.textField.text = account.type == .expend ? account.money.formatExpend() : account.money.formatIncome()
     }
     
     /// 点击某个分类
-    func categoryItemDidClick(cardView: BillDetailCardView, category: Category) {
+    func categoryItemDidClick(cardView: HomeDetailCardView, category: Category) {
         
         account.category = category
         
@@ -188,7 +188,7 @@ extension BillDetailViewController: BillDetailContentViewDelegate {
 }
 
 // MARK: - Event | Action
-extension BillDetailViewController {
+extension HomeDetailViewController {
     
     /// 点击保存
     @objc private func saveBtnDidClick() {
@@ -255,7 +255,7 @@ extension BillDetailViewController {
     }
 }
 
-extension BillDetailViewController {
+extension HomeDetailViewController {
     
     // init account model
     private func initAccount(incomes: [Category], expends: [Category]) {
@@ -289,7 +289,7 @@ extension BillDetailViewController {
 }
 
 // MARK: - CircleTransitionable
-extension BillDetailViewController: CircleTransitionable, UINavigationControllerDelegate  {
+extension HomeDetailViewController: CircleTransitionable, UINavigationControllerDelegate  {
     
     var triggerButton: UIButton {
         return saveBtn

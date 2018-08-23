@@ -1,5 +1,5 @@
 //
-//  BillDetailNoteView.swift
+//  HomeDetailNoteView.swift
 //  Yod
 //
 //  Created by eamon on 2018/7/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BillDetailNoteView: UIView {
+class HomeDetailNoteView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -142,7 +142,7 @@ class BillDetailNoteView: UIView {
 }
 
 // MARK: - UITextViewDelegate
-extension BillDetailNoteView: UITextViewDelegate {
+extension HomeDetailNoteView: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
@@ -165,7 +165,7 @@ extension BillDetailNoteView: UITextViewDelegate {
 
 
 // MARK: - Private Methods
-extension BillDetailNoteView {
+extension HomeDetailNoteView {
     
     @objc func dismiss() {
         

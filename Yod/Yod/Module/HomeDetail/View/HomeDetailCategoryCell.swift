@@ -1,5 +1,5 @@
 //
-//  BillDetailCategoryCell.swift
+//  HomeDetailCategoryCell.swift
 //  Yod
 //
 //  Created by eamon on 2018/5/25.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BillDetailCategoryCell: UICollectionViewCell, Reusable {
+class HomeDetailCategoryCell: UICollectionViewCell, Reusable {
     
     
     override init(frame: CGRect) {

@@ -1,5 +1,5 @@
 //
-//  BillDetailContentView.swift
+//  HomeDetailContentView.swift
 //  Yod
 //
 //  Created by eamon on 2018/5/7.
@@ -8,28 +8,28 @@
 
 import UIKit
 
-protocol BillDetailContentViewDelegate: NSObjectProtocol {
+protocol HomeDetailContentViewDelegate: NSObjectProtocol {
     
     /// 点击返回按钮
     func backBtnDidClick()
     
     /// 点击收入支出
-    func typeBtnDidClick(headerView: BillDetailHeaderView, currentType: CategoryType)
+    func typeBtnDidClick(headerView: HomeDetailHeaderView, currentType: CategoryType)
     
     /// 金额改变
-    func priceDidChange(headerView: BillDetailHeaderView, price: String)
+    func priceDidChange(headerView: HomeDetailHeaderView, price: String)
     
     /// 某个分类
-    func categoryItemDidClick(cardView: BillDetailCardView, category: Category)
+    func categoryItemDidClick(cardView: HomeDetailCardView, category: Category)
     
     /// 点击某个日历
-    func calendarItemDidClick(item: BillDetailItem, date: YodDate)
+    func calendarItemDidClick(item: HomeDetailItem, date: YodDate)
     
     /// 点击备注
-    func noteItemDidClick(item: BillDetailItem, content: String)
+    func noteItemDidClick(item: HomeDetailItem, content: String)
 }
 
-class BillDetailContentView: UIView {
+class HomeDetailContentView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,21 +43,21 @@ class BillDetailContentView: UIView {
     }
     
     
-    weak var delegate: BillDetailContentViewDelegate?
+    weak var delegate: HomeDetailContentViewDelegate?
     
     //MARK: - Getter | Setter
     
-    private(set) lazy var headerView: BillDetailHeaderView = {
+    private(set) lazy var headerView: HomeDetailHeaderView = {
         
-        var headerView = BillDetailHeaderView(frame: CGRect(x: 0, y: 0, width: width, height: 200), contentView: self);
+        var headerView = HomeDetailHeaderView(frame: CGRect(x: 0, y: 0, width: width, height: 200), contentView: self);
         return headerView
     }()
     
     
     /// 内容区域
-    private(set) lazy var cardView: BillDetailCardView = {
+    private(set) lazy var cardView: HomeDetailCardView = {
         
-        var cardView = BillDetailCardView(frame: CGRect(x: 0, y: 160, width: width, height: height-160), contentView: self)
+        var cardView = HomeDetailCardView(frame: CGRect(x: 0, y: 160, width: width, height: height-160), contentView: self)
         return cardView
     }()
     

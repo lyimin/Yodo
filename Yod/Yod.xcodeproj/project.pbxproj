@@ -13,7 +13,7 @@
 		F109428420C6C306003D9EB6 /* NumberKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F109428320C6C306003D9EB6 /* NumberKeyboardView.swift */; };
 		F117B5CB20AAE70700793767 /* UIImage+Yod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117B5CA20AAE70700793767 /* UIImage+Yod.swift */; };
 		F11910592083631400743D7B /* CountingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11910582083631400743D7B /* CountingLabel.swift */; };
-		F120C12D20FB491000EDB155 /* BillDetailNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F120C12C20FB491000EDB155 /* BillDetailNoteView.swift */; };
+		F120C12D20FB491000EDB155 /* HomeDetailNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F120C12C20FB491000EDB155 /* HomeDetailNoteView.swift */; };
 		F12CBE9F20873B9D0063A053 /* HomeItemSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12CBE9E20873B9D0063A053 /* HomeItemSectionView.swift */; };
 		F149D89920999D6B00E7BA59 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F149D89820999D6B00E7BA59 /* Info.plist */; };
 		F14AE377206E451000F65543 /* 20180329_account.csv in Resources */ = {isa = PBXBuildFile; fileRef = F14AE376206E451000F65543 /* 20180329_account.csv */; };
@@ -43,10 +43,10 @@
 		F185F23A20C21C2F001DA1F7 /* CircularTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F185F23920C21C2F001DA1F7 /* CircularTransition.swift */; };
 		F185F23C20C21CE4001DA1F7 /* TransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F185F23B20C21CE4001DA1F7 /* TransitionCoordinator.swift */; };
 		F185F23E20C22A39001DA1F7 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F185F23D20C22A39001DA1F7 /* BaseNavigationController.swift */; };
-		F1882E2C20AEADA5002BEDAA /* BillDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1882E2B20AEADA5002BEDAA /* BillDetailHeaderView.swift */; };
-		F1882E3020AEC039002BEDAA /* BillDetailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1882E2F20AEC039002BEDAA /* BillDetailCardView.swift */; };
-		F18C5CD920A0550B007050F9 /* BillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18C5CD820A0550B007050F9 /* BillDetailViewController.swift */; };
-		F18C5CDF20A05E07007050F9 /* BillDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18C5CDE20A05E07007050F9 /* BillDetailContentView.swift */; };
+		F1882E2C20AEADA5002BEDAA /* HomeDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1882E2B20AEADA5002BEDAA /* HomeDetailHeaderView.swift */; };
+		F1882E3020AEC039002BEDAA /* HomeDetailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1882E2F20AEC039002BEDAA /* HomeDetailCardView.swift */; };
+		F18C5CD920A0550B007050F9 /* HomeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18C5CD820A0550B007050F9 /* HomeDetailViewController.swift */; };
+		F18C5CDF20A05E07007050F9 /* HomeDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18C5CDE20A05E07007050F9 /* HomeDetailContentView.swift */; };
 		F192B87220FF13EA00A8B8EA /* YodNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F192B87120FF13EA00A8B8EA /* YodNotice.swift */; };
 		F192B87421018EE700A8B8EA /* UIViewController+Yod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F192B87321018EE700A8B8EA /* UIViewController+Yod.swift */; };
 		F19A465320FE12B900D16608 /* Double+Yod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19A465220FE12B900D16608 /* Double+Yod.swift */; };
@@ -58,7 +58,7 @@
 		F1A81C09200CA410003D2D4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1A81C08200CA410003D2D4E /* Assets.xcassets */; };
 		F1AA360520A4496100761DA8 /* YodService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AA360420A4496100761DA8 /* YodService.swift */; };
 		F1AC66CE209A0B3E000909DA /* HomeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AC66CD209A0B3E000909DA /* HomeDisplayView.swift */; };
-		F1B2662920B7AF1D00D42140 /* BillDetailCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B2662820B7AF1D00D42140 /* BillDetailCategoryCell.swift */; };
+		F1B2662920B7AF1D00D42140 /* HomeDetailCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B2662820B7AF1D00D42140 /* HomeDetailCategoryCell.swift */; };
 		F1BCD08F207E0BC700E4A791 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BCD08E207E0BC700E4A791 /* Reusable.swift */; };
 		F1C16A02207EFF64003C4B5A /* HomeNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A20204E94FD00855D00 /* HomeNavigationView.swift */; };
 		F1C16A04207F07C4003C4B5A /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C16A03207F07C4003C4B5A /* UIView+Frame.swift */; };
@@ -103,7 +103,7 @@
 		F109428320C6C306003D9EB6 /* NumberKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberKeyboardView.swift; sourceTree = "<group>"; };
 		F117B5CA20AAE70700793767 /* UIImage+Yod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Yod.swift"; sourceTree = "<group>"; };
 		F11910582083631400743D7B /* CountingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingLabel.swift; sourceTree = "<group>"; };
-		F120C12C20FB491000EDB155 /* BillDetailNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailNoteView.swift; sourceTree = "<group>"; };
+		F120C12C20FB491000EDB155 /* HomeDetailNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailNoteView.swift; sourceTree = "<group>"; };
 		F12CBE9E20873B9D0063A053 /* HomeItemSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeItemSectionView.swift; sourceTree = "<group>"; };
 		F149D89820999D6B00E7BA59 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F14AE376206E451000F65543 /* 20180329_account.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 20180329_account.csv; sourceTree = "<group>"; };
@@ -134,10 +134,10 @@
 		F185F23920C21C2F001DA1F7 /* CircularTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularTransition.swift; sourceTree = "<group>"; };
 		F185F23B20C21CE4001DA1F7 /* TransitionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionCoordinator.swift; sourceTree = "<group>"; };
 		F185F23D20C22A39001DA1F7 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
-		F1882E2B20AEADA5002BEDAA /* BillDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailHeaderView.swift; sourceTree = "<group>"; };
-		F1882E2F20AEC039002BEDAA /* BillDetailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailCardView.swift; sourceTree = "<group>"; };
-		F18C5CD820A0550B007050F9 /* BillDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailViewController.swift; sourceTree = "<group>"; };
-		F18C5CDE20A05E07007050F9 /* BillDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailContentView.swift; sourceTree = "<group>"; };
+		F1882E2B20AEADA5002BEDAA /* HomeDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailHeaderView.swift; sourceTree = "<group>"; };
+		F1882E2F20AEC039002BEDAA /* HomeDetailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailCardView.swift; sourceTree = "<group>"; };
+		F18C5CD820A0550B007050F9 /* HomeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailViewController.swift; sourceTree = "<group>"; };
+		F18C5CDE20A05E07007050F9 /* HomeDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailContentView.swift; sourceTree = "<group>"; };
 		F192B87120FF13EA00A8B8EA /* YodNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodNotice.swift; sourceTree = "<group>"; };
 		F192B87321018EE700A8B8EA /* UIViewController+Yod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Yod.swift"; sourceTree = "<group>"; };
 		F19A465220FE12B900D16608 /* Double+Yod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Yod.swift"; sourceTree = "<group>"; };
@@ -152,7 +152,7 @@
 		F1A81C1D200CA410003D2D4E /* YodUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YodUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1AA360420A4496100761DA8 /* YodService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodService.swift; sourceTree = "<group>"; };
 		F1AC66CD209A0B3E000909DA /* HomeDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDisplayView.swift; sourceTree = "<group>"; };
-		F1B2662820B7AF1D00D42140 /* BillDetailCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailCategoryCell.swift; sourceTree = "<group>"; };
+		F1B2662820B7AF1D00D42140 /* HomeDetailCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailCategoryCell.swift; sourceTree = "<group>"; };
 		F1BCD08E207E0BC700E4A791 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		F1C16A03207F07C4003C4B5A /* UIView+Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
 		F1C16A07207F6423003C4B5A /* Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delay.swift; sourceTree = "<group>"; };
@@ -234,7 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				F1E6AFA22104BA56009F234B /* Statistics */,
-				F18C5CD720A052B7007050F9 /* BillDetail */,
+				F18C5CD720A052B7007050F9 /* HomeDetail */,
 				F1749F41209F007B000C613C /* Root */,
 				F1504A15204E912B00855D00 /* Base */,
 				F1504A18204E912B00855D00 /* Home */,
@@ -343,20 +343,20 @@
 			path = Transition;
 			sourceTree = "<group>";
 		};
-		F18C5CD720A052B7007050F9 /* BillDetail */ = {
+		F18C5CD720A052B7007050F9 /* HomeDetail */ = {
 			isa = PBXGroup;
 			children = (
 				F185F23820C21C1C001DA1F7 /* Transition */,
 				F18C5CDB20A05C7F007050F9 /* View */,
 				F18C5CDA20A05C6A007050F9 /* Controller */,
 			);
-			path = BillDetail;
+			path = HomeDetail;
 			sourceTree = "<group>";
 		};
 		F18C5CDA20A05C6A007050F9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				F18C5CD820A0550B007050F9 /* BillDetailViewController.swift */,
+				F18C5CD820A0550B007050F9 /* HomeDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -364,11 +364,11 @@
 		F18C5CDB20A05C7F007050F9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F18C5CDE20A05E07007050F9 /* BillDetailContentView.swift */,
-				F1882E2B20AEADA5002BEDAA /* BillDetailHeaderView.swift */,
-				F1882E2F20AEC039002BEDAA /* BillDetailCardView.swift */,
-				F1B2662820B7AF1D00D42140 /* BillDetailCategoryCell.swift */,
-				F120C12C20FB491000EDB155 /* BillDetailNoteView.swift */,
+				F18C5CDE20A05E07007050F9 /* HomeDetailContentView.swift */,
+				F1882E2B20AEADA5002BEDAA /* HomeDetailHeaderView.swift */,
+				F1882E2F20AEC039002BEDAA /* HomeDetailCardView.swift */,
+				F1B2662820B7AF1D00D42140 /* HomeDetailCategoryCell.swift */,
+				F120C12C20FB491000EDB155 /* HomeDetailNoteView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -743,7 +743,7 @@
 				F17BC656210AFD9C006707E7 /* StatisticsNavigationView.swift in Sources */,
 				F1C16A02207EFF64003C4B5A /* HomeNavigationView.swift in Sources */,
 				F1BCD08F207E0BC700E4A791 /* Reusable.swift in Sources */,
-				F18C5CD920A0550B007050F9 /* BillDetailViewController.swift in Sources */,
+				F18C5CD920A0550B007050F9 /* HomeDetailViewController.swift in Sources */,
 				F185F23C20C21CE4001DA1F7 /* TransitionCoordinator.swift in Sources */,
 				F1A6FFD7208CEF220021EAEA /* DisplayScrollView.swift in Sources */,
 				F16F74B1207E63E000E6F194 /* HomeItemCell.swift in Sources */,
@@ -755,7 +755,7 @@
 				F1A0C7B92091B7CE000A62F7 /* YodDate.swift in Sources */,
 				F16F74B3207E676100E6F194 /* HomeHeaderView.swift in Sources */,
 				F1E4163D209378FB00C4A7AF /* UIView+Load.swift in Sources */,
-				F120C12D20FB491000EDB155 /* BillDetailNoteView.swift in Sources */,
+				F120C12D20FB491000EDB155 /* HomeDetailNoteView.swift in Sources */,
 				F1754DF52052370400A7CF77 /* AccountManager.swift in Sources */,
 				F192B87220FF13EA00A8B8EA /* YodNotice.swift in Sources */,
 				F1A81C02200CA410003D2D4E /* AppDelegate.swift in Sources */,
@@ -769,18 +769,18 @@
 				F1C16A04207F07C4003C4B5A /* UIView+Frame.swift in Sources */,
 				F109428420C6C306003D9EB6 /* NumberKeyboardView.swift in Sources */,
 				F183E71120A1E8FE0028F280 /* YodManager.swift in Sources */,
-				F18C5CDF20A05E07007050F9 /* BillDetailContentView.swift in Sources */,
+				F18C5CDF20A05E07007050F9 /* HomeDetailContentView.swift in Sources */,
 				F11910592083631400743D7B /* CountingLabel.swift in Sources */,
 				F164213220A19DF8000ECC7C /* CategoryManager.swift in Sources */,
 				F164212B20A14C0B000ECC7C /* UIColor+Yod.swift in Sources */,
 				F150358E2098C3680055617D /* String+Yod.swift in Sources */,
 				F15D2633208F1EBF0027D3EA /* AccountContentView.swift in Sources */,
 				F14DAC0F210CAF2F001110D6 /* YodTableViewDataSource.swift in Sources */,
-				F1B2662920B7AF1D00D42140 /* BillDetailCategoryCell.swift in Sources */,
+				F1B2662920B7AF1D00D42140 /* HomeDetailCategoryCell.swift in Sources */,
 				F16ADECB20A34174004BED51 /* CategoryDao.swift in Sources */,
 				F1AC66CE209A0B3E000909DA /* HomeDisplayView.swift in Sources */,
 				F12CBE9F20873B9D0063A053 /* HomeItemSectionView.swift in Sources */,
-				F1882E3020AEC039002BEDAA /* BillDetailCardView.swift in Sources */,
+				F1882E3020AEC039002BEDAA /* HomeDetailCardView.swift in Sources */,
 				F1AA360520A4496100761DA8 /* YodService.swift in Sources */,
 				F1504A1C204E912B00855D00 /* HomeViewController.swift in Sources */,
 				F185F23E20C22A39001DA1F7 /* BaseNavigationController.swift in Sources */,
@@ -792,7 +792,7 @@
 				F16F74AF207CFF6B00E6F194 /* YodPrint.swift in Sources */,
 				F19A465320FE12B900D16608 /* Double+Yod.swift in Sources */,
 				F183E71320A1F9390028F280 /* Category.swift in Sources */,
-				F1882E2C20AEADA5002BEDAA /* BillDetailHeaderView.swift in Sources */,
+				F1882E2C20AEADA5002BEDAA /* HomeDetailHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

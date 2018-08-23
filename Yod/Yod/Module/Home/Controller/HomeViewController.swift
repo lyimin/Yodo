@@ -135,20 +135,20 @@ extension HomeViewController: HomeDisplayViewDelegate {
     /// 点击item
     func homeDisplayView(_ contentView: AccountContentView, itemDidClick withIndexPath: IndexPath) {
         
-        let billDetail = BillDetailViewController(controllerType: .edit)
+        let HomeDetail = HomeDetailViewController(controllerType: .edit)
         
-        billDetail.delegate = self
-        navigationController?.pushViewController(billDetail, animated: true)
+        HomeDetail.delegate = self
+        navigationController?.pushViewController(HomeDetail, animated: true)
         if let model = contentView.monthModel?.dailyModels[withIndexPath.section].accounts[withIndexPath.row] {
-            billDetail.account = model
+            HomeDetail.account = model
         }
         
     }
 }
 
-extension HomeViewController: BillDetailViewControllerDelegate {
+extension HomeViewController: HomeDetailViewControllerDelegate {
     
-    func accountDidChange(type: BillDetailControllerType, account: Account) {
+    func accountDidChange(type: HomeDetailControllerType, account: Account) {
         
         YodService.getDates {
             self.dates = $0
@@ -195,8 +195,8 @@ extension HomeViewController {
     
     @objc private func createdBtnDidClick() {
         
-        let billDetailController = BillDetailViewController(controllerType: .created)
-        billDetailController.delegate = self
-        navigationController?.pushViewController(billDetailController, animated: true)
+        let ctrl = HomeDetailViewController(controllerType: .created)
+        ctrl.delegate = self
+        navigationController?.pushViewController(ctrl, animated: true)
     }
 }
