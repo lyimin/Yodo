@@ -255,7 +255,7 @@ extension HomeNavigationView {
         menuBtn.snp.makeConstraints{ (make) in
             make.left.equalTo(YodConfig.frame.nvIconMarginBorder)
             make.size.equalTo(CGSize(width: 20, height: 20))
-            make.top.equalTo(self).offset(YodConfig.frame.nvIconMarginTop)
+            make.top.equalTo(self).offset(YodConfig.frame.nvIconMarginTop + YodConfig.frame.safeTopHeight)
         }
         
         sepLine.snp.makeConstraints { (make) in

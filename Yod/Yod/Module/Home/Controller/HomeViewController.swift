@@ -14,20 +14,8 @@ class HomeViewController: BaseViewController, UINavigationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(navigationView)
-        view.addSubview(displayView)
-        view.addSubview(createdBtn)
-        
-        navigationView.snp.makeConstraints { (make) in
-            make.left.right.top.equalTo(self.view)
-            make.height.equalTo(navigationH)
-        }
-        
-        createdBtn.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.view)
-            make.size.equalTo(CGSize(width: 45, height: 45))
-            make.bottom.equalTo(self.view).offset(-30)
-        }
+        // 初始化view
+        initView()
         
         YodService.getDates {
             self.dates = $0
@@ -48,7 +36,7 @@ class HomeViewController: BaseViewController, UINavigationControllerDelegate {
     private let coordinator = TransitionCoordinator()
     
     /// 导航栏高度
-    private let navigationH: CGFloat = 145
+    private let navigationH: CGFloat = 145 + YodConfig.frame.safeTopHeight
     
     /// 中间滚动器
     private lazy var displayView: HomeDisplayView = {
@@ -104,10 +92,6 @@ extension HomeViewController: HomeNavigationViewDelegate {
     
     /// 点击菜单
     func navigationView(_ navigationView: HomeNavigationView, menuBtnDidClick: UIButton) {
-        
-        YodService.getDates {
-            self.dates = $0
-        }
     }
     
     /// 点击统计
@@ -117,6 +101,7 @@ extension HomeViewController: HomeNavigationViewDelegate {
     }
 }
 
+// MARK: - HomeDisplayViewDelegate
 extension HomeViewController: HomeDisplayViewDelegate {
     
     
@@ -147,6 +132,8 @@ extension HomeViewController: HomeDisplayViewDelegate {
     }
 }
 
+
+// MARK: - HomeDetailViewControllerDelegate
 extension HomeViewController: HomeDetailViewControllerDelegate {
     
     func accountDidChange(type: HomeDetailControllerType, account: Account) {
@@ -200,5 +187,27 @@ extension HomeViewController {
         let ctrl = HomeDetailViewController(controllerType: .created)
         ctrl.delegate = self
         navigationController?.pushViewController(ctrl, animated: true)
+    }
+}
+
+extension HomeViewController {
+    
+    // 初始化view
+    private func initView() {
+        
+        view.addSubview(navigationView)
+        view.addSubview(displayView)
+        view.addSubview(createdBtn)
+        
+        navigationView.snp.makeConstraints { (make) in
+            make.left.right.top.equalTo(self.view)
+            make.height.equalTo(navigationH)
+        }
+        
+        createdBtn.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view)
+            make.size.equalTo(CGSize(width: 45, height: 45))
+            make.bottom.equalTo(self.view).offset(-(30+YodConfig.frame.safeBottomHeight))
+        }
     }
 }

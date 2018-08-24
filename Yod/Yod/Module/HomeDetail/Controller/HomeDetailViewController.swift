@@ -28,24 +28,16 @@ class HomeDetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(contentView)
-        view.addSubview(saveBtn)
+        initView()
         
-        contentView.snp.makeConstraints { (make) in
-            make.edges.equalTo(self.view)
-        }
-        
-        saveBtn.snp.makeConstraints { (make) in
-            make.size.equalTo(CGSize(width: 130, height: 35))
-            make.bottom.equalTo(self.view).offset(-30)
-            make.centerX.equalTo(self.view)
-        }
-        
-        YodService.getCategories { [unowned self](expends, incomes) in
-            self.expends = expends
-            self.incomes = incomes
+        YodService.getCategories { [weak self](expends, incomes) in
             
-            self.initAccount(incomes: incomes, expends: expends)
+            guard let strongSelf = self else { return }
+            
+            strongSelf.expends = expends
+            strongSelf.incomes = incomes
+            
+            strongSelf.initAccount(incomes: incomes, expends: expends)
         }
     }
     
@@ -255,6 +247,7 @@ extension HomeDetailViewController {
     }
 }
 
+// MARK: - PrivateMethods
 extension HomeDetailViewController {
     
     // init account model
@@ -285,6 +278,22 @@ extension HomeDetailViewController {
             self.contentView.categories = incomes
         }
         contentView.account = account
+    }
+    
+    private func initView() {
+        
+        view.addSubview(contentView)
+        view.addSubview(saveBtn)
+        
+        contentView.snp.makeConstraints { (make) in
+            make.edges.equalTo(self.view)
+        }
+        
+        saveBtn.snp.makeConstraints { (make) in
+            make.size.equalTo(CGSize(width: 130, height: 35))
+            make.bottom.equalTo(self.view).offset(-(30+YodConfig.frame.safeBottomHeight))
+            make.centerX.equalTo(self.view)
+        }
     }
 }
 

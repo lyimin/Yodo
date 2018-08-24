@@ -166,7 +166,7 @@ extension HomeDetailHeaderView {
         
         backBtn.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(25)
-            make.top.equalTo(self).offset(40)
+            make.top.equalTo(self).offset(YodConfig.frame.nvIconMarginTop + YodConfig.frame.safeTopHeight)
             make.size.equalTo(CGSize(width: 23, height: 23))
         }
         

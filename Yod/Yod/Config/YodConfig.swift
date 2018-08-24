@@ -18,6 +18,14 @@ struct YodConfig {
         static let nvIconMarginBorder: CGFloat = 20
         static let nvIconMarginTop: CGFloat = 35
         static let nvIconMarginLeft: CGFloat = 10
+        
+        // 状态栏
+        static let statesHeight: CGFloat = UIScreen.main.bounds.height == 812 ? 44 : 20
+        
+        // 顶部安全区域
+        static let safeTopHeight: CGFloat = UIScreen.main.bounds.height == 812 ? 24 : 0
+        // 底部安全区域
+        static let safeBottomHeight: CGFloat = UIScreen.main.bounds.height == 812 ? 34 : 0;
     }
     
     
