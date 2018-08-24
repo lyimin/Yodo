@@ -182,6 +182,15 @@ extension AccountContentView: UITableViewDelegate, YodTableViewDataSource, Swipe
         holderView.bounds = CGRect(x: 0, y: 0, width: holderView.image!.size.width, height: holderView.image!.size.height)
         return holderView
     }
+    
+    func placeHolderTitleView(tableView: UITableView) -> UILabel {
+        let titleLabel = UILabel()
+        titleLabel.textColor = YodConfig.color.darkGraySubTitle
+        titleLabel.textAlignment = .center
+        titleLabel.font = YodConfig.font.bold(size: 14)
+        titleLabel.text = "暂无数据"
+        return titleLabel
+    }
 }
 
 // MARK: - Private Methods

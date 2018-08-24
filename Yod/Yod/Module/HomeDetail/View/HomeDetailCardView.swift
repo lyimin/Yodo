@@ -100,7 +100,7 @@ class HomeDetailCardView: UIView {
         
         var dateItem = HomeDetailItem()
         dateItem.viewAddTarget(target: self, action: #selector(dateItemDidClick))
-        dateItem.iconView.image = #imageLiteral(resourceName: "ic_HomeDetail_date")
+        dateItem.iconView.image = #imageLiteral(resourceName: "ic_billDetail_date")
         dateItem.titleLabel.text = "日期"
         return dateItem
     }()
@@ -111,7 +111,7 @@ class HomeDetailCardView: UIView {
         var noteItem = HomeDetailItem()
         noteItem.viewAddTarget(target: self, action: #selector(noteItemDidClick))
         noteItem.isShowLineView = false
-        noteItem.iconView.image = #imageLiteral(resourceName: "ic_HomeDetail_note")
+        noteItem.iconView.image = #imageLiteral(resourceName: "ic_billDetail_note")
         noteItem.titleLabel.text = "备注"
         return noteItem
     }()

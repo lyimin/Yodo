@@ -79,6 +79,7 @@ class HomeViewController: BaseViewController, UINavigationControllerDelegate {
         return navigationView
     }()
     
+    /// 添加记账按钮
     private lazy var createdBtn: UIButton = {
         
         var createdBtn = UIButton()
@@ -193,6 +194,7 @@ extension HomeViewController {
         }
     }
     
+    // 点击添加记账
     @objc private func createdBtnDidClick() {
         
         let ctrl = HomeDetailViewController(controllerType: .created)

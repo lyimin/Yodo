@@ -49,23 +49,22 @@ class HomeItemCell: SwipeTableViewCell, Reusable {
             make.centerY.equalTo(content)
             make.size.equalTo(CGSize(width: 40, height: 40))
         }
-        
-        categoryLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(iconBackground.snp.right).offset(15)
-            make.centerY.equalTo(iconView)
-            make.height.equalTo(20)
-            make.width.lessThanOrEqualTo(150)
-        }
-        
-        priceLabel.snp.makeConstraints { (make) in
-            make.right.equalTo(content).offset(-10)
-            make.centerY.equalTo(content)
-            make.height.equalTo(20)
-            make.left.equalTo(categoryLabel.snp.right).offset(10)
-        }
     }
     
     private func resetLayout(remarkIsEmpty: Bool) {
+        
+        // 价格
+        priceLabel.snp.remakeConstraints { (make) in
+            make.height.equalTo(20)
+            make.centerY.equalTo(content)
+            make.right.equalTo(content).offset(-10)
+        }
+        
+        // 分类图标
+        iconView.snp.remakeConstraints { (make) in
+            make.size.equalTo(iconView.image!.size)
+            make.center.equalTo(iconBackground)
+        }
         
         descLabel.isHidden = remarkIsEmpty
         if remarkIsEmpty {
@@ -84,14 +83,10 @@ class HomeItemCell: SwipeTableViewCell, Reusable {
             }
             
             descLabel.snp.remakeConstraints { (make) in
-                make.left.width.height.equalTo(categoryLabel)
+                make.left.height.equalTo(categoryLabel)
+                make.right.equalTo(priceLabel.snp.left).offset(-10)
                 make.centerY.equalTo(iconBackground).offset(10)
             }
-        }
-        
-        iconView.snp.remakeConstraints { (make) in
-            make.size.equalTo(iconView.image!.size)
-            make.center.equalTo(iconBackground)
         }
     }
     
