@@ -16,12 +16,21 @@ protocol AccountContentViewDelegate: NSObjectProtocol {
     
     /// 点击item
     func accountContentView(_ contentView: AccountContentView, itemDidClick withIndexPath: IndexPath)
+    
+    /// 监听列表滚动
+    func accountContentView(_ contentView: AccountContentView, scrollDirection: AccountContentView.ScrollDirection)
 }
 
 /// 首页每月的数据
 class AccountContentView: UIView {
     
     weak var delegate: AccountContentViewDelegate?
+    
+    enum ScrollDirection {
+        case none
+        case down
+        case up
+    }
     
     //MARK: - Life Cycle
     override init(frame: CGRect) {
@@ -46,6 +55,8 @@ class AccountContentView: UIView {
     private var editIndexPath: IndexPath?
     
     //MARK: - Getter | Setter
+    
+    private var direction: ScrollDirection = .none
     /// 列表
     private(set) lazy var tableView: UITableView = {
         
@@ -190,6 +201,32 @@ extension AccountContentView: UITableViewDelegate, YodTableViewDataSource, Swipe
         titleLabel.font = YodConfig.font.bold(size: 14)
         titleLabel.text = "暂无数据"
         return titleLabel
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension AccountContentView: UIScrollViewDelegate {
+    
+    /// 监听scrollView滚动方向，联动Navigation
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if scrollView.contentOffset.y < 120 { return }
+        
+        let translatedPoint = scrollView.panGestureRecognizer.translation(in: scrollView)
+        if (translatedPoint.y > 10) {
+            // 向下
+            if direction == .down { return }
+            
+            direction = .down
+            delegate?.accountContentView(self, scrollDirection: .down)
+            
+        } else if (translatedPoint.y < -10) {
+            // 向上
+            if direction == .up { return }
+            
+            direction = .up
+            delegate?.accountContentView(self, scrollDirection: .up)
+        }
     }
 }
 

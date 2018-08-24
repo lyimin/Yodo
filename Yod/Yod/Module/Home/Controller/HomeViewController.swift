@@ -41,7 +41,8 @@ class HomeViewController: BaseViewController, UINavigationControllerDelegate {
     /// 中间滚动器
     private lazy var displayView: HomeDisplayView = {
         var displayView = HomeDisplayView(frame: CGRect(x: 0, y: navigationH, width: view.width, height: view.height-navigationH))
-        displayView.delegate = self
+        displayView.leftView.delegate = self
+        displayView.rightView.delegate = self
         return displayView
     }()
     
@@ -101,12 +102,29 @@ extension HomeViewController: HomeNavigationViewDelegate {
     }
 }
 
-// MARK: - HomeDisplayViewDelegate
-extension HomeViewController: HomeDisplayViewDelegate {
+// MARK: - AccountContentViewDelegate
+extension HomeViewController: AccountContentViewDelegate {
     
+    /// 监听ScrollView滚动方向，联动Navigation
+    func accountContentView(_ contentView: AccountContentView, scrollDirection: AccountContentView.ScrollDirection) {
+        
+        /* TODO: 由于iPhoneX导航栏问题，目前先取消这个xu'q
+        var transform: CGAffineTransform
+        if scrollDirection == .down {
+            
+            transform = .identity
+        } else {
+            transform = CGAffineTransform(translationX: 0, y: -55)
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            self.navigationView.transform = transform
+        }
+        */
+    }
     
     /// 点击删除账单
-    func homeDisplayView(_ contentView: AccountContentView, itemDeleted withIndexPath: IndexPath, callBack: @escaping (Bool) -> Void) {
+    func accountContentView(_ contentView: AccountContentView, itemDeleted withIndexPath: IndexPath, callBack: @escaping (Bool) -> Void) {
         
         guard let account = contentView.monthModel?.dailyModels[withIndexPath.section].accounts[withIndexPath.row] else {
             return
@@ -119,7 +137,7 @@ extension HomeViewController: HomeDisplayViewDelegate {
     }
     
     /// 点击item
-    func homeDisplayView(_ contentView: AccountContentView, itemDidClick withIndexPath: IndexPath) {
+    func accountContentView(_ contentView: AccountContentView, itemDidClick withIndexPath: IndexPath) {
         
         let HomeDetail = HomeDetailViewController(controllerType: .edit)
         
@@ -128,10 +146,8 @@ extension HomeViewController: HomeDisplayViewDelegate {
         if let model = contentView.monthModel?.dailyModels[withIndexPath.section].accounts[withIndexPath.row] {
             HomeDetail.account = model
         }
-        
     }
 }
-
 
 // MARK: - HomeDetailViewControllerDelegate
 extension HomeViewController: HomeDetailViewControllerDelegate {
@@ -153,6 +169,7 @@ extension HomeViewController: HomeDetailViewControllerDelegate {
     }
 }
 
+// MARK: - Transition
 extension HomeViewController: CircleTransitionable {
     
     var triggerButton: UIButton {

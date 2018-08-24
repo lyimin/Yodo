@@ -13,6 +13,7 @@ class StatisticsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        transitioningDelegate = self
         view.addSubview(navigationView)
         setupLayout()
     }
@@ -26,12 +27,26 @@ class StatisticsViewController: BaseViewController {
     }()
 }
 
-// MARK: StatisticsNavigationViewDelegate----
+// MARK: - StatisticsNavigationViewDelegate
 extension StatisticsViewController: StatisticsNavigationViewDelegate {
     
     /// 点击返回按钮
     func backBtnDidClick() {
+        
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension StatisticsViewController: UIViewControllerTransitioningDelegate {
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        return DoflipTransitionAnimation(dir: .right)
+    }
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        return DoflipTransitionAnimation(dir: .left)
     }
 }
 

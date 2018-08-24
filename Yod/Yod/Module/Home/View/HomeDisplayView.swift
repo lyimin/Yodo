@@ -8,18 +8,7 @@
 
 import UIKit
 
-
-protocol HomeDisplayViewDelegate: NSObjectProtocol {
-    /// 点击删除按钮
-    func homeDisplayView(_ contentView: AccountContentView, itemDeleted withIndexPath: IndexPath, callBack: @escaping (_ isDelete: Bool) -> Void)
-    
-    /// 点击item
-    func homeDisplayView(_ contentView: AccountContentView, itemDidClick withIndexPath: IndexPath)
-}
-
 class HomeDisplayView: UIView {
-    
-    weak var delegate: HomeDisplayViewDelegate?
     
     private enum AnimateDirection {
         case none
@@ -64,7 +53,7 @@ class HomeDisplayView: UIView {
         }
     }
  
-    weak var currentView: AccountContentView!
+    private weak var currentView: AccountContentView!
     
     private func animate(after: AccountContentView!, before: AccountContentView!, direction: AnimateDirection) {
         
@@ -86,34 +75,15 @@ class HomeDisplayView: UIView {
     
     //MARK: - Getter | Setter
     
-    private lazy var leftView: AccountContentView = {
+    private(set) lazy var leftView: AccountContentView = {
         
         var leftView = AccountContentView(frame: bounds)
-        leftView.delegate = self
-        
         return leftView
     }()
     
-    private lazy var rightView: AccountContentView = {
+    private(set) lazy var rightView: AccountContentView = {
        
         var rightView = AccountContentView(frame: bounds)
-        rightView.delegate = self
-        
         return rightView
     }()
-}
-
-extension HomeDisplayView: AccountContentViewDelegate {
-    
-    func accountContentView(_ contentView: AccountContentView, itemDeleted withIndexPath: IndexPath, callBack: @escaping (Bool) -> Void) {
-        if let delegate = self.delegate {
-            delegate.homeDisplayView(contentView, itemDeleted: withIndexPath, callBack: callBack)
-        }
-    }
-    
-    func accountContentView(_ contentView: AccountContentView, itemDidClick withIndexPath: IndexPath) {
-        if let delegate = self.delegate {
-            delegate.homeDisplayView(contentView, itemDidClick: withIndexPath)
-        }
-    }
 }

@@ -58,6 +58,7 @@
 		F1A81C09200CA410003D2D4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1A81C08200CA410003D2D4E /* Assets.xcassets */; };
 		F1AA360520A4496100761DA8 /* YodService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AA360420A4496100761DA8 /* YodService.swift */; };
 		F1AC66CE209A0B3E000909DA /* HomeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AC66CD209A0B3E000909DA /* HomeDisplayView.swift */; };
+		F1AC9A21212FF9E100A33449 /* DoflipTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AC9A20212FF9E100A33449 /* DoflipTransitionAnimation.swift */; };
 		F1B2662920B7AF1D00D42140 /* HomeDetailCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B2662820B7AF1D00D42140 /* HomeDetailCategoryCell.swift */; };
 		F1BCD08F207E0BC700E4A791 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BCD08E207E0BC700E4A791 /* Reusable.swift */; };
 		F1C16A02207EFF64003C4B5A /* HomeNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A20204E94FD00855D00 /* HomeNavigationView.swift */; };
@@ -152,6 +153,7 @@
 		F1A81C1D200CA410003D2D4E /* YodUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YodUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1AA360420A4496100761DA8 /* YodService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodService.swift; sourceTree = "<group>"; };
 		F1AC66CD209A0B3E000909DA /* HomeDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDisplayView.swift; sourceTree = "<group>"; };
+		F1AC9A20212FF9E100A33449 /* DoflipTransitionAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoflipTransitionAnimation.swift; sourceTree = "<group>"; };
 		F1B2662820B7AF1D00D42140 /* HomeDetailCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailCategoryCell.swift; sourceTree = "<group>"; };
 		F1BCD08E207E0BC700E4A791 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		F1C16A03207F07C4003C4B5A /* UIView+Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
@@ -438,6 +440,14 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		F1AC9A1F212FF8FB00A33449 /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+				F1AC9A20212FF9E100A33449 /* DoflipTransitionAnimation.swift */,
+			);
+			path = Transition;
+			sourceTree = "<group>";
+		};
 		F1BCD084207DA94C00E4A791 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -478,6 +488,7 @@
 		F1E6AFA22104BA56009F234B /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
+				F1AC9A1F212FF8FB00A33449 /* Transition */,
 				F17BC654210AFD4D006707E7 /* Controller */,
 				F17BC653210AFD42006707E7 /* View */,
 			);
@@ -773,6 +784,7 @@
 				F11910592083631400743D7B /* CountingLabel.swift in Sources */,
 				F164213220A19DF8000ECC7C /* CategoryManager.swift in Sources */,
 				F164212B20A14C0B000ECC7C /* UIColor+Yod.swift in Sources */,
+				F1AC9A21212FF9E100A33449 /* DoflipTransitionAnimation.swift in Sources */,
 				F150358E2098C3680055617D /* String+Yod.swift in Sources */,
 				F15D2633208F1EBF0027D3EA /* AccountContentView.swift in Sources */,
 				F14DAC0F210CAF2F001110D6 /* TableViewDataSource+Yod.swift in Sources */,
