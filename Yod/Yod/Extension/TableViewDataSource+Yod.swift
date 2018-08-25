@@ -9,7 +9,7 @@
 import UIKit
 
 
-@objc protocol YodTableViewDataSource: UITableViewDataSource {
+@objc public protocol YodTableViewDataSource: UITableViewDataSource {
     
     @objc optional func placeHolderView(tableView: UITableView) -> UIView?
     @objc optional func placeHolderTitleView(tableView: UITableView) -> UILabel
@@ -22,7 +22,7 @@ fileprivate struct AssociatedKeys {
 
 extension UITableView {
     
-    private var holderView: UIView? {
+    fileprivate var holderView: UIView? {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.kTableHolderView) as! UIView?
         }
@@ -31,7 +31,7 @@ extension UITableView {
         }
     }
     
-    private var titleLabel: UILabel? {
+    fileprivate var titleLabel: UILabel? {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.kTableHolderTitle) as? UILabel
         }
@@ -45,6 +45,7 @@ extension UITableView {
         reloadData()
         checkEmpty()
     }
+    
     
     fileprivate func checkEmpty() {
         
@@ -83,6 +84,10 @@ extension UITableView {
             return
         }
         
+        showHolder(ds: ds)
+    }
+    
+    public func showHolder(ds: YodTableViewDataSource) {
         if ds.responds(to: #selector(ds.placeHolderView(tableView:))) && ds.placeHolderView!(tableView: self) != nil {
             
             let holderView = ds.placeHolderView!(tableView: self)!
@@ -97,7 +102,7 @@ extension UITableView {
         }
     }
     
-    private func show(holderView: UIView) {
+    fileprivate func show(holderView: UIView) {
         
         if let headerView = tableHeaderView {
             headerView.isHidden = true
@@ -122,7 +127,7 @@ extension UITableView {
         self.holderView = holderView
     }
     
-    private func show(titleLabel: UILabel) {
+    fileprivate func show(titleLabel: UILabel) {
         
         if let headerView = tableHeaderView {
             headerView.isHidden = true

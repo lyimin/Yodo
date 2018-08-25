@@ -125,7 +125,8 @@ extension AccountContentView: UITableViewDelegate, YodTableViewDataSource, Swipe
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        if monthModel == nil {
+        if monthModel == nil || monthModel!.dailyModels.count == 0 {
+            tableView.showHolder(ds: self)
             return 0
         }
         

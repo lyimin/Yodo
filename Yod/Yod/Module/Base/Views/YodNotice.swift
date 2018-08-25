@@ -53,6 +53,7 @@ class YodNotice: NSObject {
     class func notice(_ text: String, type: NoticeType, autoclear: Bool, autoClearTime: Int) -> UIWindow {
         
         if let w = self.window { return w }
+        UIApplication.shared.keyWindow?.rootViewController?.view.isUserInteractionEnabled = false;
         
         let frame = UIApplication.shared.statusBarFrame
         window = UIWindow()
@@ -101,6 +102,7 @@ class YodNotice: NSObject {
                 }) { _  in
                     
                     window = nil
+                UIApplication.shared.keyWindow?.rootViewController?.view.isUserInteractionEnabled = true;
                 }
             }
         }
