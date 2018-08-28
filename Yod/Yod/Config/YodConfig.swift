@@ -21,6 +21,8 @@ struct YodConfig {
         
         // 状态栏
         static let statesHeight: CGFloat = UIScreen.main.bounds.height == 812 ? 44 : 20
+        // 导航栏
+        static let navigationHeight: CGFloat = 64+safeTopHeight
         
         // 顶部安全区域
         static let safeTopHeight: CGFloat = UIScreen.main.bounds.height == 812 ? 24 : 0
@@ -66,7 +68,6 @@ struct YodConfig {
         static let income = color.noticeSuccess
         
         static let noticeError = rgb(red: 220, green: 20, blue: 60)
-        
         static let noticeSuccess = rgb(red: 60, green: 179, blue: 113)
         
     }

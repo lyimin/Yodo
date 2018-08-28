@@ -1,5 +1,5 @@
 //
-//  StatisticsNavigationView.swift
+//  YodNavigationView.swift
 //  Yod
 //
 //  Created by eamon on 2018/7/27.
@@ -8,14 +8,10 @@
 
 import UIKit
 
-protocol StatisticsNavigationViewDelegate: class {
+class YodNavigationView: UIView {
+
     
-    /// 点击返回按钮
-    func backBtnDidClick()
-}
-
-class StatisticsNavigationView: UIView {
-
+    typealias BackBtnDidClickCallBack = () -> Void
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,6 +20,7 @@ class StatisticsNavigationView: UIView {
         
         addSubview(backBtn)
         addSubview(titleLabel)
+        addSubview(lineView)
         
         setupLayout()
     }
@@ -34,7 +31,7 @@ class StatisticsNavigationView: UIView {
     
     //MARK: - Getter | Setter
     
-    weak var delegate: StatisticsNavigationViewDelegate?
+    var backBtnDidClickCallBack: BackBtnDidClickCallBack?
     
     /// 返回按钮
     private(set) lazy var backBtn: UIButton = {
@@ -51,9 +48,11 @@ class StatisticsNavigationView: UIView {
         var titleLabel = UILabel()
         titleLabel.text = "统计"
         titleLabel.textColor = YodConfig.color.blackTitle
-        titleLabel.font = YodConfig.font.bold(size: 25)
+        titleLabel.textAlignment = .center
+        titleLabel.font = YodConfig.font.bold(size: 18)
         return titleLabel
     }()
+
     
     /// 分割线
     private lazy var lineView: UIView = {
@@ -64,17 +63,17 @@ class StatisticsNavigationView: UIView {
     }()
 }
 
-extension StatisticsNavigationView {
+extension YodNavigationView {
     
     @objc private func backBtnDidClick() {
-        if let delegate = delegate {
-            delegate.backBtnDidClick()
+        if let callback = backBtnDidClickCallBack {
+            callback()
         }
     }
 }
 
 // MARK: - Private Methods
-extension StatisticsNavigationView {
+extension YodNavigationView {
 
     private func setupLayout() {
 
@@ -85,15 +84,16 @@ extension StatisticsNavigationView {
         }
         
         titleLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(self).offset(25)
-            make.size.equalTo(CGSize(width: 100, height: 40))
-            make.top.equalTo(backBtn.snp.bottom).offset(15)
+            make.left.equalTo(backBtn.snp.right).offset(20)
+            make.right.equalTo(self).offset(-80)
+            make.centerY.equalTo(backBtn)
+            make.height.equalTo(20)
         }
         
-//        lineView.snp.makeConstraints { (make) in
-//            make.left.right.bottom.equalTo(self)
-//            make.height.equalTo(0.5)
-//        }
+        lineView.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalTo(self)
+            make.height.equalTo(0.5)
+        }
     }
 
 }

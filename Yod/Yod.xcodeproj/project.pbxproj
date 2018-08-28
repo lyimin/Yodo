@@ -34,10 +34,11 @@
 		F16F74AF207CFF6B00E6F194 /* YodPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F74AE207CFF6B00E6F194 /* YodPrint.swift */; };
 		F16F74B1207E63E000E6F194 /* HomeItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F74B0207E63E000E6F194 /* HomeItemCell.swift */; };
 		F16F74B3207E676100E6F194 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F74B2207E676100E6F194 /* HomeHeaderView.swift */; };
+		F1700A5F213252F400ED730C /* StatisticsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1700A5E213252F400ED730C /* StatisticsContentView.swift */; };
 		F1749F3F209EF830000C613C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1749F3E209EF830000C613C /* Launch Screen.storyboard */; };
 		F1749F43209F00A9000C613C /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1749F42209F00A9000C613C /* LaunchViewController.swift */; };
 		F1754DF52052370400A7CF77 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1754DF42052370400A7CF77 /* AccountManager.swift */; };
-		F17BC656210AFD9C006707E7 /* StatisticsNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17BC655210AFD9C006707E7 /* StatisticsNavigationView.swift */; };
+		F17BC656210AFD9C006707E7 /* YodNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17BC655210AFD9C006707E7 /* YodNavigationView.swift */; };
 		F183E71120A1E8FE0028F280 /* YodManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F183E71020A1E8FE0028F280 /* YodManager.swift */; };
 		F183E71320A1F9390028F280 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = F183E71220A1F9390028F280 /* Category.swift */; };
 		F185F23A20C21C2F001DA1F7 /* CircularTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F185F23920C21C2F001DA1F7 /* CircularTransition.swift */; };
@@ -126,10 +127,11 @@
 		F16F74AE207CFF6B00E6F194 /* YodPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodPrint.swift; sourceTree = "<group>"; };
 		F16F74B0207E63E000E6F194 /* HomeItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeItemCell.swift; sourceTree = "<group>"; };
 		F16F74B2207E676100E6F194 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
+		F1700A5E213252F400ED730C /* StatisticsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsContentView.swift; sourceTree = "<group>"; };
 		F1749F3E209EF830000C613C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		F1749F42209F00A9000C613C /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		F1754DF42052370400A7CF77 /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
-		F17BC655210AFD9C006707E7 /* StatisticsNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsNavigationView.swift; sourceTree = "<group>"; };
+		F17BC655210AFD9C006707E7 /* YodNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodNavigationView.swift; sourceTree = "<group>"; };
 		F183E71020A1E8FE0028F280 /* YodManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YodManager.swift; sourceTree = "<group>"; };
 		F183E71220A1F9390028F280 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		F185F23920C21C2F001DA1F7 /* CircularTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularTransition.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 		F1191057208362F800743D7B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F17BC655210AFD9C006707E7 /* YodNavigationView.swift */,
 				F11910582083631400743D7B /* CountingLabel.swift */,
 				F1A6FFD6208CEF220021EAEA /* DisplayScrollView.swift */,
 				F109428320C6C306003D9EB6 /* NumberKeyboardView.swift */,
@@ -323,7 +326,7 @@
 		F17BC653210AFD42006707E7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F17BC655210AFD9C006707E7 /* StatisticsNavigationView.swift */,
+				F1700A5E213252F400ED730C /* StatisticsContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -690,7 +693,6 @@
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 				"${BUILT_PRODUCTS_DIR}/ViewAnimator/ViewAnimator.framework",
-				"${BUILT_PRODUCTS_DIR}/WMPageController/WMPageController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -703,7 +705,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViewAnimator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WMPageController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -753,7 +754,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F17BC656210AFD9C006707E7 /* StatisticsNavigationView.swift in Sources */,
+				F17BC656210AFD9C006707E7 /* YodNavigationView.swift in Sources */,
 				F1C16A02207EFF64003C4B5A /* HomeNavigationView.swift in Sources */,
 				F1BCD08F207E0BC700E4A791 /* Reusable.swift in Sources */,
 				F18C5CD920A0550B007050F9 /* HomeDetailViewController.swift in Sources */,
@@ -769,6 +770,7 @@
 				F16F74B3207E676100E6F194 /* HomeHeaderView.swift in Sources */,
 				F1E4163D209378FB00C4A7AF /* UIView+Load.swift in Sources */,
 				F120C12D20FB491000EDB155 /* HomeDetailNoteView.swift in Sources */,
+				F1700A5F213252F400ED730C /* StatisticsContentView.swift in Sources */,
 				F1754DF52052370400A7CF77 /* AccountManager.swift in Sources */,
 				F192B87220FF13EA00A8B8EA /* YodNotice.swift in Sources */,
 				F1A81C02200CA410003D2D4E /* AppDelegate.swift in Sources */,

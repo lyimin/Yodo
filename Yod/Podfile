@@ -6,19 +6,19 @@ use_frameworks!
 target 'Yod' do
     
     # 视图
-    pod 'CVCalendar', '~> 1.6.1'
-    pod 'GDPerformanceView-Swift', '~> 1.3.2'
-    pod 'ViewAnimator',     '~> 2.0.0'
-    pod 'SwipeCellKit'
+    pod 'CVCalendar',               '~> 1.6.1'
+    pod 'GDPerformanceView-Swift',  '~> 1.3.2'
+    pod 'ViewAnimator',             '~> 2.0.0'
+    pod 'SwipeCellKit',             '~> 2.4.3'
     
     # 工具
-    pod 'SnapKit',          '~> 4.0.0'
-    pod 'MonkeyKing',       '~> 1.4.2'
+    pod 'SnapKit',                  '~> 4.0.0'
+    pod 'MonkeyKing',               '~> 1.4.2'
     
     # 数据
-    pod 'SQLite.swift',     '= 0.11.4'
-    pod 'CSV.swift',        '~> 2.1.0'
-    pod 'ObjectMapper', '~> 3.1'
+    pod 'SQLite.swift',             '= 0.11.4'
+    pod 'CSV.swift',                '~> 2.1.0'
+    pod 'ObjectMapper',             '~> 3.1'
     
     
     

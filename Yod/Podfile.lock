@@ -19,7 +19,7 @@ DEPENDENCIES:
   - ObjectMapper (~> 3.1)
   - SnapKit (~> 4.0.0)
   - SQLite.swift (= 0.11.4)
-  - SwipeCellKit
+  - SwipeCellKit (~> 2.4.3)
   - ViewAnimator (~> 2.0.0)
 
 SPEC REPOS:
@@ -45,6 +45,6 @@ SPEC CHECKSUMS:
   SwipeCellKit: cee9906e6d3a36e22ad1a852fba7f8fa0839d113
   ViewAnimator: 0c70ee4e1dfbe9d4f129407f81db91f6948900aa
 
-PODFILE CHECKSUM: 634285db87d1aefeea2db771534174ecccdcf95d
+PODFILE CHECKSUM: 326bba39d1eb7525f388185120c71c937aaeea72
 
 COCOAPODS: 1.5.3

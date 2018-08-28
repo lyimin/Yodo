@@ -61,7 +61,7 @@ class HomeViewController: BaseViewController, UINavigationControllerDelegate {
     }
     
     /// 导航栏
-    private lazy var navigationView: HomeNavigationView = {
+    internal lazy var navigationView: HomeNavigationView = {
         
         var navigationView = HomeNavigationView()
         navigationView.delegate = self

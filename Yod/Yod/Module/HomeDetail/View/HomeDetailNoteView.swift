@@ -180,9 +180,8 @@ extension HomeDetailNoteView {
     
     @objc func saveBtnDidClick() {
         dismiss()
-        let text = textView.text.length == 0 ? "无" : textView.text!
         if let callBack = callBack {
-            callBack(text)
+            callBack(textView.text!)
         }
     }
     
@@ -202,10 +201,11 @@ extension HomeDetailNoteView {
             let value = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue
             let duration = noti.userInfo![UIKeyboardAnimationDurationUserInfoKey] as? Double
             let keyboardY = value!.cgRectValue.origin.y
+            let keyboardH = value!.cgRectValue.size.height
             
             if !keyBoardlsVisible && keyboardY == height { return }
             
-            let transform = keyboardY == height ? .identity : CGAffineTransform(translationX: 0, y: self.contentViewH-keyboardY)
+            let transform = keyboardY == height ? .identity : CGAffineTransform(translationX: 0, y: -keyboardH)
             UIView.animate(withDuration: duration!) {
                 self.contentView.transform = transform
             }

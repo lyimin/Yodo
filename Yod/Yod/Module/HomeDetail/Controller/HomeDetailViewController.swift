@@ -134,7 +134,7 @@ extension HomeDetailViewController: HomeDetailContentViewDelegate {
         
         noteView.callBack = { [unowned self] (text: String) -> Void in
             self.account.remarks = text
-            item.descLabel.text = text
+            item.descLabel.text = text == "" ? "无" : text
         }
     }
     
