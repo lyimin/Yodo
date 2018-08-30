@@ -30,6 +30,10 @@ class StatisticsDateModel {
         self.text = text
     }
     
+    func isDate() -> Bool {
+        return text == nil
+    }
+    
     var monthFormat: String {
         if let date = date {
             return "\(date.month)月"

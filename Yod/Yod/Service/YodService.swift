@@ -186,6 +186,7 @@ extension YodService {
 // Update
 extension YodService {
     
+    /// 更新账单
     class func updateAccount(_ account: Account, callBack: @escaping () -> Void) {
         
         DispatchQueue.global().async {

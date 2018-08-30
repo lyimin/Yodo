@@ -15,13 +15,13 @@
 		F11910592083631400743D7B /* CountingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11910582083631400743D7B /* CountingLabel.swift */; };
 		F120C12D20FB491000EDB155 /* HomeDetailNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F120C12C20FB491000EDB155 /* HomeDetailNoteView.swift */; };
 		F12CBE9F20873B9D0063A053 /* HomeItemSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12CBE9E20873B9D0063A053 /* HomeItemSectionView.swift */; };
-		F149D89920999D6B00E7BA59 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F149D89820999D6B00E7BA59 /* Info.plist */; };
 		F14AE377206E451000F65543 /* 20180329_account.csv in Resources */ = {isa = PBXBuildFile; fileRef = F14AE376206E451000F65543 /* 20180329_account.csv */; };
 		F14DAC0F210CAF2F001110D6 /* TableViewDataSource+Yod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14DAC0E210CAF2F001110D6 /* TableViewDataSource+Yod.swift */; };
 		F150358E2098C3680055617D /* String+Yod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F150358C2098C3670055617D /* String+Yod.swift */; };
 		F150358F2098C3680055617D /* Date+Yod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F150358D2098C3670055617D /* Date+Yod.swift */; };
 		F1504A1B204E912B00855D00 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A17204E912B00855D00 /* BaseViewController.swift */; };
 		F1504A1C204E912B00855D00 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1504A1A204E912B00855D00 /* HomeViewController.swift */; };
+		F1526A02213821E7009D5873 /* StatisticsAnimationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1526A01213821E7009D5873 /* StatisticsAnimationUtil.swift */; };
 		F15D2633208F1EBF0027D3EA /* AccountContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D2632208F1EBF0027D3EA /* AccountContentView.swift */; };
 		F15D263920907A810027D3EA /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15D263820907A810027D3EA /* HomeModel.swift */; };
 		F164212920A14495000ECC7C /* categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = F164212820A14495000ECC7C /* categories.plist */; };
@@ -46,6 +46,7 @@
 		F185F23E20C22A39001DA1F7 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F185F23D20C22A39001DA1F7 /* BaseNavigationController.swift */; };
 		F186673C213639D700C17EC6 /* StatisticsMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F186673B213639D700C17EC6 /* StatisticsMenuItem.swift */; };
 		F186673F2136DCAD00C17EC6 /* StatisticsDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F186673E2136DCAD00C17EC6 /* StatisticsDateModel.swift */; };
+		F186674121379CFB00C17EC6 /* StatisticsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F186674021379CFB00C17EC6 /* StatisticsModel.swift */; };
 		F1882E2C20AEADA5002BEDAA /* HomeDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1882E2B20AEADA5002BEDAA /* HomeDetailHeaderView.swift */; };
 		F1882E3020AEC039002BEDAA /* HomeDetailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1882E2F20AEC039002BEDAA /* HomeDetailCardView.swift */; };
 		F18C5CD920A0550B007050F9 /* HomeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18C5CD820A0550B007050F9 /* HomeDetailViewController.swift */; };
@@ -117,6 +118,7 @@
 		F1504A17204E912B00855D00 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		F1504A1A204E912B00855D00 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F1504A20204E94FD00855D00 /* HomeNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationView.swift; sourceTree = "<group>"; };
+		F1526A01213821E7009D5873 /* StatisticsAnimationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsAnimationUtil.swift; sourceTree = "<group>"; };
 		F15D2632208F1EBF0027D3EA /* AccountContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountContentView.swift; sourceTree = "<group>"; };
 		F15D263820907A810027D3EA /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		F164212820A14495000ECC7C /* categories.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = categories.plist; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 		F185F23D20C22A39001DA1F7 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		F186673B213639D700C17EC6 /* StatisticsMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsMenuItem.swift; sourceTree = "<group>"; };
 		F186673E2136DCAD00C17EC6 /* StatisticsDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsDateModel.swift; sourceTree = "<group>"; };
+		F186674021379CFB00C17EC6 /* StatisticsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsModel.swift; sourceTree = "<group>"; };
 		F1882E2B20AEADA5002BEDAA /* HomeDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailHeaderView.swift; sourceTree = "<group>"; };
 		F1882E2F20AEC039002BEDAA /* HomeDetailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailCardView.swift; sourceTree = "<group>"; };
 		F18C5CD820A0550B007050F9 /* HomeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailViewController.swift; sourceTree = "<group>"; };
@@ -357,6 +360,7 @@
 			isa = PBXGroup;
 			children = (
 				F186673E2136DCAD00C17EC6 /* StatisticsDateModel.swift */,
+				F186674021379CFB00C17EC6 /* StatisticsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -460,6 +464,7 @@
 			isa = PBXGroup;
 			children = (
 				F1AC9A20212FF9E100A33449 /* DoflipTransitionAnimation.swift */,
+				F1526A01213821E7009D5873 /* StatisticsAnimationUtil.swift */,
 			);
 			path = Transition;
 			sourceTree = "<group>";
@@ -600,7 +605,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0910;
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = com.eamon;
 				TargetAttributes = {
 					F1A81BFD200CA410003D2D4E = {
@@ -650,7 +655,6 @@
 				F1E1CAE42049553A00339163 /* helvetica-bold.ttf in Resources */,
 				F16ADECF20A34F68004BED51 /* 20180509_account.csv in Resources */,
 				F1D036F32088C99700D22995 /* helvetica-light.ttf in Resources */,
-				F149D89920999D6B00E7BA59 /* Info.plist in Resources */,
 				F14AE377206E451000F65543 /* 20180329_account.csv in Resources */,
 				F164212920A14495000ECC7C /* categories.plist in Resources */,
 			);
@@ -775,6 +779,7 @@
 				F185F23C20C21CE4001DA1F7 /* TransitionCoordinator.swift in Sources */,
 				F1A6FFD7208CEF220021EAEA /* DisplayScrollView.swift in Sources */,
 				F16F74B1207E63E000E6F194 /* HomeItemCell.swift in Sources */,
+				F1526A02213821E7009D5873 /* StatisticsAnimationUtil.swift in Sources */,
 				F1A0C7B82091B7CE000A62F7 /* Account.swift in Sources */,
 				F1E41AC620C837E700AAC406 /* YodTextField.swift in Sources */,
 				F19FB51B20C59278003D490D /* YodConst.swift in Sources */,
@@ -806,6 +811,7 @@
 				F1AC9A21212FF9E100A33449 /* DoflipTransitionAnimation.swift in Sources */,
 				F150358E2098C3680055617D /* String+Yod.swift in Sources */,
 				F15D2633208F1EBF0027D3EA /* AccountContentView.swift in Sources */,
+				F186674121379CFB00C17EC6 /* StatisticsModel.swift in Sources */,
 				F14DAC0F210CAF2F001110D6 /* TableViewDataSource+Yod.swift in Sources */,
 				F1B2662920B7AF1D00D42140 /* HomeDetailCategoryCell.swift in Sources */,
 				F16ADECB20A34174004BED51 /* CategoryDao.swift in Sources */,
@@ -872,6 +878,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -879,6 +886,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -929,6 +937,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -936,6 +945,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
