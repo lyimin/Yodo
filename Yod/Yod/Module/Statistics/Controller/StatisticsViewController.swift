@@ -9,16 +9,27 @@
 import UIKit
 
 class StatisticsViewController: BaseViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         initView()
+    }
+    
+    convenience init(dates: [YodDate]) {
+        self.init()
         
+        self.dates = dates
+        initDataSource()
     }
 
-    //MARK: - Getter | Setter
+    // MARK: - Getter | Setter
+    
+    /// 月份
+    private var dates: [YodDate]?
+    private var months: [StatisticsDateModel]! = []
+    
+    /// 导航栏
     private lazy var navigationView: YodNavigationView = {
         
         var navigationView = YodNavigationView()
@@ -31,6 +42,7 @@ class StatisticsViewController: BaseViewController {
         return navigationView
     }()
     
+    /// 内容
     private lazy var contentView: StatisticsContentView = {
         
         var contentView = StatisticsContentView()
@@ -74,11 +86,37 @@ extension StatisticsViewController {
         setupLayout()
     }
     
+    private func initDataSource() {
+        
+        if dates == nil {
+            YodService.getDates {
+                self.dates = $0
+                self.initMonths()
+            }
+        } else {
+            initMonths()
+        }
+    }
+    
+    private func initMonths() {
+        
+        months.removeAll()
+        
+        months = dates?.map {
+            var dateModel = StatisticsDateModel(date: $0)
+            dateModel.isSelect = $0.isThisMonth
+            return dateModel
+        }
+        months.append(StatisticsDateModel(text: "全部"))
+        
+        contentView.dateModels = months
+    }
+    
     private func setupLayout() {
         
         navigationView.snp.makeConstraints { (make) in
             make.left.right.top.equalTo(view)
-            make.height.equalTo(80)
+            make.height.equalTo(70+YodConfig.frame.safeTopHeight)
         }
         
         contentView.snp.makeConstraints { (make) in

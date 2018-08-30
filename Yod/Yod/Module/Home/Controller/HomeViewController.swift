@@ -46,12 +46,6 @@ class HomeViewController: BaseViewController, UINavigationControllerDelegate {
         return displayView
     }()
     
-    /// 账单列表对应的日期
-    /// 一.日期数组>=3的情况下
-    /// 1.当前月份是最早的一个月(2017.4)  -> 2017.4, 2017.5, 2017,6 三个月的数据
-    /// 2.当前月份是当前月份(2018.4) -> 2018.2, 2018.3, 2018.4 三个月的数据
-    /// 二.日期数组小于3的情况下全部返回
-    
     /// 所有日期数据
     private var dates: [YodDate] = [] {
         didSet {
@@ -97,7 +91,8 @@ extension HomeViewController: HomeNavigationViewDelegate {
     
     /// 点击统计
     func navigationView(_ navigationView: HomeNavigationView, chartBtn: UIButton) {
-        let chartController = StatisticsViewController()
+        
+        let chartController = StatisticsViewController(dates: dates)
         present(chartController, animated: true, completion: nil)
     }
 }

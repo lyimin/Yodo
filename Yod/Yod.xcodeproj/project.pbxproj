@@ -44,6 +44,8 @@
 		F185F23A20C21C2F001DA1F7 /* CircularTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F185F23920C21C2F001DA1F7 /* CircularTransition.swift */; };
 		F185F23C20C21CE4001DA1F7 /* TransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F185F23B20C21CE4001DA1F7 /* TransitionCoordinator.swift */; };
 		F185F23E20C22A39001DA1F7 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F185F23D20C22A39001DA1F7 /* BaseNavigationController.swift */; };
+		F186673C213639D700C17EC6 /* StatisticsMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F186673B213639D700C17EC6 /* StatisticsMenuItem.swift */; };
+		F186673F2136DCAD00C17EC6 /* StatisticsDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F186673E2136DCAD00C17EC6 /* StatisticsDateModel.swift */; };
 		F1882E2C20AEADA5002BEDAA /* HomeDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1882E2B20AEADA5002BEDAA /* HomeDetailHeaderView.swift */; };
 		F1882E3020AEC039002BEDAA /* HomeDetailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1882E2F20AEC039002BEDAA /* HomeDetailCardView.swift */; };
 		F18C5CD920A0550B007050F9 /* HomeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18C5CD820A0550B007050F9 /* HomeDetailViewController.swift */; };
@@ -137,6 +139,8 @@
 		F185F23920C21C2F001DA1F7 /* CircularTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularTransition.swift; sourceTree = "<group>"; };
 		F185F23B20C21CE4001DA1F7 /* TransitionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionCoordinator.swift; sourceTree = "<group>"; };
 		F185F23D20C22A39001DA1F7 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		F186673B213639D700C17EC6 /* StatisticsMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsMenuItem.swift; sourceTree = "<group>"; };
+		F186673E2136DCAD00C17EC6 /* StatisticsDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsDateModel.swift; sourceTree = "<group>"; };
 		F1882E2B20AEADA5002BEDAA /* HomeDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailHeaderView.swift; sourceTree = "<group>"; };
 		F1882E2F20AEC039002BEDAA /* HomeDetailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailCardView.swift; sourceTree = "<group>"; };
 		F18C5CD820A0550B007050F9 /* HomeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailViewController.swift; sourceTree = "<group>"; };
@@ -327,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				F1700A5E213252F400ED730C /* StatisticsContentView.swift */,
+				F186673B213639D700C17EC6 /* StatisticsMenuItem.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -346,6 +351,14 @@
 				F185F23B20C21CE4001DA1F7 /* TransitionCoordinator.swift */,
 			);
 			path = Transition;
+			sourceTree = "<group>";
+		};
+		F186673D2136DC5A00C17EC6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F186673E2136DCAD00C17EC6 /* StatisticsDateModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		F18C5CD720A052B7007050F9 /* HomeDetail */ = {
@@ -491,6 +504,7 @@
 		F1E6AFA22104BA56009F234B /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
+				F186673D2136DC5A00C17EC6 /* Model */,
 				F1AC9A1F212FF8FB00A33449 /* Transition */,
 				F17BC654210AFD4D006707E7 /* Controller */,
 				F17BC653210AFD42006707E7 /* View */,
@@ -778,6 +792,7 @@
 				F1EF1A9420C97BF500FFDC06 /* YodCalendarView.swift in Sources */,
 				F1FEA64820503DCF00D7733B /* YodConfig.swift in Sources */,
 				F192B87421018EE700A8B8EA /* UIViewController+Yod.swift in Sources */,
+				F186673F2136DCAD00C17EC6 /* StatisticsDateModel.swift in Sources */,
 				F117B5CB20AAE70700793767 /* UIImage+Yod.swift in Sources */,
 				F1504A1B204E912B00855D00 /* BaseViewController.swift in Sources */,
 				F1E6AFA42104BA77009F234B /* StatisticsViewController.swift in Sources */,
@@ -808,6 +823,7 @@
 				F16F74AF207CFF6B00E6F194 /* YodPrint.swift in Sources */,
 				F19A465320FE12B900D16608 /* Double+Yod.swift in Sources */,
 				F183E71320A1F9390028F280 /* Category.swift in Sources */,
+				F186673C213639D700C17EC6 /* StatisticsMenuItem.swift in Sources */,
 				F1882E2C20AEADA5002BEDAA /* HomeDetailHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
