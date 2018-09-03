@@ -21,6 +21,10 @@ class StatisticsViewController: BaseViewController {
         
         self.dates = dates
         initDataSource()
+        
+        YodService.getStatisticsData(month: currDate) { (model) in
+            
+        }
     }
 
     // MARK: - Getter | Setter
@@ -28,6 +32,9 @@ class StatisticsViewController: BaseViewController {
     /// 月份
     private var dates: [YodDate]?
     private var months: [StatisticsDateModel]! = []
+    
+    /// 当前选中的月份
+    private var currDate: StatisticsDateModel!
     
     /// 导航栏
     private lazy var navigationView: YodNavigationView = {
@@ -103,8 +110,11 @@ extension StatisticsViewController {
         months.removeAll()
         
         months = dates?.map {
-            var dateModel = StatisticsDateModel(date: $0)
-            dateModel.isSelect = $0.isThisMonth
+            let dateModel = StatisticsDateModel(date: $0)
+            if $0.isThisMonth {
+                dateModel.isSelect = $0.isThisMonth
+                currDate = dateModel
+            }
             return dateModel
         }
         months.append(StatisticsDateModel(text: "全部"))

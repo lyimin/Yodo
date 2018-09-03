@@ -65,14 +65,14 @@ extension CategoryManager {
         let categories = NSArray(contentsOfFile: path!) as! Array<Dictionary<String, Any>>
 
         for category in categories {
-            let dao = CategoryDao(JSON: category)!
+            let dao = CategoryEntity(JSON: category)!
             dao.createdAt = Date.now()
             insertCategory(model: dao)
         }
     }
     
     /// 添加分类
-    public func insertCategory(model: CategoryDao) {
+    public func insertCategory(model: CategoryEntity) {
         
         let insert = categoryT.insert(name <- model.name!, icon <- model.icon!, color <- model.color!, type <- model.type!, createdAt <- model.createdAt!)
         
@@ -87,23 +87,23 @@ extension CategoryManager {
 extension CategoryManager {
     
     /// 根据id获取分类
-    public func findCategory(byID categoryId: Int64) -> CategoryDao? {
+    public func findCategory(byID categoryId: Int64) -> CategoryEntity? {
         
         do {
             
             for category in try db.prepare(categoryT.filter(id == categoryId)) {
                 
-                let dao = CategoryDao()
-                dao.id = try category.get(id)
-                dao.color = try category.get(color)
-                dao.name = try category.get(name)
-                dao.icon = try category.get(icon)
-                dao.type = try category.get(type)
-                dao.createdAt = try category.get(createdAt)
-                dao.updatedAt = try category.get(updatedAt)
-                dao.deletedAt = try category.get(deletedAt)
+                let entity = CategoryEntity()
+                entity.id = try category.get(id)
+                entity.color = try category.get(color)
+                entity.name = try category.get(name)
+                entity.icon = try category.get(icon)
+                entity.type = try category.get(type)
+                entity.createdAt = try category.get(createdAt)
+                entity.updatedAt = try category.get(updatedAt)
+                entity.deletedAt = try category.get(deletedAt)
                 
-                return dao
+                return entity
             }
             
         } catch {
@@ -115,14 +115,14 @@ extension CategoryManager {
     
     
     /// 获取所有分类 // TODO:
-    public func findCategories(withType type: Int? = nil) -> [CategoryDao] {
+    public func findCategories(withType type: Int? = nil) -> [CategoryEntity] {
 
         var sql = "SELECT * FROM \(tableName)"
         if let type = type {
             sql += " WHERE type = \(type)"
         }
         
-        var out: [CategoryDao] = []
+        var out: [CategoryEntity] = []
         
         let result = find(withSQL: sql)
         if let result = result {
@@ -137,7 +137,7 @@ extension CategoryManager {
             }
             
             // dic -> Category
-            out = Mapper<CategoryDao>().mapArray(JSONArray: temp)
+            out = Mapper<CategoryEntity>().mapArray(JSONArray: temp)
         }
         
         return out

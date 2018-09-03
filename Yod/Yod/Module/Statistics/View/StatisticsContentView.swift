@@ -43,8 +43,11 @@ class StatisticsContentView: UIView {
             let item = collectionView(menuView, numberOfItemsInSection: 0) - 1
             let lastItemIndex = IndexPath(item: item, section: 0)
             
-            menuView.scrollToItem(at: lastItemIndex, at: .left, animated: true)
-            menuView.layoutIfNeeded()
+//            delay(delay: 0.1) {
+                self.menuView.scrollToItem(at: lastItemIndex, at: .left, animated: false)
+                self.menuView.layoutIfNeeded()
+//            }
+        
         }
     }
     

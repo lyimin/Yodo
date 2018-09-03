@@ -51,10 +51,10 @@ class YodNavigationView: UIView {
         titleLabel.textColor = YodConfig.color.blackTitle
         titleLabel.textAlignment = .center
         titleLabel.font = YodConfig.font.bold(size: 18)
+        
         return titleLabel
     }()
 
-    
     /// 分割线
     private(set) lazy var lineView: UIView = {
         

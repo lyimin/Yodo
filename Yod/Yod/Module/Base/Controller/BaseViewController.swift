@@ -20,4 +20,6 @@ class BaseViewController: UIViewController {
         super.viewWillAppear(animated)
         UIApplication.shared.statusBarStyle = .default;
     }
+    
+    
 }

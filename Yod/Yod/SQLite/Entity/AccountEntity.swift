@@ -1,5 +1,5 @@
 //
-//  AccountDao.swift
+//  AccountEntity.swift
 //  Yod
 //
 //  Created by eamon on 2018/5/9.
@@ -9,7 +9,7 @@
 import UIKit
 import ObjectMapper
 
-public class AccountDao: Mappable {
+public class AccountEntity: Mappable {
     
     /// id
     var id: Int64!

@@ -56,19 +56,19 @@ public struct Account {
         date = YodDate(date: createdAt)
     }
     
-    init(dao: AccountDao) {
-        id = "\(dao.id!)"
-        type = Category.AccountType(rawValue: dao.type)!
-        money = dao.money
-        remarks = dao.remarks ?? ""
-        pictures = dao.pictures ?? ""
-        createdAt = dao.createdAt
-        updateAt = dao.updateAt
-        deleteAt = dao.deleteAt
-        date = YodDate(date: dao.createdAt)
+    init(entity: AccountEntity) {
+        id = "\(entity.id!)"
+        type = Category.AccountType(rawValue: entity.type)!
+        money = entity.money
+        remarks = entity.remarks ?? ""
+        pictures = entity.pictures ?? ""
+        createdAt = entity.createdAt
+        updateAt = entity.updateAt
+        deleteAt = entity.deleteAt
+        date = YodDate(date: entity.createdAt)
     }
     
-    func toDao() -> AccountDao {
+    func toDao() -> AccountEntity {
         
         
         let json: [String: Any] = [
@@ -84,7 +84,7 @@ public struct Account {
         ]
         
         
-        return AccountDao(JSON: json)!
+        return AccountEntity(JSON: json)!
     }
 }
 

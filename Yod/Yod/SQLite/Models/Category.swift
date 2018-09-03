@@ -50,16 +50,16 @@ struct Category {
         deletedAt = dict["deletedAt"] as? String
     }
     
-    init(dao: CategoryDao?) {
+    init(entity: CategoryEntity?) {
         
-        if let dao = dao {
+        if let entity = entity {
         
-            id = "\(dao.id!)"
-            name = dao.name
-            icon = dao.icon
-            color = dao.color
-            type = AccountType(rawValue: dao.type)
-            deletedAt = dao.deletedAt
+            id = "\(entity.id!)"
+            name = entity.name
+            icon = entity.icon
+            color = entity.color
+            type = AccountType(rawValue: entity.type)
+            deletedAt = entity.deletedAt
         }
     }
 }

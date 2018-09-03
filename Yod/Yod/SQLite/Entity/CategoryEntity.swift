@@ -1,5 +1,5 @@
 //
-//  CategoryDao.swift
+//  CategoryEntity.swift
 //  Yod
 //
 //  Created by eamon on 2018/5/9.
@@ -9,7 +9,7 @@
 import UIKit
 import ObjectMapper
 
-public class CategoryDao: Mappable {
+public class CategoryEntity: Mappable {
 
     var id: Int64!
     var name: String!
@@ -21,6 +21,14 @@ public class CategoryDao: Mappable {
     var deletedAt: String?
     
     public required init?(map: Map) {
+        id <- map["id"]
+        name <- map["name"]
+        icon <- map["icon"]
+        color <- map["color"]
+        type <- map["type"]
+        createdAt <- map["createdAt"]
+        updatedAt <- map["updatedAt"]
+        deletedAt <- map["deletedAt"]
     }
     
     public init() {

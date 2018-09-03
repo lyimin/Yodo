@@ -42,7 +42,7 @@ public class AccountManager {
 extension AccountManager {
     
     /// 查询第一条数据
-    public func queryFirstData() -> AccountDao? {
+    public func queryFirstData() -> AccountEntity? {
         
         let sql = "SELECT * FROM \(tableName) WHERE createdAt = (SELECT MIN(createdAt) FROM \(tableName))"
 
@@ -58,7 +58,7 @@ extension AccountManager {
             }
         }
         if temp.count != 0 {
-            let account = AccountDao(JSON: temp)
+            let account = AccountEntity(JSON: temp)
             return account
         }
         
@@ -69,7 +69,7 @@ extension AccountManager {
     ///
     /// - Parameter withDate: 日期对象
     
-    func findMonthAccounds(withDate date: YodDate, withType type: Int? = nil) -> [AccountDao] {
+    func findMonthAccounds(withDate date: YodDate, withType type: Int? = nil) -> [AccountEntity] {
         
         var sql = "SELECT * FROM \(tableName) WHERE createdAt LIKE '\(date.year)-\(date.month)-%'"
         if let type = type {
@@ -77,7 +77,7 @@ extension AccountManager {
         }
         sql = sql + " ORDER BY createdAt DESC"
         
-        var out: [AccountDao] = []
+        var out: [AccountEntity] = []
         
         let result = find(withSQL: sql)
         if let result = result {
@@ -92,7 +92,7 @@ extension AccountManager {
             }
             
             // dic -> Account
-            out = Mapper<AccountDao>().mapArray(JSONArray: temp)
+            out = Mapper<AccountEntity>().mapArray(JSONArray: temp)
         }
         
         return out
@@ -108,6 +108,53 @@ extension AccountManager {
         }
         
         return nil
+    }
+    
+    /// 查询统计信息
+    func findStatistics(withDate date: YodDate? = nil, withType type: Int? = nil) -> StatisticsEntity {
+        
+        var sql = "SELECT c.id, c.name, c.icon, c.color, c.type, sum(a.money) AS total, count(c.id) AS count FROM account AS a, category AS c WHERE a.categoryId=c.id"
+        
+        if let date = date {
+            sql += " AND a.createdAt LIKE '\(date.year)-\(date.month)-%'"
+        }
+        
+        if let type = type {
+            sql += " AND c.type = \(type))"
+        }
+        
+        sql += " GROUP BY c.id ORDER BY total DESC"
+        
+        let result = find(withSQL: sql)
+        let out = StatisticsEntity()
+        
+        if let result = result {
+            var temp: [[String: AnyObject]] = []
+            for row in result {
+                var obj: [String: AnyObject] = [:]
+                for i in 0..<result.columnNames.count {
+                    obj.updateValue(row[i] as AnyObject, forKey: result.columnNames[i])
+                }
+                temp.append(obj)
+            }
+            
+            let cEntities = Mapper<StatisticsCategoryEntity>().mapArray(JSONArray: temp)
+           
+            cEntities.forEach {
+                
+                if $0.category.type == 1 {
+                    // 支出
+                    out.expendEntities.append($0)
+                    out.expendMoney += $0.total
+                } else {
+                    // 收入
+                    out.incomeEntities.append($0)
+                    out.incomeMoney += $0.total
+                }
+            }
+        }
+        
+        return out
     }
 }
 
@@ -157,13 +204,13 @@ extension AccountManager {
                 continue
             }
         }
-        insertAccount(model: AccountDao(JSON: dict)!)
+        insertAccount(model: AccountEntity(JSON: dict)!)
     }
     
     /// 插入数据
     ///
     /// - Parameter model: 账单model
-    public func insertAccount(model: AccountDao) {
+    public func insertAccount(model: AccountEntity) {
         let sql = "INSERT INTO \(tableName) (categoryId, type, money, remarks, pictures, createdAt) VALUES " +
         "('\(model.categoryId!)', '\(model.type!)', '\(model.money!)', '\(model.remarks!)', '\(model.pictures)', '\(model.createdAt!)')"
         do {
@@ -177,7 +224,7 @@ extension AccountManager {
 
 // Update
 extension AccountManager {
-    public func updateAccount(model: AccountDao) {
+    public func updateAccount(model: AccountEntity) {
         let sql = "UPDATE \(tableName) SET categoryId=\(model.categoryId!), type=\(model.type!), money=\(model.money!), remarks='\(model.remarks!)', pictures='\(model.pictures)', createdAt='\(model.createdAt!)', updatedAt='\(Date.now().format())' where id=\(model.id!)"
         do {
             try db.execute(sql)
