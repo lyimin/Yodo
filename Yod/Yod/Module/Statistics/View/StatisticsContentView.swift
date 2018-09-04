@@ -8,7 +8,81 @@
 
 import UIKit
 
+// MARK: - StatisticsContentView
 class StatisticsContentView: UIView {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        initView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Getter | Setter
+    
+    /// 日期数据
+    var dateModels: [StatisticsDateModel] = [] {
+        didSet {
+            headerView.reload()
+        }
+    }
+    
+    var model: StatisticsModel? {
+        didSet {
+            chartView.collectionView.reloadData()
+        }
+    }
+    
+    /// headerView
+    private lazy var headerView: StatisticsHeaderView = {
+        
+        let headerView = StatisticsHeaderView()
+        headerView.contentView = self
+        return headerView
+    }()
+    
+    /// 图表
+    private lazy var chartView: StatisticsChartView = {
+        
+        let chartView = StatisticsChartView()
+        chartView.contentView = self
+        return chartView
+    }()
+}
+
+// MARK: - Private Methods
+extension StatisticsContentView {
+    
+    private func initView() {
+        
+        backgroundColor = YodConfig.color.background
+        
+        addSubview(headerView)
+        addSubview(chartView)
+        
+        setupLayout()
+    }
+    
+    private func setupLayout() {
+        
+        headerView.snp.makeConstraints { (make) in
+            make.left.right.top.equalTo(self)
+            make.height.equalTo(120)
+        }
+        
+        chartView.snp.makeConstraints { (make) in
+            make.left.right.equalTo(self)
+            make.top.equalTo(headerView.snp.bottom)
+            make.height.equalTo(UIScreen.main.bounds.width*1.3)
+        }
+    }
+}
+
+// MARK: - StatisticsHeaderView
+class StatisticsHeaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,30 +100,10 @@ class StatisticsContentView: UIView {
     }
     
     // MARK: - Getter | Setter
-    
+    weak var contentView: StatisticsContentView!
+
+    /// 当前选中的日期索引
     private var selectedIndex: Int = 0
-    
-    /// 日期数据
-    var dateModels: [StatisticsDateModel]! {
-        didSet {
-            
-            if dateModels.count < 2 {return}
-            // 设置年份
-            selectedIndex = dateModels.count-2
-            yearLabel.text = dateModels[selectedIndex].date?.year
-            
-            menuView.reloadData()
-            
-            let item = collectionView(menuView, numberOfItemsInSection: 0) - 1
-            let lastItemIndex = IndexPath(item: item, section: 0)
-            
-//            delay(delay: 0.1) {
-                self.menuView.scrollToItem(at: lastItemIndex, at: .left, animated: false)
-                self.menuView.layoutIfNeeded()
-//            }
-        
-        }
-    }
     
     /// 大标题
     private lazy var largeTitleLabel: UILabel = {
@@ -104,18 +158,18 @@ class StatisticsContentView: UIView {
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-extension StatisticsContentView: UICollectionViewDelegate, UICollectionViewDataSource {
+extension StatisticsHeaderView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return dateModels.count
+        return contentView.dateModels.count
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let item = collectionView.dequeueReusableCell(indexPath: indexPath) as StatisticsMenuItem
-        item.model = dateModels[indexPath.row]
+        item.model = contentView.dateModels[indexPath.row]
         
         return item
     }
@@ -125,8 +179,8 @@ extension StatisticsContentView: UICollectionViewDelegate, UICollectionViewDataS
         if selectedIndex == indexPath.row { return }
         
         // 更改数据源
-        dateModels[selectedIndex].isSelect = false
-        dateModels[indexPath.row].isSelect = true
+        contentView.dateModels[selectedIndex].isSelect = false
+        contentView.dateModels[indexPath.row].isSelect = true
         selectedIndex = indexPath.row
         
         collectionView.reloadData()
@@ -136,13 +190,36 @@ extension StatisticsContentView: UICollectionViewDelegate, UICollectionViewDataS
         menuView.scrollToItem(at: selectItem, at: .centeredHorizontally, animated: true)
         
         // 设置年份
-        let model = dateModels[indexPath.row]
+        let model = contentView.dateModels[indexPath.row]
         setupYear(withModel: model)
     }
 }
 
+// MARK: - Public Methods
+extension StatisticsHeaderView {
+    
+    func reload() {
+        
+        if contentView.dateModels.count < 2 {return}
+        // 设置年份
+        selectedIndex = contentView.dateModels.count-2
+        yearLabel.text = contentView.dateModels[selectedIndex].date?.year
+        
+        menuView.reloadData()
+        
+        let item = collectionView(menuView, numberOfItemsInSection: 0) - 1
+        let lastItemIndex = IndexPath(item: item, section: 0)
+        
+        // TODO fix:iPhone6s 不显示
+        delay(delay: 0.1) {
+            self.menuView.scrollToItem(at: lastItemIndex, at: .left, animated: false)
+            self.menuView.layoutIfNeeded()
+        }
+    }
+}
+
 // MARK: - PrivateMethods
-extension StatisticsContentView {
+extension StatisticsHeaderView {
     
     private func setupYear(withModel model: StatisticsDateModel) {
         
@@ -155,8 +232,8 @@ extension StatisticsContentView {
         }
         
         // 点击的是全部
-        let firstDate = dateModels.first!
-        let lastDate = dateModels[dateModels.count-2]
+        let firstDate = contentView.dateModels.first!
+        let lastDate = contentView.dateModels[contentView.dateModels.count-2]
         
         if firstDate.date?.year != lastDate.date?.year {
             
@@ -215,3 +292,5 @@ extension StatisticsContentView {
         }
     }
 }
+
+

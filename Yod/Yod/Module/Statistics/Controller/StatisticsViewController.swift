@@ -22,8 +22,9 @@ class StatisticsViewController: BaseViewController {
         self.dates = dates
         initDataSource()
         
-        YodService.getStatisticsData(month: currDate) { (model) in
-            
+        YodService.getStatisticsData(month: currDate) {
+            self.currModel = $0
+            self.contentView.model = $0
         }
     }
 
@@ -35,6 +36,9 @@ class StatisticsViewController: BaseViewController {
     
     /// 当前选中的月份
     private var currDate: StatisticsDateModel!
+    
+    /// 当前选中月份的统计数据
+    private var currModel: StatisticsModel!
     
     /// 导航栏
     private lazy var navigationView: YodNavigationView = {
@@ -113,7 +117,8 @@ extension StatisticsViewController {
             let dateModel = StatisticsDateModel(date: $0)
             if $0.isThisMonth {
                 dateModel.isSelect = $0.isThisMonth
-                currDate = dateModel
+//                currDate = dateModel
+                currDate = StatisticsDateModel(date: YodDate(year: "2018", month: "01"))
             }
             return dateModel
         }

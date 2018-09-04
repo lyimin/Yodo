@@ -11,6 +11,8 @@
 		E9125BEC65A8E29F47E69EC4 /* Pods_YodTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6246C70E12FDCB06375B0C1 /* Pods_YodTests.framework */; };
 		EC246C2AD9AC85147D4CAB67 /* Pods_YodUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 505481D2B563172588955C97 /* Pods_YodUITests.framework */; };
 		F1058E18213D6AB300FD68D6 /* StatisticsEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1058E17213D6AB300FD68D6 /* StatisticsEntity.swift */; };
+		F1058E1D213EBE4C00FD68D6 /* StatisticsChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1058E1C213EBE4C00FD68D6 /* StatisticsChartView.swift */; };
+		F1058E1F213EC1EE00FD68D6 /* StatisticsChartItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1058E1E213EC1EE00FD68D6 /* StatisticsChartItemCell.swift */; };
 		F109428420C6C306003D9EB6 /* NumberKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F109428320C6C306003D9EB6 /* NumberKeyboardView.swift */; };
 		F117B5CB20AAE70700793767 /* UIImage+Yod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117B5CA20AAE70700793767 /* UIImage+Yod.swift */; };
 		F11910592083631400743D7B /* CountingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11910582083631400743D7B /* CountingLabel.swift */; };
@@ -111,6 +113,8 @@
 		C88DE1F30E507A75A725115A /* Pods-YodTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YodTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-YodTests/Pods-YodTests.release.xcconfig"; sourceTree = "<group>"; };
 		E6246C70E12FDCB06375B0C1 /* Pods_YodTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YodTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1058E17213D6AB300FD68D6 /* StatisticsEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsEntity.swift; sourceTree = "<group>"; };
+		F1058E1C213EBE4C00FD68D6 /* StatisticsChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsChartView.swift; sourceTree = "<group>"; };
+		F1058E1E213EC1EE00FD68D6 /* StatisticsChartItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsChartItemCell.swift; sourceTree = "<group>"; };
 		F109428320C6C306003D9EB6 /* NumberKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberKeyboardView.swift; sourceTree = "<group>"; };
 		F117B5CA20AAE70700793767 /* UIImage+Yod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Yod.swift"; sourceTree = "<group>"; };
 		F11910582083631400743D7B /* CountingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingLabel.swift; sourceTree = "<group>"; };
@@ -355,6 +359,8 @@
 			children = (
 				F1700A5E213252F400ED730C /* StatisticsContentView.swift */,
 				F186673B213639D700C17EC6 /* StatisticsMenuItem.swift */,
+				F1058E1C213EBE4C00FD68D6 /* StatisticsChartView.swift */,
+				F1058E1E213EC1EE00FD68D6 /* StatisticsChartItemCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -805,6 +811,7 @@
 				F168386220513F3200B93D84 /* HomeDateItemCell.swift in Sources */,
 				F1A0C7B92091B7CE000A62F7 /* YodDate.swift in Sources */,
 				F16F74B3207E676100E6F194 /* HomeHeaderView.swift in Sources */,
+				F1058E1D213EBE4C00FD68D6 /* StatisticsChartView.swift in Sources */,
 				F1526A0621383B8B009D5873 /* YodService+Insert.swift in Sources */,
 				F1E4163D209378FB00C4A7AF /* UIView+Load.swift in Sources */,
 				F120C12D20FB491000EDB155 /* HomeDetailNoteView.swift in Sources */,
@@ -814,6 +821,7 @@
 				F1A81C02200CA410003D2D4E /* AppDelegate.swift in Sources */,
 				F1749F43209F00A9000C613C /* LaunchViewController.swift in Sources */,
 				F1EF1A9420C97BF500FFDC06 /* YodCalendarView.swift in Sources */,
+				F1058E1F213EC1EE00FD68D6 /* StatisticsChartItemCell.swift in Sources */,
 				F1058E18213D6AB300FD68D6 /* StatisticsEntity.swift in Sources */,
 				F1FEA64820503DCF00D7733B /* YodConfig.swift in Sources */,
 				F192B87421018EE700A8B8EA /* UIViewController+Yod.swift in Sources */,
